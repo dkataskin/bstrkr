@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace bstrkr.core
 {
 	public interface ILiveDataProvider
 	{
-		IList<Route> GetRoutes();
+		IEnumerable<Route> GetRoutes();
 
-		IList<Vehicle> GetVehicles();
+		Task<IEnumerable<Route>> GetRoutesAsync();
+
+		IEnumerable<Vehicle> GetVehicles();
+
+		Task<IEnumerable<Vehicle>> GetVehiclesAsync();
 	}
 }
