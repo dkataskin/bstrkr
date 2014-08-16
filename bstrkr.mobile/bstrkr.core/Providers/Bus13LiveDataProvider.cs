@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using RestSharp.Portable;
 
 namespace bstrkr.core.providers
 {
@@ -18,13 +19,25 @@ namespace bstrkr.core.providers
 
 		public IEnumerable<Route> GetRoutes()
 		{
-			throw new NotImplementedException ();
+			return null;
 		}
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
-			var httpClient = new HttpClient();
-			var routes = await httpClient.GetStringAsync (this.GetRoutesRequestUri());
+			var restClient = new RestClient();
+			restClient.BaseUrl = new Uri("http://google.com");
+			var request = new RestRequest("resource");
+			request.Method = HttpMethod.Get;
+			//request.AddParameter("city", "saransk", ParameterType.QueryString);
+
+			//var result = await restClient.Execute(request).ConfigureAwait(false);
+
+			var client = new HttpClient();
+			var result = await client.GetStringAsync(new Uri("http://google.com"));
+
+			return null;
+			//var response = restClient.Execute<string>(request).ConfigureAwait(false).GetAwaiter().GetResult();
+			//return this.ParseRoutes(response.Data);
 		}
 
 		public IEnumerable<Vehicle> GetVehicles()
@@ -37,11 +50,6 @@ namespace bstrkr.core.providers
 			throw new NotImplementedException ();
 		}
 
-		private string GetRoutesRequestUri()
-		{
-			return string.Format("{0}/", _endpoint);
-		}
-
 		private IEnumerable<Route> ParseRoutes(string routes)
 		{
 			if (string.IsNullOrEmpty(routes))
@@ -49,8 +57,7 @@ namespace bstrkr.core.providers
 				return new List<Route>();
 			}
 
-			var xmlDocument = new XDocument();
-			xmlDocument.FromString()
+			return new List<Route>();
 		}
 	}
 }

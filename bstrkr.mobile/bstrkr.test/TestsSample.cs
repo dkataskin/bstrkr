@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using bstrkr.core.providers;
 
 namespace bstrkr.test
 {
@@ -19,10 +20,13 @@ namespace bstrkr.test
 		}
 
 		[Test]
-		public void Pass()
+		public void GetRoutes()
 		{
-			Console.WriteLine ("test1");
-			Assert.True (true);
+			var provider = new Bus13LiveDataProvider("http://bus13.ru/php");
+			var awaiter = provider.GetRoutesAsync().ConfigureAwait(false).GetAwaiter();
+			var result = awaiter.GetResult();
+
+			Assert.IsNotNull(result);
 		}
 
 		[Test]

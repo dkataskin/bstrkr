@@ -20,11 +20,12 @@ namespace Http
 
 		public void AddParameter(string name, string value, HttpParameterType type = HttpParameterType.QueryString)
 		{
-			_parameters.Add(new HttpParameter(name, value, type));
+			_parameters.Add(name, new HttpParameter(name, value, type));
 		}
 
 		private string RenderUri()
 		{
+			return string.Empty;
 		}
 	}
 }
