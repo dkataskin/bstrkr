@@ -62,7 +62,7 @@ namespace bstrkr.core.providers
 			return client;
 		}
 
-		private async Task<IEnumerable<RouteType>> GetRouteTypesAsync()
+		private async Task<IEnumerable<Bus13RouteType>> GetRouteTypesAsync()
 		{
 			var request = new RestRequest("searchAllRouteTypes.php");
 			request.AddParameter("city", _location, ParameterType.QueryString);
@@ -72,7 +72,7 @@ namespace bstrkr.core.providers
 			{
 				try 
 				{
-					var response = client.Execute<RouteType[]>(request).Result;
+					var response = client.Execute<Bus13RouteType[]>(request).Result;
 					return response.Data;
 				}
 				catch (Exception ex)
