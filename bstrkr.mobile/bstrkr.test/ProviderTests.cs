@@ -11,7 +11,7 @@ namespace bstrkr.test
 		[Test]
 		public void CanGetRoutes()
 		{
-			var provider = new Bus13LiveDataProvider("http://bus13.ru/php");
+			var provider = new Bus13LiveDataProvider("http://bus13.ru/php/", "saransk");
 			var task = provider.GetRoutesAsync().ConfigureAwait(false);
 			var result = task.GetAwaiter().GetResult();
 

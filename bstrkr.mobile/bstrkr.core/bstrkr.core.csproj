@@ -36,15 +36,11 @@
     <Compile Include="Vehicle.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Providers\Bus13LiveDataProvider.cs" />
-    <Compile Include="Http\HttpRequest.cs" />
-    <Compile Include="Http\HttpParameter.cs" />
-    <Compile Include="Http\HttpParameterType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="Providers\" />
-    <Folder Include="Http\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\config.json" />

@@ -4,17 +4,21 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+
 using RestSharp.Portable;
+using RestSharp.Portable.Deserializers;
 
 namespace bstrkr.core.providers
 {
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
 		private string _endpoint;
+		private string _location;
 
-		public Bus13LiveDataProvider(string endpoint)
+		public Bus13LiveDataProvider(string endpoint, string location)
 		{
 			_endpoint = endpoint;
+			_location = location;
 		}
 
 		public IEnumerable<Route> GetRoutes()
@@ -24,23 +28,17 @@ namespace bstrkr.core.providers
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
-			var httpClient = new HttpClient();
+			var routeTypes = await this.GetRouteTypesAsync().ConfigureAwait(false);
 
-			//var routes = await httpClient.GetStringAsync("http://bus13.ru/php/searchAllRouteTypes.php?city=saransk").ConfigureAwait(false);
-			//return this.ParseRoutes(routes);
-
-			var restClient = new RestClient();
-			restClient.BaseUrl = new Uri(_endpoint);
 			var request = new RestRequest("searchAllRouteTypes.php");
-			request.AddParameter("city", "saransk", ParameterType.QueryString);
+			request.AddParameter("city", _location, ParameterType.QueryString);
 
-			var task = Task.Factory.StartNew(() =>
+			var client = this.GetRestClient();
+			return await Task.Factory.StartNew(() =>
 			{
-				var response = restClient.Execute<string>(request).Result;
+				var response = client.Execute<string>(request).Result;
 				return this.ParseRoutes(response.Data);
 			}).ConfigureAwait(false);
-
-			return task.GetAwaiter().GetResult();
 		}
 
 		public IEnumerable<Vehicle> GetVehicles()
@@ -53,6 +51,37 @@ namespace bstrkr.core.providers
 			throw new NotImplementedException ();
 		}
 
+		private RestClient GetRestClient()
+		{
+			var client = new RestClient(_endpoint);
+			client.ClearHandlers();
+
+			client.RemoveHandler("text/html");
+			client.AddHandler("text/html", new JsonDeserializer());
+
+			return client;
+		}
+
+		private async Task<IEnumerable<RouteType>> GetRouteTypesAsync()
+		{
+			var request = new RestRequest("searchAllRouteTypes.php");
+			request.AddParameter("city", _location, ParameterType.QueryString);
+
+			var client = this.GetRestClient();
+			return await Task.Factory.StartNew(() =>
+			{
+				try 
+				{
+					var response = client.Execute<RouteType[]>(request).Result;
+					return response.Data;
+				}
+				catch (Exception ex)
+				{
+					return null;
+				}
+			}).ConfigureAwait(false);
+		}
+
 		private IEnumerable<Route> ParseRoutes(string routes)
 		{
 			if (string.IsNullOrEmpty(routes))
@@ -61,6 +90,15 @@ namespace bstrkr.core.providers
 			}
 
 			return new List<Route>();
+		}
+
+		private class Bus13RouteType
+		{
+			public string typeId { get; set; }
+
+			public string typeName { get; set; }
+
+			public string typeShName { get; set; }
 		}
 	}
 }

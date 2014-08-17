@@ -27,9 +27,6 @@ namespace bstrkr.android
 			Button button = FindViewById<Button> (Resource.Id.myButton);
 			
 			button.Click += delegate {
-				var provider = new Bus13LiveDataProvider("http://bus13.ru/php");
-				var task = provider.GetRoutesAsync().ConfigureAwait(false);
-				var result = task.GetAwaiter().GetResult();
 				button.Text = string.Format ("{0} clicks!", count++);
 			};
 		}
