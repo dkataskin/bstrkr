@@ -1,30 +1,19 @@
 ﻿using System;
 using NUnit.Framework;
 using bstrkr.core.providers;
+using System.Threading.Tasks;
 
 namespace bstrkr.test
 {
 	[TestFixture]
-	public class TestsSample
+	public class ProviderTests
 	{
-		
-		[SetUp]
-		public void Setup()
-		{
-		}
-
-		
-		[TearDown]
-		public void Tear()
-		{
-		}
-
 		[Test]
-		public void GetRoutes()
+		public void CanGetRoutes()
 		{
 			var provider = new Bus13LiveDataProvider("http://bus13.ru/php");
-			var awaiter = provider.GetRoutesAsync().ConfigureAwait(false).GetAwaiter();
-			var result = awaiter.GetResult();
+			var task = provider.GetRoutesAsync().ConfigureAwait(false);
+			var result = task.GetAwaiter().GetResult();
 
 			Assert.IsNotNull(result);
 		}

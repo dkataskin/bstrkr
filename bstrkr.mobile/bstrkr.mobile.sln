@@ -1,17 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.android", "bstrkr.android\bstrkr.android.csproj", "{22F3D6B1-0526-4969-9675-4CCFD256148A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.core", "bstrkr.core\bstrkr.core.csproj", "{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.ios", "bstrkr.ios\bstrkr.ios.csproj", "{9B782067-7B40-4ABA-8942-EF74C2274B5F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AC3158FA-9814-47ED-B16F-910604F57646}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.android.tests", "bstrkr.test\bstrkr.android.tests.csproj", "{07EA2786-F1C9-4BCA-A53A-0DFC1CCC0F38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.tests", "bstrkr.tests\bstrkr.tests.csproj", "{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.ios.tests", "bstrkr.ios.tests\bstrkr.ios.tests.csproj", "{944F39E2-067A-4DC1-B001-04593200C299}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{CA9FA036-1A33-4677-9E6A-74A598C692BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.android", "bstrkr.android\bstrkr.android.csproj", "{22F3D6B1-0526-4969-9675-4CCFD256148A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.core", "bstrkr.core\bstrkr.core.csproj", "{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.ios", "bstrkr.ios\bstrkr.ios.csproj", "{9B782067-7B40-4ABA-8942-EF74C2274B5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +125,14 @@ Global
 		{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}.Release|iPhone.Build.0 = Release|Any CPU
 		{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07EA2786-F1C9-4BCA-A53A-0DFC1CCC0F38} = {AC3158FA-9814-47ED-B16F-910604F57646}
+		{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D} = {AC3158FA-9814-47ED-B16F-910604F57646}
+		{944F39E2-067A-4DC1-B001-04593200C299} = {AC3158FA-9814-47ED-B16F-910604F57646}
+		{22F3D6B1-0526-4969-9675-4CCFD256148A} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
+		{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
+		{9B782067-7B40-4ABA-8942-EF74C2274B5F} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = bstrkr.android\bstrkr.android.csproj

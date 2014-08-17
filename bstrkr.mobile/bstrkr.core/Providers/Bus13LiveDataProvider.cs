@@ -24,20 +24,23 @@ namespace bstrkr.core.providers
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
+			var httpClient = new HttpClient();
+
+			//var routes = await httpClient.GetStringAsync("http://bus13.ru/php/searchAllRouteTypes.php?city=saransk").ConfigureAwait(false);
+			//return this.ParseRoutes(routes);
+
 			var restClient = new RestClient();
-			restClient.BaseUrl = new Uri("http://google.com");
-			var request = new RestRequest("resource");
-			request.Method = HttpMethod.Get;
-			//request.AddParameter("city", "saransk", ParameterType.QueryString);
+			restClient.BaseUrl = new Uri(_endpoint);
+			var request = new RestRequest("searchAllRouteTypes.php");
+			request.AddParameter("city", "saransk", ParameterType.QueryString);
 
-			//var result = await restClient.Execute(request).ConfigureAwait(false);
+			var task = Task.Factory.StartNew(() =>
+			{
+				var response = restClient.Execute<string>(request).Result;
+				return this.ParseRoutes(response.Data);
+			}).ConfigureAwait(false);
 
-			var client = new HttpClient();
-			var result = await client.GetStringAsync(new Uri("http://google.com"));
-
-			return null;
-			//var response = restClient.Execute<string>(request).ConfigureAwait(false).GetAwaiter().GetResult();
-			//return this.ParseRoutes(response.Data);
+			return task.GetAwaiter().GetResult();
 		}
 
 		public IEnumerable<Vehicle> GetVehicles()
