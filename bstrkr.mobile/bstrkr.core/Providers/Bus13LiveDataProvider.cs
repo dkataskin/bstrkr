@@ -7,6 +7,7 @@ using System.Xml.Linq;
 
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
+using Newtonsoft.Json.Linq;
 
 namespace bstrkr.core.providers
 {
@@ -28,16 +29,22 @@ namespace bstrkr.core.providers
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
-			var routeTypes = await this.GetRouteTypesAsync().ConfigureAwait(false);
+			var client = this.GetRestClient();
+			var routeTypes = await this.GetRouteTypesAsync(client).ConfigureAwait(false);
 
-			var request = new RestRequest("searchAllRouteTypes.php");
+			var request = new RestRequest("searchAllRoutes.php");
 			request.AddParameter("city", _location, ParameterType.QueryString);
 
-			var client = this.GetRestClient();
 			return await Task.Factory.StartNew(() =>
 			{
-				var response = client.Execute<string>(request).Result;
-				return this.ParseRoutes(response.Data);
+				var response = client.Execute<JObject>(request).Result;
+				//var routesObject = JObject.Parse(response.Data);
+
+				foreach (var routeType in routeTypes) 
+				{
+				}
+
+				return new List<Route>();
 			}).ConfigureAwait(false);
 		}
 
@@ -62,17 +69,16 @@ namespace bstrkr.core.providers
 			return client;
 		}
 
-		private async Task<IEnumerable<Bus13RouteType>> GetRouteTypesAsync()
+		private async Task<IEnumerable<Bus13RouteType>> GetRouteTypesAsync(IRestClient restClient)
 		{
 			var request = new RestRequest("searchAllRouteTypes.php");
 			request.AddParameter("city", _location, ParameterType.QueryString);
 
-			var client = this.GetRestClient();
 			return await Task.Factory.StartNew(() =>
 			{
 				try 
 				{
-					var response = client.Execute<Bus13RouteType[]>(request).Result;
+					var response = restClient.Execute<Bus13RouteType[]>(request).Result;
 					return response.Data;
 				}
 				catch (Exception ex)
