@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
+using Newtonsoft.Json.Linq;
+
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
-using Newtonsoft.Json.Linq;
 
 namespace bstrkr.core.providers
 {
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
+		private const string RouteSplitter = "@ROUTE";
+		private const string RoutesResource = "searchAllRoutes.php";
+		private const string RouteTypesResource = "searchAllRouteTypes.php";
+		private const string LocationParam = "city";
+
 		private string _endpoint;
 		private string _location;
 
@@ -32,17 +39,13 @@ namespace bstrkr.core.providers
 			var client = this.GetRestClient();
 			var routeTypes = await this.GetRouteTypesAsync(client).ConfigureAwait(false);
 
-			var request = new RestRequest("searchAllRoutes.php");
-			request.AddParameter("city", _location, ParameterType.QueryString);
+			var request = new RestRequest(RoutesResource);
+			request.AddParameter(LocationParam, _location, ParameterType.QueryString);
 
 			return await Task.Factory.StartNew(() =>
 			{
 				var response = client.Execute<JObject>(request).Result;
-				//var routesObject = JObject.Parse(response.Data);
 
-				foreach (var routeType in routeTypes) 
-				{
-				}
 
 				return new List<Route>();
 			}).ConfigureAwait(false);
@@ -71,8 +74,7 @@ namespace bstrkr.core.providers
 
 		private async Task<IEnumerable<Bus13RouteType>> GetRouteTypesAsync(IRestClient restClient)
 		{
-			var request = new RestRequest("searchAllRouteTypes.php");
-			request.AddParameter("city", _location, ParameterType.QueryString);
+			var request = this.GetRequestBase(RouteTypesResource);
 
 			return await Task.Factory.StartNew(() =>
 			{
@@ -88,14 +90,34 @@ namespace bstrkr.core.providers
 			}).ConfigureAwait(false);
 		}
 
-		private IEnumerable<Route> ParseRoutes(string routes)
+		private IRestRequest GetRequestBase(string resource)
 		{
-			if (string.IsNullOrEmpty(routes))
+			var request = new RestRequest(resource);
+			request = this.AddLocation(request, _location);
+
+			return request;
+		}
+
+		private IRestRequest AddLocation(IRestRequest request, string location)
+		{
+			request.AddParameter(LocationParam, location, ParameterType.QueryString);
+		}
+
+		private IEnumerable<Route> ParseRoutes(IEnumerable<Bus13RouteType> routeTypes, JObject routesObject)
+		{
+			if (routeTypes == null | routesObject == null)
 			{
-				return new List<Route>();
+				return null;
 			}
 
-			return new List<Route>();
+			foreach (var routeType in routeTypes) 
+			{
+				var routeTypeRoutes = routesObject.Properties().FirstOrDefault(x => x.Name.Equals(routeType.typeName));
+				if (routeTypeRoutes != null)
+				{
+					var routes = routeTypeRoutes.Value.ToString();
+				}
+			}
 		}
 
 		private class Bus13RouteType
