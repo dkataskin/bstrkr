@@ -15,7 +15,8 @@ namespace bstrkr.core.providers
 {
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
-		private const string RouteSplitter = "@ROUTE=";
+		private const string RoutesSplitter = "@ROUTE=";
+		private const string RouteSplitter = ";";
 		private const string RoutesResource = "searchAllRoutes.php";
 		private const string RouteTypesResource = "searchAllRouteTypes.php";
 		private const string LocationParam = "city";
@@ -115,19 +116,29 @@ namespace bstrkr.core.providers
 				var routeTypeRoutes = routesObject.Properties().FirstOrDefault(x => x.Name.Equals(routeType.typeName));
 				if (routeTypeRoutes != null)
 				{
-					var routes = routeTypeRoutes.Value.ToString().Split(new[] { RouteSplitter }, StringSplitOptions.RemoveEmptyEntries);
+					var routes = routeTypeRoutes.Value.ToString().Split(new[] { RoutesSplitter }, StringSplitOptions.RemoveEmptyEntries);
 
-					foreach (var route in routes)
+					foreach (var routeStr in routes)
 					{
-						routeList.Add(new Route 
-						{
-							Type = new RouteType(routeType.typeName, routeType.typeShName)
-						});
+						var route = this.ParseRoute(routeStr);
+						route.Type = new RouteType(routeType.typeName, routeType.typeShName);
+						routeList.Add(route);
 					}
 				}
 			}
 
 			return routeList;
+		}
+
+		private Route ParseRoute(string routeStr)
+		{
+			var routeParts = routeStr.Split(new[] { RouteSplitter }, StringSplitOptions.RemoveEmptyEntries);
+			var route = new Route 
+			{
+				Name = routeParts[0]
+			};
+
+			return route;
 		}
 
 		private class Bus13RouteType
