@@ -15,7 +15,7 @@ namespace bstrkr.core.providers
 {
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
-		private const string RouteSplitter = "@ROUTE";
+		private const string RouteSplitter = "@ROUTE=";
 		private const string RoutesResource = "searchAllRoutes.php";
 		private const string RouteTypesResource = "searchAllRouteTypes.php";
 		private const string LocationParam = "city";
@@ -46,8 +46,7 @@ namespace bstrkr.core.providers
 			{
 				var response = client.Execute<JObject>(request).Result;
 
-
-				return new List<Route>();
+				return this.ParseRoutes(routeTypes, response.Data);
 			}).ConfigureAwait(false);
 		}
 
@@ -92,7 +91,7 @@ namespace bstrkr.core.providers
 
 		private IRestRequest GetRequestBase(string resource)
 		{
-			var request = new RestRequest(resource);
+			IRestRequest request = new RestRequest(resource);
 			request = this.AddLocation(request, _location);
 
 			return request;
@@ -100,7 +99,7 @@ namespace bstrkr.core.providers
 
 		private IRestRequest AddLocation(IRestRequest request, string location)
 		{
-			request.AddParameter(LocationParam, location, ParameterType.QueryString);
+			return request.AddParameter(LocationParam, location, ParameterType.QueryString);
 		}
 
 		private IEnumerable<Route> ParseRoutes(IEnumerable<Bus13RouteType> routeTypes, JObject routesObject)
@@ -110,14 +109,25 @@ namespace bstrkr.core.providers
 				return null;
 			}
 
+			var routeList = new List<Route>();
 			foreach (var routeType in routeTypes) 
 			{
 				var routeTypeRoutes = routesObject.Properties().FirstOrDefault(x => x.Name.Equals(routeType.typeName));
 				if (routeTypeRoutes != null)
 				{
-					var routes = routeTypeRoutes.Value.ToString();
+					var routes = routeTypeRoutes.Value.ToString().Split(new[] { RouteSplitter }, StringSplitOptions.RemoveEmptyEntries);
+
+					foreach (var route in routes)
+					{
+						routeList.Add(new Route 
+						{
+							Type = new RouteType(routeType.typeName, routeType.typeShName)
+						});
+					}
 				}
 			}
+
+			return routeList;
 		}
 
 		private class Bus13RouteType
