@@ -10,144 +10,41 @@ using Newtonsoft.Json.Linq;
 
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
+using Providers;
 
 namespace bstrkr.core.providers
 {
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
-		private const string RoutesSplitter = "@ROUTE=";
-		private const string RouteSplitter = ";";
-		private const string RoutesResource = "searchAllRoutes.php";
-		private const string RouteTypesResource = "searchAllRouteTypes.php";
-		private const string LocationParam = "city";
-
 		private string _endpoint;
 		private string _location;
+
+		private IBus13RouteDataService _dataService;
 
 		public Bus13LiveDataProvider(string endpoint, string location)
 		{
 			_endpoint = endpoint;
 			_location = location;
+
+			_dataService = new Bus13RouteDataService(_endpoint, _location);
 		}
 
-		public IEnumerable<Route> GetRoutes()
+		public event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
+
+		public void Start()
 		{
-			return null;
 		}
 
-		public async Task<IEnumerable<Route>> GetRoutesAsync()
+		public void Stop()
 		{
-			var client = this.GetRestClient();
-			var routeTypes = await this.GetRouteTypesAsync(client).ConfigureAwait(false);
+		}
 
-			var request = new RestRequest(RoutesResource);
-			request.AddParameter(LocationParam, _location, ParameterType.QueryString);
-
-			return await Task.Factory.StartNew(() =>
+		private void RaiseVehicleLocationsUpdatedEvent(IEnumerable<Vehicle> vehicles)
+		{
+			if (this.VehicleLocationsUpdated != null)
 			{
-				var response = client.Execute<JObject>(request).Result;
-
-				return this.ParseRoutes(routeTypes, response.Data);
-			}).ConfigureAwait(false);
-		}
-
-		public IEnumerable<Vehicle> GetVehicles()
-		{
-			return null;
-		}
-
-		public async Task<IEnumerable<Vehicle>> GetVehiclesAsync()
-		{
-			throw new NotImplementedException ();
-		}
-
-		private RestClient GetRestClient()
-		{
-			var client = new RestClient(_endpoint);
-			client.ClearHandlers();
-
-			client.RemoveHandler("text/html");
-			client.AddHandler("text/html", new JsonDeserializer());
-
-			return client;
-		}
-
-		private async Task<IEnumerable<Bus13RouteType>> GetRouteTypesAsync(IRestClient restClient)
-		{
-			var request = this.GetRequestBase(RouteTypesResource);
-
-			return await Task.Factory.StartNew(() =>
-			{
-				try 
-				{
-					var response = restClient.Execute<Bus13RouteType[]>(request).Result;
-					return response.Data;
-				}
-				catch (Exception ex)
-				{
-					return null;
-				}
-			}).ConfigureAwait(false);
-		}
-
-		private IRestRequest GetRequestBase(string resource)
-		{
-			IRestRequest request = new RestRequest(resource);
-			request = this.AddLocation(request, _location);
-
-			return request;
-		}
-
-		private IRestRequest AddLocation(IRestRequest request, string location)
-		{
-			return request.AddParameter(LocationParam, location, ParameterType.QueryString);
-		}
-
-		private IEnumerable<Route> ParseRoutes(IEnumerable<Bus13RouteType> routeTypes, JObject routesObject)
-		{
-			if (routeTypes == null | routesObject == null)
-			{
-				return null;
+				this.VehicleLocationsUpdated(this, new VehicleLocationsUpdatedEventArgs(vehicles));
 			}
-
-			var routeList = new List<Route>();
-			foreach (var routeType in routeTypes) 
-			{
-				var routeTypeRoutes = routesObject.Properties().FirstOrDefault(x => x.Name.Equals(routeType.typeName));
-				if (routeTypeRoutes != null)
-				{
-					var routes = routeTypeRoutes.Value.ToString().Split(new[] { RoutesSplitter }, StringSplitOptions.RemoveEmptyEntries);
-
-					foreach (var routeStr in routes)
-					{
-						var route = this.ParseRoute(routeStr);
-						route.Type = new RouteType(routeType.typeName, routeType.typeShName);
-						routeList.Add(route);
-					}
-				}
-			}
-
-			return routeList;
-		}
-
-		private Route ParseRoute(string routeStr)
-		{
-			var routeParts = routeStr.Split(new[] { RouteSplitter }, StringSplitOptions.RemoveEmptyEntries);
-			var route = new Route 
-			{
-				Name = routeParts[0]
-			};
-
-			return route;
-		}
-
-		private class Bus13RouteType
-		{
-			public string typeId { get; set; }
-
-			public string typeName { get; set; }
-
-			public string typeShName { get; set; }
 		}
 	}
 }

@@ -1,13 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace bstrkr.core
 {
 	public class Route
 	{
-		public string Id { get; set; }
+		public Route(string id, string name, RouteType type, IEnumerable<RouteStop> stops)
+		{
+			this.Id = id;
+			this.Name = name;
+			this.Type = type;
+			this.Stops = new ReadOnlyCollection<RouteStop>(stops.ToList());
+		}
 
-		public string Name { get; set; }
+		public string Id { get; private set; }
 
-		public RouteType Type { get; set; }
+		public string Name { get; private set; }
+
+		public RouteType Type { get; private set; }
+
+		public IReadOnlyCollection<RouteStop> Stops { get; private set; }
+
+		public RouteStop FirstStop { get; set; }
+
+		public RouteStop LastStop { get; set; }
 	}
 }

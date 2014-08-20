@@ -6,12 +6,10 @@ namespace bstrkr.core
 {
 	public interface ILiveDataProvider
 	{
-		IEnumerable<Route> GetRoutes();
+		event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
-		Task<IEnumerable<Route>> GetRoutesAsync();
+		void Start();
 
-		IEnumerable<Vehicle> GetVehicles();
-
-		Task<IEnumerable<Vehicle>> GetVehiclesAsync();
+		void Stop();
 	}
 }

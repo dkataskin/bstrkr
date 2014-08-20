@@ -37,6 +37,10 @@
     <Compile Include="Location.cs" />
     <Compile Include="Providers\Bus13LiveDataProvider.cs" />
     <Compile Include="RouteType.cs" />
+    <Compile Include="RouteStop.cs" />
+    <Compile Include="Providers\IBus13RouteDataService.cs" />
+    <Compile Include="Providers\Bus13RouteDataService.cs" />
+    <Compile Include="VehicleLocationsUpdatedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
