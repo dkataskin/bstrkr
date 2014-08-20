@@ -1,7 +1,11 @@
 ﻿using System;
-using NUnit.Framework;
-using bstrkr.core.providers;
 using System.Threading.Tasks;
+
+using NUnit.Framework;
+
+using Providers;
+
+using bstrkr.core.providers;
 
 namespace bstrkr.test
 {
@@ -11,7 +15,7 @@ namespace bstrkr.test
 		[Test]
 		public void CanGetRoutes()
 		{
-			var provider = new Bus13LiveDataProvider("http://bus13.ru/php/", "saransk");
+			var provider = new Bus13RouteDataService("http://bus13.ru/php/", "saransk");
 			var task = provider.GetRoutesAsync().ConfigureAwait(false);
 			var result = task.GetAwaiter().GetResult();
 

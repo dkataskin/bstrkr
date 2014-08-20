@@ -39,9 +39,24 @@ namespace Providers
 			_location = location;
 		}
 
-		public Task<IEnumerable<Route>> GetRoutesAsync()
+		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
-			throw new NotImplementedException();
+			var client = this.GetRestClient();
+			var getRouteTypesTask = this.GetRouteTypesAsync(client);
+
+			var request = new RestRequest(RoutesResource);
+			request.AddParameter(LocationParam, _location, ParameterType.QueryString);
+
+			var getRoutesTask = Task.Factory.StartNew(() =>
+			{
+				return client.Execute<JObject>(request).Result;
+			});
+
+			await Task.WhenAll(getRouteTypesTask, getRoutesTask).ConfigureAwait(false);
+
+			return this.ParseRoutes(
+						getRouteTypesTask.GetAwaiter().GetResult(), 
+						getRoutesTask.GetAwaiter().GetResult().Data);
 		}
 
 		public Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync()
@@ -53,22 +68,6 @@ namespace Providers
 		{
 			throw new NotImplementedException();
 		}
-
-//		public async Task<IEnumerable<Route>> GetRoutesAsync()
-//		{
-//			var client = this.GetRestClient();
-//			var routeTypes = await this.GetRouteTypesAsync(client).ConfigureAwait(false);
-//
-//			var request = new RestRequest(RoutesResource);
-//			request.AddParameter(LocationParam, _location, ParameterType.QueryString);
-//
-//			return await Task.Factory.StartNew(() =>
-//			{
-//				var response = client.Execute<JObject>(request).Result;
-//
-//				return this.ParseRoutes(routeTypes, response.Data);
-//			}).ConfigureAwait(false);
-//		}
 
 		private RestClient GetRestClient()
 		{
