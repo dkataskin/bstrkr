@@ -118,33 +118,39 @@ namespace Providers
 				return null;
 			}
 
-			var routeList = new List<Route>();
-			foreach (var routeType in routeTypes) 
+			var routes = new List<Route>();
+			foreach (var routeTypeData in routeTypes) 
 			{
-				var routeTypeRoutes = routesObject.Properties().FirstOrDefault(x => x.Name.Equals(routeType.typeName));
+				var routeType = new RouteType(routeTypeData.typeName, routeTypeData.typeShName);
+				var routeTypeRoutes = routesObject.Properties().FirstOrDefault(x => x.Name.Equals(routeType.Name));
 				if (routeTypeRoutes != null)
 				{
-					var routes = routeTypeRoutes.Value.ToString().Split(new[] { RoutesSplitter }, StringSplitOptions.RemoveEmptyEntries);
-
-					foreach (var routeStr in routes)
+					var routesData = routeTypeRoutes.Value.ToString().Split(new[] { RoutesSplitter }, StringSplitOptions.RemoveEmptyEntries);
+					foreach (var routeData in routesData)
 					{
-						var route = this.ParseRoute(routeStr, new RouteType(routeType.typeName, routeType.typeShName));
-						routeList.Add(route);
+						routes.AddRange(this.ParseRouteData(routeData, routeType));
 					}
 				}
 			}
 
-			return routeList;
+			return routes;
 		}
 
-		private Route ParseRoute(string routeStr, RouteType routeType)
+		private IEnumerable<Route> ParseRouteData(string routeStr, RouteType routeType)
 		{
+			var routes = new List<Route>();
+
 			var routeParts = routeStr.Split(new[] { RouteSplitter }, StringSplitOptions.RemoveEmptyEntries);
-			return new Route(
-				routeParts[2], 
-				routeParts[2], 
-				routeType, 
-				new List<RouteStop>());
+			for (int i = 0; i < routeParts.Length - 6; i++)
+			{
+				routes.Add(new Route(
+								routeParts[i + 6], 
+								routeParts[2], 
+								routeType, 
+								new List<RouteStop>()));
+			}
+
+			return routes;
 		}
 
 		private class Bus13RouteType
