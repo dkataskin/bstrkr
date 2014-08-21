@@ -4,9 +4,22 @@ namespace bstrkr.core
 {
 	public struct Location
 	{
-		public float Latitude { get; set; }
+		private static Location EmptyLocation = new Location(0, 0);
 
-		public float Longitude { get; set; }
+		public Location(float latitude, float longitude)
+		{
+			this.Latitude = latitude;
+			this.Longitude = longitude;
+		}
+
+		public float Latitude;
+
+		public float Longitude;
+
+		public static Location Empty 
+		{ 
+			get { return EmptyLocation; }
+		}
 	}
 }
 

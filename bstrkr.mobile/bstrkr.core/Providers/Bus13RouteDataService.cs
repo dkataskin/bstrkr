@@ -143,11 +143,15 @@ namespace Providers
 			var routeParts = routeStr.Split(new[] { RouteSplitter }, StringSplitOptions.RemoveEmptyEntries);
 			for (int i = 0; i < routeParts.Length - 6; i++)
 			{
-				routes.Add(new Route(
-								routeParts[i + 6], 
-								routeParts[2], 
-								routeType, 
-								new List<RouteStop>()));
+				var route = new Route(
+						            routeParts[i + 6], 
+						            routeParts[2], 
+						            routeType, 
+						            new List<RouteStop>());
+
+				route.FirstStop = new RouteStop(string.Empty, routeParts[3], string.Empty, Location.Empty);
+				route.LastStop = new RouteStop(string.Empty, routeParts[4], string.Empty, Location.Empty);
+				routes.Add(route);
 			}
 
 			return routes;
