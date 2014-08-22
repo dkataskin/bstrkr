@@ -7,12 +7,28 @@ namespace bstrkr.core
 {
 	public class Route
 	{
-		public Route(string id, string name, RouteType type, IEnumerable<RouteStop> stops)
+		private IDictionary<string, object> _extendedProperties = new Dictionary<string, object>();
+
+		public Route(
+				string id, 
+				string name, 
+				RouteType type, 
+				IEnumerable<RouteStop> stops, 
+				IDictionary<string, object> extendedProperties)
 		{
 			this.Id = id;
 			this.Name = name;
 			this.Type = type;
 			this.Stops = new ReadOnlyCollection<RouteStop>(stops.ToList());
+			this.ExtendedProperties = new ReadOnlyDictionary<string, object>(_extendedProperties);
+
+			if (extendedProperties != null)
+			{
+				foreach (var keyValuePair in extendedProperties)
+				{
+					_extendedProperties.Add(keyValuePair);
+				}
+			}
 		}
 
 		public string Id { get; private set; }
@@ -26,6 +42,8 @@ namespace bstrkr.core
 		public RouteStop FirstStop { get; set; }
 
 		public RouteStop LastStop { get; set; }
+
+		public IReadOnlyDictionary<string, object> ExtendedProperties { get; private set; }
 
 		public override string ToString()
 		{
