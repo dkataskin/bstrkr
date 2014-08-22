@@ -12,33 +12,36 @@ namespace bstrkr.test
 	[TestFixture]
 	public class ProviderTests
 	{
+		private IBus13RouteDataService _service;
+
+		[TestFixtureSetUp]
+		public void SetUp()
+		{
+			_service = new Bus13RouteDataService("http://bus13.ru/php/", "saransk");
+		}
+
 		[Test]
 		public void CanGetRoutes()
 		{
-			var provider = new Bus13RouteDataService("http://bus13.ru/php/", "saransk");
-			var task = provider.GetRoutesAsync().ConfigureAwait(false);
+			var task = _service.GetRoutesAsync().ConfigureAwait(false);
 			var result = task.GetAwaiter().GetResult();
 
 			Assert.IsNotNull(result);
+			foreach (var route in result)
+			{
+				Console.WriteLine(route);
+
+				Assert.IsNotNull(route.Name);
+				Assert.IsNotNull(route.Type);
+				Assert.IsNotNull(route.FirstStop);
+				Assert.IsNotNull(route.LastStop);
+			}
 		}
 
 		[Test]
-		public void Fail()
+		public void CanGetVehicles()
 		{
 			Assert.False (true);
-		}
-
-		[Test]
-		[Ignore ("another time")]
-		public void Ignore()
-		{
-			Assert.True (false);
-		}
-
-		[Test]
-		public void Inconclusive()
-		{
-			Assert.Inconclusive ("Inconclusive");
 		}
 	}
 }

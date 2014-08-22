@@ -26,5 +26,16 @@ namespace bstrkr.core
 		public RouteStop FirstStop { get; set; }
 
 		public RouteStop LastStop { get; set; }
+
+		public override string ToString()
+		{
+			return string.Format(
+					"[Route: Id={0}, Name={1}, Type={2}, First Stop={3}, Last Stop={4}]", 
+					this.Id,
+					this.Name,
+					this.Type,
+					this.FirstStop,
+					this.LastStop);
+		}
 	}
 }

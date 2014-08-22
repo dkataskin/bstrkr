@@ -20,6 +20,11 @@ namespace bstrkr.core
 		{ 
 			get { return EmptyLocation; }
 		}
+
+		public override string ToString()
+		{
+			return string.Format("({0}, {1})", this.Latitude, this.Longitude);
+		}
 	}
 }
 
