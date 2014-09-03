@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using bstrkr.core;
 
-namespace Providers
+namespace bstrkr.core.providers.bus13
 {
 	public interface IBus13RouteDataService
 	{

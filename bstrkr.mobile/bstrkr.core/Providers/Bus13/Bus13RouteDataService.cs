@@ -10,7 +10,7 @@ using RestSharp.Portable.Deserializers;
 
 using bstrkr.core;
 
-namespace Providers
+namespace bstrkr.core.providers.bus13
 {
 	public class Bus13RouteDataService : IBus13RouteDataService
 	{
@@ -18,7 +18,11 @@ namespace Providers
 		private const string RouteSplitter = ";";
 		private const string RoutesResource = "searchAllRoutes.php";
 		private const string RouteTypesResource = "searchAllRouteTypes.php";
+		private const string RouteStopsResource = "getRouteStations.php";
 		private const string LocationParam = "city";
+		private const string RandomParam = "r";
+
+		private readonly Lazy<Random> _random = new Lazy<Random>();
 
 		private string _endpoint;
 		private string _location;
@@ -91,7 +95,7 @@ namespace Providers
 					var response = restClient.Execute<Bus13RouteType[]>(request).Result;
 					return response.Data;
 				}
-				catch (Exception ex)
+				catch (Exception e)
 				{
 					return null;
 				}
@@ -109,6 +113,12 @@ namespace Providers
 		private IRestRequest AddLocation(IRestRequest request, string location)
 		{
 			return request.AddParameter(LocationParam, location, ParameterType.QueryString);
+		}
+
+		// web client adds this random value to each and every request
+		private IRestRequest AddRandom(IRestRequest request)
+		{
+			return request.AddParameter(RandomParam, _random.Value.NextDouble, ParameterType.QueryString);
 		}
 
 		private IEnumerable<Route> ParseRoutes(IEnumerable<Bus13RouteType> routeTypes, JObject routesObject)
@@ -167,4 +177,3 @@ namespace Providers
 		}
 	}
 }
-

@@ -35,17 +35,19 @@
     <Compile Include="Route.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Location.cs" />
-    <Compile Include="Providers\Bus13LiveDataProvider.cs" />
     <Compile Include="RouteType.cs" />
     <Compile Include="RouteStop.cs" />
-    <Compile Include="Providers\IBus13RouteDataService.cs" />
-    <Compile Include="Providers\Bus13RouteDataService.cs" />
     <Compile Include="VehicleLocationsUpdatedEventArgs.cs" />
+    <Compile Include="Providers\Bus13\Bus13Route.cs" />
+    <Compile Include="Providers\Bus13\Bus13LiveDataProvider.cs" />
+    <Compile Include="Providers\Bus13\Bus13RouteDataService.cs" />
+    <Compile Include="Providers\Bus13\IBus13RouteDataService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="Providers\" />
+    <Folder Include="Providers\Bus13\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\config.json" />
