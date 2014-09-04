@@ -15,7 +15,7 @@ namespace bstrkr.core.providers.bus13
 	public class Bus13RouteDataService : IBus13RouteDataService
 	{
 		private const string RoutesResource = "getRoutes.php";
-		private const string RouteStopsResource = "getStations.php";
+		private const string StopsResource = "getStations.php";
 		private const string ZonesResource = "getZones.php";
 		private const string LocationParam = "city";
 		private const string RandomParam = "_";
@@ -45,25 +45,40 @@ namespace bstrkr.core.providers.bus13
 		{
 			var client = this.GetRestClient();
 
-			var request = new RestRequest(RoutesResource);
-			request.AddParameter(LocationParam, _location, ParameterType.QueryString);
+			var request = this.GetRequestBase(RoutesResource);
+			request = this.AddRandom(request);
 
 			var bus13Routes = await Task.Factory.StartNew(() =>
 			{
 				return client.Execute<List<Bus13Route>>(request).Result.Data;
-			});
+			}).ConfigureAwait(false);
 
 			return this.ParseRoutes(bus13Routes);
 		}
 
-		public Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync()
+		public async Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
+		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<IEnumerable<RouteStop>> GetStopsAsync()
+		{
+			var client = this.GetRestClient();
+
+			var request = this.GetRequestBase(StopsResource);
+			request = this.AddRandom(request);
+
+			var bus13Stops = await Task.Factory.StartNew(() =>
+			{
+				return client.Execute<List<Bus13RouteStop>>(request).Result.Data;
+			});
+
+			return this.ParseRouteStops(bus13Stops);
 		}
 
 		private RestClient GetRestClient()
@@ -109,7 +124,7 @@ namespace bstrkr.core.providers.bus13
 				var route = new Route(
 					            bus13Route.id, 
 					            bus13Route.name, 
-					            new RouteType("", ""),
+								this.ParseRouteType(bus13Route.type),
 					            new List<RouteStop>());
 
 				route.FirstStop = new RouteStop(
@@ -129,6 +144,51 @@ namespace bstrkr.core.providers.bus13
 			}
 
 			return routes;
+		}
+
+		private IEnumerable<RouteStop> ParseRouteStops(IEnumerable<Bus13RouteStop> bus13RouteStops)
+		{
+			if (bus13RouteStops == null)
+			{
+				return new List<RouteStop>();
+			}
+
+			var routeStops = new List<RouteStop>();
+			foreach (var bus13RouteStop in bus13RouteStops)
+			{
+				var routeStop = new RouteStop(
+										bus13RouteStop.id.ToString(), 
+						                bus13RouteStop.name, 
+						                bus13RouteStop.descr,
+						                this.ParseLocation(bus13RouteStop.lat, bus13RouteStop.lng));
+
+				routeStops.Add(routeStop);
+			}
+
+			return routeStops;
+		}
+
+		private Location ParseLocation(int latitude, int longitude)
+		{
+			return new Location(latitude / 1000000f, longitude / 1000000f);
+		}
+
+		private RouteType ParseRouteType(string routeType)
+		{
+			switch (routeType)
+			{
+				case "Т":
+					return new RouteType("Троллейбс", routeType);
+
+				case "М":
+					return new RouteType("Маршрутное такси", routeType);
+
+				case "А":
+					return new RouteType("Автобус", routeType);
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 	}
 }

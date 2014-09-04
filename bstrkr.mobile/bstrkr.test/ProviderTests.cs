@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 
 using NUnit.Framework;
 
-using Providers;
-
+using bstrkr.core.providers.bus13;
 using bstrkr.core.providers;
 
 namespace bstrkr.test
@@ -31,10 +30,26 @@ namespace bstrkr.test
 			{
 				Console.WriteLine(route);
 
+				Assert.IsNotNull(route.Id);
 				Assert.IsNotNull(route.Name);
 				Assert.IsNotNull(route.Type);
 				Assert.IsNotNull(route.FirstStop);
 				Assert.IsNotNull(route.LastStop);
+			}
+		}
+
+		public void CanGetStops()
+		{
+			var task = _service.GetStopsAsync().ConfigureAwait(false);
+			var result = task.GetAwaiter().GetResult();
+
+			Assert.IsNotNull(result);
+			foreach (var stop in result)
+			{
+				Console.WriteLine(stop);
+
+				Assert.IsNotNull(stop.Id);
+				Assert.IsNotNull(stop.Name);
 			}
 		}
 
