@@ -52,10 +52,7 @@ namespace bstrkr.core.providers.bus13
 			var request = this.GetRequestBase(RoutesResource);
 			request = this.AddRandom(request);
 
-			var bus13Routes = await Task.Factory.StartNew(() =>
-			{
-				return client.Execute<List<Bus13Route>>(request).Result.Data;
-			}).ConfigureAwait(false);
+			var bus13Routes = await this.ExecuteAsync<IList<Bus13Route>>(client, request).ConfigureAwait(false);
 
 			return this.ParseRoutes(bus13Routes);
 		}
@@ -224,6 +221,11 @@ namespace bstrkr.core.providers.bus13
 		private int CoordToInt(float coord)
 		{
 			return Convert.ToInt32(coord * 1000000);
+		}
+
+		private async Task<T> ExecuteAsync<T>(IRestClient client, IRestRequest request)
+		{
+			return await Task.Factory.StartNew(() => client.Execute<T>(request).Result.Data).ConfigureAwait(false);
 		}
 	}
 }
