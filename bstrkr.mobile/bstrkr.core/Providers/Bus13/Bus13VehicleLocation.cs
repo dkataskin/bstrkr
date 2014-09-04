@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Providers.Bus13
+namespace bstrkr.core.providers.bus13
 {
 	public class Bus13VehicleLocation
 	{

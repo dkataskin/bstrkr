@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Providers.Bus13
+namespace bstrkr.core.providers.bus13
 {
 	public class Bus13AnimPoint
 	{
@@ -13,4 +13,3 @@ namespace Providers.Bus13
 		public string lng { get; set; }
 	}
 }
-

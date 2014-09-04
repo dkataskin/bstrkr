@@ -10,7 +10,7 @@ namespace bstrkr.core.providers.bus13
 	{
 		Task<IEnumerable<Route>> GetRoutesAsync();
 
-		Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, Rect rect);
+		Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, Rect rect, int timestamp);
 
 		Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route);
 

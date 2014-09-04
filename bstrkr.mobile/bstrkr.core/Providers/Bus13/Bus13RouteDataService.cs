@@ -17,8 +17,11 @@ namespace bstrkr.core.providers.bus13
 		private const string RoutesResource = "getRoutes.php";
 		private const string StopsResource = "getStations.php";
 		private const string ZonesResource = "getZones.php";
-		private const string VehicleLocationResource = "getVehicleMarkers.php";
+		private const string VehicleLocationResource = "getVehiclesMarkers.php";
+		private const string RouteIdFormatStr = "{0}-0";
 		private const string LocationParam = "city";
+		private const string TimestampParam = "curk";
+		private const string RouteIdsParam = "rids";
 		private const string RandomParam = "_";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
@@ -57,9 +60,35 @@ namespace bstrkr.core.providers.bus13
 			return this.ParseRoutes(bus13Routes);
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync()
+		public async Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, Rect rect, int timestamp)
 		{
-			throw new NotImplementedException();
+			if (routes == null || !routes.Any())
+			{
+				throw new ArgumentException("Routes collection must not be null or empty", "routes");
+			}
+
+			var request = this.GetRequestBase(VehicleLocationResource);
+			request.AddParameter(
+						RouteIdsParam, 
+						string.Join(",", routes.Select(x => string.Format(RouteIdFormatStr, x.Id))),
+						ParameterType.QueryString);
+
+			request.AddParameter("lat0", this.CoordToInt(rect.LeftTop.Latitude), ParameterType.QueryString);
+			request.AddParameter("lng0", this.CoordToInt(rect.LeftTop.Longitude), ParameterType.QueryString);
+			request.AddParameter("lat1", this.CoordToInt(rect.RightBottom.Latitude), ParameterType.QueryString);
+			request.AddParameter("lng1", this.CoordToInt(rect.RightBottom.Longitude), ParameterType.QueryString);
+
+			request.AddParameter(TimestampParam, timestamp, ParameterType.QueryString);
+			request = this.AddLocation(request, _location);
+			request = this.AddRandom(request);
+
+			var client = this.GetRestClient();
+			var response = await Task.Factory.StartNew(() =>
+			{
+				return client.Execute<VehicleLocationResponse>(request).Result.Data;
+			}).ConfigureAwait(false);
+
+			return null;
 		}
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
@@ -190,6 +219,11 @@ namespace bstrkr.core.providers.bus13
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		private int CoordToInt(float coord)
+		{
+			return Convert.ToInt32(coord * 1000000);
 		}
 	}
 }

@@ -10,9 +10,9 @@ namespace bstrkr.core
 			this.RightBottom = rightBottom;
 		}
 
-		public Coords LeftTop { get; set; }
+		public Coords LeftTop;
 
-		public Coords RightBottom { get; set; }
+		public Coords RightBottom;
 
 		public static Rect EarthWide
 		{
