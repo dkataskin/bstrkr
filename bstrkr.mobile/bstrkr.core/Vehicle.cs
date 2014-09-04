@@ -8,6 +8,6 @@ namespace bstrkr.core
 
 		public string CarPlate { get; set; }
 
-		public Location Location { get; set; }
+		public Coords Location { get; set; }
 	}
 }

@@ -4,7 +4,7 @@ namespace bstrkr.core
 {
 	public class RouteStop
 	{
-		public RouteStop(string id, string name, string description, Location location)
+		public RouteStop(string id, string name, string description, Coords location)
 		{
 			this.Id = id;
 			this.Name = name;
@@ -14,7 +14,7 @@ namespace bstrkr.core
 
 		public string Id { get; private set; }
 
-		public Location Location { get; private set; }
+		public Coords Location { get; private set; }
 
 		public string Name { get; private set; }
 

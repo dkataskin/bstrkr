@@ -72,7 +72,7 @@ namespace bstrkr.core.providers.bus13
 			{
 				try
 				{
-					_dataService.GetVehicleLocationsAsync();
+					//_dataService.GetVehicleLocationsAsync();
 				} 
 				catch (Exception e)
 				{

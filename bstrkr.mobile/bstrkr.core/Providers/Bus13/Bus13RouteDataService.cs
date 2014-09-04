@@ -17,6 +17,7 @@ namespace bstrkr.core.providers.bus13
 		private const string RoutesResource = "getRoutes.php";
 		private const string StopsResource = "getStations.php";
 		private const string ZonesResource = "getZones.php";
+		private const string VehicleLocationResource = "getVehicleMarkers.php";
 		private const string LocationParam = "city";
 		private const string RandomParam = "_";
 
@@ -131,13 +132,13 @@ namespace bstrkr.core.providers.bus13
 										bus13Route.fromstid.ToString(), 
 										bus13Route.fromst,
 										string.Empty,
-										Location.Empty);
+										Coords.Empty);
 
 				route.LastStop = new RouteStop(
 										bus13Route.tostid.ToString(),
 										bus13Route.tost,
 										string.Empty,
-										Location.Empty);
+										Coords.Empty);
 
 
 				routes.Add(route);
@@ -168,9 +169,9 @@ namespace bstrkr.core.providers.bus13
 			return routeStops;
 		}
 
-		private Location ParseLocation(int latitude, int longitude)
+		private Coords ParseLocation(int latitude, int longitude)
 		{
-			return new Location(latitude / 1000000f, longitude / 1000000f);
+			return new Coords(latitude / 1000000f, longitude / 1000000f);
 		}
 
 		private RouteType ParseRouteType(string routeType)

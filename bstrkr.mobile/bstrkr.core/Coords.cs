@@ -2,11 +2,11 @@
 
 namespace bstrkr.core
 {
-	public struct Location
+	public struct Coords
 	{
-		private static Location EmptyLocation = new Location(0, 0);
+		private static Coords EmptyLocation = new Coords(0, 0);
 
-		public Location(float latitude, float longitude)
+		public Coords(float latitude, float longitude)
 		{
 			this.Latitude = latitude;
 			this.Longitude = longitude;
@@ -16,7 +16,7 @@ namespace bstrkr.core
 
 		public float Longitude;
 
-		public static Location Empty 
+		public static Coords Empty 
 		{ 
 			get { return EmptyLocation; }
 		}

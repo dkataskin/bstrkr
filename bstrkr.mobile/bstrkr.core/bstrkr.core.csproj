@@ -34,7 +34,6 @@
     <Compile Include="ILiveDataProvider.cs" />
     <Compile Include="Route.cs" />
     <Compile Include="Vehicle.cs" />
-    <Compile Include="Location.cs" />
     <Compile Include="RouteType.cs" />
     <Compile Include="RouteStop.cs" />
     <Compile Include="VehicleLocationsUpdatedEventArgs.cs" />
@@ -44,6 +43,11 @@
     <Compile Include="Providers\Bus13\IBus13RouteDataService.cs" />
     <Compile Include="Providers\Bus13\Bus13RouteStop.cs" />
     <Compile Include="Providers\Bus13\Bus13Zone.cs" />
+    <Compile Include="Coords.cs" />
+    <Compile Include="Rect.cs" />
+    <Compile Include="Providers\Bus13\VehicleLocationResponse.cs" />
+    <Compile Include="Providers\Bus13\Bus13VehicleLocation.cs" />
+    <Compile Include="Providers\Bus13\Bus13AnimPoint.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
