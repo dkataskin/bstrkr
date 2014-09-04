@@ -14,13 +14,11 @@ namespace bstrkr.core.providers.bus13
 {
 	public class Bus13RouteDataService : IBus13RouteDataService
 	{
-		private const string RoutesSplitter = "@ROUTE=";
-		private const string RouteSplitter = ";";
-		private const string RoutesResource = "searchAllRoutes.php";
-		private const string RouteTypesResource = "searchAllRouteTypes.php";
-		private const string RouteStopsResource = "getRouteStations.php";
+		private const string RoutesResource = "getRoutes.php";
+		private const string RouteStopsResource = "getStations.php";
+		private const string ZonesResource = "getZones.php";
 		private const string LocationParam = "city";
-		private const string RandomParam = "r";
+		private const string RandomParam = "_";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
 
@@ -46,21 +44,16 @@ namespace bstrkr.core.providers.bus13
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
 			var client = this.GetRestClient();
-			var getRouteTypesTask = this.GetRouteTypesAsync(client);
 
 			var request = new RestRequest(RoutesResource);
 			request.AddParameter(LocationParam, _location, ParameterType.QueryString);
 
-			var getRoutesTask = Task.Factory.StartNew(() =>
+			var bus13Routes = await Task.Factory.StartNew(() =>
 			{
-				return client.Execute<JObject>(request).Result;
+				return client.Execute<List<Bus13Route>>(request).Result.Data;
 			});
 
-			await Task.WhenAll(getRouteTypesTask, getRoutesTask).ConfigureAwait(false);
-
-			return this.ParseRoutes(
-						getRouteTypesTask.GetAwaiter().GetResult(), 
-						getRoutesTask.GetAwaiter().GetResult().Data);
+			return this.ParseRoutes(bus13Routes);
 		}
 
 		public Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync()
@@ -84,24 +77,6 @@ namespace bstrkr.core.providers.bus13
 			return client;
 		}
 
-		private async Task<IEnumerable<Bus13RouteType>> GetRouteTypesAsync(IRestClient restClient)
-		{
-			var request = this.GetRequestBase(RouteTypesResource);
-
-			return await Task.Factory.StartNew(() =>
-			{
-				try 
-				{
-					var response = restClient.Execute<Bus13RouteType[]>(request).Result;
-					return response.Data;
-				}
-				catch (Exception e)
-				{
-					return null;
-				}
-			}).ConfigureAwait(false);
-		}
-
 		private IRestRequest GetRequestBase(string resource)
 		{
 			IRestRequest request = new RestRequest(resource);
@@ -118,62 +93,42 @@ namespace bstrkr.core.providers.bus13
 		// web client adds this random value to each and every request
 		private IRestRequest AddRandom(IRestRequest request)
 		{
-			return request.AddParameter(RandomParam, _random.Value.NextDouble, ParameterType.QueryString);
+			return request.AddParameter(RandomParam, _random.Value.NextDouble(), ParameterType.QueryString);
 		}
 
-		private IEnumerable<Route> ParseRoutes(IEnumerable<Bus13RouteType> routeTypes, JObject routesObject)
+		private IEnumerable<Route> ParseRoutes(IEnumerable<Bus13Route> bus13Routes)
 		{
-			if (routeTypes == null | routesObject == null)
+			if (bus13Routes == null)
 			{
-				return null;
+				return new List<Route>();
 			}
 
 			var routes = new List<Route>();
-			foreach (var routeTypeData in routeTypes) 
-			{
-				var routeType = new RouteType(routeTypeData.typeName, routeTypeData.typeShName);
-				var routeTypeRoutes = routesObject.Properties().FirstOrDefault(x => x.Name.Equals(routeType.Name));
-				if (routeTypeRoutes != null)
-				{
-					var routesData = routeTypeRoutes.Value.ToString().Split(new[] { RoutesSplitter }, StringSplitOptions.RemoveEmptyEntries);
-					foreach (var routeData in routesData)
-					{
-						routes.AddRange(this.ParseRouteData(routeData, routeType));
-					}
-				}
-			}
-
-			return routes;
-		}
-
-		private IEnumerable<Route> ParseRouteData(string routeStr, RouteType routeType)
-		{
-			var routes = new List<Route>();
-
-			var routeParts = routeStr.Split(new[] { RouteSplitter }, StringSplitOptions.RemoveEmptyEntries);
-			for (int i = 0; i < routeParts.Length - 6; i++)
+			foreach (var bus13Route in bus13Routes) 
 			{
 				var route = new Route(
-						            routeParts[i + 6], 
-						            routeParts[2], 
-						            routeType, 
-						            new List<RouteStop>());
+					            bus13Route.id, 
+					            bus13Route.name, 
+					            new RouteType("", ""),
+					            new List<RouteStop>());
 
-				route.FirstStop = new RouteStop(string.Empty, routeParts[3], string.Empty, Location.Empty);
-				route.LastStop = new RouteStop(string.Empty, routeParts[4], string.Empty, Location.Empty);
+				route.FirstStop = new RouteStop(
+										bus13Route.fromstid.ToString(), 
+										bus13Route.fromst,
+										string.Empty,
+										Location.Empty);
+
+				route.LastStop = new RouteStop(
+										bus13Route.tostid.ToString(),
+										bus13Route.tost,
+										string.Empty,
+										Location.Empty);
+
+
 				routes.Add(route);
 			}
 
 			return routes;
-		}
-
-		private class Bus13RouteType
-		{
-			public string typeId { get; set; }
-
-			public string typeName { get; set; }
-
-			public string typeShName { get; set; }
 		}
 	}
 }

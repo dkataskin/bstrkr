@@ -13,9 +13,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
-using Providers;
-
-namespace bstrkr.core.providers
+namespace bstrkr.core.providers.bus13
 {
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
