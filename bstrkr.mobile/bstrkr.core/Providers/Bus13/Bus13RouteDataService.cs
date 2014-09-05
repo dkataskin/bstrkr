@@ -100,10 +100,7 @@ namespace bstrkr.core.providers.bus13
 			var request = this.GetRequestBase(StopsResource);
 			request = this.AddRandom(request);
 
-			var bus13Stops = await Task.Factory.StartNew(() =>
-			{
-				return client.Execute<List<Bus13RouteStop>>(request).Result.Data;
-			});
+			var bus13Stops = await this.ExecuteAsync<IList<Bus13RouteStop>>(client, request).ConfigureAwait(false);
 
 			return this.ParseRouteStops(bus13Stops);
 		}

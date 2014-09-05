@@ -38,6 +38,7 @@ namespace bstrkr.test
 			}
 		}
 
+		[Test]
 		public void CanGetStops()
 		{
 			var task = _service.GetStopsAsync().ConfigureAwait(false);
@@ -60,4 +61,3 @@ namespace bstrkr.test
 		}
 	}
 }
-
