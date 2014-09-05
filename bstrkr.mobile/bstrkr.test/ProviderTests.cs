@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 
 using NUnit.Framework;
 
-using bstrkr.core.providers.bus13;
 using bstrkr.core.providers;
+using bstrkr.core.providers.bus13;
+using System.Linq;
 
 namespace bstrkr.test
 {
@@ -51,6 +52,25 @@ namespace bstrkr.test
 
 				Assert.IsNotNull(stop.Id);
 				Assert.IsNotNull(stop.Name);
+			}
+		}
+
+		[Test]
+		public void CanGetRouteNodes()
+		{
+			var task1 = _service.GetRoutesAsync().ConfigureAwait(false);
+			var routes = task1.GetAwaiter().GetResult();
+
+			var task2 = _service.GetRouteNodesAsync(routes.First()).ConfigureAwait(false);
+			var polyline = task2.GetAwaiter().GetResult();
+
+			Assert.IsNotNull(polyline);
+			Assert.IsTrue(polyline.Nodes.Any());
+
+			foreach (var node in polyline.Nodes)
+			{
+				Assert.IsTrue(node.Latitude > 0);
+				Assert.IsTrue(node.Longitude > 0);
 			}
 		}
 

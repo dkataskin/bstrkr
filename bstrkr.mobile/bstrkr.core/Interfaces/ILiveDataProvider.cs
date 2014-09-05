@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Collections.Immutable;
 
-namespace bstrkr.core
+using bstrkr.core;
+
+namespace bstrkr.core.interfaces
 {
 	public interface ILiveDataProvider
 	{

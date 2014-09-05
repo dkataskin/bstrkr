@@ -31,46 +31,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ILiveDataProvider.cs" />
     <Compile Include="Route.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="RouteType.cs" />
     <Compile Include="RouteStop.cs" />
     <Compile Include="VehicleLocationsUpdatedEventArgs.cs" />
-    <Compile Include="Providers\Bus13\Bus13Route.cs" />
-    <Compile Include="Providers\Bus13\Bus13LiveDataProvider.cs" />
-    <Compile Include="Providers\Bus13\Bus13RouteDataService.cs" />
-    <Compile Include="Providers\Bus13\IBus13RouteDataService.cs" />
-    <Compile Include="Providers\Bus13\Bus13RouteStop.cs" />
-    <Compile Include="Providers\Bus13\Bus13Zone.cs" />
-    <Compile Include="Coords.cs" />
-    <Compile Include="Rect.cs" />
-    <Compile Include="Providers\Bus13\VehicleLocationResponse.cs" />
-    <Compile Include="Providers\Bus13\Bus13VehicleLocation.cs" />
-    <Compile Include="Providers\Bus13\Bus13AnimPoint.cs" />
+    <Compile Include="Spatial\GeoPoint.cs" />
+    <Compile Include="Spatial\GeoPolyline.cs" />
+    <Compile Include="Spatial\GeoRect.cs" />
+    <Compile Include="Interfaces\ILiveDataProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Config\" />
-    <Folder Include="Providers\" />
-    <Folder Include="Providers\Bus13\" />
+    <Folder Include="Spatial\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\config.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.6.2\lib\portable-net40+sl50+win+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp.Portable.Encodings">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.6.1\lib\portable-net45+wp80+win\RestSharp.Portable.Encodings.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Compression">
       <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.83\lib\portable-net45+win8+wp8+wpa81\System.IO.Compression.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wp8+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
@@ -80,15 +63,6 @@
     </Reference>
     <Reference Include="System.Collections.Immutable">
       <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

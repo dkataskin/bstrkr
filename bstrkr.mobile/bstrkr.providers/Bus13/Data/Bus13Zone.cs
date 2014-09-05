@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace bstrkr.core.providers.bus13
+namespace bstrkr.providers.bus13.data
 {
 	public class Bus13Zone
 	{

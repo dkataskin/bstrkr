@@ -2,7 +2,7 @@
 
 using bstrkr.core;
 
-namespace bstrkr.core.providers.bus13
+namespace bstrkr.providers.bus13.data
 {
 	internal class Bus13Route
 	{

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.core", "bstrkr.core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.ios", "bstrkr.ios\bstrkr.ios.csproj", "{9B782067-7B40-4ABA-8942-EF74C2274B5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bstrkr.providers", "bstrkr.providers\bstrkr.providers.csproj", "{FCD27C16-D592-46E6-9F83-2982C7DE3C12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,22 @@ Global
 		{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}.Release|iPhone.Build.0 = Release|Any CPU
 		{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Release|iPhone.Build.0 = Release|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{07EA2786-F1C9-4BCA-A53A-0DFC1CCC0F38} = {AC3158FA-9814-47ED-B16F-910604F57646}
@@ -133,6 +151,7 @@ Global
 		{22F3D6B1-0526-4969-9675-4CCFD256148A} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
 		{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
 		{9B782067-7B40-4ABA-8942-EF74C2274B5F} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
+		{FCD27C16-D592-46E6-9F83-2982C7DE3C12} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = bstrkr.android\bstrkr.android.csproj

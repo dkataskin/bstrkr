@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using bstrkr.core.spatial;
+
 namespace bstrkr.core
 {
 	public class Route
@@ -11,12 +13,14 @@ namespace bstrkr.core
 				string id, 
 				string name, 
 				RouteType type, 
-				IEnumerable<RouteStop> stops)
+				IEnumerable<RouteStop> stops,
+				IEnumerable<GeoPoint> nodes)
 		{
 			this.Id = id;
 			this.Name = name;
 			this.Type = type;
 			this.Stops = new ReadOnlyCollection<RouteStop>(stops.ToList());
+			this.Nodes = new ReadOnlyCollection<GeoPoint>(nodes.ToList());
 		}
 
 		public string Id { get; private set; }
@@ -26,6 +30,8 @@ namespace bstrkr.core
 		public RouteType Type { get; private set; }
 
 		public IReadOnlyCollection<RouteStop> Stops { get; private set; }
+
+		public IReadOnlyCollection<GeoPoint> Nodes { get; private set; }
 
 		public RouteStop FirstStop { get; set; }
 

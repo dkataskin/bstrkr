@@ -9,6 +9,8 @@ using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
 using bstrkr.core;
+using bstrkr.core.spatial;
+using bstrkr.providers.bus13.data;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -18,10 +20,13 @@ namespace bstrkr.core.providers.bus13
 		private const string StopsResource = "getStations.php";
 		private const string ZonesResource = "getZones.php";
 		private const string VehicleLocationResource = "getVehiclesMarkers.php";
+		private const string RouteNodesResource = "getRouteNodes.php";
 		private const string RouteIdFormatStr = "{0}-0";
 		private const string LocationParam = "city";
 		private const string TimestampParam = "curk";
 		private const string RouteIdsParam = "rids";
+		private const string RouteIdParam = "rid";
+		private const string RouteTypeParam = "type";
 		private const string RandomParam = "_";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
@@ -48,16 +53,31 @@ namespace bstrkr.core.providers.bus13
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
 			var client = this.GetRestClient();
-
 			var request = this.GetRequestBase(RoutesResource);
-			request = this.AddRandom(request);
 
 			var bus13Routes = await this.ExecuteAsync<IList<Bus13Route>>(client, request).ConfigureAwait(false);
 
 			return this.ParseRoutes(bus13Routes);
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, Rect rect, int timestamp)
+		public async Task<GeoPolyline> GetRouteNodesAsync(Route route)
+		{
+			if (route == null)
+			{
+				throw new ArgumentException("Route must not be null", "route");
+			}
+
+			var request = this.GetRequestBase(RouteNodesResource);
+			request.AddParameter(RouteIdParam, route.Id, ParameterType.QueryString);
+			request.AddParameter(RouteTypeParam, 0, ParameterType.QueryString);
+
+			var client = this.GetRestClient();
+			var bus13GeoPoints = await this.ExecuteAsync<IEnumerable<Bus13GeoPoint>>(client, request).ConfigureAwait(false);
+
+			return new GeoPolyline(bus13GeoPoints.Select(this.ParsePoint).ToList());
+		}
+
+		public async Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp)
 		{
 			if (routes == null || !routes.Any())
 			{
@@ -121,7 +141,7 @@ namespace bstrkr.core.providers.bus13
 			IRestRequest request = new RestRequest(resource);
 			request = this.AddLocation(request, _location);
 
-			return request;
+			return this.AddRandom(request);
 		}
 
 		private IRestRequest AddLocation(IRestRequest request, string location)
@@ -149,19 +169,20 @@ namespace bstrkr.core.providers.bus13
 					            bus13Route.id, 
 					            bus13Route.name, 
 								this.ParseRouteType(bus13Route.type),
-					            new List<RouteStop>());
+					            new List<RouteStop>(),
+								new List<GeoPoint>());
 
 				route.FirstStop = new RouteStop(
 										bus13Route.fromstid.ToString(), 
 										bus13Route.fromst,
 										string.Empty,
-										Coords.Empty);
+										GeoPoint.Empty);
 
 				route.LastStop = new RouteStop(
 										bus13Route.tostid.ToString(),
 										bus13Route.tost,
 										string.Empty,
-										Coords.Empty);
+										GeoPoint.Empty);
 
 
 				routes.Add(route);
@@ -192,9 +213,9 @@ namespace bstrkr.core.providers.bus13
 			return routeStops;
 		}
 
-		private Coords ParseLocation(int latitude, int longitude)
+		private GeoPoint ParseLocation(int latitude, int longitude)
 		{
-			return new Coords(latitude / 1000000f, longitude / 1000000f);
+			return new GeoPoint(latitude / 1000000f, longitude / 1000000f);
 		}
 
 		private RouteType ParseRouteType(string routeType)
@@ -213,6 +234,11 @@ namespace bstrkr.core.providers.bus13
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		private GeoPoint ParsePoint(Bus13GeoPoint bus13Point)
+		{
+			return this.ParseLocation(bus13Point.lat, bus13Point.lng);
 		}
 
 		private int CoordToInt(float coord)

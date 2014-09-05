@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace bstrkr.core
+namespace bstrkr.core.spatial
 {
-	public struct Coords
+	public struct GeoPoint
 	{
-		private static Coords EmptyLocation = new Coords(0, 0);
+		private static GeoPoint EmptyLocation = new GeoPoint(0, 0);
 
-		public Coords(float latitude, float longitude)
+		public GeoPoint(float latitude, float longitude)
 		{
 			this.Latitude = latitude;
 			this.Longitude = longitude;
@@ -16,7 +16,7 @@ namespace bstrkr.core
 
 		public float Longitude;
 
-		public static Coords Empty 
+		public static GeoPoint Empty 
 		{ 
 			get { return EmptyLocation; }
 		}

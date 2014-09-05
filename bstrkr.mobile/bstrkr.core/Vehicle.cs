@@ -1,5 +1,7 @@
 ﻿using System;
 
+using bstrkr.core.spatial;
+
 namespace bstrkr.core
 {
 	public class Vehicle
@@ -8,6 +10,6 @@ namespace bstrkr.core
 
 		public string CarPlate { get; set; }
 
-		public Coords Location { get; set; }
+		public GeoPoint Location { get; set; }
 	}
 }
