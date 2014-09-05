@@ -4,6 +4,7 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Google.Maps;
 
 namespace bstrkr.ios
 {
@@ -13,13 +14,21 @@ namespace bstrkr.ios
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
+		private const string MapsApiKey = "AIzaSyAI2_0HkCS84Q5hWliLZQ64mCc81KZ61ME";
 		// class-level declarations
 		
 		public override UIWindow Window {
 			get;
 			set;
 		}
-		
+
+		public override void FinishedLaunching(UIApplication application)
+		{
+			// NOTE: Don't call the base implementation on a Model class
+			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
+			MapServices.ProvideAPIKey(MapsApiKey);
+		}
+
 		// This method is invoked when the application is about to move from active to inactive state.
 		// OpenGL applications should use this method to pause.
 		public override void OnResignActivation (UIApplication application)

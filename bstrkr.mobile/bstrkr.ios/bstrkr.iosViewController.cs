@@ -3,11 +3,14 @@ using System.Drawing;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Google.Maps;
 
 namespace bstrkr.ios
 {
 	public partial class bstrkr_iosViewController : UIViewController
 	{
+		private MapView mapView;
+
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
@@ -26,6 +29,19 @@ namespace bstrkr.ios
 
 		#region View lifecycle
 
+		public override void LoadView ()
+		{
+			base.LoadView ();
+
+			CameraPosition camera = CameraPosition.FromCamera (latitude: 37.797865, 
+																longitude: -122.402526, 
+																zoom: 6);
+			mapView = MapView.FromCamera (RectangleF.Empty, camera);
+			mapView.MyLocationEnabled = true;
+
+			View = mapView;
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -35,7 +51,8 @@ namespace bstrkr.ios
 
 		public override void ViewWillAppear (bool animated)
 		{
-			base.ViewWillAppear (animated);
+			base.ViewWillAppear(animated);
+			mapView.StartRendering();
 		}
 
 		public override void ViewDidAppear (bool animated)
@@ -50,7 +67,8 @@ namespace bstrkr.ios
 
 		public override void ViewDidDisappear (bool animated)
 		{
-			base.ViewDidDisappear (animated);
+			mapView.StopRendering();
+			base.ViewWillDisappear(animated);
 		}
 
 		#endregion
