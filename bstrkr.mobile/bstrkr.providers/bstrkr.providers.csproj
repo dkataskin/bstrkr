@@ -39,8 +39,9 @@
     <Compile Include="Bus13\Data\Bus13RouteStop.cs" />
     <Compile Include="Bus13\Data\Bus13Zone.cs" />
     <Compile Include="Bus13\Data\Bus13VehicleLocation.cs" />
-    <Compile Include="Bus13\Data\VehicleLocationResponse.cs" />
     <Compile Include="Bus13\Data\Bus13GeoPoint.cs" />
+    <Compile Include="Bus13\Data\Bus13VehicleLocationResponse.cs" />
+    <Compile Include="Bus13\Data\VehicleLocationsResponse.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

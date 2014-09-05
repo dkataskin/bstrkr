@@ -77,7 +77,7 @@ namespace bstrkr.core.providers.bus13
 			return new GeoPolyline(bus13GeoPoints.Select(this.ParsePoint).ToList());
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp)
+		public async Task<VehicleLocationsResponse> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp)
 		{
 			if (routes == null || !routes.Any())
 			{
@@ -96,16 +96,13 @@ namespace bstrkr.core.providers.bus13
 			request.AddParameter("lng1", this.CoordToInt(rect.RightBottom.Longitude), ParameterType.QueryString);
 
 			request.AddParameter(TimestampParam, timestamp, ParameterType.QueryString);
-			request = this.AddLocation(request, _location);
-			request = this.AddRandom(request);
 
 			var client = this.GetRestClient();
-			var response = await Task.Factory.StartNew(() =>
-			{
-				return client.Execute<VehicleLocationResponse>(request).Result.Data;
-			}).ConfigureAwait(false);
+			var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request).ConfigureAwait(false);
 
-			return null;
+			return new VehicleLocationsResponse(
+										response.maxk, 
+										response.anims.Select(this.ParseVehicle).ToList());
 		}
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
@@ -239,6 +236,16 @@ namespace bstrkr.core.providers.bus13
 		private GeoPoint ParsePoint(Bus13GeoPoint bus13Point)
 		{
 			return this.ParseLocation(bus13Point.lat, bus13Point.lng);
+		}
+
+		private Vehicle ParseVehicle(Bus13VehicleLocation bus13Vehicle)
+		{
+			return new Vehicle 
+			{
+				Id = bus13Vehicle.id,
+				CarPlate = bus13Vehicle.gos_num,
+				Location = this.ParseLocation(bus13Vehicle.lat, bus13Vehicle.lon)
+			};
 		}
 
 		private int CoordToInt(float coord)

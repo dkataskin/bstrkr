@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace bstrkr.providers.bus13.data
 {
-	public class VehicleLocationResponse
+	public class Bus13VehicleLocationResponse
 	{
 		public int maxk { get; set; }
 

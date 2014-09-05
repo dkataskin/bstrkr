@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.core.spatial;
+using bstrkr.providers.bus13.data;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -15,7 +16,7 @@ namespace bstrkr.core.providers.bus13
 
 		Task<GeoPolyline> GetRouteNodesAsync(Route route);
 
-		Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp);
+		Task<VehicleLocationsResponse> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp);
 
 		Task<IEnumerable<RouteStop>> GetStopsAsync();
 	}

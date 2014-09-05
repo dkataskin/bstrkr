@@ -7,9 +7,9 @@ namespace bstrkr.providers.bus13.data
 	{
 		public string id { get; set; }
 
-		public int lot { get; set; }
+		public int lon { get; set; }
 
-		public int lng { get; set; }
+		public int lat { get; set; }
 
 		public int dir { get; set; }
 

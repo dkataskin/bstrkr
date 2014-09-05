@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using NUnit.Framework;
 
 using bstrkr.core.providers;
 using bstrkr.core.providers.bus13;
-using System.Linq;
+using bstrkr.core.spatial;
 
 namespace bstrkr.test
 {
@@ -77,7 +78,23 @@ namespace bstrkr.test
 		[Test]
 		public void CanGetVehicles()
 		{
-			Assert.False (true);
+			var task1 = _service.GetRoutesAsync().ConfigureAwait(false);
+			var routes = task1.GetAwaiter().GetResult();
+
+			var task2 = _service.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, 0).ConfigureAwait(false);
+			var response = task2.GetAwaiter().GetResult();
+
+			Assert.IsNotNull(response);
+			Assert.IsTrue(response.Timestamp > 0);
+			Assert.IsTrue(response.Vehicles.Any());
+
+			foreach (var vehicle in response.Vehicles)
+			{
+				Assert.IsNotNull(vehicle);
+				Assert.IsNotNull(vehicle.Id);
+				Assert.IsTrue(vehicle.Location.Latitude > 0);
+				Assert.IsTrue(vehicle.Location.Longitude > 0);
+			}
 		}
 	}
 }
