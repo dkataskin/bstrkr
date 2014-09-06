@@ -40,6 +40,7 @@
     <Compile Include="Spatial\GeoPolyline.cs" />
     <Compile Include="Spatial\GeoRect.cs" />
     <Compile Include="Interfaces\ILiveDataProvider.cs" />
+    <Compile Include="VehicleRouteInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

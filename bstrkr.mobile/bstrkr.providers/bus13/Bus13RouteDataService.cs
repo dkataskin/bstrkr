@@ -244,7 +244,12 @@ namespace bstrkr.core.providers.bus13
 			{
 				Id = bus13Vehicle.id,
 				CarPlate = bus13Vehicle.gos_num,
-				Location = this.ParseLocation(bus13Vehicle.lat, bus13Vehicle.lon)
+				Location = this.ParseLocation(bus13Vehicle.lat, bus13Vehicle.lon),
+				RouteInfo = new VehicleRouteInfo
+				{
+					RouteId = bus13Vehicle.rid.ToString(),
+					DisplayName = bus13Vehicle.rnum
+				}
 			};
 		}
 

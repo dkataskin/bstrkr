@@ -11,5 +11,7 @@ namespace bstrkr.core
 		public string CarPlate { get; set; }
 
 		public GeoPoint Location { get; set; }
+
+		public VehicleRouteInfo RouteInfo { get; set; }
 	}
 }
