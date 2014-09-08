@@ -9,6 +9,8 @@ using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
 using bstrkr.core;
+using bstrkr.core.spatial;
+using bstrkr.providers.bus13.data;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -51,21 +53,31 @@ namespace bstrkr.core.providers.bus13
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
 			var client = this.GetRestClient();
-
 			var request = this.GetRequestBase(RoutesResource);
-			request = this.AddRandom(request);
 
 			var bus13Routes = await this.ExecuteAsync<IList<Bus13Route>>(client, request).ConfigureAwait(false);
 
 			return this.ParseRoutes(bus13Routes);
 		}
 
-		public async Task<IEnumerable<GeoPoint>> GetRouteNodes(string routeId)
+		public async Task<GeoPolyline> GetRouteNodesAsync(Route route)
 		{
+			if (route == null)
+			{
+				throw new ArgumentException("Route must not be null", "route");
+			}
+
 			var request = this.GetRequestBase(RouteNodesResource);
+			request.AddParameter(RouteIdParam, route.Id, ParameterType.QueryString);
+			request.AddParameter(RouteTypeParam, 0, ParameterType.QueryString);
+
+			var client = this.GetRestClient();
+			var bus13GeoPoints = await this.ExecuteAsync<IEnumerable<Bus13GeoPoint>>(client, request).ConfigureAwait(false);
+
+			return new GeoPolyline(bus13GeoPoints.Select(this.ParsePoint).ToList());
 		}
 
-		public async Task<IEnumerable<Vehicle>> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp)
+		public async Task<VehicleLocationsResponse> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp)
 		{
 			if (routes == null || !routes.Any())
 			{
@@ -84,16 +96,13 @@ namespace bstrkr.core.providers.bus13
 			request.AddParameter("lng1", this.CoordToInt(rect.RightBottom.Longitude), ParameterType.QueryString);
 
 			request.AddParameter(TimestampParam, timestamp, ParameterType.QueryString);
-			request = this.AddLocation(request, _location);
-			request = this.AddRandom(request);
 
 			var client = this.GetRestClient();
-			var response = await Task.Factory.StartNew(() =>
-			{
-				return client.Execute<VehicleLocationResponse>(request).Result.Data;
-			}).ConfigureAwait(false);
+			var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request).ConfigureAwait(false);
 
-			return null;
+			return new VehicleLocationsResponse(
+										response.maxk, 
+										response.anims.Select(this.ParseVehicle).ToList());
 		}
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
@@ -129,7 +138,7 @@ namespace bstrkr.core.providers.bus13
 			IRestRequest request = new RestRequest(resource);
 			request = this.AddLocation(request, _location);
 
-			return request;
+			return this.AddRandom(request);
 		}
 
 		private IRestRequest AddLocation(IRestRequest request, string location)
@@ -222,6 +231,26 @@ namespace bstrkr.core.providers.bus13
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		private GeoPoint ParsePoint(Bus13GeoPoint bus13Point)
+		{
+			return this.ParseLocation(bus13Point.lat, bus13Point.lng);
+		}
+
+		private Vehicle ParseVehicle(Bus13VehicleLocation bus13Vehicle)
+		{
+			return new Vehicle 
+			{
+				Id = bus13Vehicle.id,
+				CarPlate = bus13Vehicle.gos_num,
+				Location = this.ParseLocation(bus13Vehicle.lat, bus13Vehicle.lon),
+				RouteInfo = new VehicleRouteInfo
+				{
+					RouteId = bus13Vehicle.rid.ToString(),
+					DisplayName = bus13Vehicle.rnum
+				}
+			};
 		}
 
 		private int CoordToInt(float coord)
