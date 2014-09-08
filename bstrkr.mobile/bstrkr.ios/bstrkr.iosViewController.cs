@@ -33,9 +33,9 @@ namespace bstrkr.ios
 		{
 			base.LoadView ();
 
-			CameraPosition camera = CameraPosition.FromCamera (latitude: 37.797865, 
-																longitude: -122.402526, 
-																zoom: 6);
+			CameraPosition camera = CameraPosition.FromCamera (latitude: 54.1815305, 
+																longitude: 45.1812519, 
+																zoom: 17);
 			mapView = MapView.FromCamera (RectangleF.Empty, camera);
 			mapView.MyLocationEnabled = true;
 

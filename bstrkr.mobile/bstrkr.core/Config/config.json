@@ -1,12 +1,16 @@
 ﻿{
-	cities: [
-		{ name: "Саранск",
-		  lat: 54.0,
-		  lon: 45.0,
-		  endpoint: "http://bus13.ru/" },
-		{ name: "Рязань",
-		  lat: 54.0,
-	      lon: 45.0,
-		  endpoint: "http://bus62.ru/" }
-	]
+  "cities":[
+    {
+      "name": "Саранск",
+      "lat": 54.0,
+      "lon": 45.0,
+      "endpoint": "http://bus13.ru/"
+    },
+    {
+      "name": "Рязань",
+      "lat": 54.0,
+      "lon": 45.0,
+      "endpoint": "http://bus62.ru/"
+    }
+  ]
 }
