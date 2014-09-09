@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Touch.Platform;
+using Cirrious.MvvmCross.ViewModels;
+
+using Google.Maps;
+
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using Google.Maps;
 
 namespace bstrkr.ios
 {
@@ -12,21 +17,24 @@ namespace bstrkr.ios
 	// User Interface of the application, as well as listening (and optionally responding) to
 	// application events from iOS.
 	[Register ("AppDelegate")]
-	public partial class AppDelegate : UIApplicationDelegate
+	public partial class AppDelegate : MvxApplicationDelegate
 	{
 		private const string MapsApiKey = "AIzaSyAI2_0HkCS84Q5hWliLZQ64mCc81KZ61ME";
 		// class-level declarations
 		
-		public override UIWindow Window {
-			get;
-			set;
-		}
+		public override UIWindow Window { get; set; }
 
 		public override void FinishedLaunching(UIApplication application)
 		{
 			// NOTE: Don't call the base implementation on a Model class
 			// see http://docs.xamarin.com/guides/ios/application_fundamentals/delegates,_protocols,_and_events
 			MapServices.ProvideAPIKey(MapsApiKey);
+
+			var setup = new Setup(this, this.Window);
+			setup.Initialize();
+
+			var startup = Mvx.Resolve<IMvxAppStart>();
+			startup.Start();
 		}
 
 		// This method is invoked when the application is about to move from active to inactive state.

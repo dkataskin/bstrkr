@@ -1,9 +1,13 @@
 using System.Drawing;
+
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Touch.Views;
+
+using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 using MonoTouch.UIKit;
-using MonoTouch.Foundation;
+
+using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.ios.Views
 {
@@ -25,7 +29,7 @@ namespace bstrkr.ios.Views
             this.Add(label);
 
             var textField = new UITextField(new RectangleF(10, 50, 300, 40));
-            this.Add(textField);
+            Add(textField);
 
             var set = this.CreateBindingSet<MainView, MainViewModel>();
             set.Bind(label).To(vm => vm.Hello);

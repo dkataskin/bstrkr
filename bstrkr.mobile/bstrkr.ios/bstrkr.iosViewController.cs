@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
+using Google.Maps;
+
+using MonoTouch.CoreLocation;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-
-using Google.Maps;
-using MonoTouch.CoreLocation;
 
 namespace bstrkr.ios
 {
@@ -13,7 +13,8 @@ namespace bstrkr.ios
 	{
 		private MapView _mapView;
 
-		static bool UserInterfaceIdiomIsPhone {
+		static bool UserInterfaceIdiomIsPhone 
+		{
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 

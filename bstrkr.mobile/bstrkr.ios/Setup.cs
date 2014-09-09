@@ -15,7 +15,7 @@ namespace bstrkr.ios
 		{
 		}
 
-		protected override IMvxApplication CreateApp ()
+		protected override IMvxApplication CreateApp()
 		{
 			return new BusTrackerApp();
 		}
