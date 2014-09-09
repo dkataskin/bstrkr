@@ -53,4 +53,3 @@ namespace bstrkr.ios
 		}
 	}
 }
-
