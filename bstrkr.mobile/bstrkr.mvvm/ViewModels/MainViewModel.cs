@@ -13,11 +13,11 @@ namespace bstrkr.mvvm.viewmodels
 		public MainViewModel(ILocationService locationService)
 		{
 			_locationService = locationService;
-			_locationService.LocationUpdated += HandleLocationUpdated;
+			_locationService.LocationUpdated += OnLocationUpdated;
 			_locationService.StartUpdating();
 		}
 
-		private void HandleLocationUpdated (object sender, LocationUpdatedEventArgs args)
+		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
 		{
 		}
 
