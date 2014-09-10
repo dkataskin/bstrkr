@@ -4,11 +4,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{9B782067-7B40-4ABA-8942-EF74C2274B5F}</ProjectGuid>
+    <ProjectGuid>{27677BB4-E809-4DCE-A964-2BB2152DE418}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>bstrkr.ios</RootNamespace>
+    <RootNamespace>bstrkr.core.ios</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>bstrkrios</AssemblyName>
+    <AssemblyName>bstrkrcoreios</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,9 +22,6 @@
     <MtouchLink>None</MtouchLink>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchI18n>
-    </MtouchI18n>
-    <MtouchArch>i386</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -48,8 +45,6 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <IpaPackageName>
-    </IpaPackageName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -89,66 +84,19 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="GoogleMaps">
-      <HintPath>..\Components\googlemapsios-1.8.1\lib\ios\GoogleMaps.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.CrossCore.Touch">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\MonoTouch\Cirrious.CrossCore.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding.Touch">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\MonoTouch\Cirrious.MvvmCross.Binding.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.CrossCore">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\MonoTouch\Cirrious.CrossCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\MonoTouch\Cirrious.MvvmCross.Binding.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Localization">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\MonoTouch\Cirrious.MvvmCross.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Touch">
-      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.1.1\lib\MonoTouch\Cirrious.MvvmCross.Touch.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross">
-      <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.1.1\lib\MonoTouch\Cirrious.MvvmCross.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Default-568h%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Info.plist" />
-    <None Include="Entitlements.plist" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Main.cs" />
-    <Compile Include="AppDelegate.cs" />
-    <Compile Include="Setup.cs" />
-    <Compile Include="DebugTrace.cs" />
-    <Compile Include="LinkerPleaseInclude.cs" />
-    <Compile Include="Views\MainView.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
-    <InterfaceDefinition Include="MainStoryboard_iPad.storyboard" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Services\Location\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\Location\LocationService.cs" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
       <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
       <Name>bstrkr.core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
-      <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
-      <Name>bstrkr.mvvm</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <XamarinComponentReference Include="googlemapsios">
-      <Version>1.8.1</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
   </ItemGroup>
 </Project>

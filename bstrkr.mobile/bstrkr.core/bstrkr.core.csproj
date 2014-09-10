@@ -41,21 +41,23 @@
     <Compile Include="Spatial\GeoRect.cs" />
     <Compile Include="Interfaces\ILiveDataProvider.cs" />
     <Compile Include="VehicleRouteInfo.cs" />
+    <Compile Include="Services\Location\ILocationService.cs" />
+    <Compile Include="Services\Location\LocationUpdatedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="Spatial\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Location\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\config.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.IO.Compression">
-      <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.83\lib\portable-net45+win8+wp8+wpa81\System.IO.Compression.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wp8+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -64,6 +66,9 @@
     </Reference>
     <Reference Include="System.Collections.Immutable">
       <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.85\lib\portable-net45+win8+wp8+wpa81\System.IO.Compression.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
