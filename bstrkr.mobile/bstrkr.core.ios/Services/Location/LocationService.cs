@@ -22,8 +22,7 @@ namespace bstrkr.core.ios.service.location
 			{
 				_locationManager.LocationsUpdated += (object sender, CLLocationsUpdatedEventArgs args) => 
 				{
-					var location = args.Locations.Last();
-					this.RaiseLocationUpdatedEvent(location.Coordinate.Latitude, location.Coordinate.Longitude);
+					this.RaiseLocationUpdatedEvent(args.Locations.Last().Coordinate);
 				};
 			} 
 			else 
