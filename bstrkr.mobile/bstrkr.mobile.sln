@@ -192,6 +192,6 @@ Global
 		{27677BB4-E809-4DCE-A964-2BB2152DE418} = {CA9FA036-1A33-4677-9E6A-74A598C692BB}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = bstrkr.android\bstrkr.android.csproj
+		StartupItem = bstrkr.ios\bstrkr.ios.csproj
 	EndGlobalSection
 EndGlobal

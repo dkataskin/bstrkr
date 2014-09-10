@@ -4,6 +4,7 @@ using MonoTouch.CoreLocation;
 using MonoTouch.UIKit;
 
 using bstrkr.core.services.location;
+using System.Linq;
 
 namespace bstrkr.core.ios.service.location
 {
@@ -14,33 +15,23 @@ namespace bstrkr.core.ios.service.location
 		public LocationService()
 		{
 			_locationManager = new CLLocationManager();
-
-			// uncomment this if you want to use the delegate pattern:
-			//locationDelegate = new LocationDelegate (mainScreen);
-			//iPhoneLocationManager.Delegate = locationDelegate;
-
-			// you can set the update threshold and accuracy if you want:
-			//iPhoneLocationManager.DistanceFilter = 10; // move ten meters before updating
-			//iPhoneLocationManager.HeadingFilter = 3; // move 3 degrees before updating
-
-			_locationManager.DesiredAccuracy = 100;
-			// you can also use presets, which simply evalute to a double value:
-			//iPhoneLocationManager.DesiredAccuracy = CLLocation.AccuracyNearestTenMeters;
+			_locationManager.DesiredAccuracy = CLLocation.AccuracyHundredMeters;
 
 			// handle the updated location method and update the UI
 			if (UIDevice.CurrentDevice.CheckSystemVersion (6, 0)) 
 			{
-				_locationManager.LocationsUpdated += (object sender, CLLocationsUpdatedEventArgs e) => 
+				_locationManager.LocationsUpdated += (object sender, CLLocationsUpdatedEventArgs args) => 
 				{
-					//UpdateLocation (mainScreen, e.Locations [e.Locations.Length - 1]);
+					var location = args.Locations.Last();
+					this.RaiseLocationUpdatedEvent(location.Coordinate.Latitude, location.Coordinate.Longitude);
 				};
 			} 
 			else 
 			{
 				// this won't be called on iOS 6 (deprecated)
-				_locationManager.UpdatedLocation += (object sender, CLLocationUpdatedEventArgs e) => 
+				_locationManager.UpdatedLocation += (object sender, CLLocationUpdatedEventArgs args) => 
 				{
-					//UpdateLocation (mainScreen, e.NewLocation);
+					this.RaiseLocationUpdatedEvent(args.NewLocation.Coordinate);
 				};
 			}
 		}
@@ -60,6 +51,14 @@ namespace bstrkr.core.ios.service.location
 			if (CLLocationManager.LocationServicesEnabled)
 			{
 				_locationManager.StopUpdatingLocation();
+			}
+		}
+
+		private void RaiseLocationUpdatedEvent(CLLocationCoordinate2D coord)
+		{
+			if (this.LocationUpdated != null)
+			{
+				this.LocationUpdated(this, new LocationUpdatedEventArgs(coord.Latitude, coord.Longitude));
 			}
 		}
 	}
