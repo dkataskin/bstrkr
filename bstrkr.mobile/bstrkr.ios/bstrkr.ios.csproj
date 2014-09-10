@@ -144,6 +144,10 @@
       <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
       <Name>bstrkr.mvvm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\bstrkr.core.ios\bstrkr.core.ios.csproj">
+      <Project>{27677BB4-E809-4DCE-A964-2BB2152DE418}</Project>
+      <Name>bstrkr.core.ios</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="googlemapsios">

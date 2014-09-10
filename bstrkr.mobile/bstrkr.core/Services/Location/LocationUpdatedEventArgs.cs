@@ -4,14 +4,14 @@ namespace bstrkr.core.services.location
 {
 	public class LocationUpdatedEventArgs : EventArgs
 	{
-		public LocationUpdatedEventArgs(float latitude, float longitude)
+		public LocationUpdatedEventArgs(double latitude, double longitude)
 		{
 			this.Latitude = latitude;
 			this.Longitude = longitude;
 		}
 
-		public float Latitude { get; private set; }
+		public double Latitude { get; private set; }
 
-		public float Longitude { get; private set; }
+		public double Longitude { get; private set; }
 	}
 }

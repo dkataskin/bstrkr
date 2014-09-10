@@ -9,10 +9,10 @@ namespace bstrkr.mvvm
     {
         public override void Initialize()
         {
-            this.CreatableTypes()
+/*            this.CreatableTypes()
                 .EndingWith("Service")
                 .AsInterfaces()
-                .RegisterAsLazySingleton();
+                .RegisterAsLazySingleton(); */
 				
             this.RegisterAppStart<MainViewModel>();
         }
