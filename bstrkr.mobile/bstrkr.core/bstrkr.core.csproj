@@ -52,10 +52,14 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Location\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\config.json" />
     <None Include="packages.config" />
+    <None Include="Resources\bus.png" />
+    <None Include="Resources\marsh.png" />
+    <None Include="Resources\troll.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks">
