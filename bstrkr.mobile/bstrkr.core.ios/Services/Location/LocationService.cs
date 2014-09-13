@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 
 using MonoTouch.CoreLocation;
 using MonoTouch.UIKit;
 
 using bstrkr.core.services.location;
-using System.Linq;
 
 namespace bstrkr.core.ios.service.location
 {
