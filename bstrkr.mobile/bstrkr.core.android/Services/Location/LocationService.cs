@@ -5,6 +5,7 @@ using Android.Locations;
 using bstrkr.core.services.location;
 using System.Collections.Generic;
 using System.Linq;
+using Android.OS;
 
 namespace bstrkr.core.android.service.location
 {
@@ -18,20 +19,21 @@ namespace bstrkr.core.android.service.location
 			var mainActivity = androidAppService.GetMainActivity();
 
 			_locationManager = mainActivity.GetSystemService(LocationService) as LocationManager;
-			Criteria criteriaForLocationService = new Criteria
+			var providerCriteria = new Criteria
 			{
-				Accuracy = Accuracy.Fine
+				Accuracy = Accuracy.Fine,
+				PowerRequirement = Power.NoRequirement
 			};
 
-			IList<string> acceptableLocationProviders = _locationManager.GetProviders(criteriaForLocationService, true);
+			var providerName = _locationManager.GetBestProvider(providerCriteria, true);
 
-			if (acceptableLocationProviders.Any())
+			if (!string.IsNullOrEmpty(providerName))
 			{
-				_locationProvider = acceptableLocationProviders.First();
+				_locationProvider = providerName;
 			}
 			else
 			{
-				_locationProvider = String.Empty;
+				_locationProvider = string.Empty;
 			}
 		}
 
@@ -44,32 +46,28 @@ namespace bstrkr.core.android.service.location
 
 		public void StopUpdating()
 		{
-			//_locationManager.r
+			_locationManager.RemoveUpdates(this);
 		}
 
 		public void OnLocationChanged(Location location)
 		{
-			throw new NotImplementedException();
+			this.RaiseLocationUpdatedEvent(location);
 		}
 
 		public void OnProviderDisabled(string provider)
 		{
-			throw new NotImplementedException();
 		}
 
 		public void OnProviderEnabled(string provider)
 		{
-			throw new NotImplementedException();
 		}
 
-		public void OnStatusChanged(string provider, Availability status, Android.OS.Bundle extras)
+		public void OnStatusChanged(string provider, Availability status, Bundle extras)
 		{
-			throw new NotImplementedException();
 		}
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
 		}
 
 		public IntPtr Handle 
