@@ -34,6 +34,7 @@ namespace bstrkr.ios.Views
 			marker.Title = string.Format ("Marker 1");
 			marker.Map = _mapView;
 
+
 			View = _mapView;
 		}
 
