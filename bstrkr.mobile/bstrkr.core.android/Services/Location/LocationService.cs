@@ -1,69 +1,67 @@
 ﻿using System;
-
-using Android.Locations;
-
-using bstrkr.core.services.location;
 using System.Collections.Generic;
 using System.Linq;
+
+using Android.App;
+using Android.Gms.Common;
+using Android.Gms.Location;
+using Android.Locations;
 using Android.OS;
+
+using bstrkr.core.services.location;
 
 namespace bstrkr.core.android.service.location
 {
-	public class LocationService : ILocationService, ILocationListener
+	public class LocationService : ILocationService, IGooglePlayServicesClientConnectionCallbacks, 
+	IGooglePlayServicesClientOnConnectionFailedListener, Android.Gms.Location.ILocationListener
 	{
-		private string _locationProvider;
-		private LocationManager _locationManager;
+		private Activity _mainActivity;
+		private LocationClient _locationClient;
 
 		public LocationService(IAndroidAppService androidAppService)
 		{
-			var mainActivity = androidAppService.GetMainActivity();
-
-			_locationManager = mainActivity.GetSystemService(LocationService) as LocationManager;
-			var providerCriteria = new Criteria
-			{
-				Accuracy = Accuracy.Fine,
-				PowerRequirement = Power.NoRequirement
-			};
-
-			var providerName = _locationManager.GetBestProvider(providerCriteria, true);
-
-			if (!string.IsNullOrEmpty(providerName))
-			{
-				_locationProvider = providerName;
-			}
-			else
-			{
-				_locationProvider = string.Empty;
-			}
+			_mainActivity = androidAppService.GetMainActivity();
+			_locationClient = new LocationClient(_mainActivity, this, this);
 		}
 
 		public event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
 
 		public void StartUpdating()
 		{
-			_locationManager.RequestLocationUpdates(_locationProvider, 2000, 1, this);
+			_locationClient.Connect();
 		}
 
 		public void StopUpdating()
 		{
-			_locationManager.RemoveUpdates(this);
+			if (_locationClient.IsConnected)
+			{
+				_locationClient.RemoveLocationUpdates(this);
+				_locationClient.Disconnect();
+			}
+		}
+
+		public void OnConnected(Bundle connectionHint)
+		{
+			var locationRequest = new LocationRequest();
+
+			locationRequest.SetPriority(100);
+			locationRequest.SetFastestInterval(500);
+			locationRequest.SetInterval(1000);
+
+			_locationClient.RequestLocationUpdates(locationRequest, this);
+		}
+
+		public void OnDisconnected()
+		{
+		}
+
+		public void OnConnectionFailed(ConnectionResult result)
+		{
 		}
 
 		public void OnLocationChanged(Location location)
 		{
 			this.RaiseLocationUpdatedEvent(location);
-		}
-
-		public void OnProviderDisabled(string provider)
-		{
-		}
-
-		public void OnProviderEnabled(string provider)
-		{
-		}
-
-		public void OnStatusChanged(string provider, Availability status, Bundle extras)
-		{
 		}
 
 		public void Dispose()
@@ -72,10 +70,7 @@ namespace bstrkr.core.android.service.location
 
 		public IntPtr Handle 
 		{
-			get 
-			{
-				throw new NotImplementedException();
-			}
+			get { return _mainActivity.Handle; }
 		}
 
 		private void RaiseLocationUpdatedEvent(Location location)
