@@ -20,7 +20,7 @@ namespace bstrkr.android
 
 		protected override void InitializeFirstChance()
 		{
-			Mvx.RegisterSingleton<IAndroidAppService>(new MainActivity());
+			//Mvx.RegisterSingleton<IAndroidAppService>(new MainActivity());
 			Mvx.LazyConstructAndRegisterSingleton<ILocationService, LocationService>();
 			base.InitializeFirstChance();
 		}
