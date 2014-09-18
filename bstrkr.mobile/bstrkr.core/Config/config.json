@@ -1,5 +1,5 @@
 ﻿{
-  "cities":[
+  "locations":[
     {
       "name": "Саранск",
       "lat": 54.0,
@@ -11,6 +11,12 @@
       "lat": 54.0,
       "lon": 45.0,
       "endpoint": "http://bus62.ru/"
+    },
+	{
+      "name": "Курск",
+      "lat": 54.0,
+      "lon": 45.0,
+      "endpoint": "http://bus46.ru/"
     }
   ]
 }
