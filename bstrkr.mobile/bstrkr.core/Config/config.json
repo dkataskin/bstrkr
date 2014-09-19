@@ -17,6 +17,12 @@
       "lat": 54.0,
       "lon": 45.0,
       "endpoint": "http://bus46.ru/"
+    },
+	{
+      "name": "Чебоксары",
+      "lat": 54.0,
+      "lon": 45.0,
+      "endpoint": "http://bus62.ru/cheboksari"
     }
   ]
 }
