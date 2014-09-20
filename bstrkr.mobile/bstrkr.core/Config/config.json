@@ -23,6 +23,12 @@
       "lat": 54.0,
       "lon": 45.0,
       "endpoint": "http://bus62.ru/cheboksari"
+    },
+	{
+      "name": "Тамбов",
+      "lat": 54.0,
+      "lon": 45.0,
+      "endpoint": "http://bus68.ru"
     }
   ]
 }
