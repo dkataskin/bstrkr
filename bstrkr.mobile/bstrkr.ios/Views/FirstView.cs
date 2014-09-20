@@ -7,27 +7,24 @@ using MonoTouch.Foundation;
 
 namespace bstrkr.ios.Views
 {
-    [Register("MainView")]
-    public class MainView : MvxViewController
+    [Register("FirstView")]
+    public class FirstView : MvxViewController
     {
         public override void ViewDidLoad()
         {
-            this.View = new UIView(){ BackgroundColor = UIColor.White };
+            View = new UIView(){ BackgroundColor = UIColor.White};
             base.ViewDidLoad();
 
 			// ios7 layout
             if (RespondsToSelector(new Selector("edgesForExtendedLayout")))
-			{
-				this.EdgesForExtendedLayout = UIRectEdge.None;
-			}
+               EdgesForExtendedLayout = UIRectEdge.None;
 			   
             var label = new UILabel(new RectangleF(10, 10, 300, 40));
-            this.Add(label);
-
+            Add(label);
             var textField = new UITextField(new RectangleF(10, 50, 300, 40));
-            this.Add(textField);
+            Add(textField);
 
-            var set = this.CreateBindingSet<MainView, MainViewModel>();
+            var set = this.CreateBindingSet<FirstView, Core.ViewModels.FirstViewModel>();
             set.Bind(label).To(vm => vm.Hello);
             set.Bind(textField).To(vm => vm.Hello);
             set.Apply();

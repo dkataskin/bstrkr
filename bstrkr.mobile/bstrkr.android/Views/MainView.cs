@@ -1,6 +1,9 @@
 using Android.App;
 using Android.OS;
+
 using Cirrious.MvvmCross.Droid.Views;
+
+using bstrkr.core.android.service;
 
 namespace bstrkr.android.Views
 {
