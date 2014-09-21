@@ -129,6 +129,9 @@
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Views\MvxMarkerManager.cs" />
+    <Compile Include="Views\VehicleMarker.cs" />
+    <Compile Include="Views\VehicleMarkerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />

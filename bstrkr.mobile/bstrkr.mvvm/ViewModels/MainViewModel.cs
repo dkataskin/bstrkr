@@ -1,5 +1,8 @@
+using System.Collections.ObjectModel;
+
 using Cirrious.MvvmCross.ViewModels;
 
+using bstrkr.core;
 using bstrkr.core.services.location;
 
 namespace bstrkr.mvvm.viewmodels
@@ -8,31 +11,30 @@ namespace bstrkr.mvvm.viewmodels
     {
 		private readonly ILocationService _locationService;
 
-		private string _hello = "Hello MvvmCross";
+		private Vehicle _vehicle;
 
 		public MainViewModel(ILocationService locationService)
 		{
 			_locationService = locationService;
 			_locationService.LocationUpdated += OnLocationUpdated;
 			_locationService.StartUpdating();
+
+			this.Vehicles = new ObservableCollection<Vehicle>();
 		}
 
 		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
 		{
-		}
-
-        public string Hello
-		{ 
-			get 
-			{ 
-				return this._hello; 
-			}
-
-			set 
-			{ 
-				this._hello = value; 
-				this.RaisePropertyChanged(() => this.Hello); 
+			if (_vehicle == null)
+			{
+				_vehicle = new Vehicle 
+				{
+					Location = new bstrkr.core.spatial.GeoPoint(args.Latitude, args.Longitude)
+				};
+				
+				this.Vehicles.Add(_vehicle);
 			}
 		}
+
+		public ObservableCollection<Vehicle> Vehicles { get; private set; }
     }
 }

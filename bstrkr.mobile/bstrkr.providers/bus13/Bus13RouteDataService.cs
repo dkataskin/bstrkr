@@ -253,7 +253,7 @@ namespace bstrkr.core.providers.bus13
 			};
 		}
 
-		private int CoordToInt(float coord)
+		private int CoordToInt(double coord)
 		{
 			return Convert.ToInt32(coord * 1000000);
 		}
