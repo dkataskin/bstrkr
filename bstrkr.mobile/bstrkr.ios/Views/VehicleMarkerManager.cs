@@ -21,7 +21,8 @@ namespace bstrkr.ios.views
 			return new VehicleMarker 
 			{
 				Position = new CLLocationCoordinate2D(vehicle.Location.Latitude, vehicle.Location.Longitude),
-				Flat = true
+				Flat = true,
+				Rotation = vehicle.Heading
 			};
 		}
 	}
