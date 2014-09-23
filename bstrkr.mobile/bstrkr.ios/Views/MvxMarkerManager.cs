@@ -64,7 +64,11 @@ namespace bstrkr.ios.views
 
 		protected virtual void ReloadAllAnnotations()
 		{
-			//_mapView.RemoveAnnotations(_annotations.Values.Select(x => (NSObject)x).ToArray());
+			foreach (var marker in _markers.Values) 
+			{
+				marker.Map = null;
+			}
+
 			_markers.Clear();
 
 			if (_itemsSource == null)
@@ -139,4 +143,3 @@ namespace bstrkr.ios.views
 		}
 	}
 }
-

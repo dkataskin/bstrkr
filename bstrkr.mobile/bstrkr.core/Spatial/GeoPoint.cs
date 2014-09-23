@@ -38,12 +38,7 @@ namespace bstrkr.core.spatial
 				return false;
 			}
 
-			var geoPoint = obj as GeoPoint;
-			if (geoPoint == null)
-			{
-				return false;
-			}
-
+			var geoPoint = (GeoPoint)obj;
 			return this.Latitude.Equals(geoPoint.Latitude) &&
 				   this.Longitude.Equals(geoPoint.Longitude);
 		}

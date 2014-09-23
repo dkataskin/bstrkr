@@ -35,7 +35,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			private set 
 			{
-				if (_location != value)
+				if (!_location.Equals(value))
 				{
 					_location = value;
 					this.RaisePropertyChanged(() => this.Location);
