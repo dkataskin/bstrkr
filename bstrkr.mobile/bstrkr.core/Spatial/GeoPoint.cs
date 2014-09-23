@@ -25,5 +25,27 @@ namespace bstrkr.core.spatial
 		{
 			return string.Format("({0}, {1})", this.Latitude, this.Longitude);
 		}
+
+		public override int GetHashCode()
+		{
+			return this.Latitude.GetHashCode() ^ this.Longitude.GetHashCode();
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj == null)
+			{
+				return false;
+			}
+
+			var geoPoint = obj as GeoPoint;
+			if (geoPoint == null)
+			{
+				return false;
+			}
+
+			return this.Latitude.Equals(geoPoint.Latitude) &&
+				   this.Longitude.Equals(geoPoint.Longitude);
+		}
 	}
 }

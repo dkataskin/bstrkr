@@ -4,6 +4,7 @@ using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
 using bstrkr.core.services.location;
+using bstrkr.core.spatial;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -12,6 +13,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ILocationService _locationService;
 
 		private Vehicle _vehicle;
+		private GeoPoint _location;
 
 		public MainViewModel(ILocationService locationService)
 		{
@@ -22,19 +24,28 @@ namespace bstrkr.mvvm.viewmodels
 			this.Vehicles = new ObservableCollection<Vehicle>();
 		}
 
-		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
-		{
-			if (_vehicle == null)
+		public ObservableCollection<Vehicle> Vehicles { get; private set; }
+
+		public GeoPoint Location 
+		{ 
+			get 
 			{
-				_vehicle = new Vehicle 
+				return _location;
+			}
+
+			private set 
+			{
+				if (_location != value)
 				{
-					Location = new bstrkr.core.spatial.GeoPoint(args.Latitude, args.Longitude)
-				};
-				
-				this.Vehicles.Add(_vehicle);
+					_location = value;
+					this.RaisePropertyChanged(() => this.Location);
+				}
 			}
 		}
 
-		public ObservableCollection<Vehicle> Vehicles { get; private set; }
+		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
+		{
+			this.Location = new GeoPoint(args.Latitude, args.Longitude);
+		}
     }
 }
