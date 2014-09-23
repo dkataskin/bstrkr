@@ -115,7 +115,6 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\MainView.cs" />
-    <Compile Include="Views\FirstView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
   </ItemGroup>
   <ItemGroup>

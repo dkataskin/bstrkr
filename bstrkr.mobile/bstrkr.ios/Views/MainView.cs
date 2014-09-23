@@ -30,11 +30,6 @@ namespace bstrkr.ios.views
 			_mapView = MapView.FromCamera(RectangleF.Empty, camera);
 			_mapView.MyLocationEnabled = true;
 
-			//CLLocationCoordinate2D coord = new CLLocationCoordinate2D(54.1815305, 45.1812519);
-			//var marker = Marker.FromPosition(coord);
-			//marker.Title = string.Format ("Marker 1");
-			//marker.Map = _mapView;
-
 			View = _mapView;
 
 			_manager = new VehicleMarkerManager(_mapView);
