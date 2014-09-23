@@ -132,6 +132,7 @@
     <Compile Include="Views\MvxMarkerManager.cs" />
     <Compile Include="Views\VehicleMarker.cs" />
     <Compile Include="Views\VehicleMarkerManager.cs" />
+    <Compile Include="Views\MapLocationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />

@@ -37,35 +37,11 @@ namespace bstrkr.ios.views
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
 			set.Bind(_manager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
 			set.Apply();
+
+			'//'this.CreateBinding(_mapView).For(m => m.Camera.)
+			//var anotherSet = this.CreateBinding<MapView>(_mapView);
+			//anotherSet.Bind<MainViewModel>()
 		}
-
-        public override void ViewDidLoad()
-        {
-			base.ViewDidLoad();
-
-			/*
-            this.View = new UIView(){ BackgroundColor = UIColor.White };
-            base.ViewDidLoad();
-
-			// ios7 layout
-            if (RespondsToSelector(new Selector("edgesForExtendedLayout")))
-			{
-				this.EdgesForExtendedLayout = UIRectEdge.None;
-			}
-
-			this.Add(_mapView);
-
-            var label = new UILabel(new RectangleF(10, 10, 300, 40));
-            this.Add(label);
-
-            var textField = new UITextField(new RectangleF(10, 50, 300, 40));
-            Add(textField);
-
-            var set = this.CreateBindingSet<MainView, MainViewModel>();
-            set.Bind(label).To(vm => vm.Hello);
-            set.Bind(textField).To(vm => vm.Hello);
-            set.Apply(); */
-        }
 
 		public override void ViewWillAppear(bool animated)
 		{
