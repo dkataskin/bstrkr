@@ -29,7 +29,7 @@ namespace bstrkr.ios.views
 		public virtual IEnumerable ItemsSource
 		{
 			get { return _itemsSource; }
-			set { SetItemsSource(value); }
+			set { this.SetItemsSource(value); }
 		}
 
 		protected virtual void SetItemsSource(IEnumerable value)

@@ -18,7 +18,8 @@ namespace bstrkr.ios.views
     public class MainView : MvxViewController
     {
 		private MapView _mapView;
-		private VehicleMarkerManager _manager;
+		private VehicleMarkerManager _vehicleMakerManager;
+		private MapLocationManager _mapLocationManager;
 
 		public override void LoadView()
 		{
@@ -30,17 +31,14 @@ namespace bstrkr.ios.views
 			_mapView = MapView.FromCamera(RectangleF.Empty, camera);
 			_mapView.MyLocationEnabled = true;
 
-			View = _mapView;
+			this.View = _mapView;
 
-			_manager = new VehicleMarkerManager(_mapView);
+			_vehicleMakerManager = new VehicleMarkerManager(_mapView);
 
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
-			set.Bind(_manager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
+			set.Bind(_vehicleMakerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
+			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
 			set.Apply();
-
-			'//'this.CreateBinding(_mapView).For(m => m.Camera.)
-			//var anotherSet = this.CreateBinding<MapView>(_mapView);
-			//anotherSet.Bind<MainViewModel>()
 		}
 
 		public override void ViewWillAppear(bool animated)
