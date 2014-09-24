@@ -59,11 +59,11 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\config.json" />
     <None Include="packages.config" />
     <None Include="Resources\bus.png" />
     <None Include="Resources\marsh.png" />
     <None Include="Resources\troll.png" />
+    <None Include="Resources\config.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks">
