@@ -27,13 +27,14 @@ namespace bstrkr.ios.views
 
 			CameraPosition camera = CameraPosition.FromCamera (latitude: 54.1815305, 
 																longitude: 45.1812519, 
-																zoom: 17);
+																zoom: 14);
 			_mapView = MapView.FromCamera(RectangleF.Empty, camera);
 			_mapView.MyLocationEnabled = true;
 
 			this.View = _mapView;
 
 			_vehicleMakerManager = new VehicleMarkerManager(_mapView);
+			_mapLocationManager = new MapLocationManager(_mapView);
 
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
 			set.Bind(_vehicleMakerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
