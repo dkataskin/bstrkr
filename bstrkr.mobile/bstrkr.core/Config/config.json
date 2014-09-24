@@ -2,32 +2,32 @@
   "locations":[
     {
       "name": "Саранск",
-      "lat": 54.0,
-      "lon": 45.0,
+      "latitude": 54.0,
+      "longitude": 45.0,
       "endpoint": "http://bus13.ru/"
     },
     {
       "name": "Рязань",
-      "lat": 54.0,
-      "lon": 45.0,
+      "latitude": 54.0,
+      "longitude": 45.0,
       "endpoint": "http://bus62.ru/"
     },
 	{
       "name": "Курск",
-      "lat": 54.0,
-      "lon": 45.0,
+      "latitude": 54.0,
+      "longitude": 45.0,
       "endpoint": "http://bus46.ru/"
     },
 	{
       "name": "Чебоксары",
-      "lat": 54.0,
-      "lon": 45.0,
+      "latitude": 54.0,
+      "longitude": 45.0,
       "endpoint": "http://bus62.ru/cheboksari"
     },
 	{
       "name": "Тамбов",
-      "lat": 54.0,
-      "lon": 45.0,
+      "latitude": 54.0,
+      "longitude": 45.0,
       "endpoint": "http://bus68.ru"
     }
   ]
