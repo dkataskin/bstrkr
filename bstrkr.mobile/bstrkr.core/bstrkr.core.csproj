@@ -57,13 +57,14 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Location\" />
     <Folder Include="Resources\" />
+    <Folder Include="Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\bus.png" />
-    <None Include="Resources\marsh.png" />
-    <None Include="Resources\troll.png" />
     <None Include="Resources\config.json" />
+    <None Include="Resources\Images\bus.png" />
+    <None Include="Resources\Images\marsh.png" />
+    <None Include="Resources\Images\troll.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks">
