@@ -8,15 +8,48 @@ namespace bstrkr.core.spatial
 
 		private static GeoPoint EmptyLocation = new GeoPoint(0, 0);
 
+		private double _latitude;
+		private double _longitude;
+
 		public GeoPoint(double latitude, double longitude)
 		{
 			this.Latitude = latitude;
 			this.Longitude = longitude;
 		}
 
-		public double Latitude;
+		public double Latitude 
+		{
+			get 
+			{
+				return _latitude;
+			}
 
-		public double Longitude;
+			set 
+			{
+				if (value < -90.0 || value > 90.0)
+				{
+					throw new ArgumentOutOfRangeException("value", "Latitude must be between -90 and 90 degrees.");
+				}
+
+				_latitude = value;
+			}
+		}
+
+		public double Longitude
+		{
+			get
+			{
+				return _longitude;
+			}
+
+			set
+			{
+				if (value < -180.0 || value > 180.0)
+				{
+					throw new ArgumentOutOfRangeException("value", "Longitude must be between -180 and 180 degrees.");
+				}
+			}
+		}
 
 		public static GeoPoint Empty 
 		{ 

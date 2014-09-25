@@ -7,5 +7,10 @@ namespace bstrkr.core.config
 		public ConfigManager()
 		{
 		}
+
+		public BusTrackerConfig GetConfig()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
