@@ -8,9 +8,6 @@ using MonoTouch.NUnit.UI;
 
 namespace bstrkr.ios.tests
 {
-	// The UIApplicationDelegate for the application. This class is responsible for launching the
-	// User Interface of the application, as well as listening (and optionally responding) to
-	// application events from iOS.
 	[Register ("UnitTestAppDelegate")]
 	public partial class UnitTestAppDelegate : UIApplicationDelegate
 	{
@@ -29,15 +26,15 @@ namespace bstrkr.ios.tests
 		{
 			// create a new window instance based on the screen size
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			runner = new TouchRunner (window);
+			runner = new TouchRunner(window);
 
 			// register every tests included in the main application/assembly
-			runner.Add (System.Reflection.Assembly.GetExecutingAssembly ());
+			runner.Add(System.Reflection.Assembly.GetExecutingAssembly());
 
-			window.RootViewController = new UINavigationController (runner.GetViewController ());
+			window.RootViewController = new UINavigationController(runner.GetViewController());
 			
 			// make the window visible
-			window.MakeKeyAndVisible ();
+			window.MakeKeyAndVisible();
 			
 			return true;
 		}
