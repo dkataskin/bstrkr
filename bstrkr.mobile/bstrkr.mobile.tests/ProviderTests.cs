@@ -8,7 +8,7 @@ using bstrkr.core.providers;
 using bstrkr.core.providers.bus13;
 using bstrkr.core.spatial;
 
-namespace bstrkr.test
+namespace bstrkr.tests
 {
 	[TestFixture]
 	public class ProviderTests

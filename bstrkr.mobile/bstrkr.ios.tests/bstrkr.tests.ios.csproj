@@ -103,6 +103,9 @@
     <Compile Include="..\bstrkr.mobile.tests\SpatialTests.cs">
       <Link>SpatialTests.cs</Link>
     </Compile>
+    <Compile Include="..\bstrkr.mobile.tests\ProviderTests.cs">
+      <Link>ProviderTests.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
@@ -114,6 +117,10 @@
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
       <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
       <Name>bstrkr.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.providers\bstrkr.providers.csproj">
+      <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
+      <Name>bstrkr.providers</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
