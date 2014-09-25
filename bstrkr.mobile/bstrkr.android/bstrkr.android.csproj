@@ -131,6 +131,15 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\layout\MainView.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus.png">
+      <Link>Resources\drawable\bus.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\marsh.png">
+      <Link>Resources\drawable\marsh.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\troll.png">
+      <Link>Resources\drawable\troll.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -157,5 +166,10 @@
       <Version>19.0.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
+      <Link>Assets\config.json</Link>
+    </AndroidAsset>
   </ItemGroup>
 </Project>

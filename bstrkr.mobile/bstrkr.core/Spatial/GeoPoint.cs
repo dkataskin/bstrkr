@@ -48,6 +48,8 @@ namespace bstrkr.core.spatial
 				{
 					throw new ArgumentOutOfRangeException("value", "Longitude must be between -180 and 180 degrees.");
 				}
+
+				_longitude = value;
 			}
 		}
 
@@ -61,7 +63,7 @@ namespace bstrkr.core.spatial
 			return (degrees * Math.PI) / 180;
 		}
 
-		public double Distance(GeoPoint point)
+		public double DistanceTo(GeoPoint point)
 		{
 			var lat1 = ToRadians(this.Latitude);
 			var lat2 = ToRadians(point.Latitude);

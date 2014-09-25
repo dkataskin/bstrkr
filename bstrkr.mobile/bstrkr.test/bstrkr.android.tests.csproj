@@ -71,6 +71,9 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderTests.cs" />
+    <Compile Include="..\bstrkr.mobile.tests\SpatialTests.cs">
+      <Link>SpatialTests.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -84,10 +87,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\bstrkr.tests\bstrkr.tests.csproj">
-      <Project>{C849DE3F-6089-4BEE-9E42-7A0001C6EE2D}</Project>
-      <Name>bstrkr.tests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
       <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
       <Name>bstrkr.core</Name>
@@ -96,5 +95,10 @@
       <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
       <Name>bstrkr.providers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
+      <Link>Assets\config.json</Link>
+    </AndroidAsset>
   </ItemGroup>
 </Project>
