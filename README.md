@@ -1,4 +1,4 @@
 bstrkr
 ======
 
-Public transportation routes mobile app
+Public transportation monitoring mobile app
