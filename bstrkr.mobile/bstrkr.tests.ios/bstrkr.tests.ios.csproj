@@ -100,10 +100,10 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="UnitTestAppDelegate.cs" />
-    <Compile Include="..\bstrkr.mobile.tests\SpatialTests.cs">
+    <Compile Include="..\bstrkr.tests\SpatialTests.cs">
       <Link>SpatialTests.cs</Link>
     </Compile>
-    <Compile Include="..\bstrkr.mobile.tests\ProviderTests.cs">
+    <Compile Include="..\bstrkr.tests\ProviderTests.cs">
       <Link>ProviderTests.cs</Link>
     </Compile>
   </ItemGroup>
