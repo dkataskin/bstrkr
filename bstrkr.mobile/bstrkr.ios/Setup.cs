@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.ViewModels;
 using MonoTouch.UIKit;
 
 using bstrkr.core.config;
+using bstrkr.core.ios.config;
 using bstrkr.core.ios.service.location;
 using bstrkr.core.services.location;
 using bstrkr.mvvm;
@@ -23,9 +24,7 @@ namespace bstrkr.ios
 
 		protected override void InitializeFirstChance()
 		{
-			var configSource = File.ReadAllText("./config.json");
-
-			Mvx.RegisterSingleton<IConfigManager>(new ConfigManager(configSource));
+			Mvx.LazyConstructAndRegisterSingleton<IConfigManager, ConfigManager>();
 			Mvx.LazyConstructAndRegisterSingleton<ILocationService, LocationService>();
 
 			base.InitializeFirstChance();

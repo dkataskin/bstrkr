@@ -46,7 +46,8 @@
     <Compile Include="Config\BusTrackerConfig.cs" />
     <Compile Include="Config\BusTrackerLocation.cs" />
     <Compile Include="Config\IConfigManager.cs" />
-    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Consts\AppConsts.cs" />
+    <Compile Include="Config\ConfigManagerBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -58,6 +59,7 @@
     <Folder Include="Services\Location\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\Images\" />
+    <Folder Include="Consts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

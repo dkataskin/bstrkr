@@ -5,6 +5,7 @@ using Cirrious.MvvmCross.ViewModels;
 using bstrkr.core;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
+using bstrkr.core.config;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -14,7 +15,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private GeoPoint _location;
 
-		public MainViewModel(ILocationService locationService)
+		public MainViewModel(IConfigManager configManager, ILocationService locationService)
 		{
 			_locationService = locationService;
 			_locationService.LocationUpdated += OnLocationUpdated;
