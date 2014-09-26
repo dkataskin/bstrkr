@@ -12,7 +12,6 @@ namespace bstrkr.mvvm.viewmodels
     {
 		private readonly ILocationService _locationService;
 
-		private Vehicle _vehicle;
 		private GeoPoint _location;
 
 		public MainViewModel(ILocationService locationService)
