@@ -32,14 +32,21 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>..\packages\Microsoft.Bcl.Immutable.1.0.34\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\routesResponse.json" />
+    <None Include="Resources\zonesResponse.json" />
+    <None Include="Resources\vehicleMarkersResponse.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SpatialTests.cs" />
     <Compile Include="ProviderTests.cs" />
+    <Compile Include="Providers\TestProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
@@ -50,5 +57,9 @@
       <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
       <Name>bstrkr.providers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Providers\" />
   </ItemGroup>
 </Project>
