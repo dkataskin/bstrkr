@@ -116,6 +116,18 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="..\bstrkr.core\Resources\config.json">
+      <Link>Resources\config.json</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\bus.png">
+      <Link>Resources\bus.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\marsh.png">
+      <Link>Resources\marsh.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\troll.png">
+      <Link>Resources\troll.png</Link>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
