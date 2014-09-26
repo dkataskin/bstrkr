@@ -29,6 +29,12 @@
       "latitude": 54.0,
       "longitude": 45.0,
       "endpoint": "http://bus68.ru"
+    },
+	{
+      "name": "Орел",
+      "latitude": 54.0,
+      "longitude": 45.0,
+      "endpoint": "http://bu57.ru"
     }
   ]
 }
