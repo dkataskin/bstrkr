@@ -47,6 +47,7 @@
     <Compile Include="SpatialTests.cs" />
     <Compile Include="ProviderTests.cs" />
     <Compile Include="Providers\TestProvider.cs" />
+    <Compile Include="ConfigManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
