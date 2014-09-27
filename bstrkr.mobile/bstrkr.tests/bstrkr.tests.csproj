@@ -48,6 +48,7 @@
     <Compile Include="ProviderTests.cs" />
     <Compile Include="Providers\TestProvider.cs" />
     <Compile Include="ConfigManagerTests.cs" />
+    <Compile Include="Services\TestLocationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
@@ -62,5 +63,6 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Providers\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

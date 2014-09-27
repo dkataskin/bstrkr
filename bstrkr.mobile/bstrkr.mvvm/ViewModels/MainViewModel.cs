@@ -52,7 +52,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
 		{
-			this.Location = new GeoPoint(args.Latitude, args.Longitude);
+			this.Location = args.Location;
 
 			this.UpdateLiveDataProvider();
 		}

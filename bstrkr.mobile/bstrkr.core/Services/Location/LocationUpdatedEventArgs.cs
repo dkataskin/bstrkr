@@ -1,17 +1,21 @@
 ﻿using System;
 
+using bstrkr.core.spatial;
+
 namespace bstrkr.core.services.location
 {
 	public class LocationUpdatedEventArgs : EventArgs
 	{
-		public LocationUpdatedEventArgs(double latitude, double longitude)
+		public LocationUpdatedEventArgs(GeoPoint location)
 		{
-			this.Latitude = latitude;
-			this.Longitude = longitude;
+			this.Location = location;
 		}
 
-		public double Latitude { get; private set; }
+		public LocationUpdatedEventArgs(double latitude, double longitude)
+		{
+			this.Location = new GeoPoint(latitude, longitude);
+		}
 
-		public double Longitude { get; private set; }
+		public GeoPoint Location { get; private set; }
 	}
 }
