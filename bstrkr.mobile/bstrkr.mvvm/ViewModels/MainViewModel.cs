@@ -74,7 +74,9 @@ namespace bstrkr.mvvm.viewmodels
 
 				if (location.Item1 <= AppConsts.MaxDistance)
 				{
-					_liveDataProvider = new Bus13LiveDataProvider(location.Item2.Endpoint, location.Item2.LocationId)
+					_liveDataProvider = new Bus13LiveDataProvider(
+														location.Item2.Endpoint, 
+														location.Item2.LocationId);
 				}
 				else
 				{
