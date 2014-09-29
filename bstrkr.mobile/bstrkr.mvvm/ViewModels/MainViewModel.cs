@@ -1,14 +1,16 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
 using bstrkr.core.config;
+using bstrkr.core.consts;
 using bstrkr.core.interfaces;
+using bstrkr.core.providers.bus13;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
-using System.Linq;
-using System;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -54,22 +56,35 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			this.Location = args.Location;
 
-			this.UpdateLiveDataProvider();
+			this.SelectLiveDataProvider();
 		}
 
-		private void UpdateLiveDataProvider()
+		private void SelectLiveDataProvider()
 		{
 			if (_liveDataProvider == null && !this.Location.Equals(GeoPoint.Empty))
 			{
 				var config = _configManager.GetConfig();
 
-				var possibleLocation = config.Locations
-											 .Select(x => new Tuple<double, BusTrackerLocation>(
-																						this.Location.DistanceTo(new GeoPoint(x.Latitude, x.Longitude)), 
-																						x))
-											 .OrderBy(x => x.Item1)
-											 .First();
+				var location = config.Locations
+									 .Select(x => new Tuple<double, BusTrackerLocation>(
+																				this.Location.DistanceTo(new GeoPoint(x.Latitude, x.Longitude)), 
+																				x))
+									 .OrderBy(x => x.Item1)
+									 .First();
+
+				if (location.Item1 <= AppConsts.MaxDistance)
+				{
+					_liveDataProvider = new Bus13LiveDataProvider(location.Item2.Endpoint, location.Item2.LocationId)
+				}
+				else
+				{
+					this.OnLocationUnknown();
+				}
 			}
+		}
+
+		private void OnLocationUnknown()
+		{
 		}
     }
 }

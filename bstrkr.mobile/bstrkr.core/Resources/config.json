@@ -2,45 +2,45 @@
   "locations":[
     {
       "name": "Саранск",
+	  "locationId": "saransk",
       "latitude": 54.0,
       "longitude": 45.0,
       "endpoint": "http://bus13.ru/"
     },
     {
       "name": "Рязань",
+	  "locationId": "ryazan",
       "latitude": 54.0,
       "longitude": 45.0,
       "endpoint": "http://bus62.ru/"
     },
 	{
       "name": "Курск",
+	  "locationId": "kursk",
       "latitude": 54.0,
       "longitude": 45.0,
       "endpoint": "http://bus46.ru/"
     },
 	{
       "name": "Чебоксары",
+	  "locationId": "cheboksari",
       "latitude": 54.0,
       "longitude": 45.0,
       "endpoint": "http://bus62.ru/cheboksari"
     },
 	{
       "name": "Тамбов",
+	  "locationId": "tambov",
       "latitude": 54.0,
       "longitude": 45.0,
       "endpoint": "http://bus68.ru"
     },
 	{
       "name": "Орел",
+	  "locationId": "orel",
       "latitude": 54.0,
       "longitude": 45.0,
       "endpoint": "http://bu57.ru"
-    },
-	{
-      "name": "Братск",
-      "latitude": 54.0,
-      "longitude": 45.0,
-      "endpoint": "http://bus62.ru/bratsk"
-    }	
+    }
   ]
 }
