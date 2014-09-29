@@ -27,12 +27,12 @@ namespace bstrkr.tests.services
 
 		public void StartUpdating()
 		{
-			throw new NotImplementedException();
+			_timer.Start();
 		}
 
 		public void StopUpdating()
 		{
-			throw new NotImplementedException();
+			_timer.Stop();
 		}
 
 		private void OnTimerElapsed(object sender, ElapsedEventArgs args)
