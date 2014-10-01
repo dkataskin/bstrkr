@@ -49,7 +49,7 @@ namespace bstrkr.mobile.tests
 		public void SetUp()
 		{
 			_configManager = new ConfigManagerStub(Config);
-			_locationService = new LocationServiceStub(new GeoPoint(54.0, 45.0));
+			_locationService = new LocationServiceStub(new GeoPoint(54.6, 39.7));
 
 			_mainViewModel = new MainViewModel(_configManager, _locationService);
 		}
@@ -64,6 +64,7 @@ namespace bstrkr.mobile.tests
 			var location = _mainViewModel.CoarseLocation;
 
 			Assert.IsNotNull(location);
+			Assert.AreEqual("ryazan", location.LocationId);
 		}
 	}
 }
