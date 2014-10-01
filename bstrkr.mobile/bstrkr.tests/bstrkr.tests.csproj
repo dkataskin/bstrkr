@@ -48,7 +48,9 @@
     <Compile Include="ProviderTests.cs" />
     <Compile Include="Providers\TestProvider.cs" />
     <Compile Include="ConfigManagerTests.cs" />
-    <Compile Include="Services\TestLocationService.cs" />
+    <Compile Include="MainViewModelTests.cs" />
+    <Compile Include="Services\ConfigManagerStub.cs" />
+    <Compile Include="Services\LocationServiceStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">

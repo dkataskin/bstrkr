@@ -6,7 +6,7 @@ using bstrkr.core.spatial;
 
 namespace bstrkr.tests.services
 {
-	public class TestLocationService : ILocationService
+	public class LocationServiceStub : ILocationService
 	{
 		private const double LatitudeVariation = 0.01;
 		private const double LongitudeVariation = 0.01;
@@ -16,7 +16,7 @@ namespace bstrkr.tests.services
 
 		private Timer _timer;
 
-		public TestLocationService(GeoPoint location)
+		public LocationServiceStub(GeoPoint location)
 		{
 			_timer = new Timer();
 			_timer.Interval = 1000;
