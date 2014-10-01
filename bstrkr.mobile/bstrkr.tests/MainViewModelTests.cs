@@ -59,7 +59,7 @@ namespace bstrkr.mobile.tests
 		{
 			_locationService.StartUpdating();
 
-			Thread.Sleep(500);
+			Thread.Sleep(900);
 
 			var location = _mainViewModel.CoarseLocation;
 

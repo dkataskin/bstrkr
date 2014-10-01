@@ -7,16 +7,16 @@ namespace bstrkr.core.config
 {
 	public abstract class ConfigManagerBase : IConfigManager
 	{
-		private BusTrackerConfig _config;
+		private Lazy<BusTrackerConfig> _config;
 
 		public ConfigManagerBase()
 		{
-			_config = this.ReadConfig();
+			_config = new Lazy<BusTrackerConfig>(this.ReadConfig);
 		}
 
 		public BusTrackerConfig GetConfig()
 		{
-			return _config;
+			return _config.Value;
 		}
 
 		private BusTrackerConfig ReadConfig()
