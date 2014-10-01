@@ -65,7 +65,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			private set 
 			{
-				if (!_coarseLocation.Equals(value))
+				if (_coarseLocation != value)
 				{
 					_coarseLocation = value;
 					this.RaisePropertyChanged(() => this.CoarseLocation);
@@ -95,6 +95,8 @@ namespace bstrkr.mvvm.viewmodels
 
 				if (location.Item1 <= AppConsts.MaxDistance)
 				{
+					this.CoarseLocation = location.Item2;
+
 					_liveDataProvider = new Bus13LiveDataProvider(
 														location.Item2.Endpoint, 
 														location.Item2.LocationId,
