@@ -16,11 +16,15 @@ namespace bstrkr.mvvm.viewmodels
 {
     public class MainViewModel : MvxViewModel
     {
+		private const int UpdateInterval = 1000;
+
 		private readonly ILocationService _locationService;
 		private readonly IConfigManager _configManager;
 
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
+
+		private BusTrackerLocation _coarseLocation;
 
 		public MainViewModel(IConfigManager configManager, ILocationService locationService)
 		{
@@ -52,6 +56,23 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public BusTrackerLocation CoarseLocation
+		{
+			get 
+			{ 
+				return _coarseLocation; 
+			}
+
+			private set 
+			{
+				if (!_coarseLocation.Equals(value))
+				{
+					_coarseLocation = value;
+					this.RaisePropertyChanged(() => this.CoarseLocation);
+				}
+			}
+		}
+
 		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
 		{
 			this.Location = args.Location;
@@ -76,7 +97,8 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_liveDataProvider = new Bus13LiveDataProvider(
 														location.Item2.Endpoint, 
-														location.Item2.LocationId);
+														location.Item2.LocationId,
+														TimeSpan.FromMilliseconds(UpdateInterval));
 				}
 				else
 				{

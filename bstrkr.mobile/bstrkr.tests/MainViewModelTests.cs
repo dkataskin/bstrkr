@@ -2,9 +2,12 @@
 
 using NUnit.Framework;
 
+using bstrkr.core.config;
+using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.tests.services;
+using System.Threading;
 
 namespace bstrkr.mobile.tests
 {
@@ -36,19 +39,28 @@ namespace bstrkr.mobile.tests
     }
 	]
 }";
+		private IConfigManager _configManager;
+		private ILocationService _locationService;
+
+		private MainViewModel _mainViewModel;
+
 		[SetUp]
 		public void SetUp()
 		{
+			_configManager = new ConfigManagerStub(Config);
+			_locationService = new LocationServiceStub(new GeoPoint(54.0, 45.0));
+
+			_mainViewModel = new MainViewModel(_configManager, _locationService);
 		}
 
 		[Test]
 		public void CanDetectLocation()
 		{
-			var configManagerStub = new ConfigManagerStub("{}");
-			var locationServiceStub = new LocationServiceStub(new GeoPoint(54.0, 45.0));
+			_locationService.StartUpdating();
 
+			Thread.Sleep(500);
 
-			var viewModel = new MainViewModel(configManagerStub, locationServiceStub);
+			//_mainViewModel.ro
 		}
 	}
 }

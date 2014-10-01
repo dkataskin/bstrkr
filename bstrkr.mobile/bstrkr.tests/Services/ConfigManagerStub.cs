@@ -2,7 +2,7 @@
 
 using bstrkr.core.config;
 
-namespace Services
+namespace bstrkr.tests.services
 {
 	public class ConfigManagerStub : ConfigManagerBase
 	{
