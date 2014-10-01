@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using bstrkr.core;
 using bstrkr.core.interfaces;
 
-namespace bstrkr.tests.providers
+namespace bstrkr.tests.infrastructure.providers
 {
 	public class TestProvider : ILiveDataProvider
 	{

@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Timers;
+using System.Threading;
+using System.Threading.Tasks;
 
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 
-namespace bstrkr.tests.services
+namespace bstrkr.tests.infrastructure.services
 {
 	public class LocationServiceStub : ILocationService
 	{
@@ -14,28 +15,50 @@ namespace bstrkr.tests.services
 		private readonly GeoPoint _location;
 		private readonly Lazy<Random> _rnd = new Lazy<Random>();
 
-		private Timer _timer;
+		private CancellationTokenSource _tokenSource;
+		private Task _updateTask;
 
 		public LocationServiceStub(GeoPoint location)
 		{
-			_timer = new Timer();
-			_timer.Interval = 1000;
-			_timer.Elapsed += this.OnTimerElapsed;
+			_location = location;
 		}
 
 		public event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
 
 		public void StartUpdating()
 		{
-			_timer.Start();
+			_tokenSource = new CancellationTokenSource();
+			_updateTask = Task.Factory.StartNew(
+				() => this.UpdateInLoop(TimeSpan.FromMilliseconds(500), _tokenSource.Token), 
+				_tokenSource.Token);
 		}
 
 		public void StopUpdating()
 		{
-			_timer.Stop();
+			_tokenSource.Cancel();
+			_updateTask.Wait();
+
+			_tokenSource = null;
+			_updateTask = null;
 		}
 
-		private void OnTimerElapsed(object sender, ElapsedEventArgs args)
+		private void UpdateInLoop(TimeSpan delayInterval, CancellationToken token)
+		{
+			try
+			{
+				while(!token.IsCancellationRequested)
+				{
+					Task.Delay(Convert.ToInt32(delayInterval.TotalMilliseconds)).Wait(token);
+
+					this.UpdateLocation();
+				}
+			}
+			catch (OperationCanceledException e)
+			{
+			}
+		}
+
+		private void UpdateLocation()
 		{
 			var lat = this.Variate(_location.Latitude, LatitudeVariation);
 			var lon = this.Variate(_location.Longitude, LongitudeVariation);

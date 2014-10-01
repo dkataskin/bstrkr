@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using NUnit.Framework;
 
@@ -6,8 +7,8 @@ using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
-using bstrkr.tests.services;
-using System.Threading;
+using bstrkr.mvvm.viewmodels;
+using bstrkr.tests.infrastructure.services;
 
 namespace bstrkr.mobile.tests
 {
@@ -60,7 +61,9 @@ namespace bstrkr.mobile.tests
 
 			Thread.Sleep(500);
 
-			//_mainViewModel.ro
+			var location = _mainViewModel.CoarseLocation;
+
+			Assert.IsNotNull(location);
 		}
 	}
 }

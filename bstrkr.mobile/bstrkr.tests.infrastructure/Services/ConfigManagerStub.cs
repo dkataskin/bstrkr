@@ -2,7 +2,7 @@
 
 using bstrkr.core.config;
 
-namespace bstrkr.tests.services
+namespace bstrkr.tests.infrastructure.services
 {
 	public class ConfigManagerStub : ConfigManagerBase
 	{
@@ -19,4 +19,3 @@ namespace bstrkr.tests.services
 		}
 	}
 }
-

@@ -39,18 +39,12 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\routesResponse.json" />
-    <None Include="Resources\zonesResponse.json" />
-    <None Include="Resources\vehicleMarkersResponse.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SpatialTests.cs" />
     <Compile Include="ProviderTests.cs" />
-    <Compile Include="Providers\TestProvider.cs" />
     <Compile Include="ConfigManagerTests.cs" />
     <Compile Include="MainViewModelTests.cs" />
-    <Compile Include="Services\ConfigManagerStub.cs" />
-    <Compile Include="Services\LocationServiceStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
@@ -64,6 +58,10 @@
     <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
       <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
       <Name>bstrkr.mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.tests.infrastructure\bstrkr.tests.infrastructure.csproj">
+      <Project>{FC611476-8401-4774-A5C1-0F8EFF58A1D2}</Project>
+      <Name>bstrkr.tests.infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
