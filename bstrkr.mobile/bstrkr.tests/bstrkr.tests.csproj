@@ -61,6 +61,10 @@
       <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
       <Name>bstrkr.providers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
+      <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
+      <Name>bstrkr.mvvm</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
