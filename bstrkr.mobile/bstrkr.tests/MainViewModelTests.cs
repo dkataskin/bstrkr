@@ -7,7 +7,6 @@ using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
-using bstrkr.mvvm.viewmodels;
 using bstrkr.tests.infrastructure.services;
 
 namespace bstrkr.mobile.tests
