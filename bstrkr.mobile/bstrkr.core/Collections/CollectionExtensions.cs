@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Collections
+namespace bstrkr.core.collections
 {
 	public static class CollectionExtensions
 	{
