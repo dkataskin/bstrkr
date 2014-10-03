@@ -5,6 +5,7 @@ using System.Linq;
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
+using bstrkr.core.collections;
 using bstrkr.core.config;
 using bstrkr.core.consts;
 using bstrkr.core.interfaces;
@@ -113,6 +114,10 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)
 		{
+			this.Vehicles.Merge(
+							args.Vehicles, 
+							x => x.Id, 
+							(vehicle, update) => vehicle.Location = update.Location);
 		}
 
 		private void OnLocationUnknown()
