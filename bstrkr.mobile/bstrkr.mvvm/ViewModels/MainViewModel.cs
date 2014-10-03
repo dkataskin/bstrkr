@@ -101,12 +101,18 @@ namespace bstrkr.mvvm.viewmodels
 														location.Item2.Endpoint, 
 														location.Item2.LocationId,
 														TimeSpan.FromMilliseconds(UpdateInterval));
+					_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
+					_liveDataProvider.Start();
 				}
 				else
 				{
 					this.OnLocationUnknown();
 				}
 			}
+		}
+
+		private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)
+		{
 		}
 
 		private void OnLocationUnknown()
