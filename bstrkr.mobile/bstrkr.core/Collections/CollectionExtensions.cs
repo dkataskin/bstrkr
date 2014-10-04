@@ -5,32 +5,43 @@ namespace bstrkr.core.collections
 {
 	public static class CollectionExtensions
 	{
-		public static MergeStats Merge<T, TKey>(
+		public static void Merge<T, TKey>(
 			this ICollection<T> collection,
 			IEnumerable<T> updates,
 			Func<T, TKey> keySelector,
 			Action<T, T> updateFactory) where T : class
 		{
-			return Merge(collection, updates, keySelector, item => item, updateFactory);
+			Merge(collection, updates, keySelector, item => item, updateFactory);
 		}
 
-		public static MergeStats Merge<T, TKey>(
+		public static void Merge<T, TKey>(
+			this ICollection<T> collection,
+			IEnumerable<T> updates,
+			Func<T, TKey> keySelector,
+			Action<T, T> updateFactory,
+			MergeMode mergeMode) where T : class
+		{
+			Merge(collection, updates, keySelector, keySelector, item => item, updateFactory, mergeMode);
+		}
+
+		public static void Merge<T, TKey>(
 			this ICollection<T> collection, 
 			IEnumerable<T> updates,
 			Func<T, TKey> keySelector,
 			Func<T, T> addFactory,
 			Action<T, T> updateFactory) where T : class
 		{
-			return Update(collection, updates, keySelector, keySelector, addFactory, updateFactory);
+			Merge(collection, updates, keySelector, keySelector, addFactory, updateFactory, MergeMode.Full);
 		}
 
-		public static MergeStats Update<T, V, TKey>(
+		public static void Merge<T, V, TKey>(
 			this ICollection<T> collection,
 			IEnumerable<V> updates,
 			Func<T, TKey> itemKeySelector,
 			Func<V, TKey> updateKeySelector,
 			Func<V, T> addFactory,
-			Action<T, V> updateFactory) where T : class
+			Action<T, V> updateFactory,
+			MergeMode mergeMode) where T : class
 		{
 			var newItems = 0;
 			var updatedItems = 0;
@@ -38,9 +49,13 @@ namespace bstrkr.core.collections
 
 			if (updates == null)
 			{
-				deletedItems = collection.Count;
-				collection.Clear();
-				return new MergeStats(0, 0, deletedItems);
+				if (mergeMode == MergeMode.Full)
+				{
+					deletedItems = collection.Count;
+					collection.Clear();
+				}
+
+				return;
 			}
 
 			var sourceDict = new Dictionary<TKey, T>();
@@ -55,20 +70,23 @@ namespace bstrkr.core.collections
 				updatesDict[updateKeySelector(item)] = item;
 			}
 
-			var removedKeys = new List<TKey>();
-			foreach (TKey key in sourceDict.Keys)
+			if (mergeMode == MergeMode.Full)
 			{
-				if (!updatesDict.ContainsKey(key))
+				var removedKeys = new List<TKey>();
+				foreach (TKey key in sourceDict.Keys)
 				{
-					removedKeys.Add(key);
-					deletedItems++;
+					if (!updatesDict.ContainsKey(key))
+					{
+						removedKeys.Add(key);
+						deletedItems++;
+					}
 				}
-			}
 
-			foreach (var key in removedKeys)
-			{
-				collection.Remove(sourceDict[key] as T);
-				sourceDict.Remove(key);
+				foreach (var key in removedKeys)
+				{
+					collection.Remove(sourceDict[key] as T);
+					sourceDict.Remove(key);
+				}
 			}
 
 			foreach (var item in updates)
@@ -85,24 +103,6 @@ namespace bstrkr.core.collections
 					newItems++;
 				}
 			}
-
-			return new MergeStats(newItems, updatedItems, deletedItems);
-		}
-
-		public class MergeStats
-		{
-			public MergeStats(int newItems, int updatedItems, int deletedItems)
-			{
-				this.NewItems = newItems;
-				this.UpdatedItems = updatedItems;
-				this.DeletedItems = deletedItems;
-			}
-
-			public int NewItems { get; private set; }
-
-			public int UpdatedItems { get; private set; }
-
-			public int DeletedItems { get; private set; }
 		}
 	}
 }

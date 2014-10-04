@@ -117,7 +117,8 @@ namespace bstrkr.mvvm.viewmodels
 			this.Vehicles.Merge(
 							args.Vehicles, 
 							x => x.Id, 
-							(vehicle, update) => vehicle.Location = update.Location);
+							(vehicle, update) => vehicle.Location = update.Location,
+							MergeMode.Update);
 		}
 
 		private void OnLocationUnknown()
