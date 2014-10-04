@@ -43,15 +43,10 @@ namespace bstrkr.core.collections
 			Action<T, V> updateFactory,
 			MergeMode mergeMode) where T : class
 		{
-			var newItems = 0;
-			var updatedItems = 0;
-			var deletedItems = 0;
-
 			if (updates == null)
 			{
 				if (mergeMode == MergeMode.Full)
 				{
-					deletedItems = collection.Count;
 					collection.Clear();
 				}
 
@@ -78,7 +73,6 @@ namespace bstrkr.core.collections
 					if (!updatesDict.ContainsKey(key))
 					{
 						removedKeys.Add(key);
-						deletedItems++;
 					}
 				}
 
@@ -95,12 +89,10 @@ namespace bstrkr.core.collections
 				if (sourceDict.ContainsKey(key))
 				{
 					updateFactory(sourceDict[key] as T, item);
-					updatedItems++;
 				}
 				else
 				{
 					collection.Add(addFactory(item));
-					newItems++;
 				}
 			}
 		}

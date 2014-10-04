@@ -12,6 +12,7 @@ using bstrkr.core.interfaces;
 using bstrkr.core.providers.bus13;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
+using System.Diagnostics;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -114,11 +115,19 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)
 		{
-			this.Vehicles.Merge(
-							args.Vehicles, 
-							x => x.Id, 
-							(vehicle, update) => vehicle.Location = update.Location,
-							MergeMode.Update);
+			try
+			{
+				this.Dispatcher.RequestMainThreadAction(() =>
+												this.Vehicles.Merge(
+													args.Vehicles, 
+													x => x.Id, 
+													(vehicle, update) => vehicle.Location = update.Location,
+													MergeMode.Update));
+			} 
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.ToString());
+			}
 		}
 
 		private void OnLocationUnknown()
