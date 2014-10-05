@@ -22,6 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private readonly ILocationService _locationService;
 		private readonly IConfigManager _configManager;
+		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
@@ -36,10 +37,10 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService.LocationUpdated += OnLocationUpdated;
 			_locationService.StartUpdating();
 
-			this.Vehicles = new ObservableCollection<Vehicle>();
+			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 		}
 
-		public ObservableCollection<Vehicle> Vehicles { get; private set; }
+		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
 
 		public GeoPoint Location 
 		{ 
@@ -118,10 +119,12 @@ namespace bstrkr.mvvm.viewmodels
 			try
 			{
 				this.Dispatcher.RequestMainThreadAction(() =>
-												this.Vehicles.Merge(
+												_vehicles.Merge(
 													args.Vehicles, 
-													x => x.Id, 
-													(vehicle, update) => vehicle.Location = update.Location,
+													vehicleVM => vehicleVM.VehicleId,
+													vehicle => vehicle.Id, 
+													this.CreateVehicleVM,
+													(vm, update) => vm.Location = update.Location,
 													MergeMode.Update));
 			} 
 			catch (Exception e)
