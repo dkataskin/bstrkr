@@ -130,6 +130,11 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		private VehicleViewModel CreateVehicleVM(Vehicle vehicle)
+		{
+			return new VehicleViewModel(vehicle);
+		}
+
 		private void OnLocationUnknown()
 		{
 		}
