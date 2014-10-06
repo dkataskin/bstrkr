@@ -212,7 +212,7 @@ namespace bstrkr.core.providers.bus13
 
 		private GeoPoint ParseLocation(int latitude, int longitude)
 		{
-			return new GeoPoint(latitude / 1000000f, longitude / 1000000f);
+			return new GeoPoint(latitude / 1000000.0, longitude / 1000000.0);
 		}
 
 		private RouteType ParseRouteType(string routeType)
@@ -220,7 +220,7 @@ namespace bstrkr.core.providers.bus13
 			switch (routeType)
 			{
 				case "Т":
-					return new RouteType("Троллейбс", routeType);
+					return new RouteType("Троллейбус", routeType);
 
 				case "М":
 					return new RouteType("Маршрутное такси", routeType);
@@ -240,17 +240,35 @@ namespace bstrkr.core.providers.bus13
 
 		private Vehicle ParseVehicle(Bus13VehicleLocation bus13Vehicle)
 		{
-			return new Vehicle 
+			var vehicle = new Vehicle 
 			{
 				Id = bus13Vehicle.id,
 				CarPlate = bus13Vehicle.gos_num,
 				Location = this.ParseLocation(bus13Vehicle.lat, bus13Vehicle.lon),
+				Heading = bus13Vehicle.dir,
 				RouteInfo = new VehicleRouteInfo
 				{
 					RouteId = bus13Vehicle.rid.ToString(),
 					DisplayName = bus13Vehicle.rnum
 				}
 			};
+
+			switch (bus13Vehicle.rtype)
+			{
+				case "А": 
+					vehicle.Type = VehicleTypes.Bus;
+					break;
+				
+				case "М":
+					vehicle.Type = VehicleTypes.ShuttleBus;
+					break;
+
+				case "А":
+					vehicle.Type = VehicleTypes.Trolleybus;
+					break;
+			}
+
+			return vehicle;
 		}
 
 		private int CoordToInt(double coord)

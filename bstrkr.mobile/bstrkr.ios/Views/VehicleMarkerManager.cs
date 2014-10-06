@@ -2,9 +2,9 @@
 
 using Google.Maps;
 
-using bstrkr.core;
-
 using MonoTouch.CoreLocation;
+
+using bstrkr.core;
 
 namespace bstrkr.ios.views
 {
@@ -22,7 +22,8 @@ namespace bstrkr.ios.views
 			{
 				Position = new CLLocationCoordinate2D(vehicle.Location.Latitude, vehicle.Location.Longitude),
 				Flat = true,
-				Rotation = vehicle.Heading
+				Rotation = vehicle.Heading,
+				Icon
 			};
 		}
 	}

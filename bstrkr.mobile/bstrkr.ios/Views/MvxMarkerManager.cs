@@ -84,23 +84,23 @@ namespace bstrkr.ios.views
 			switch (args.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
-					AddMarkers(args.NewItems);
+					this.AddMarkers(args.NewItems);
 					break;
 
 				case NotifyCollectionChangedAction.Remove:
-					RemoveMarkers(args.OldItems);
+					this.RemoveMarkers(args.OldItems);
 					break;
 
 				case NotifyCollectionChangedAction.Replace:
-					RemoveMarkers(args.OldItems);
-					AddMarkers(args.NewItems);
+					this.RemoveMarkers(args.OldItems);
+					this.AddMarkers(args.NewItems);
 					break;
 
 				case NotifyCollectionChangedAction.Move:
 					break;
 
 				case NotifyCollectionChangedAction.Reset:
-					ReloadAllAnnotations();
+					this.ReloadAllAnnotations();
 					break;
 
 				default:

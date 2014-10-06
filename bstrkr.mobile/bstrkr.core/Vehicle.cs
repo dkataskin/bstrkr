@@ -15,5 +15,7 @@ namespace bstrkr.core
 		public double Heading { get; set; }
 
 		public VehicleRouteInfo RouteInfo { get; set; }
+
+		public VehicleTypes Type { get; set; }
 	}
 }

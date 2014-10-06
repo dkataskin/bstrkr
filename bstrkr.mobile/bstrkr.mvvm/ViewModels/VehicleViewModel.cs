@@ -12,6 +12,7 @@ namespace bstrkr.mvvm.viewmodels
 		private GeoPoint _location;
 		private string _vehicleId;
 		private string _carPlate;
+		private VehicleTypes _vehicleType;
 
 		public VehicleViewModel(Vehicle vehicle)
 		{
@@ -32,6 +33,23 @@ namespace bstrkr.mvvm.viewmodels
 				if (!string.Equals(_vehicleId, value))
 				{
 					_vehicleId = value;
+				}
+			}
+		}
+
+		public VehicleTypes VehicleType
+		{
+			get
+			{
+				return _vehicleType;
+			}
+
+			private set
+			{
+				if (_vehicleType != value)
+				{
+					_vehicleType = value;
+					this.RaisePropertyChanged(() => VehicleTypes);
 				}
 			}
 		}
