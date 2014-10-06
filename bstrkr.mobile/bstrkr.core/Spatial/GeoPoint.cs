@@ -8,13 +8,16 @@ namespace bstrkr.core.spatial
 
 		private static GeoPoint EmptyLocation = new GeoPoint(0, 0);
 
-		private double _latitude;
-		private double _longitude;
+		private double _latitude = 0.0;
+		private double _longitude = 0.0;
 
 		public GeoPoint(double latitude, double longitude)
 		{
-			this.Latitude = latitude;
-			this.Longitude = longitude;
+			_latitude = 0.0;
+			_longitude = 0.0;
+
+			Latitude = latitude;
+			Longitude = longitude;
 		}
 
 		public double Latitude 

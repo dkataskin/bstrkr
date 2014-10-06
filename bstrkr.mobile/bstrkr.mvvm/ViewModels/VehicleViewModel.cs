@@ -4,85 +4,100 @@ using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
 using bstrkr.core.spatial;
+using bstrkr.core.services.resources;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleViewModel : MvxViewModel
 	{
-		private GeoPoint _location;
-		private string _vehicleId;
-		private string _carPlate;
-		private VehicleTypes _vehicleType;
+		private readonly IResourceManager _resourceManager;
 
-		public VehicleViewModel(Vehicle vehicle)
+		private object _icon;
+		private Vehicle _vehicle;
+
+		public VehicleViewModel(IResourceManager resourceManager)
 		{
-			VehicleId = vehicle.Id;
-			Location = vehicle.Location;
-			CarPlate = vehicle.CarPlate;
+			_resourceManager = resourceManager;
+		}
+
+		public Vehicle Vehicle
+		{
+			get 
+			{
+				return _vehicle;
+			}
+
+			set
+			{
+				if (_vehicle != value)
+				{
+					_vehicle = value;
+					this.RaisePropertyChanged(() => Vehicle);
+
+					if (value != null)
+					{
+						this.Icon = _resourceManager.GetVehicleMarker(value.Type);
+					}
+
+					this.RaisePropertyChanged(() => VehicleId);
+					this.RaisePropertyChanged(() => VehicleType);
+					this.RaisePropertyChanged(() => CarPlate);
+					this.RaisePropertyChanged(() => Location);
+
+				}
+			}
 		}
 
 		public string VehicleId
 		{
-			get 
-			{ 
-				return _vehicleId; 
-			}
-
-			private set 
-			{
-				if (!string.Equals(_vehicleId, value))
-				{
-					_vehicleId = value;
-				}
-			}
+			get { return _vehicle == null ? string.Empty : _vehicle.Id; }
 		}
 
 		public VehicleTypes VehicleType
 		{
-			get
-			{
-				return _vehicleType;
-			}
+			get { return _vehicle == null ? VehicleTypes.Bus : _vehicle.Type; }
+		}
 
-			private set
-			{
-				if (_vehicleType != value)
-				{
-					_vehicleType = value;
-					this.RaisePropertyChanged(() => VehicleTypes);
-				}
-			}
+		public double VehicleHeading
+		{
+			get { return _vehicle == null ? 0.0 : _vehicle.Heading;}
 		}
 
 		public string CarPlate
 		{
-			get 
-			{ 
-				return _carPlate; 
-			}
-
-			private set 
-			{ 
-				if (!string.Equals(_carPlate, value))
-				{
-					_carPlate = value;
-				}
-			}
+			get { return _vehicle == null ? string.Empty : _vehicle.CarPlate; }
 		}
 
 		public GeoPoint Location
 		{
 			get 
 			{ 
-				return _location; 
+				return _vehicle == null ? GeoPoint.Empty : _vehicle.Location; 
 			}
 
-			set 
+			set
 			{
-				if (!_location.Equals(value))
+				if (_vehicle != null)
 				{
-					_location = value;
+					_vehicle.Location = value;
 					this.RaisePropertyChanged(() => this.Location);
+				}
+			}
+		}
+
+		public object Icon
+		{
+			get 
+			{ 
+				return _icon;
+			}
+
+			private set 
+			{
+				if (_icon != value)
+				{
+					_icon = value;
+					this.RaisePropertyChanged(() => this.Icon);
 				}
 			}
 		}

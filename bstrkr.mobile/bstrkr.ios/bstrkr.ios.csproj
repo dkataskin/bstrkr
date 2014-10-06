@@ -122,8 +122,8 @@
     <BundleResource Include="..\bstrkr.core\Resources\Images\bus.png">
       <Link>Resources\bus.png</Link>
     </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\marsh.png">
-      <Link>Resources\marsh.png</Link>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\shuttle.png">
+      <Link>Resources\shuttle.png</Link>
     </BundleResource>
     <BundleResource Include="..\bstrkr.core\Resources\Images\troll.png">
       <Link>Resources\troll.png</Link>

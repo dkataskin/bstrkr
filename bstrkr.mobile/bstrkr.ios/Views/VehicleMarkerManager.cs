@@ -3,8 +3,10 @@
 using Google.Maps;
 
 using MonoTouch.CoreLocation;
+using MonoTouch.UIKit;
 
 using bstrkr.core;
+using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.ios.views
 {
@@ -16,14 +18,14 @@ namespace bstrkr.ios.views
 
 		protected override VehicleMarker CreateMarker(object item)
 		{
-			var vehicle = item as Vehicle;
+			var vehicleVM = item as VehicleViewModel;
 
 			return new VehicleMarker 
 			{
-				Position = new CLLocationCoordinate2D(vehicle.Location.Latitude, vehicle.Location.Longitude),
+				Position = new CLLocationCoordinate2D(vehicleVM.Location.Latitude, vehicleVM.Location.Longitude),
 				Flat = true,
-				Rotation = vehicle.Heading,
-				Icon
+				Rotation = vehicleVM.VehicleHeading,
+				Icon = vehicleVM.Icon as UIImage
 			};
 		}
 	}

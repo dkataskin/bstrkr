@@ -263,7 +263,7 @@ namespace bstrkr.core.providers.bus13
 					vehicle.Type = VehicleTypes.ShuttleBus;
 					break;
 
-				case "А":
+				case "Т":
 					vehicle.Type = VehicleTypes.Trolleybus;
 					break;
 			}

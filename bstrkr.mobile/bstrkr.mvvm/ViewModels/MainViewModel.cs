@@ -13,6 +13,7 @@ using bstrkr.core.providers.bus13;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using System.Diagnostics;
+using Cirrious.CrossCore;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -135,7 +136,10 @@ namespace bstrkr.mvvm.viewmodels
 
 		private VehicleViewModel CreateVehicleVM(Vehicle vehicle)
 		{
-			return new VehicleViewModel(vehicle);
+			var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
+			vehicleVM.Vehicle = vehicle;
+
+			return vehicleVM;
 		}
 
 		private void OnLocationUnknown()
