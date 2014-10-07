@@ -147,9 +147,6 @@
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus.png">
       <Link>Resources\drawable\bus.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\marsh.png">
-      <Link>Resources\drawable\marsh.png</Link>
-    </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\troll.png">
       <Link>Resources\drawable\troll.png</Link>
     </AndroidResource>
