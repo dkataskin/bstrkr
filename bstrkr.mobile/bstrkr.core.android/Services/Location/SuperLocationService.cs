@@ -25,6 +25,7 @@ namespace bstrkr.core.android.services.location
 						{ 
 							Accuracy = MvxLocationAccuracy.Fine,
 							TimeBetweenUpdates = TimeSpan.FromMilliseconds(1000),
+							MovementThresholdInM = 30
 						},
 						this.OnSuccess,
 						this.OnError);
@@ -49,6 +50,20 @@ namespace bstrkr.core.android.services.location
 
 		private void OnError(MvxLocationError locationError)
 		{
+			switch (locationError.Code)
+			{
+				case MvxLocationErrorCode.PermissionDenied:
+					break;
+
+				case MvxLocationErrorCode.ServiceUnavailable:
+					break;
+
+				case MvxLocationErrorCode.PositionUnavailable:
+					break;
+
+				default:
+					break;
+			}
 		}
 	}
 }
