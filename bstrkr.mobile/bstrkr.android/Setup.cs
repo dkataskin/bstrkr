@@ -5,8 +5,10 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
 
+using bstrkr.core.android.config;
 using bstrkr.core.android.services;
 using bstrkr.core.android.services.location;
+using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.mvvm;
 
@@ -20,6 +22,7 @@ namespace bstrkr.android
 
 		protected override void InitializeFirstChance()
 		{
+			Mvx.LazyConstructAndRegisterSingleton<IConfigManager, ConfigManager>();
 			Mvx.LazyConstructAndRegisterSingleton<ILocationService, SuperLocationService>();
 
 			base.InitializeFirstChance();
