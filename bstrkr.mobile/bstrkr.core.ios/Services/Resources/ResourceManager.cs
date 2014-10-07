@@ -1,32 +1,16 @@
 ﻿using System;
 
-using bstrkr.core.services.resources;
 using MonoTouch.UIKit;
+
+using bstrkr.core.services.resources;
 
 namespace bstrkr.core.ios.services.resources
 {
-	public class ResourceManager : IResourceManager
+	public class ResourceManager : ResourceManagerBase
 	{
-		public object GetVehicleMarker(VehicleTypes type)
+		protected override object GetImageResource(string path)
 		{
-			switch (type)
-			{
-				case VehicleTypes.Bus:
-					return UIImage.FromFile("bus.png");
-					break;
-
-				case VehicleTypes.ShuttleBus:
-					return UIImage.FromFile("shuttle.png");
-					break;
-
-				case VehicleTypes.Trolleybus:
-					return UIImage.FromFile("troll.png");
-					break;
-
-				default:
-					return UIImage.FromFile("bus.png");
-					break;
-			}
+			return UIImage.FromFile(path);
 		}
 	}
 }
