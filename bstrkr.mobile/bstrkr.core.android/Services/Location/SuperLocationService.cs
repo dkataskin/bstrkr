@@ -9,9 +9,9 @@ namespace bstrkr.core.android.services.location
 {
 	public class SuperLocationService : ILocationService
 	{
-		private IMvxGeoLocationWatcher _locationWatcher;
+		private IMvxLocationWatcher _locationWatcher;
 
-		public SuperLocationService(IMvxGeoLocationWatcher locationWatcher)
+		public SuperLocationService(IMvxLocationWatcher locationWatcher)
 		{
 			_locationWatcher = locationWatcher;
 		}
@@ -21,9 +21,10 @@ namespace bstrkr.core.android.services.location
 		public void StartUpdating()
 		{
 			_locationWatcher.Start(
-						new MvxGeoLocationOptions 
+						new MvxLocationOptions 
 						{ 
-							EnableHighAccuracy = true
+							Accuracy = MvxLocationAccuracy.Fine,
+							TimeBetweenUpdates = TimeSpan.FromMilliseconds(1000),
 						},
 						this.OnSuccess,
 						this.OnError);
