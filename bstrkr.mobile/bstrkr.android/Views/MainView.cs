@@ -3,7 +3,7 @@ using Android.OS;
 
 using Cirrious.MvvmCross.Droid.Views;
 
-using bstrkr.core.android.service;
+using bstrkr.core.android.services;
 
 namespace bstrkr.android.Views
 {

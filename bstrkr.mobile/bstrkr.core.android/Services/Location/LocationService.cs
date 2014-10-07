@@ -10,7 +10,7 @@ using Android.OS;
 
 using bstrkr.core.services.location;
 
-namespace bstrkr.core.android.service.location
+namespace bstrkr.core.android.services.location
 {
 	public class LocationService : ILocationService, IGooglePlayServicesClientConnectionCallbacks, 
 	IGooglePlayServicesClientOnConnectionFailedListener, Android.Gms.Location.ILocationListener

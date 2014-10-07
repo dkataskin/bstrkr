@@ -1,7 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+
 using System.Linq;
 
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
@@ -12,8 +15,6 @@ using bstrkr.core.interfaces;
 using bstrkr.core.providers.bus13;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
-using System.Diagnostics;
-using Cirrious.CrossCore;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -36,7 +37,9 @@ namespace bstrkr.mvvm.viewmodels
 
 			_locationService = locationService;
 			_locationService.LocationUpdated += OnLocationUpdated;
-			_locationService.StartUpdating();
+
+			// android requires location watcher to be started on the UI thread
+			this.Dispatcher.RequestMainThreadAction(() => _locationService.StartUpdating());
 
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 		}
