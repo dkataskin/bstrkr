@@ -21,7 +21,7 @@ namespace bstrkr.ios.views
     {
 		private IMapView _mapViewWrapper;
 		private MapView _mapView;
-		private VehicleMarkerManager _vehicleMakerManager;
+		private VehicleMarkerManager _vehicleMarkerManager;
 		private MapLocationManager _mapLocationManager;
 
 		public override void LoadView()
@@ -39,11 +39,11 @@ namespace bstrkr.ios.views
 
 			this.View = _mapView;
 
-			_vehicleMakerManager = new VehicleMarkerManager(_mapViewWrapper);
+			_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
 			_mapLocationManager = new MapLocationManager(_mapViewWrapper);
 
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
-			set.Bind(_vehicleMakerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
+			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
 			set.Apply();
 		}

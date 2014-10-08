@@ -1,17 +1,16 @@
 ﻿using System;
+
 using System.ComponentModel;
 
-using Google.Maps;
-
-using MonoTouch.CoreLocation;
-using MonoTouch.UIKit;
+using Android.Gms.Maps.Model;
 
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using Android.Gms.Maps;
 
-namespace bstrkr.ios.views
+namespace Views
 {
-	public class VehicleMarker : Marker, IVehicleMarker
+	public class VehicleMarker : Marker
 	{
 		private readonly VehicleViewModel _vehicleVM;
 
@@ -21,10 +20,10 @@ namespace bstrkr.ios.views
 		{
 			_vehicleVM = vehicleVM;
 
-			this.Position = new CLLocationCoordinate2D(vehicleVM.Location.Latitude, vehicleVM.Location.Longitude);
+			this.Position = new LatLng(vehicleVM.Location.Latitude, vehicleVM.Location.Longitude);
 			this.Flat = true;
 			this.Rotation = vehicleVM.VehicleHeading;
-			this.Icon = vehicleVM.Icon as UIImage;
+			//this.i = vehicleVM.Icon as UIImage;
 
 			_vehicleVM.PropertyChanged += this.OnVMPropertyChanged;
 		}
@@ -39,8 +38,6 @@ namespace bstrkr.ios.views
 			set 
 			{ 
 				_mapView = value;
-
-				this.Map = value == null ? null : value.MapObject as MapView;
 			}
 		}
 
@@ -48,7 +45,7 @@ namespace bstrkr.ios.views
 		{
 			if (args.PropertyName.Equals("Location"))
 			{
-				this.Position = new CLLocationCoordinate2D(_vehicleVM.Location.Latitude, _vehicleVM.Location.Longitude);
+				this.Position = new LatLng(_vehicleVM.Location.Latitude, _vehicleVM.Location.Longitude);
 			}
 		}
 	}

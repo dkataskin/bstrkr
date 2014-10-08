@@ -130,6 +130,9 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
+    <Compile Include="Views\MonoDroidGoogleMapsView.cs" />
+    <Compile Include="Views\VehicleMarkerManager.cs" />
+    <Compile Include="Views\VehicleMarker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
