@@ -5,8 +5,7 @@ using System.Collections.Specialized;
 
 using Cirrious.CrossCore.Platform;
 using Cirrious.CrossCore.WeakSubscription;
-//using Cirrious.MvvmCross.Binding;
-//using Cirrious.MvvmCross.Binding.Attributes;
+
 using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.maps
@@ -24,7 +23,6 @@ namespace bstrkr.mvvm.maps
 			_mapView = mapView;
 		}
 
-		//[MvxSetToNullAfterBinding]
 		public virtual IEnumerable ItemsSource
 		{
 			get { return _itemsSource; }
@@ -65,7 +63,7 @@ namespace bstrkr.mvvm.maps
 		{
 			foreach (var marker in _markers.Values) 
 			{
-				marker.Map = null;
+				marker.MapView = null;
 			}
 
 			_markers.Clear();
@@ -121,7 +119,7 @@ namespace bstrkr.mvvm.maps
 		{
 			var marker = _markers[item];
 
-			marker.Map = null;
+			marker.MapView = null;
 			_markers.Remove(item);
 		}
 
@@ -138,7 +136,7 @@ namespace bstrkr.mvvm.maps
 			var marker = this.CreateMarker(item);
 			_markers[item] = marker;
 
-			marker.Map = _mapView;
+			marker.MapView = _mapView;
 		}
 	}
 }

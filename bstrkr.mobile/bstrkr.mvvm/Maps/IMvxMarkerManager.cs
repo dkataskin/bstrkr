@@ -6,4 +6,3 @@ namespace bstrkr.mvvm.maps
 	{
 	}
 }
-

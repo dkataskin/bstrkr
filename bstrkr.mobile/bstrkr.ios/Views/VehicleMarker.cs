@@ -14,6 +14,8 @@ namespace bstrkr.ios.views
 	{
 		private readonly VehicleViewModel _vehicleVM;
 
+		private IMapView _mapView;
+
 		public VehicleMarker(VehicleViewModel vehicleVM)
 		{
 			_vehicleVM = vehicleVM;
@@ -26,14 +28,18 @@ namespace bstrkr.ios.views
 			_vehicleVM.PropertyChanged += this.OnVMPropertyChanged;
 		}
 
-		public IMapView Map 
+		public IMapView MapView 
 		{
 			get 
-			{
+			{ 
+				return _mapView; 
 			}
 
 			set 
-			{
+			{ 
+				_mapView = value;
+
+				this.Map = value == null ? null : value.MapObject as MapView;
 			}
 		}
 
@@ -44,6 +50,5 @@ namespace bstrkr.ios.views
 				this.Position = new CLLocationCoordinate2D(_vehicleVM.Location.Latitude, _vehicleVM.Location.Longitude);
 			}
 		}
-
 	}
 }

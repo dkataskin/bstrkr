@@ -1,19 +1,16 @@
 ﻿using System;
 
-using Google.Maps;
-
-using MonoTouch.CoreLocation;
-
 using bstrkr.core.spatial;
+using bstrkr.mvvm.views;
 
-namespace bstrkr.ios.views
+namespace bstrkr.mvvm.maps
 {
 	public class MapLocationManager
 	{
-		private readonly MapView _mapView;
+		private readonly IMapView _mapView;
 		private GeoPoint _location;
 
-		public MapLocationManager(MapView mapView)
+		public MapLocationManager(IMapView mapView)
 		{
 			_mapView = mapView;
 		}
@@ -35,9 +32,7 @@ namespace bstrkr.ios.views
 		{
 			_location = location;
 
-			_mapView.Camera = CameraPosition.FromCamera(
-								new CLLocationCoordinate2D(location.Latitude, location.Longitude),
-								_mapView.Camera.Zoom);
+			_mapView.SetCamera(location.Latitude, location.Longitude, _mapView.Zoom);
 		}
 	}
 }

@@ -2,6 +2,8 @@
 
 using Google.Maps;
 
+using MonoTouch.CoreLocation;
+
 using bstrkr.mvvm.views;
 
 namespace bstrkr.ios.views
@@ -13,6 +15,23 @@ namespace bstrkr.ios.views
 		public MonoTouchGoogleMapsView(MapView mapView)
 		{
 			_mapView = mapView;
+		}
+
+		public object MapObject
+		{
+			get { return _mapView; }
+		}
+
+		public double Zoom 
+		{
+			get { return _mapView.Camera.Zoom; }
+		}
+
+		public void SetCamera(double latitude, double longitude, double zoom)
+		{
+			_mapView.Camera = CameraPosition.FromCamera(
+									new CLLocationCoordinate2D(latitude, longitude),
+									Convert.ToSingle(zoom));
 		}
 	}
 }
