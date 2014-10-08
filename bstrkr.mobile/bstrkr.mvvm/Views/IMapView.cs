@@ -9,5 +9,9 @@ namespace bstrkr.mvvm.views
 		double Zoom { get; }
 
 		void SetCamera(double latitude, double longitude, double zoom);
+
+		void AddMarker(IMarker marker);
+
+		void RemoveMarker(IMarker marker);
 	}
 }

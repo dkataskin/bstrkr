@@ -33,5 +33,15 @@ namespace bstrkr.ios.views
 									new CLLocationCoordinate2D(latitude, longitude),
 									Convert.ToSingle(zoom));
 		}
+
+		public void AddMarker(IMarker marker)
+		{
+			(marker as Marker).Map = _mapView;
+		}
+
+		public void RemoveMarker(IMarker marker)
+		{
+			(marker as Marker).Map = null;
+		}
 	}
 }

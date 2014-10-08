@@ -1,9 +1,10 @@
 ﻿using System;
+using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.mvvm.views
 {
-	public interface IVehicleMarker
+	public interface IVehicleMarker : IMarker
 	{
-		IMapView MapView { get; set; }
+		VehicleViewModel ViewModel { get; }
 	}
 }

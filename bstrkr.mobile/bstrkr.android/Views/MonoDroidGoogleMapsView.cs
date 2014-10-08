@@ -20,7 +20,6 @@ namespace Views
 		{
 			var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(latitude, longitude, Convert.ToSingle(zoom));
 			_map.MoveCamera(cameraUpdate);
-			//_map.CameraPosition = CameraPosition.FromLatLngZoom(new LatLng(latitude, longitude), zoom);
 		}
 
 		public object MapObject 
@@ -31,6 +30,14 @@ namespace Views
 		public double Zoom 
 		{
 			get { return Convert.ToDouble(_map.CameraPosition.Zoom); }
+		}
+
+		public void AddMarker(IMarker marker)
+		{
+		}
+
+		public void RemoveMarker(IMarker marker)
+		{
 		}
 	}
 }
