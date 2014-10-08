@@ -6,10 +6,11 @@ using MonoTouch.CoreLocation;
 using MonoTouch.UIKit;
 
 using bstrkr.mvvm.viewmodels;
+using bstrkr.mvvm.views;
 
 namespace bstrkr.ios.views
 {
-	public class VehicleMarker : Marker
+	public class VehicleMarker : Marker, IVehicleMarker
 	{
 		private readonly VehicleViewModel _vehicleVM;
 
@@ -25,6 +26,17 @@ namespace bstrkr.ios.views
 			_vehicleVM.PropertyChanged += this.OnVMPropertyChanged;
 		}
 
+		public IMapView Map 
+		{
+			get 
+			{
+			}
+
+			set 
+			{
+			}
+		}
+
 		private void OnVMPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName.Equals("Location"))
@@ -32,5 +44,6 @@ namespace bstrkr.ios.views
 				this.Position = new CLLocationCoordinate2D(_vehicleVM.Location.Latitude, _vehicleVM.Location.Longitude);
 			}
 		}
+
 	}
 }
