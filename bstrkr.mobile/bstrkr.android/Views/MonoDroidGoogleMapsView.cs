@@ -4,8 +4,9 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 
 using bstrkr.mvvm.views;
+using bstrkr.android.views;
 
-namespace Views
+namespace bstrkr.android.Views
 {
 	public class MonoDroidGoogleMapsView : IMapView
 	{
@@ -18,7 +19,9 @@ namespace Views
 
 		public void SetCamera(double latitude, double longitude, double zoom)
 		{
-			var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(latitude, longitude, Convert.ToSingle(zoom));
+			var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(
+													new LatLng(latitude, longitude),
+													Convert.ToSingle(zoom));
 			_map.MoveCamera(cameraUpdate);
 		}
 
@@ -34,10 +37,17 @@ namespace Views
 
 		public void AddMarker(IMarker marker)
 		{
+			var markerBase = marker as GoogleMapsMarkerBase;
+			marker.MapView = this;
+
+			markerBase.Marker = _map.AddMarker(markerBase.GetOptions());
 		}
 
 		public void RemoveMarker(IMarker marker)
 		{
+			marker.MapView = null;
+			var markerBase = marker as GoogleMapsMarkerBase;
+			markerBase.Marker.Remove();
 		}
 	}
 }

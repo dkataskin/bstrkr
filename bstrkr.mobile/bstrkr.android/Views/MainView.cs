@@ -10,7 +10,7 @@ using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 
-namespace bstrkr.android.Views
+namespace bstrkr.android.views
 {
     [Activity(Label = "MainView")]
     public class MainView : MvxActivity
@@ -37,7 +37,7 @@ namespace bstrkr.android.Views
 			}
 
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
-			set.Bind(_vehicleMakerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
+			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
 			set.Apply();
 		}
