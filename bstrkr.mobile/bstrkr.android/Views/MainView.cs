@@ -34,6 +34,10 @@ namespace bstrkr.android.views
 			if (map != null) 
 			{
 				map.MyLocationEnabled = true;
+
+				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
+				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
+				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
 			}
 
 			var set = this.CreateBindingSet<MainView, MainViewModel>();

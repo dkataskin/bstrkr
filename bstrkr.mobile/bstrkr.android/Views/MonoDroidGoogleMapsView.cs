@@ -6,7 +6,7 @@ using Android.Gms.Maps.Model;
 using bstrkr.mvvm.views;
 using bstrkr.android.views;
 
-namespace bstrkr.android.Views
+namespace bstrkr.android.views
 {
 	public class MonoDroidGoogleMapsView : IMapView
 	{
