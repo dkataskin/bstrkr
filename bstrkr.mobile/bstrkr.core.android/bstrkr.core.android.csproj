@@ -91,10 +91,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\Location\LocationService.cs" />
-    <Compile Include="Services\IAndroidAppService.cs" />
     <Compile Include="Services\Location\SuperLocationService.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
     <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Services\Resources\ResourceManager.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
@@ -102,6 +102,7 @@
     <Folder Include="Services\" />
     <Folder Include="Services\Location\" />
     <Folder Include="Config\" />
+    <Folder Include="Services\Resources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">

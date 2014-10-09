@@ -107,17 +107,17 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Location.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Location.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Location.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader">
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader.Droid">
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.Droid.dll</HintPath>
-    </Reference>
     <Reference Include="RestSharp.Portable">
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.7.0\lib\portable-net40+sl50+win+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp.Portable.Encodings">
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.7.0\lib\portable-net45+win+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.Encodings.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -129,11 +129,11 @@
     <Compile Include="Views\MainView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Views\MonoDroidGoogleMapsView.cs" />
     <Compile Include="Views\VehicleMarkerManager.cs" />
     <Compile Include="Views\VehicleMarker.cs" />
     <Compile Include="Views\GoogleMapsMarkerBase.cs" />
+    <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

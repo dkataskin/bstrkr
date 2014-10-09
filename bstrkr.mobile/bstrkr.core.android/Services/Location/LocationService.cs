@@ -18,9 +18,9 @@ namespace bstrkr.core.android.services.location
 		private Activity _mainActivity;
 		private LocationClient _locationClient;
 
-		public LocationService(IAndroidAppService androidAppService)
+		public LocationService()
 		{
-			_mainActivity = androidAppService.GetMainActivity();
+			//_mainActivity = androidAppService.GetMainActivity();
 			_locationClient = new LocationClient(_mainActivity, this, this);
 		}
 
