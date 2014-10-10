@@ -118,9 +118,7 @@ namespace bstrkr.mvvm.maps
 		protected virtual void RemoveMarkerFor(object item)
 		{
 			var marker = _markers[item];
-
-			marker.MapView = null;
-			_markers.Remove(item);
+			_mapView.RemoveMarker(marker);
 		}
 
 		protected virtual void AddMarkers(IEnumerable newItems)
@@ -136,7 +134,7 @@ namespace bstrkr.mvvm.maps
 			var marker = this.CreateMarker(item);
 			_markers[item] = marker;
 
-			marker.MapView = _mapView;
+			_mapView.AddMarker(marker);
 		}
 	}
 }
