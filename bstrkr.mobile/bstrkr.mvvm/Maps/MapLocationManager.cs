@@ -32,7 +32,10 @@ namespace bstrkr.mvvm.maps
 		{
 			_location = location;
 
-			_mapView.SetCamera(location.Latitude, location.Longitude, _mapView.Zoom);
+			if (!GeoPoint.Empty.Equals(location))
+			{
+				_mapView.SetCamera(location.Latitude, location.Longitude, _mapView.Zoom);
+			}
 		}
 	}
 }
