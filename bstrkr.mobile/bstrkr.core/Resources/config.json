@@ -41,6 +41,13 @@
       "latitude": 52.9783477,
       "longitude": 36.1129104,
       "endpoint": "http://bu57.ru/php/"
+    },
+	{
+      "name": "Новгород",
+	  "locationId": "novgorod",
+      "latitude": 58.5276176,
+      "longitude": 31.2597131,
+      "endpoint": "http://bus62.ru/novgorod/php/"
     }
   ]
 }
