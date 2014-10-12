@@ -3,8 +3,8 @@
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
-using bstrkr.core.spatial;
 using bstrkr.core.services.resources;
+using bstrkr.core.spatial;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -32,18 +32,17 @@ namespace bstrkr.mvvm.viewmodels
 				if (_vehicle != value)
 				{
 					_vehicle = value;
-					this.RaisePropertyChanged(() => Vehicle);
+					this.RaisePropertyChanged(() => this.Vehicle);
 
 					if (value != null)
 					{
 						this.Icon = _resourceManager.GetVehicleMarker(value.Type);
 					}
 
-					this.RaisePropertyChanged(() => VehicleId);
-					this.RaisePropertyChanged(() => VehicleType);
-					this.RaisePropertyChanged(() => CarPlate);
-					this.RaisePropertyChanged(() => Location);
-
+					this.RaisePropertyChanged(() => this.VehicleId);
+					this.RaisePropertyChanged(() => this.VehicleType);
+					this.RaisePropertyChanged(() => this.CarPlate);
+					this.RaisePropertyChanged(() => this.Location);
 				}
 			}
 		}
