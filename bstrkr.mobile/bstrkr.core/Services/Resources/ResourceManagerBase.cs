@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace bstrkr.core.services.resources
 {
 	public abstract class ResourceManagerBase : IResourceManager
 	{
+		private readonly IDictionary<int, float> _coefficients = new Dictionary<int, float>();
+
 		private readonly Lazy<object> _busIcon;
 		private readonly Lazy<object> _shuttleIcon;
 		private readonly Lazy<object> _trollIcon;
@@ -15,7 +18,7 @@ namespace bstrkr.core.services.resources
 			_trollIcon = new Lazy<object>(() => this.GetImageResource("troll.png"));
 		}
 
-		public object GetVehicleMarker(VehicleTypes type)
+		public object GetVehicleMarker(VehicleTypes type, double mapZoom)
 		{
 			switch (type)
 			{
@@ -38,5 +41,7 @@ namespace bstrkr.core.services.resources
 		}
 
 		protected abstract object GetImageResource(string path);
+
+		protected abstract object ScaleImage(object image, float ratio);
 	}
 }
