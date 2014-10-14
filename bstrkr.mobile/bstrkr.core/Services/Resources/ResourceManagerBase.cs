@@ -5,8 +5,6 @@ namespace bstrkr.core.services.resources
 {
 	public abstract class ResourceManagerBase : IResourceManager
 	{
-		private readonly IDictionary<int, float> _coefficients = new Dictionary<int, float>();
-
 		private readonly Lazy<object> _busIcon;
 		private readonly Lazy<object> _shuttleIcon;
 		private readonly Lazy<object> _trollIcon;
