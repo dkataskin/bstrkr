@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Cirrious.MvvmCross.Binding;
 using Cirrious.MvvmCross.Binding.Bindings.Target;
 
 using bstrkr.mvvm.views;
@@ -30,6 +31,36 @@ namespace bstrkr.ios.views
 			}
 
 			this.FireValueChanged(this.MapView.Zoom);
+		}
+
+		protected override void SetValueImpl(object target, object value)
+		{
+			//this.MapView.zo
+			//binaryEdit.SetThat((int)value);
+		}
+
+		public override Type TargetType
+		{
+			get { return typeof(float); }
+		}
+
+		public override MvxBindingMode DefaultMode
+		{
+			get { return MvxBindingMode.OneWay; }
+		}
+
+		protected override void Dispose(bool isDisposing)
+		{
+			if (isDisposing)
+			{
+				var target = Target as IMapView;
+				if (target != null)
+				{
+					target.ZoomChanged -= this.OnZoomChanged;
+				}
+			}
+
+			base.Dispose(isDisposing);
 		}
 	}
 }
