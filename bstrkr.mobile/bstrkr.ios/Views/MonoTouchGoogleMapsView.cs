@@ -5,6 +5,7 @@ using Google.Maps;
 using MonoTouch.CoreLocation;
 
 using bstrkr.mvvm.views;
+using System.Diagnostics;
 
 namespace bstrkr.ios.views
 {
@@ -15,6 +16,7 @@ namespace bstrkr.ios.views
 		public MonoTouchGoogleMapsView(MapView mapView)
 		{
 			_mapView = mapView;
+			_mapView.CameraPositionChanged += this.OnCameraPositionChanged;
 		}
 
 		public object MapObject
@@ -42,6 +44,11 @@ namespace bstrkr.ios.views
 		public void RemoveMarker(IMarker marker)
 		{
 			(marker as Marker).Map = null;
+		}
+
+		private void OnCameraPositionChanged(object sender, GMSCameraEventArgs args)
+		{
+			Debug.WriteLine("position changed, Zoom={0:F2}", _mapView.Camera.Zoom);
 		}
 	}
 }

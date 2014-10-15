@@ -94,11 +94,13 @@
     <Folder Include="Services\Location\" />
     <Folder Include="Config\" />
     <Folder Include="Services\Resources\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\Location\LocationService.cs" />
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="Services\Resources\ResourceManager.cs" />
+    <Compile Include="Extensions\GeoPointExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">

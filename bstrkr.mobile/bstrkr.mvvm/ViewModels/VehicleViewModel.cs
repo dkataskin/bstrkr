@@ -36,7 +36,7 @@ namespace bstrkr.mvvm.viewmodels
 
 					if (value != null)
 					{
-						this.Icon = _resourceManager.GetVehicleMarker(value.Type);
+						this.Icon = _resourceManager.GetVehicleMarker(value.Type, 12.0f);
 					}
 
 					this.RaisePropertyChanged(() => this.VehicleId);

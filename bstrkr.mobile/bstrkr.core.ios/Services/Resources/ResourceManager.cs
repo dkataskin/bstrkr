@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 using MonoTouch.UIKit;
 
@@ -11,6 +12,14 @@ namespace bstrkr.core.ios.services.resources
 		protected override object GetImageResource(string path)
 		{
 			return UIImage.FromFile(path);
+		}
+
+		protected override object ScaleImage(object image, float ratio)
+		{
+			var uiImage = image as UIImage;
+			return uiImage.Scale(new SizeF(
+										uiImage.Size.Width * ratio, 
+										uiImage.Size.Height * ratio));
 		}
 	}
 }

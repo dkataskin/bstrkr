@@ -8,26 +8,27 @@ using MonoTouch.UIKit;
 
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using bstrkr.core.ios.extensions;
 
 namespace bstrkr.ios.views
 {
 	public class VehicleMarker : Marker, IVehicleMarker
 	{
-		private readonly VehicleViewModel _vehicleVM;
-
 		private IMapView _mapView;
 
 		public VehicleMarker(VehicleViewModel vehicleVM)
 		{
-			_vehicleVM = vehicleVM;
+			this.ViewModel = vehicleVM;
 
 			this.Position = new CLLocationCoordinate2D(vehicleVM.Location.Latitude, vehicleVM.Location.Longitude);
 			this.Flat = true;
 			this.Rotation = vehicleVM.VehicleHeading;
 			this.Icon = vehicleVM.Icon as UIImage;
 
-			_vehicleVM.PropertyChanged += this.OnVMPropertyChanged;
+			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
 		}
+
+		public VehicleViewModel ViewModel { get; private set; }
 
 		public IMapView MapView 
 		{
@@ -48,7 +49,13 @@ namespace bstrkr.ios.views
 		{
 			if (args.PropertyName.Equals("Location"))
 			{
-				this.Position = new CLLocationCoordinate2D(_vehicleVM.Location.Latitude, _vehicleVM.Location.Longitude);
+				this.Position = this.ViewModel.Location.ToCLLocation();
+				this.Rotation = this.ViewModel.VehicleHeading;
+			}
+
+			if (args.PropertyName.Equals("Icon"))
+			{
+				this.Icon = this.ViewModel.Icon as UIImage;
 			}
 		}
 	}
