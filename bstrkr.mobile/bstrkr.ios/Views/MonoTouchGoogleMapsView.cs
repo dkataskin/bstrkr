@@ -4,20 +4,25 @@ using Google.Maps;
 
 using MonoTouch.CoreLocation;
 
+using bstrkr.core.ios.extensions;
+using bstrkr.core.spatial;
 using bstrkr.mvvm.views;
-using System.Diagnostics;
 
 namespace bstrkr.ios.views
 {
 	public class MonoTouchGoogleMapsView : IMapView
 	{
 		private readonly MapView _mapView;
+		private float _previousZoomValue;
 
 		public MonoTouchGoogleMapsView(MapView mapView)
 		{
 			_mapView = mapView;
 			_mapView.CameraPositionChanged += this.OnCameraPositionChanged;
+			_previousZoomValue = _mapView.Camera.Zoom;
 		}
+
+		public event EventHandler<EventArgs> ZoomChanged;
 
 		public object MapObject
 		{
@@ -29,11 +34,9 @@ namespace bstrkr.ios.views
 			get { return _mapView.Camera.Zoom; }
 		}
 
-		public void SetCamera(double latitude, double longitude, double zoom)
+		public void SetCamera(GeoPoint location, float zoom)
 		{
-			_mapView.Camera = CameraPosition.FromCamera(
-									new CLLocationCoordinate2D(latitude, longitude),
-									Convert.ToSingle(zoom));
+			_mapView.Camera = CameraPosition.FromCamera(location.ToCLLocation(), zoom);
 		}
 
 		public void AddMarker(IMarker marker)
@@ -48,7 +51,19 @@ namespace bstrkr.ios.views
 
 		private void OnCameraPositionChanged(object sender, GMSCameraEventArgs args)
 		{
-			Debug.WriteLine("position changed, Zoom={0:F2}", _mapView.Camera.Zoom);
+			if (_previousZoomValue != _mapView.Camera.Zoom)
+			{
+				_previousZoomValue = _mapView.Camera.Zoom;
+				this.RaiseZoomChangedEvent();
+			}
+		}
+
+		private void RaiseZoomChangedEvent()
+		{
+			if (this.ZoomChanged != null)
+			{
+				this.ZoomChanged(this, EventArgs.Empty);
+			}
 		}
 	}
 }

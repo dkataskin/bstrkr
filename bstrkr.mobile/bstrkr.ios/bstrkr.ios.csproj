@@ -144,6 +144,7 @@
     <Compile Include="Views\VehicleMarker.cs" />
     <Compile Include="Views\VehicleMarkerManager.cs" />
     <Compile Include="Views\MonoTouchGoogleMapsView.cs" />
+    <Compile Include="Views\MapViewZoomTargetBinding.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />

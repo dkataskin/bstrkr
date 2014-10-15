@@ -40,7 +40,7 @@ namespace bstrkr.android.views
 			{
 				var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(
 															AppConsts.DefaultLocation.ToLatLng(),
-															Convert.ToSingle(AppConsts.DefaultZoom));
+															AppConsts.DefaultZoom);
 				map.MyLocationEnabled = true;
 
 				map.MoveCamera(cameraUpdate);

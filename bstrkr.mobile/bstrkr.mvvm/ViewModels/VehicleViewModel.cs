@@ -5,6 +5,7 @@ using Cirrious.MvvmCross.ViewModels;
 using bstrkr.core;
 using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
+using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -59,7 +60,19 @@ namespace bstrkr.mvvm.viewmodels
 
 		public double VehicleHeading
 		{
-			get { return _vehicle == null ? 0.0 : _vehicle.Heading;}
+			get 
+			{ 
+				return _vehicle == null ? 0.0 : _vehicle.Heading; 
+			}
+
+			set
+			{
+				if (_vehicle != null && _vehicle.Heading != value)
+				{
+					_vehicle.Heading = value;
+					this.RaisePropertyChanged(() => this.VehicleHeading);
+				}
+			}
 		}
 
 		public string CarPlate
@@ -76,7 +89,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			set
 			{
-				if (_vehicle != null)
+				if (_vehicle != null && !GeoPoint.Equals(_vehicle.Location, value))
 				{
 					_vehicle.Location = value;
 					this.RaisePropertyChanged(() => this.Location);

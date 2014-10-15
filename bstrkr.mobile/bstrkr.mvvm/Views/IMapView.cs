@@ -1,14 +1,18 @@
 ﻿using System;
 
+using bstrkr.core.spatial;
+
 namespace bstrkr.mvvm.views
 {
 	public interface IMapView
 	{
+		event EventHandler<EventArgs> ZoomChanged;
+
 		object MapObject { get; }
 
-		double Zoom { get; }
+		float Zoom { get; }
 
-		void SetCamera(double latitude, double longitude, double zoom);
+		void SetCamera(GeoPoint location, float zoom);
 
 		void AddMarker(IMarker marker);
 

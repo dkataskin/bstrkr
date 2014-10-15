@@ -34,7 +34,7 @@ namespace bstrkr.mvvm.maps
 
 			if (!GeoPoint.Empty.Equals(location))
 			{
-				_mapView.SetCamera(location.Latitude, location.Longitude, _mapView.Zoom);
+				_mapView.SetCamera(location, _mapView.Zoom);
 			}
 		}
 	}

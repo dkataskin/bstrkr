@@ -128,7 +128,7 @@ namespace bstrkr.mvvm.viewmodels
 													vehicleVM => vehicleVM.VehicleId,
 													vehicle => vehicle.Id, 
 													this.CreateVehicleVM,
-													(vm, update) => vm.Location = update.Location,
+													this.UpdateVehicleVM,
 													MergeMode.Update));
 			} 
 			catch (Exception e)
@@ -143,6 +143,12 @@ namespace bstrkr.mvvm.viewmodels
 			vehicleVM.Vehicle = vehicle;
 
 			return vehicleVM;
+		}
+
+		private void UpdateVehicleVM(VehicleViewModel vehicleVM, Vehicle vehicle)
+		{
+			vehicleVM.Location = vehicle.Location;
+			vehicleVM.VehicleHeading = vehicle.Heading;
 		}
 
 		private void OnLocationUnknown()
