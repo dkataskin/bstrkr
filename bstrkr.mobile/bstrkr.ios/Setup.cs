@@ -2,6 +2,7 @@ using System.IO;
 
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Binding.Bindings.Target.Construction;
 using Cirrious.MvvmCross.Touch.Platform;
 using Cirrious.MvvmCross.ViewModels;
 
@@ -14,6 +15,8 @@ using bstrkr.core.ios.services.resources;
 using bstrkr.core.services.location;
 using bstrkr.core.services.resources;
 using bstrkr.mvvm;
+using bstrkr.mvvm.views;
+using bstrkr.ios.views;
 
 namespace bstrkr.ios
 {
@@ -42,5 +45,14 @@ namespace bstrkr.ios
         {
             return new DebugTrace();
         }
+
+		protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
+		{
+			registry.RegisterCustomBindingFactory<IMapView>(
+												"mapview_zoom_binding", 
+												mapView => new MapViewZoomTargetBinding(mapView));
+
+			base.FillTargetFactories(registry);
+		}
 	}
 }

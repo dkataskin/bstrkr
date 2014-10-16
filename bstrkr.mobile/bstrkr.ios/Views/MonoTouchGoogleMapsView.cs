@@ -29,7 +29,7 @@ namespace bstrkr.ios.views
 			get { return _mapView; }
 		}
 
-		public double Zoom 
+		public float Zoom 
 		{
 			get { return _mapView.Camera.Zoom; }
 		}

@@ -26,6 +26,8 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IConfigManager _configManager;
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 
+		private float _zoom;
+
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
 
@@ -45,6 +47,23 @@ namespace bstrkr.mvvm.viewmodels
 		}
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
+
+		public float Zoom
+		{
+			get
+			{
+				return _zoom;
+			}
+
+			set
+			{
+				if (_zoom != value)
+				{
+					_zoom = value;
+					this.RaisePropertyChanged(() => this.Zoom);
+				}
+			}
+		}
 
 		public GeoPoint Location 
 		{ 

@@ -45,7 +45,10 @@ namespace bstrkr.ios.views
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
 			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
+			set.Bind(_mapViewWrapper).For("mapview_zoom_binding").To(vm => vm.Zoom);
 			set.Apply();
+
+
 		}
 
 		public override void ViewWillAppear(bool animated)
