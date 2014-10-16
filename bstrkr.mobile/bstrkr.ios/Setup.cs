@@ -48,8 +48,8 @@ namespace bstrkr.ios
 
 		protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
 		{
-			registry.RegisterCustomBindingFactory<IMapView>(
-												"mapview_zoom_binding", 
+			registry.RegisterCustomBindingFactory<MonoTouchGoogleMapsView>(
+												"Zoom", 
 												mapView => new MapViewZoomTargetBinding(mapView));
 
 			base.FillTargetFactories(registry);

@@ -3,6 +3,7 @@
 using Google.Maps;
 
 using MonoTouch.CoreLocation;
+using MonoTouch.Foundation;
 
 using bstrkr.core.ios.extensions;
 using bstrkr.core.spatial;
