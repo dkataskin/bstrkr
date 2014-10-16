@@ -148,11 +148,41 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\layout\MainView.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus.png">
-      <Link>Resources\drawable\bus.png</Link>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_h.png">
+      <Link>Resources\drawable\bus_h.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\troll.png">
-      <Link>Resources\drawable\troll.png</Link>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_hm.png">
+      <Link>Resources\drawable\bus_hm.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_m.png">
+      <Link>Resources\drawable\bus_m.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_s.png">
+      <Link>Resources\drawable\bus_s.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttle_h.png">
+      <Link>Resources\drawable\shuttle_h.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttle_hm.png">
+      <Link>Resources\drawable\shuttle_hm.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttle_m.png">
+      <Link>Resources\drawable\shuttle_m.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttle_s.png">
+      <Link>Resources\drawable\shuttle_s.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\troll_h.png">
+      <Link>Resources\drawable\troll_h.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\troll_hm.png">
+      <Link>Resources\drawable\troll_hm.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\troll_m.png">
+      <Link>Resources\drawable\troll_m.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\troll_s.png">
+      <Link>Resources\drawable\troll_s.png</Link>
     </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
