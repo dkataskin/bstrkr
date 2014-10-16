@@ -54,18 +54,6 @@
     <Compile Include="VehicleTypes.cs" />
     <Compile Include="Services\Resources\IResourceManager.cs" />
     <Compile Include="Services\Resources\ResourceManagerBase.cs" />
-    <None Include="Resources\Images\bus_20.png" />
-    <None Include="Resources\Images\bus_40.png" />
-    <None Include="Resources\Images\bus_60.png" />
-    <None Include="Resources\Images\icon-bus-marker.png" />
-    <None Include="Resources\Images\icon-taxi-marker.png" />
-    <None Include="Resources\Images\icon-tro-marker.png" />
-    <None Include="Resources\Images\taxi_20.png" />
-    <None Include="Resources\Images\taxi_40.png" />
-    <None Include="Resources\Images\taxi_60.png" />
-    <None Include="Resources\Images\troll_20.png" />
-    <None Include="Resources\Images\troll_40.png" />
-    <None Include="Resources\Images\troll_60.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -83,9 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\config.json" />
-    <None Include="Resources\Images\bus.png" />
-    <None Include="Resources\Images\shuttle.png" />
-    <None Include="Resources\Images\troll.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks">
