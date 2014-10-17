@@ -39,6 +39,8 @@ namespace bstrkr.mvvm.converters
 					return tuple.Item2;
 				}
 			}
+
+			return _map.Last().Item2;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
