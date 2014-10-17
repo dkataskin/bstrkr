@@ -13,6 +13,7 @@ using MonoTouch.UIKit;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using bstrkr.mvvm.converters;
 
 namespace bstrkr.ios.views
 {
@@ -45,7 +46,10 @@ namespace bstrkr.ios.views
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
 			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
-			set.Bind(_mapViewWrapper).For(x => x.Zoom).To(vm => vm.Zoom);
+			set.Bind(_mapViewWrapper).For(x => x.Zoom)
+									 .To(vm => vm.MarkerSize)
+									 .WithConversion(new ZoomToMarkerSizeConverter());
+
 			set.Apply();
 		}
 

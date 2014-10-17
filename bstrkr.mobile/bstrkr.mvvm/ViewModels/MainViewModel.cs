@@ -15,6 +15,8 @@ using bstrkr.core.interfaces;
 using bstrkr.core.providers.bus13;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
+using bstrkr.mvvm.converters;
+using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -24,10 +26,10 @@ namespace bstrkr.mvvm.viewmodels
 
 		private readonly ILocationService _locationService;
 		private readonly IConfigManager _configManager;
+		private readonly ZoomToMarkerSizeConverter _zoomConverter = new ZoomToMarkerSizeConverter();
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 
-		private float _zoom;
-
+		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
 
@@ -47,23 +49,6 @@ namespace bstrkr.mvvm.viewmodels
 		}
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
-
-		public float Zoom
-		{
-			get
-			{
-				return _zoom;
-			}
-
-			set
-			{
-				if (_zoom != value)
-				{
-					_zoom = value;
-					this.RaisePropertyChanged(() => this.Zoom);
-				}
-			}
-		}
 
 		public GeoPoint Location 
 		{ 
@@ -95,6 +80,23 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_coarseLocation = value;
 					this.RaisePropertyChanged(() => this.CoarseLocation);
+				}
+			}
+		}
+
+		public MapMarkerSizes MarkerSize
+		{
+			get
+			{
+				return _markerSize;
+			}
+
+			set
+			{
+				if (_markerSize != value)
+				{
+					_markerSize = value;
+					this.RaisePropertyChanged(() => this.MarkerSize);
 				}
 			}
 		}

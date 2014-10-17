@@ -9,13 +9,13 @@ namespace bstrkr.ios.views
 {
 	public class MapViewZoomTargetBinding : MvxConvertingTargetBinding
 	{
-		public MapViewZoomTargetBinding(MonoTouchGoogleMapsView target) : base(target)
+		public MapViewZoomTargetBinding(IMapView target) : base(target)
 		{
 		}
 
-		protected MonoTouchGoogleMapsView MapView
+		protected IMapView MapView
 		{
-			get { return (MonoTouchGoogleMapsView)this.Target; }
+			get { return (IMapView)this.Target; }
 		}
 
 		public override void SubscribeToEvents()
@@ -53,7 +53,7 @@ namespace bstrkr.ios.views
 		{
 			if (isDisposing)
 			{
-				var target = Target as MonoTouchGoogleMapsView;
+				var target = Target as IMapView;
 				if (target != null)
 				{
 					target.ZoomChanged -= this.OnZoomChanged;
