@@ -24,28 +24,7 @@ namespace bstrkr.core.services.resources
 
 		public object GetVehicleMarker(VehicleTypes type, MapMarkerSizes size)
 		{
-			string image = string.Empty;
-
-			switch (type)
-			{
-				case VehicleTypes.Bus:
-					image = _busIcon.Value;
-					break;
-
-				case VehicleTypes.ShuttleBus:
-					image = _shuttleIcon.Value;
-					break;
-
-				case VehicleTypes.Trolleybus:
-					image = _trollIcon.Value;
-					break;
-
-				default:
-					image = _busIcon.Value;
-					break;
-			}
-
-			var key = (Convert.ToInt32(type) << 32) ^ Convert.ToInt32(size);
+			var key = string.Format(VehicleMarkerImgFormatString, type, size);
 
 			lock(_cache)
 			{
@@ -54,48 +33,10 @@ namespace bstrkr.core.services.resources
 					return _cache[key];
 				}
 
-				if (mapZoom >= 16.0d)
-				{
-					return image;
-				}
+				var image = this.GetImageResource(key);
+				_cache[key] = image;
 
-				if (mapZoom >= 14.0d)
-				{
-					_cache[key] = this.ScaleImage(image, 0.5f);
-					return _cache[key];
-				}
-
-				if (mapZoom >= 12.0d)
-				{
-					_cache[key] = this.ScaleImage(image, 0.4f);
-					return _cache[key];
-				}
-
-				if (mapZoom >= 10.0d)
-				{
-					_cache[key] = this.ScaleImage(image, 0.3f);
-					return _cache[key];
-				}
-
-				if (mapZoom >= 8.0d)
-				{
-					_cache[key] = this.ScaleImage(image, 0.2f);
-					return _cache[key];
-				}
-
-				if (mapZoom >= 6.0d)
-				{
-					_cache[key] = this.ScaleImage(image, 0.1f);
-					return _cache[key];
-				}
-
-				if (mapZoom >= 4.0d)
-				{
-					_cache[key] = this.ScaleImage(image, 0.05f);
-					return _cache[key];
-				}
-
-				return this.ScaleImage(image, 0.01f);
+				return image;
 			}
 		}
 
