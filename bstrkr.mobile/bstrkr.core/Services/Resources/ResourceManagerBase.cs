@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using bstrkr.core.map;
+
 namespace bstrkr.core.services.resources
 {
 	public abstract class ResourceManagerBase : IResourceManager
 	{
+		private const string VehicleMarkerImgFormatString = "{0}_{1}.png";
+
 		private readonly IDictionary<int, object> _cache = new Dictionary<int, object>();
+		private readonly IDictionary<VehicleTypes, string> _vehicleTypeMap = new Dictionary<VehicleTypes, string>
+		{
+			{ VehicleTypes.Bus, "bus" },
+			{ VehicleTypes.ShuttleBus, "shuttle" },
+			{ VehicleTypes.Trolleybus, "troll" }
+		};
 
 		private readonly Lazy<object> _busIcon;
 		private readonly Lazy<object> _shuttleIcon;
@@ -18,9 +28,9 @@ namespace bstrkr.core.services.resources
 			_trollIcon = new Lazy<object>(() => this.GetImageResource("troll.png"));
 		}
 
-		public object GetVehicleMarker(VehicleTypes type, double mapZoom)
+		public object GetVehicleMarker(VehicleTypes type, MapMarkerSizes size)
 		{
-			object image = null;
+			string image = string.Empty;
 
 			switch (type)
 			{
@@ -41,7 +51,7 @@ namespace bstrkr.core.services.resources
 					break;
 			}
 
-			var key = (Convert.ToInt32(type) << 32) ^ Convert.ToInt32(mapZoom);
+			var key = (Convert.ToInt32(type) << 32) ^ Convert.ToInt32(size);
 
 			lock(_cache)
 			{

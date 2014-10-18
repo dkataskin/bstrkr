@@ -3,6 +3,7 @@
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
+using bstrkr.core.map;
 using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.views;
@@ -13,6 +14,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly IResourceManager _resourceManager;
 
+		private MapMarkerSizes _markerSize;
 		private object _icon;
 		private Vehicle _vehicle;
 
@@ -97,6 +99,24 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public MapMarkerSizes MarkerSize
+		{
+			get 
+			{
+				return _markerSize;
+			}
+
+			set
+			{
+				if (_markerSize != value)
+				{
+					_markerSize = value;
+					this.RaisePropertyChanged(() => this.MarkerSize);
+					this.OnMarkerSizeChanged(value);
+				}
+			}
+		}
+
 		public object Icon
 		{
 			get 
@@ -112,6 +132,11 @@ namespace bstrkr.mvvm.viewmodels
 					this.RaisePropertyChanged(() => this.Icon);
 				}
 			}
+		}
+
+		private void OnMarkerSizeChanged(MapMarkerSizes size)
+		{
+			this.Icon = _resourceManager.GetVehicleMarker();
 		}
 	}
 }

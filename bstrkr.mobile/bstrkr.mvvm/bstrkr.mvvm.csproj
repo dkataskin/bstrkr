@@ -40,7 +40,6 @@
     <Compile Include="Views\IVehicleMarker.cs" />
     <Compile Include="Maps\MapLocationManager.cs" />
     <Compile Include="Views\IMarker.cs" />
-    <Compile Include="Views\MapMarkerSizes.cs" />
     <Compile Include="Converters\ZoomToMarkerSizeConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

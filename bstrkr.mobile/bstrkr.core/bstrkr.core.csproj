@@ -66,6 +66,7 @@
     <None Include="Resources\Images\troll_hm.png" />
     <None Include="Resources\Images\troll_m.png" />
     <None Include="Resources\Images\troll_s.png" />
+    <Compile Include="Map\MapMarkerSizes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -80,6 +81,7 @@
     <Folder Include="Consts\" />
     <Folder Include="Collections\" />
     <Folder Include="Services\Resources\" />
+    <Folder Include="Map\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\config.json" />

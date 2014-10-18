@@ -5,6 +5,7 @@ using System.Linq;
 
 using Cirrious.CrossCore.Converters;
 
+using bstrkr.core.map;
 using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.converters

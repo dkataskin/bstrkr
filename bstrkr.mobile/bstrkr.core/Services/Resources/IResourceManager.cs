@@ -1,9 +1,11 @@
 ﻿using System;
 
+using bstrkr.core.map;
+
 namespace bstrkr.core.services.resources
 {
 	public interface IResourceManager
 	{
-		object GetVehicleMarker(VehicleTypes type, double mapZoom);
+		object GetVehicleMarker(VehicleTypes type, MapMarkerSizes size);
 	}
 }

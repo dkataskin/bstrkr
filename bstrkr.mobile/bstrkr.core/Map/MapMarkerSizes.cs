@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace bstrkr.mvvm.views
+namespace bstrkr.core.map
 {
 	public enum MapMarkerSizes
 	{

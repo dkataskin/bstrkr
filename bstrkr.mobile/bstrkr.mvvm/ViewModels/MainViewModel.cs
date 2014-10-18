@@ -17,6 +17,7 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.views;
+using bstrkr.core.map;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -97,6 +98,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_markerSize = value;
 					this.RaisePropertyChanged(() => this.MarkerSize);
+					this.OnMarkerSizeChanged(value);
 				}
 			}
 		}
@@ -174,6 +176,17 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnLocationUnknown()
 		{
+		}
+
+		private void OnMarkerSizeChanged(MapMarkerSizes size)
+		{
+			lock(_vehicles)
+			{
+				foreach (var vm in _vehicles)
+				{
+					vm.MarkerSize = size;
+				}
+			}
 		}
     }
 }
