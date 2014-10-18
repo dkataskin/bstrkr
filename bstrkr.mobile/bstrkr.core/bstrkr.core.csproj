@@ -58,15 +58,15 @@
     <None Include="Resources\Images\bus_hm.png" />
     <None Include="Resources\Images\bus_m.png" />
     <None Include="Resources\Images\bus_s.png" />
-    <None Include="Resources\Images\shuttle_h.png" />
-    <None Include="Resources\Images\shuttle_hm.png" />
-    <None Include="Resources\Images\shuttle_m.png" />
-    <None Include="Resources\Images\shuttle_s.png" />
-    <None Include="Resources\Images\troll_h.png" />
-    <None Include="Resources\Images\troll_hm.png" />
-    <None Include="Resources\Images\troll_m.png" />
-    <None Include="Resources\Images\troll_s.png" />
     <Compile Include="Map\MapMarkerSizes.cs" />
+    <None Include="Resources\Images\shuttlebus_h.png" />
+    <None Include="Resources\Images\shuttlebus_s.png" />
+    <None Include="Resources\Images\shuttlebus_m.png" />
+    <None Include="Resources\Images\shuttlebus_hm.png" />
+    <None Include="Resources\Images\trolleybus_h.png" />
+    <None Include="Resources\Images\trolleybus_s.png" />
+    <None Include="Resources\Images\trolleybus_m.png" />
+    <None Include="Resources\Images\trolleybus_hm.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
