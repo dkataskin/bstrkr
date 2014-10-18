@@ -54,19 +54,19 @@
     <Compile Include="VehicleTypes.cs" />
     <Compile Include="Services\Resources\IResourceManager.cs" />
     <Compile Include="Services\Resources\ResourceManagerBase.cs" />
-    <None Include="Resources\Images\bus_h.png" />
-    <None Include="Resources\Images\bus_hm.png" />
-    <None Include="Resources\Images\bus_m.png" />
-    <None Include="Resources\Images\bus_s.png" />
     <Compile Include="Map\MapMarkerSizes.cs" />
-    <None Include="Resources\Images\shuttlebus_h.png" />
-    <None Include="Resources\Images\shuttlebus_s.png" />
-    <None Include="Resources\Images\shuttlebus_m.png" />
-    <None Include="Resources\Images\shuttlebus_hm.png" />
-    <None Include="Resources\Images\trolleybus_h.png" />
-    <None Include="Resources\Images\trolleybus_s.png" />
-    <None Include="Resources\Images\trolleybus_m.png" />
-    <None Include="Resources\Images\trolleybus_hm.png" />
+    <None Include="Resources\Images\bus_big.png" />
+    <None Include="Resources\Images\bus_bigmedium.png" />
+    <None Include="Resources\Images\bus_medium.png" />
+    <None Include="Resources\Images\bus_small.png" />
+    <None Include="Resources\Images\shuttlebus_big.png" />
+    <None Include="Resources\Images\shuttlebus_bigmedium.png" />
+    <None Include="Resources\Images\shuttlebus_medium.png" />
+    <None Include="Resources\Images\shuttlebus_small.png" />
+    <None Include="Resources\Images\trolleybus_big.png" />
+    <None Include="Resources\Images\trolleybus_bigmedium.png" />
+    <None Include="Resources\Images\trolleybus_medium.png" />
+    <None Include="Resources\Images\trolleybus_small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

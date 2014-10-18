@@ -10,12 +10,6 @@ namespace bstrkr.core.services.resources
 		private const string VehicleMarkerImgFormatString = "{0}_{1}.png";
 
 		private readonly IDictionary<int, object> _cache = new Dictionary<int, object>();
-		private readonly IDictionary<VehicleTypes, string> _vehicleTypeMap = new Dictionary<VehicleTypes, string>
-		{
-			{ VehicleTypes.Bus, "bus" },
-			{ VehicleTypes.ShuttleBus, "shuttle" },
-			{ VehicleTypes.Trolleybus, "troll" }
-		};
 
 		private readonly Lazy<object> _busIcon;
 		private readonly Lazy<object> _shuttleIcon;
