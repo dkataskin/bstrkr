@@ -9,18 +9,7 @@ namespace bstrkr.core.services.resources
 	{
 		private const string VehicleMarkerImgFormatString = "{0}_{1}.png";
 
-		private readonly IDictionary<int, object> _cache = new Dictionary<int, object>();
-
-		private readonly Lazy<object> _busIcon;
-		private readonly Lazy<object> _shuttleIcon;
-		private readonly Lazy<object> _trollIcon;
-
-		public ResourceManagerBase()
-		{
-			_busIcon = new Lazy<object>(() => this.GetImageResource("bus.png"));
-			_shuttleIcon = new Lazy<object>(() => this.GetImageResource("shuttle.png"));
-			_trollIcon = new Lazy<object>(() => this.GetImageResource("troll.png"));
-		}
+		private readonly IDictionary<string, object> _cache = new Dictionary<string, object>();
 
 		public object GetVehicleMarker(VehicleTypes type, MapMarkerSizes size)
 		{

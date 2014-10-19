@@ -39,7 +39,7 @@ namespace bstrkr.mvvm.viewmodels
 
 					if (value != null)
 					{
-						this.Icon = _resourceManager.GetVehicleMarker(value.Type, 12.0f);
+						this.Icon = _resourceManager.GetVehicleMarker(value.Type, this.MarkerSize);
 					}
 
 					this.RaisePropertyChanged(() => this.VehicleId);
@@ -136,7 +136,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnMarkerSizeChanged(MapMarkerSizes size)
 		{
-			this.Icon = _resourceManager.GetVehicleMarker();
+			this.Icon = _resourceManager.GetVehicleMarker(_vehicle == null ? VehicleTypes.Bus : _vehicle.Type, size);
 		}
 	}
 }
