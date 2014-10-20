@@ -11,6 +11,7 @@ using Cirrious.MvvmCross.Droid.Views;
 using bstrkr.core.android.extensions;
 using bstrkr.core.android.services;
 using bstrkr.core.consts;
+using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
@@ -53,6 +54,9 @@ namespace bstrkr.android.views
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
 			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
+			set.Bind(_mapViewWrapper).For(x => x.Zoom)
+									 .To(vm => vm.MarkerSize)
+									 .WithConversion(new ZoomToMarkerSizeConverter());
 			set.Apply();
 		}
     }

@@ -41,7 +41,7 @@ namespace bstrkr.android.views
 			get { return _map.CameraPosition.Zoom; }
 		}
 
-		public void AddMarker(IMarker marker)
+		public void AddMarker(IMapMarker marker)
 		{
 			var markerBase = marker as GoogleMapsMarkerBase;
 			marker.MapView = this;
@@ -49,7 +49,7 @@ namespace bstrkr.android.views
 			markerBase.Marker = _map.AddMarker(markerBase.GetOptions());
 		}
 
-		public void RemoveMarker(IMarker marker)
+		public void RemoveMarker(IMapMarker marker)
 		{
 			marker.MapView = null;
 			var markerBase = marker as GoogleMapsMarkerBase;

@@ -14,8 +14,8 @@ namespace bstrkr.mvvm.views
 
 		void SetCamera(GeoPoint location, float zoom);
 
-		void AddMarker(IMarker marker);
+		void AddMarker(IMapMarker marker);
 
-		void RemoveMarker(IMarker marker);
+		void RemoveMarker(IMapMarker marker);
 	}
 }

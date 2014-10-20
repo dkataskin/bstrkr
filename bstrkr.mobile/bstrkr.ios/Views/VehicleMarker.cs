@@ -9,6 +9,7 @@ using MonoTouch.UIKit;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 using bstrkr.core.ios.extensions;
+using bstrkr.core.spatial;
 
 namespace bstrkr.ios.views
 {
@@ -45,11 +46,17 @@ namespace bstrkr.ios.views
 			}
 		}
 
+		public GeoPoint Location
+		{
+			get { return this.Position.ToGeoPoint(); }
+			set { this.Position = value.ToCLLocation(); }
+		}
+
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName.Equals("Location"))
 			{
-				this.Position = this.ViewModel.Location.ToCLLocation();
+				this.Location = this.ViewModel.Location;
 				this.Rotation = this.ViewModel.VehicleHeading;
 			}
 

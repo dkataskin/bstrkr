@@ -97,6 +97,7 @@
     <Compile Include="Services\Resources\ResourceManager.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Extensions\GeoPointExtensions.cs" />
+    <Compile Include="Extensions\LatLngExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

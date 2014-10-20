@@ -4,7 +4,7 @@ using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.mvvm.views
 {
-	public interface IVehicleMarker : IMarker
+	public interface IVehicleMarker : IMapMarker
 	{
 		VehicleViewModel ViewModel { get; }
 	}

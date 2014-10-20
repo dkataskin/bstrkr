@@ -2,6 +2,7 @@ using Android.Content;
 
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Binding.Bindings.Target.Construction;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
 
@@ -13,6 +14,7 @@ using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.core.services.resources;
 using bstrkr.mvvm;
+using bstrkr.android.views;
 
 namespace bstrkr.android
 {
@@ -40,5 +42,14 @@ namespace bstrkr.android
         {
             return new DebugTrace();
         }
+
+		protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
+		{
+			registry.RegisterCustomBindingFactory<MonoDroidGoogleMapsView>(
+																		"Zoom", 
+																		mapView => new MapViewZoomTargetBinding(mapView));
+
+			base.FillTargetFactories(registry);
+		}
     }
 }

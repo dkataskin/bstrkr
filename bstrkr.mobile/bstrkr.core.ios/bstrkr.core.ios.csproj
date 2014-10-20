@@ -101,6 +101,7 @@
     <Compile Include="Config\ConfigManager.cs" />
     <Compile Include="Services\Resources\ResourceManager.cs" />
     <Compile Include="Extensions\GeoPointExtensions.cs" />
+    <Compile Include="Extensions\CLLocationCoordinate2DExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">

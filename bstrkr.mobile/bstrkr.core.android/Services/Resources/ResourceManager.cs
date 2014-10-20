@@ -13,7 +13,7 @@ namespace bstrkr.core.android.services.resources
 	{
 		protected override object GetImageResource(string path)
 		{
-			return BitmapDescriptorFactory.FromAsset("drawable/" + path);
+			return BitmapDescriptorFactory.FromPath("drawable/" + path);
 		}
 	}
 }

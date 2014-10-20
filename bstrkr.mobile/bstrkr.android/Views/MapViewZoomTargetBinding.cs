@@ -5,7 +5,7 @@ using Cirrious.MvvmCross.Binding.Bindings.Target;
 
 using bstrkr.mvvm.views;
 
-namespace bstrkr.ios.views
+namespace bstrkr.android.views
 {
 	public class MapViewZoomTargetBinding : MvxConvertingTargetBinding
 	{

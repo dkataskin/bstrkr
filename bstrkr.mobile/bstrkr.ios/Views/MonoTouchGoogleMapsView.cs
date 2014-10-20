@@ -40,12 +40,12 @@ namespace bstrkr.ios.views
 			_mapView.Camera = CameraPosition.FromCamera(location.ToCLLocation(), zoom);
 		}
 
-		public void AddMarker(IMarker marker)
+		public void AddMarker(IMapMarker marker)
 		{
 			(marker as Marker).Map = _mapView;
 		}
 
-		public void RemoveMarker(IMarker marker)
+		public void RemoveMarker(IMapMarker marker)
 		{
 			(marker as Marker).Map = null;
 		}
