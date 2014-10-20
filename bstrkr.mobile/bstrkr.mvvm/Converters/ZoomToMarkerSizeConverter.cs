@@ -14,13 +14,18 @@ namespace bstrkr.mvvm.converters
 	{
 		private readonly IList<Tuple<float, MapMarkerSizes>> _map = new List<Tuple<float, MapMarkerSizes>>
 		{
-			new Tuple<float, MapMarkerSizes>(16.0f, MapMarkerSizes.Big),
-			new Tuple<float, MapMarkerSizes>(12.0f, MapMarkerSizes.BigMedium),
-			new Tuple<float, MapMarkerSizes>(8.0f, MapMarkerSizes.Medium),
-			new Tuple<float, MapMarkerSizes>(4.0f, MapMarkerSizes.Small)
+			new Tuple<float, MapMarkerSizes>(18.0f, MapMarkerSizes.Big),
+			new Tuple<float, MapMarkerSizes>(16.0f, MapMarkerSizes.BigMedium),
+			new Tuple<float, MapMarkerSizes>(14.0f, MapMarkerSizes.Medium),
+			new Tuple<float, MapMarkerSizes>(12.0f, MapMarkerSizes.Small)
 		};
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return this.ConvertBack(value, targetType, parameter, culture);
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (targetType != typeof(MapMarkerSizes))
 			{
@@ -28,25 +33,15 @@ namespace bstrkr.mvvm.converters
 			}
 
 			var zoom = (float)value;
-			if (zoom >= _map.First().Item1)
-			{
-				return _map.First().Item2;
-			}
-
 			foreach (var tuple in _map)
 			{
-				if (zoom <= tuple.Item1)
+				if (zoom >= tuple.Item1)
 				{
 					return tuple.Item2;
 				}
 			}
 
 			return _map.Last().Item2;
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

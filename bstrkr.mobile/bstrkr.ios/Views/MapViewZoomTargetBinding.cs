@@ -46,7 +46,7 @@ namespace bstrkr.ios.views
 
 		public override MvxBindingMode DefaultMode
 		{
-			get { return MvxBindingMode.TwoWay; }
+			get { return MvxBindingMode.OneWayToSource; }
 		}
 
 		protected override void Dispose(bool isDisposing)
