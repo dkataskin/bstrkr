@@ -30,7 +30,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ZoomToMarkerSizeConverter _zoomConverter = new ZoomToMarkerSizeConverter();
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 
-		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
+		private MapMarkerSizes _markerSize = MapMarkerSizes.Small;
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
 
@@ -145,14 +145,18 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			try
 			{
-				this.Dispatcher.RequestMainThreadAction(() =>
-												_vehicles.Merge(
-													args.Vehicles, 
-													vehicleVM => vehicleVM.VehicleId,
-													vehicle => vehicle.Id, 
-													this.CreateVehicleVM,
-													this.UpdateVehicleVM,
-													MergeMode.Update));
+				lock(_vehicles)
+				{
+					this.Dispatcher.RequestMainThreadAction(() =>
+														_vehicles.Merge(
+															args.Vehicles, 
+															vehicleVM => vehicleVM.VehicleId,
+															vehicle => vehicle.Id, 
+															this.CreateVehicleVM,
+															this.UpdateVehicleVM,
+															MergeMode.Update));
+				}
+
 			} 
 			catch (Exception e)
 			{
@@ -164,6 +168,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
 			vehicleVM.Vehicle = vehicle;
+			vehicleVM.MarkerSize = this.MarkerSize;
 
 			return vehicleVM;
 		}

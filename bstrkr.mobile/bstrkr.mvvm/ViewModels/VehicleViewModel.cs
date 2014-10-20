@@ -39,7 +39,7 @@ namespace bstrkr.mvvm.viewmodels
 
 					if (value != null)
 					{
-						this.Icon = _resourceManager.GetVehicleMarker(value.Type, this.MarkerSize);
+						this.UpdateIcon();
 					}
 
 					this.RaisePropertyChanged(() => this.VehicleId);
@@ -112,7 +112,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_markerSize = value;
 					this.RaisePropertyChanged(() => this.MarkerSize);
-					this.OnMarkerSizeChanged(value);
+					this.UpdateIcon();
 				}
 			}
 		}
@@ -134,9 +134,9 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void OnMarkerSizeChanged(MapMarkerSizes size)
+		private void UpdateIcon()
 		{
-			this.Icon = _resourceManager.GetVehicleMarker(_vehicle == null ? VehicleTypes.Bus : _vehicle.Type, size);
+			this.Icon = _vehicle == null ? null : _resourceManager.GetVehicleMarker(_vehicle.Type, this.MarkerSize);
 		}
 	}
 }
