@@ -13,7 +13,10 @@ namespace bstrkr.core.services.resources
 
 		public object GetVehicleMarker(VehicleTypes type, MapMarkerSizes size)
 		{
-			var key = string.Format(VehicleMarkerImgFormatString, type, size);
+			var key = string.Format(
+						VehicleMarkerImgFormatString, 
+						type.ToString().ToLower(), 
+						size.ToString().ToLower()[0]);
 
 			lock(_cache)
 			{
