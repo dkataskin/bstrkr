@@ -4,9 +4,10 @@ namespace bstrkr.core.map
 {
 	public enum MapMarkerSizes
 	{
+		Huge,
 		Big,
-		BigMedium,
 		Medium,
-		Small
+		Small,
+		Tiny
 	}
 }
