@@ -10,15 +10,15 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.maps
 {
-	public abstract class MvxMarkerManager : IMvxMarkerManager
+	public abstract class MapMarkerManager : IMapMarkerManager
 	{
 		private readonly IMapView _mapView;
-		private readonly IDictionary<object, IVehicleMarker> _markers = new Dictionary<object, IVehicleMarker>();
+		private readonly IDictionary<object, IMapMarker> _markers = new Dictionary<object, IMapMarker>();
 
 		private IEnumerable _itemsSource;
 		private IDisposable _subscription;
 
-		public MvxMarkerManager(IMapView mapView)
+		public MapMarkerManager(IMapView mapView)
 		{
 			_mapView = mapView;
 		}
@@ -105,7 +105,7 @@ namespace bstrkr.mvvm.maps
 			}
 		}
 
-		protected abstract IVehicleMarker CreateMarker(object item);
+		protected abstract IMapMarker CreateMarker(object item);
 
 		protected virtual void RemoveMarkers(IEnumerable oldItems)
 		{

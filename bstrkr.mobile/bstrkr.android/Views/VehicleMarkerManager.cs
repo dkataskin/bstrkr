@@ -6,13 +6,13 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.android.views
 {
-	public class VehicleMarkerManager : MvxMarkerManager
+	public class VehicleMarkerManager : MapMarkerManager
 	{
 		public VehicleMarkerManager(IMapView mapView) : base(mapView)
 		{
 		}
 
-		protected override IVehicleMarker CreateMarker(object item)
+		protected override IMapMarker CreateMarker(object item)
 		{
 			return new VehicleMarker(item as VehicleViewModel);
 		}

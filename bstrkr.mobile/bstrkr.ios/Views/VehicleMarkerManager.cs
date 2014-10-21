@@ -15,7 +15,7 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.ios.views
 {
-	public class VehicleMarkerManager : MvxMarkerManager
+	public class VehicleMarkerManager : MapMarkerManager
 	{
 		public VehicleMarkerManager(IMapView mapView) : base(mapView)
 		{
@@ -28,7 +28,7 @@ namespace bstrkr.ios.views
 			set { base.ItemsSource = value; }
 		}
 
-		protected override IVehicleMarker CreateMarker(object item)
+		protected override IMapMarker CreateMarker(object item)
 		{
 			return new VehicleMarker(item as VehicleViewModel);
 		}

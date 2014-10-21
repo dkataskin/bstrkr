@@ -33,8 +33,6 @@ namespace bstrkr.mvvm.views
 
 		protected override void SetValueImpl(object target, object value)
 		{
-			//this.MapView.zo
-			//binaryEdit.SetThat((int)value);
 		}
 
 		public override Type TargetType

@@ -134,7 +134,7 @@
     <Compile Include="Views\VehicleMarker.cs" />
     <Compile Include="Views\GoogleMapsMarkerBase.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
-    <Compile Include="Views\MapViewZoomTargetBinding.cs" />
+    <Compile Include="Views\MapMarkerAnimator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

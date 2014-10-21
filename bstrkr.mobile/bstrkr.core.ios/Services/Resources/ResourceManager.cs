@@ -13,13 +13,5 @@ namespace bstrkr.core.ios.services.resources
 		{
 			return UIImage.FromFile(path);
 		}
-
-		protected override object ScaleImage(object image, float ratio)
-		{
-			var uiImage = image as UIImage;
-			return uiImage.Scale(new SizeF(
-										uiImage.Size.Width * ratio, 
-										uiImage.Size.Height * ratio));
-		}
 	}
 }

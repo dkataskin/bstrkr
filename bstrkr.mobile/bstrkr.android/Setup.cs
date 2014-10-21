@@ -14,6 +14,7 @@ using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.core.services.resources;
 using bstrkr.mvvm;
+using bstrkr.mvvm.views;
 using bstrkr.android.views;
 
 namespace bstrkr.android

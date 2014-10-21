@@ -34,14 +34,16 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="BusTrackerApp.cs" />
     <Compile Include="ViewModels\VehicleViewModel.cs" />
-    <Compile Include="Maps\IMvxMarkerManager.cs" />
-    <Compile Include="Maps\MvxMarkerManager.cs" />
     <Compile Include="Views\IMapView.cs" />
     <Compile Include="Views\IVehicleMarker.cs" />
     <Compile Include="Maps\MapLocationManager.cs" />
     <Compile Include="Converters\ZoomToMarkerSizeConverter.cs" />
     <Compile Include="Views\IMapMarker.cs" />
     <Compile Include="Views\MapViewZoomTargetBinding.cs" />
+    <Compile Include="Maps\IMapMarkerAnimator.cs" />
+    <Compile Include="Maps\MapMarkerManager.cs" />
+    <Compile Include="Maps\IMapMarkerManager.cs" />
+    <Compile Include="Views\IBusStopMarker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
