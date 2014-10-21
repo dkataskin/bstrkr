@@ -6,6 +6,7 @@ using Android.Gms.Maps.Model;
 using Cirrious.CrossCore.Platform;
 
 using bstrkr.core.services.resources;
+using System.IO;
 
 namespace bstrkr.core.android.services.resources
 {
@@ -13,7 +14,14 @@ namespace bstrkr.core.android.services.resources
 	{
 		protected override object GetImageResource(string path)
 		{
-			return BitmapDescriptorFactory.FromPath("drawable/" + path);
+			var context = Android.App.Application.Context;
+
+			var id = context.Resources.GetIdentifier(
+							Path.GetFileNameWithoutExtension(path), 
+							"drawable", 
+							context.PackageName);
+
+			return BitmapDescriptorFactory.FromResource(id);
 		}
 	}
 }

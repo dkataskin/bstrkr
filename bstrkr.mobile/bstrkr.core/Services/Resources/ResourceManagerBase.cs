@@ -32,6 +32,6 @@ namespace bstrkr.core.services.resources
 			}
 		}
 
-		protected abstract object GetImageResource(string path);
+		protected abstract object GetImageResource(string name);
 	}
 }

@@ -24,16 +24,27 @@ namespace bstrkr.android.views
 		{
 			return new MarkerOptions()
 				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
+				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(true)
 				.InvokeRotation(Convert.ToSingle(this.ViewModel.VehicleHeading));
 		}
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
-			if (args.PropertyName.Equals("Location") && this.Marker != null)
+			if (this.Marker == null)
+			{
+				return;
+			}
+
+			if (args.PropertyName.Equals("Location"))
 			{
 				this.Marker.Position = new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude);
 				this.Marker.Rotation = Convert.ToSingle(this.ViewModel.VehicleHeading);
+			}
+
+			if (args.PropertyName.Equals("Icon"))
+			{
+				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
 			}
 		}
 	}
