@@ -6,10 +6,11 @@ namespace bstrkr.core.utils
 {
 	public class LinearGeoPointInterpolator : IGeoPointInterpolator
 	{
-		public GeoPoint Interpolate(float fraction, GeoPoint a, GeoPoint b)
+		public GeoPoint Interpolate(float fraction, GeoPoint from, GeoPoint to)
 		{
-			var lat = (b.Latitude - a.Latitude) * fraction + a.Latitude;
-			var lng = (b.Longitude - a.Longitude) * fraction + a.Longitude;
+			var lat = (to.Latitude - from.Latitude) * fraction + from.Latitude;
+			var lng = (to.Longitude - from.Longitude) * fraction + from.Longitude;
+
 			return new GeoPoint(lat, lng);
 		}
 	}

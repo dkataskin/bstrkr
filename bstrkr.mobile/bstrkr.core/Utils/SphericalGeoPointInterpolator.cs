@@ -1,10 +1,14 @@
-﻿using System;
+﻿/* Copyright 2013 Google Inc.
+   Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0.html */
+
+using System;
 
 using bstrkr.core.spatial;
 using bstrkr.core.extensions;
 
 namespace bstrkr.core.utils
 {
+	/* From github.com/googlemaps/android-maps-utils */
 	public class SphericalGeoPointInterpolator : IGeoPointInterpolator
 	{
 		public GeoPoint Interpolate(float fraction, GeoPoint from, GeoPoint to)
