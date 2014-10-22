@@ -45,7 +45,7 @@ namespace bstrkr.core.services.resources
 			}
 		}
 
-		private string GetSizeKey(MapMarkerSizes size)
+		private char GetSizeKey(MapMarkerSizes size)
 		{
 			return size.ToString().ToLower()[0];
 		}

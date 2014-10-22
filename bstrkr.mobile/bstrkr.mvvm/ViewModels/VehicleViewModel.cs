@@ -86,9 +86,9 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		protected override void UpdateIcon()
+		protected override object GetIcon()
 		{
-			this.Icon = this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize);
+			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize);
 		}
 	}
 }

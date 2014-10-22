@@ -39,22 +39,6 @@ namespace bstrkr.core.providers.bus13
 
 		public event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
-		public IImmutableList<Route> Routes 
-		{
-			get 
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public IImmutableList<Vehicle> Vehicles 
-		{
-			get 
-			{
-				throw new NotImplementedException();
-			}
-		}
-
 		public void Start()
 		{
 			var routes = _dataService.GetRoutesAsync()
@@ -70,6 +54,16 @@ namespace bstrkr.core.providers.bus13
 
 		public void Stop()
 		{
+		}
+
+		public async Task<IImmutableList<Route>> GetRoutesAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public async Task<IImmutableList<RouteStop>> GetRouteStopsAsync()
+		{
+			throw new NotImplementedException();
 		}
 
 		private void UpdateInLoop(

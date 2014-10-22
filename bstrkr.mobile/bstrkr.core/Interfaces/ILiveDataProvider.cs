@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 
 using bstrkr.core;
 
@@ -11,9 +11,9 @@ namespace bstrkr.core.interfaces
 	{
 		event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
-		IImmutableList<Route> Routes { get; }
+		Task<IImmutableList<Route>> GetRoutesAsync();
 
-		IImmutableList<Vehicle> Vehicles { get; }
+		Task<IImmutableList<RouteStop>> GetRouteStopsAsync();
 
 		void Start();
 

@@ -18,8 +18,9 @@ namespace bstrkr.mvvm.viewmodels
 
 		private T _model;
 
-		public MapMarkerViewModelBase(IResourceManager resourceManager) : base(resourceManager)
+		public MapMarkerViewModelBase(IResourceManager resourceManager)
 		{
+			_resourceManager = resourceManager;
 		}
 
 		public virtual MapMarkerSizes MarkerSize
@@ -35,7 +36,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_markerSize = value;
 					this.RaisePropertyChanged(() => this.MarkerSize);
-					this.UpdateIcon();
+					this.Icon = this.GetIcon();
 				}
 			}
 		}
@@ -91,6 +92,6 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		protected abstract void UpdateIcon();
+		protected abstract object GetIcon();
 	}
 }
