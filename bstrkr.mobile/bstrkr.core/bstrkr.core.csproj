@@ -72,6 +72,9 @@
     <None Include="Resources\Images\trolleybus_t.png" />
     <Compile Include="Utils\IGeoPointInterpolator.cs" />
     <Compile Include="Utils\LinearGeoPointInterpolator.cs" />
+    <Compile Include="Utils\LinearFixedGeoPointInterpolator.cs" />
+    <Compile Include="Utils\SphericalGeoPointInterpolator.cs" />
+    <Compile Include="Extensions\NumericExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -88,6 +91,7 @@
     <Folder Include="Services\Resources\" />
     <Folder Include="Map\" />
     <Folder Include="Utils\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\config.json" />

@@ -8,8 +8,9 @@ namespace bstrkr.core.utils
 	{
 		public GeoPoint Interpolate(float fraction, GeoPoint a, GeoPoint b)
 		{
-			return GeoPoint.Empty;
+			var lat = (b.Latitude - a.Latitude) * fraction + a.Latitude;
+			var lng = (b.Longitude - a.Longitude) * fraction + a.Longitude;
+			return new GeoPoint(lat, lng);
 		}
 	}
 }
-
