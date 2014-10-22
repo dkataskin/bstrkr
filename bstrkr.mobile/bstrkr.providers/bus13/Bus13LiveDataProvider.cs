@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -56,14 +55,14 @@ namespace bstrkr.core.providers.bus13
 		{
 		}
 
-		public async Task<IImmutableList<Route>> GetRoutesAsync()
+		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
-			throw new NotImplementedException();
+			return await _dataService.GetRoutesAsync();
 		}
 
-		public async Task<IImmutableList<RouteStop>> GetRouteStopsAsync()
+		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync()
 		{
-			throw new NotImplementedException();
+			return await _dataService.GetStopsAsync();
 		}
 
 		private void UpdateInLoop(
