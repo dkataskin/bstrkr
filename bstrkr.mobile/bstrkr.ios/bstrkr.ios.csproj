@@ -164,6 +164,21 @@
     <BundleResource Include="..\bstrkr.core\Resources\Images\trolleybus_t.png">
       <Link>Resources\trolleybus_t.png</Link>
     </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_b.png">
+      <Link>Resources\busstop_b.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_h.png">
+      <Link>Resources\busstop_h.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_m.png">
+      <Link>Resources\busstop_m.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_s.png">
+      <Link>Resources\busstop_s.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_t.png">
+      <Link>Resources\busstop_t.png</Link>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

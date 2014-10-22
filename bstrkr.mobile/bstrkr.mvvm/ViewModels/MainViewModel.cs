@@ -167,10 +167,19 @@ namespace bstrkr.mvvm.viewmodels
 		private VehicleViewModel CreateVehicleVM(Vehicle vehicle)
 		{
 			var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
-			vehicleVM.Vehicle = vehicle;
+			vehicleVM.Model = vehicle;
 			vehicleVM.MarkerSize = this.MarkerSize;
 
 			return vehicleVM;
+		}
+
+		private RouteStopViewModel CreateRouteStopVM(RouteStop routeStop)
+		{
+			var stopVM = Mvx.IocConstruct<RouteStopViewModel>();
+			stopVM.Model = routeStop;
+			stopVM.MarkerSize = this.MarkerSize;
+
+			return stopVM;
 		}
 
 		private void UpdateVehicleVM(VehicleViewModel vehicleVM, Vehicle vehicle)

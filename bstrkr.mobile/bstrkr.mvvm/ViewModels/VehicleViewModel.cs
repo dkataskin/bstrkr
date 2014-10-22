@@ -10,37 +10,24 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class VehicleViewModel : MvxViewModel
+	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
 	{
-		private readonly IResourceManager _resourceManager;
-
-		private MapMarkerSizes _markerSize;
-		private object _icon;
-		private Vehicle _vehicle;
-
-		public VehicleViewModel(IResourceManager resourceManager)
+		public VehicleViewModel(IResourceManager resourceManager) : base(resourceManager)
 		{
-			_resourceManager = resourceManager;
 		}
 
-		public Vehicle Vehicle
+		public override Vehicle Model
 		{
 			get 
 			{
-				return _vehicle;
+				return base.Model;
 			}
 
 			set
 			{
-				if (_vehicle != value)
+				if (base.Model != value)
 				{
-					_vehicle = value;
-					this.RaisePropertyChanged(() => this.Vehicle);
-
-					if (value != null)
-					{
-						this.UpdateIcon();
-					}
+					base.Model = value;
 
 					this.RaisePropertyChanged(() => this.VehicleId);
 					this.RaisePropertyChanged(() => this.VehicleType);
@@ -52,26 +39,26 @@ namespace bstrkr.mvvm.viewmodels
 
 		public string VehicleId
 		{
-			get { return _vehicle == null ? string.Empty : _vehicle.Id; }
+			get { return this.Model == null ? string.Empty : this.Model.Id; }
 		}
 
 		public VehicleTypes VehicleType
 		{
-			get { return _vehicle == null ? VehicleTypes.Bus : _vehicle.Type; }
+			get { return this.Model == null ? VehicleTypes.Bus : this.Model.Type; }
 		}
 
 		public double VehicleHeading
 		{
 			get 
 			{ 
-				return _vehicle == null ? 0.0 : _vehicle.Heading; 
+				return this.Model == null ? 0.0 : this.Model.Heading; 
 			}
 
 			set
 			{
-				if (_vehicle != null && _vehicle.Heading != value)
+				if (this.Model != null && this.Model.Heading != value)
 				{
-					_vehicle.Heading = value;
+					this.Model.Heading = value;
 					this.RaisePropertyChanged(() => this.VehicleHeading);
 				}
 			}
@@ -79,64 +66,29 @@ namespace bstrkr.mvvm.viewmodels
 
 		public string CarPlate
 		{
-			get { return _vehicle == null ? string.Empty : _vehicle.CarPlate; }
+			get { return this.Model == null ? string.Empty : this.Model.CarPlate; }
 		}
 
-		public GeoPoint Location
+		public override GeoPoint Location
 		{
 			get 
 			{ 
-				return _vehicle == null ? GeoPoint.Empty : _vehicle.Location; 
+				return this.Model == null ? GeoPoint.Empty : this.Model.Location; 
 			}
 
 			set
 			{
-				if (_vehicle != null && !GeoPoint.Equals(_vehicle.Location, value))
+				if (this.Model != null && !GeoPoint.Equals(this.Model.Location, value))
 				{
-					_vehicle.Location = value;
+					this.Model.Location = value;
 					this.RaisePropertyChanged(() => this.Location);
 				}
 			}
 		}
 
-		public MapMarkerSizes MarkerSize
+		protected override void UpdateIcon()
 		{
-			get 
-			{
-				return _markerSize;
-			}
-
-			set
-			{
-				if (_markerSize != value)
-				{
-					_markerSize = value;
-					this.RaisePropertyChanged(() => this.MarkerSize);
-					this.UpdateIcon();
-				}
-			}
-		}
-
-		public object Icon
-		{
-			get 
-			{ 
-				return _icon;
-			}
-
-			private set 
-			{
-				if (_icon != value)
-				{
-					_icon = value;
-					this.RaisePropertyChanged(() => this.Icon);
-				}
-			}
-		}
-
-		private void UpdateIcon()
-		{
-			this.Icon = _vehicle == null ? null : _resourceManager.GetVehicleMarker(_vehicle.Type, this.MarkerSize);
+			this.Icon = this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize);
 		}
 	}
 }

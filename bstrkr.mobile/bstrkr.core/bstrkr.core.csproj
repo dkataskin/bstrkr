@@ -75,6 +75,11 @@
     <Compile Include="Utils\LinearFixedGeoPointInterpolator.cs" />
     <Compile Include="Utils\SphericalGeoPointInterpolator.cs" />
     <Compile Include="Extensions\NumericExtensions.cs" />
+    <None Include="Resources\Images\busstop_b.png" />
+    <None Include="Resources\Images\busstop_h.png" />
+    <None Include="Resources\Images\busstop_m.png" />
+    <None Include="Resources\Images\busstop_s.png" />
+    <None Include="Resources\Images\busstop_t.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
