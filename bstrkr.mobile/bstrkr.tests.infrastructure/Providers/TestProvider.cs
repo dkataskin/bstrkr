@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.core.interfaces;
@@ -22,20 +24,14 @@ namespace bstrkr.tests.infrastructure.providers
 		{
 		}
 
-		public IImmutableList<Route> Routes 
+		public Task<IEnumerable<Route>> GetRoutesAsync()
 		{
-			get 
-			{
-				throw new NotImplementedException();
-			}
+			throw new NotImplementedException();
 		}
 
-		public IImmutableList<Vehicle> Vehicles 
+		public Task<IEnumerable<RouteStop>> GetRouteStopsAsync()
 		{
-			get 
-			{
-				throw new NotImplementedException();
-			}
+			throw new NotImplementedException();
 		}
 	}
 }

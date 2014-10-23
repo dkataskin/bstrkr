@@ -11,8 +11,6 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopViewModel : MapMarkerViewModelBase<RouteStop>
 	{
-		private RouteStop _routeStop;
-
 		public RouteStopViewModel(IResourceManager resourceManager) : base(resourceManager)
 		{
 		}

@@ -13,10 +13,8 @@ using bstrkr.core.spatial;
 
 namespace bstrkr.ios.views
 {
-	public class VehicleMarker : Marker, IVehicleMarker
+	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker
 	{
-		private IMapView _mapView;
-
 		public VehicleMarker(VehicleViewModel vehicleVM)
 		{
 			this.ViewModel = vehicleVM;
@@ -30,27 +28,6 @@ namespace bstrkr.ios.views
 		}
 
 		public VehicleViewModel ViewModel { get; private set; }
-
-		public IMapView MapView 
-		{
-			get 
-			{ 
-				return _mapView; 
-			}
-
-			set 
-			{ 
-				_mapView = value;
-
-				this.Map = value == null ? null : value.MapObject as MapView;
-			}
-		}
-
-		public GeoPoint Location
-		{
-			get { return this.Position.ToGeoPoint(); }
-			set { this.Position = value.ToCLLocation(); }
-		}
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{

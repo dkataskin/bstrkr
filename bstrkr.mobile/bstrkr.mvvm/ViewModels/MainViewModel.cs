@@ -1,8 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-
 using System.Linq;
+using System.Threading.Tasks;
 
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
@@ -12,12 +12,12 @@ using bstrkr.core.collections;
 using bstrkr.core.config;
 using bstrkr.core.consts;
 using bstrkr.core.interfaces;
+using bstrkr.core.map;
 using bstrkr.core.providers.bus13;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.views;
-using bstrkr.core.map;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -29,6 +29,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IConfigManager _configManager;
 		private readonly ZoomToMarkerSizeConverter _zoomConverter = new ZoomToMarkerSizeConverter();
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
+		private readonly ObservableCollection<RouteStopViewModel> _stops = new ObservableCollection<RouteStopViewModel>();
 
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Small;
 		private ILiveDataProvider _liveDataProvider;
@@ -38,6 +39,9 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MainViewModel(IConfigManager configManager, ILocationService locationService)
 		{
+			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
+			this.Stops = new ReadOnlyObservableCollection<RouteStopViewModel>(_stops);
+
 			_configManager = configManager;
 
 			_locationService = locationService;
@@ -45,11 +49,11 @@ namespace bstrkr.mvvm.viewmodels
 
 			// android requires location watcher to be started on the UI thread
 			this.Dispatcher.RequestMainThreadAction(() => _locationService.StartUpdating());
-
-			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 		}
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
+
+		public ReadOnlyObservableCollection<RouteStopViewModel> Stops { get; private set; }
 
 		public GeoPoint Location 
 		{ 
@@ -133,12 +137,30 @@ namespace bstrkr.mvvm.viewmodels
 														TimeSpan.FromMilliseconds(UpdateInterval));
 					_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
 					_liveDataProvider.Start();
+
+					Task.Factory.StartNew(async () => await this.LoadRouteStopsAsync());
 				}
 				else
 				{
 					this.OnLocationUnknown();
 				}
 			}
+		}
+
+		private async Task LoadRouteStopsAsync()
+		{
+			var stops = await _liveDataProvider.GetRouteStopsAsync();
+			lock(_stops)
+			{
+				this.Dispatcher.RequestMainThreadAction(() =>
+				{
+					foreach (var stop in stops)
+					{
+						var vm = this.CreateRouteStopVM(stop);
+						_stops.Add(vm);
+					}
+				});
+			};
 		}
 
 		private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)
@@ -197,6 +219,14 @@ namespace bstrkr.mvvm.viewmodels
 			lock(_vehicles)
 			{
 				foreach (var vm in _vehicles)
+				{
+					vm.MarkerSize = size;
+				}
+			}
+
+			lock(_stops)
+			{
+				foreach (var vm in _stops)
 				{
 					vm.MarkerSize = size;
 				}
