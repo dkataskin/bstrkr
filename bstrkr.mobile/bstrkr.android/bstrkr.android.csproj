@@ -135,6 +135,8 @@
     <Compile Include="Views\GoogleMapsMarkerBase.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Views\MapMarkerAnimator.cs" />
+    <Compile Include="Views\RouteStopMarker.cs" />
+    <Compile Include="Views\RouteStopMarkerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

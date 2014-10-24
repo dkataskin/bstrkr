@@ -23,6 +23,7 @@ namespace bstrkr.android.views
     {
 		private IMapView _mapViewWrapper;
 		private VehicleMarkerManager _vehicleMarkerManager;
+		private RouteStopMarkerManager _routeStopMarkerManager;
 		private MapLocationManager _mapLocationManager;
 
         protected override void OnCreate(Bundle bundle)
@@ -48,11 +49,13 @@ namespace bstrkr.android.views
 
 				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
 				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
+				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
 				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
 			}
 
 			var set = this.CreateBindingSet<MainView, MainViewModel>();
 			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
+			set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
 			set.Bind(_mapViewWrapper).For(x => x.Zoom)
 									 .To(vm => vm.MarkerSize)
