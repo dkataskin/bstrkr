@@ -1,5 +1,6 @@
 using System.Drawing;
 
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Touch.Views;
 
@@ -10,10 +11,12 @@ using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 using MonoTouch.UIKit;
 
+using SidebarNavigation;
+
+using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using bstrkr.mvvm.converters;
 
 namespace bstrkr.ios.views
 {
@@ -55,6 +58,21 @@ namespace bstrkr.ios.views
 
 			set.Apply();
 		}
+
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
+
+			var contentController = new ContentController();
+			var settingsView = Mvx.Resolve<SettingsView>();
+
+			//this.SidebarController = new SidebarController(this, contentController, new SettingsView());
+			//this.SidebarController.MenuLocation = SidebarController.MenuLocations.Left;
+
+			//contentController.SidebarController = this.SidebarController;
+		}
+
+		public SidebarController SidebarController { get; private set; }
 
 		public override void ViewWillAppear(bool animated)
 		{

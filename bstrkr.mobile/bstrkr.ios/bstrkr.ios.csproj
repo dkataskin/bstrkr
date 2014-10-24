@@ -113,6 +113,9 @@
     <Reference Include="Cirrious.MvvmCross">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.2.1\lib\MonoTouch\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin-Sidebar">
+      <HintPath>..\Components\SidebarNavigation-1.4\lib\ios\Xamarin-Sidebar.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -198,10 +201,8 @@
     <Compile Include="Views\RouteStopMarker.cs" />
     <Compile Include="Views\GoogleMapsMarkerBase.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
-    <InterfaceDefinition Include="MainStoryboard_iPad.storyboard" />
+    <Compile Include="Views\SettingsView.cs" />
+    <Compile Include="Views\ContentController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
@@ -221,6 +222,10 @@
   <ItemGroup>
     <XamarinComponentReference Include="googlemapsios">
       <Version>1.8.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="SidebarNavigation">
+      <Version>1.4</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
