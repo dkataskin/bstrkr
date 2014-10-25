@@ -65,9 +65,6 @@
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.IO.Compression">
       <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.85\lib\portable-net45+win8+wp8+wpa81\System.IO.Compression.dll</HintPath>
     </Reference>
@@ -76,6 +73,9 @@
     </Reference>
     <Reference Include="RestSharp.Portable.Encodings">
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.7.0\lib\portable-net45+win+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.Encodings.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

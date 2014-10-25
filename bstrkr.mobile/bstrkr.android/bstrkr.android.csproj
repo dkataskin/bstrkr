@@ -68,9 +68,6 @@
     <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
       <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net">
       <HintPath>..\packages\MvvmCross.PortableSupport.3.2.1\lib\MonoAndroid\System.Net.dll</HintPath>
     </Reference>
@@ -118,6 +115,9 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
