@@ -24,6 +24,12 @@ namespace bstrkr.ios.views
 		}
 
 		public event EventHandler<EventArgs> ZoomChanged;
+		public event EventHandler<EventArgs> CameraLocationChanged;
+
+		public GeoPoint CameraLocation 
+		{
+			get { return _mapView.Camera.Target.ToGeoPoint(); }
+		}
 
 		public object MapObject
 		{

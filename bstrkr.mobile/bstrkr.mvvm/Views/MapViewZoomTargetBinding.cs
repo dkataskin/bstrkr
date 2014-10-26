@@ -35,18 +35,16 @@ namespace bstrkr.mvvm.views
 
 		protected override void SetValueImpl(object target, object value)
 		{
-			var mapView = target as IMapView;
-			mapView.SetCamera((GeoPoint)value, mapView.Zoom);
 		}
 
 		public override Type TargetType
 		{
-			get { return typeof(GeoPoint); }
+			get { return typeof(float); }
 		}
 
 		public override MvxBindingMode DefaultMode
 		{
-			get { return MvxBindingMode.TwoWay; }
+			get { return MvxBindingMode.OneWayToSource; }
 		}
 
 		protected override void Dispose(bool isDisposing)

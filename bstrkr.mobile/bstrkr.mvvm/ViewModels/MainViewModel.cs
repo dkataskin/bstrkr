@@ -34,7 +34,7 @@ namespace bstrkr.mvvm.viewmodels
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Small;
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
-
+		private RouteStop _routeStop;
 		private BusTrackerLocation _coarseLocation;
 
 		public MainViewModel(IConfigManager configManager, ILocationService locationService)
@@ -89,6 +89,23 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public RouteStop RouteStop
+		{
+			get 
+			{
+				return _routeStop;
+			}
+
+			private set
+			{
+				if (_routeStop != value)
+				{
+					_routeStop = value;
+					this.RaisePropertyChanged(() => this.RouteStop);
+				}
+			}
+		}
+
 		public MapMarkerSizes MarkerSize
 		{
 			get
@@ -127,7 +144,7 @@ namespace bstrkr.mvvm.viewmodels
 									 .OrderBy(x => x.Item1)
 									 .First();
 
-				if (location.Item1 <= AppConsts.MaxDistance)
+				if (location.Item1 <= AppConsts.MaxDistanceFromCityCenter)
 				{
 					this.CoarseLocation = location.Item2;
 
@@ -160,7 +177,22 @@ namespace bstrkr.mvvm.viewmodels
 						_stops.Add(vm);
 					}
 				});
+
+				this.SelectClosestRouteStop(this.Location);
 			};
+		}
+
+		private void SelectClosestRouteStop(GeoPoint location)
+		{
+			var closestStop = _stops.Select(x => x.Model)
+									.Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location), x))
+									.OrderBy(x => x.Item1)
+									.First();
+
+			if (closestStop.Item1 <= AppConsts.MaxDistanceFromBusStop)
+			{
+				this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestStop.Item2);
+			}
 		}
 
 		private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)

@@ -2,12 +2,19 @@
 
 using Cirrious.MvvmCross.Binding.Bindings.Target;
 
+using bstrkr.core.spatial;
+
 namespace bstrkr.mvvm.views
 {
 	public class MapViewLocationTargetBinding : MvxConvertingTargetBinding
 	{
 		public MapViewLocationTargetBinding(IMapView target) : base(target)
 		{
+		}
+
+		public override Type TargetType 
+		{
+			get { return typeof(GeoPoint); }
 		}
 
 		protected IMapView MapView
@@ -17,7 +24,7 @@ namespace bstrkr.mvvm.views
 
 		public override void SubscribeToEvents()
 		{
-			this.MapView.CameraPositionChanged += this.OnCameraPositionChanged;
+			this.MapView.CameraLocationChanged += this.OnCameraPositionChanged;
 		}
 
 		private void OnCameraPositionChanged(object sender, EventArgs args)
@@ -27,11 +34,13 @@ namespace bstrkr.mvvm.views
 				return;
 			}
 
-			this.FireValueChanged(this.MapView.CameraPosition);
+			this.FireValueChanged(this.MapView.CameraLocation);
 		}
 
 		protected override void SetValueImpl(object target, object value)
 		{
+			var mapView = target as IMapView;
+			mapView.SetCamera((GeoPoint)value, mapView.Zoom);
 		}
 	}
 }
