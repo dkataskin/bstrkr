@@ -202,7 +202,6 @@
     <Compile Include="Views\GoogleMapsMarkerBase.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
     <Compile Include="Views\SettingsView.cs" />
-    <Compile Include="Views\ContentController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

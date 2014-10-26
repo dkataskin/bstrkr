@@ -59,19 +59,6 @@ namespace bstrkr.ios.views
 			set.Apply();
 		}
 
-		public override void ViewDidLoad()
-		{
-			base.ViewDidLoad();
-
-			var contentController = new ContentController();
-			var settingsView = Mvx.Resolve<SettingsView>();
-
-			//this.SidebarController = new SidebarController(this, contentController, new SettingsView());
-			//this.SidebarController.MenuLocation = SidebarController.MenuLocations.Left;
-
-			//contentController.SidebarController = this.SidebarController;
-		}
-
 		public SidebarController SidebarController { get; private set; }
 
 		public override void ViewWillAppear(bool animated)

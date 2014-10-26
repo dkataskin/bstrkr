@@ -48,6 +48,7 @@
     <Compile Include="ViewModels\RouteStopViewModel.cs" />
     <Compile Include="Views\IRouteStopMarker.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Views\MapViewLocationTargetBinding.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
