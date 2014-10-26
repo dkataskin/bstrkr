@@ -50,6 +50,9 @@
     <Reference Include="Cirrious.MvvmCross">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.2.1\lib\net45\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Test.Core">
+      <HintPath>..\packages\MvvmCross.HotTuna.Tests.3.2.1\lib\net45\Cirrious.MvvmCross.Test.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -60,6 +63,8 @@
     <Compile Include="ProviderTests.cs" />
     <Compile Include="ConfigManagerTests.cs" />
     <Compile Include="MainViewModelTests.cs" />
+    <Compile Include="MockDispatcher.cs" />
+    <Compile Include="ViewModelTestFixtureBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 
+using Cirrious.MvvmCross.Test.Core;
+
 using NUnit.Framework;
 
 using bstrkr.core.config;
@@ -12,7 +14,7 @@ using bstrkr.tests.infrastructure.services;
 namespace bstrkr.mobile.tests
 {
 	[TestFixture]
-	public class MainViewModelTests
+	public class MainViewModelTests : ViewModelTestFixtureBase
 	{
 		private const string Config = @"{
   ""locations"":[
