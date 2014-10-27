@@ -203,7 +203,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					this.Dispatcher.RequestMainThreadAction(() =>
 														_vehicles.Merge(
-															args.Vehicles, 
+															args.VehicleLocations, 
 															vehicleVM => vehicleVM.VehicleId,
 															vehicle => vehicle.Id, 
 															this.CreateVehicleVM,

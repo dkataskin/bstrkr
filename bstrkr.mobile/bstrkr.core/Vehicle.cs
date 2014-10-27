@@ -12,7 +12,7 @@ namespace bstrkr.core
 
 		public GeoPoint Location { get; set; }
 
-		public double Heading { get; set; }
+		public float Heading { get; set; }
 
 		public VehicleRouteInfo RouteInfo { get; set; }
 

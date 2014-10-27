@@ -86,9 +86,9 @@ namespace bstrkr.tests
 
 			Assert.IsNotNull(response);
 			Assert.IsTrue(response.Timestamp > 0);
-			Assert.IsTrue(response.Vehicles.Any());
+			Assert.IsTrue(response.VehicleLocations.Any());
 
-			foreach (var vehicle in response.Vehicles)
+			foreach (var vehicle in response.VehicleLocations)
 			{
 				Assert.IsNotNull(vehicle);
 				Assert.IsNotNull(vehicle.Id);

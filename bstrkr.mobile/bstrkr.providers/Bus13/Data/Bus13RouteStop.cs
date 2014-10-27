@@ -4,16 +4,16 @@ namespace bstrkr.providers.bus13.data
 {
 	public class Bus13RouteStop
 	{
-		public int id { get; set; }
+		public int Id { get; set; }
 
-		public string name { get; set; }
+		public string Name { get; set; }
 
-		public string descr { get; set; }
+		public string Descr { get; set; }
 
-		public int lat { get; set; }
+		public int Lat { get; set; }
 
-		public int lng { get; set; }
+		public int Lng { get; set; }
 
-		public string type { get; set; }
+		public string Type { get; set; }
 	}
 }

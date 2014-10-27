@@ -19,7 +19,7 @@ namespace bstrkr.ios
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : MvxApplicationDelegate
 	{
-		private const string MapsApiKey = "AIzaSyAI2_0HkCS84Q5hWliLZQ64mCc81KZ61ME";
+		private const string MapsApiKey = "AIzaSyAIN115vbvPtL50iumctp9y_CjDSVFGQwE";
 		// class-level declarations
 		
 		public override UIWindow Window { get; set; }

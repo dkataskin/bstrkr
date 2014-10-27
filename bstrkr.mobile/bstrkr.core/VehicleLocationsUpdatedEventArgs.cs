@@ -7,11 +7,11 @@ namespace bstrkr.core
 {
 	public class VehicleLocationsUpdatedEventArgs : EventArgs
 	{
-		public VehicleLocationsUpdatedEventArgs(IEnumerable<Vehicle> vehicles)
+		public VehicleLocationsUpdatedEventArgs(IDictionary<string, WaypointCollection> vehicleLocations)
 		{
-			this.Vehicles = new ReadOnlyCollection<Vehicle>(vehicles.ToList());
+			this.VehicleLocations = new ReadOnlyDictionary<string, WaypointCollection>(vehicleLocations);
 		}
 
-		public IReadOnlyCollection<Vehicle> Vehicles { get; private set; }
+		public IReadOnlyDictionary<string, WaypointCollection> VehicleLocations { get; private set; }
 	}
 }

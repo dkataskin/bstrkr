@@ -9,14 +9,14 @@ namespace bstrkr.providers.bus13.data
 {
 	public class VehicleLocationsResponse
 	{
-		public VehicleLocationsResponse(int timestamp, IEnumerable<Vehicle> vehicles)
+		public VehicleLocationsResponse(int timestamp, IDictionary<Vehicle, WaypointCollection> vehicleLocations)
 		{
 			this.Timestamp = timestamp;
-			this.Vehicles = new ReadOnlyCollection<Vehicle>(vehicles.ToList());
+			this.VehicleLocations = new ReadOnlyDictionary<Vehicle, WaypointCollection>(vehicleLocations);
 		}
 
 		public int Timestamp { get; private set; }
 
-		public IReadOnlyCollection<Vehicle> Vehicles { get; private set; }
+		public IReadOnlyDictionary<Vehicle, WaypointCollection> VehicleLocations { get; private set; }
 	}
 }

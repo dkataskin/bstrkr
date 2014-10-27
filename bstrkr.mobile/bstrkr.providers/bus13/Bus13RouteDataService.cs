@@ -101,8 +101,10 @@ namespace bstrkr.core.providers.bus13
 			var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request).ConfigureAwait(false);
 
 			return new VehicleLocationsResponse(
-										response.maxk, 
-										response.anims.Select(this.ParseVehicle).ToList());
+										response.MaxK, 
+										response.Anims
+												.Select(x => this.ParseVehicle(x))
+												.ToDictionary(y => y.Item1, y => y.Item2));
 		}
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
@@ -163,21 +165,21 @@ namespace bstrkr.core.providers.bus13
 			foreach (var bus13Route in bus13Routes) 
 			{
 				var route = new Route(
-					            bus13Route.id, 
-					            bus13Route.name, 
-								this.ParseRouteType(bus13Route.type),
+					            bus13Route.Id, 
+					            bus13Route.Name, 
+								this.ParseRouteType(bus13Route.Type),
 					            new List<RouteStop>(),
 								new List<GeoPoint>());
 
 				route.FirstStop = new RouteStop(
-										bus13Route.fromstid.ToString(), 
-										bus13Route.fromst,
+										bus13Route.FromStId.ToString(), 
+										bus13Route.FromSt,
 										string.Empty,
 										GeoPoint.Empty);
 
 				route.LastStop = new RouteStop(
-										bus13Route.tostid.ToString(),
-										bus13Route.tost,
+										bus13Route.ToStId.ToString(),
+										bus13Route.ToSt,
 										string.Empty,
 										GeoPoint.Empty);
 
@@ -199,10 +201,10 @@ namespace bstrkr.core.providers.bus13
 			foreach (var bus13RouteStop in bus13RouteStops)
 			{
 				var routeStop = new RouteStop(
-										bus13RouteStop.id.ToString(), 
-						                bus13RouteStop.name, 
-						                bus13RouteStop.descr,
-						                this.ParseLocation(bus13RouteStop.lat, bus13RouteStop.lng));
+										bus13RouteStop.Id.ToString(), 
+						                bus13RouteStop.Name, 
+						                bus13RouteStop.Descr,
+						                this.ParsePoint(bus13RouteStop.Lat, bus13RouteStop.Lng));
 
 				routeStops.Add(routeStop);
 			}
@@ -210,9 +212,51 @@ namespace bstrkr.core.providers.bus13
 			return routeStops;
 		}
 
-		private GeoPoint ParseLocation(int latitude, int longitude)
+		private Tuple<Vehicle, WaypointCollection> ParseVehicle(Bus13VehicleLocation bus13Vehicle)
 		{
-			return new GeoPoint(latitude / 1000000.0, longitude / 1000000.0);
+			var vehicle = new Vehicle 
+			{
+				Id = bus13Vehicle.Id,
+				CarPlate = bus13Vehicle.Gos_Num,
+				Location = this.ParsePoint(bus13Vehicle.Lat, bus13Vehicle.Lon),
+				Heading = Convert.ToSingle(bus13Vehicle.Dir),
+				RouteInfo = new VehicleRouteInfo
+				{
+					RouteId = bus13Vehicle.RId.ToString(),
+					DisplayName = bus13Vehicle.RNum
+				}
+			};
+
+			var waypointCollection = new WaypointCollection();
+			foreach(var animPoint in bus13Vehicle.Anim_Points)
+			{
+				waypointCollection.Add(
+					this.ParsePoint(animPoint.Lat, animPoint.Lng),
+					Convert.ToSingle(int.Parse(animPoint.Dir)),
+					int.Parse(animPoint.Percent) / 100.0f);
+			}
+
+			return new Tuple<Vehicle, WaypointCollection>(vehicle, waypointCollection);
+		}
+
+		private int CoordToInt(double coord)
+		{
+			return Convert.ToInt32(coord * 1000000);
+		}
+
+		private GeoPoint ParsePoint(Bus13GeoPoint bus13Point)
+		{
+			return this.ParsePoint(bus13Point.Lat, bus13Point.Lng);
+		}
+
+		private GeoPoint ParsePoint(string latitude, string longitude)
+		{
+			return this.ParsePoint(int.Parse(latitude), int.Parse(longitude));
+		}
+
+		private GeoPoint ParsePoint(int latitude, int longitude)
+		{
+			return new GeoPoint(latitude / 1000000f, longitude / 1000000f);
 		}
 
 		private RouteType ParseRouteType(string routeType)
@@ -220,7 +264,7 @@ namespace bstrkr.core.providers.bus13
 			switch (routeType)
 			{
 				case "Т":
-					return new RouteType("Троллейбус", routeType);
+					return new RouteType("Троллейбс", routeType);
 
 				case "М":
 					return new RouteType("Маршрутное такси", routeType);
@@ -231,49 +275,6 @@ namespace bstrkr.core.providers.bus13
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
-		}
-
-		private GeoPoint ParsePoint(Bus13GeoPoint bus13Point)
-		{
-			return this.ParseLocation(bus13Point.lat, bus13Point.lng);
-		}
-
-		private Vehicle ParseVehicle(Bus13VehicleLocation bus13Vehicle)
-		{
-			var vehicle = new Vehicle 
-			{
-				Id = bus13Vehicle.id,
-				CarPlate = bus13Vehicle.gos_num,
-				Location = this.ParseLocation(bus13Vehicle.lat, bus13Vehicle.lon),
-				Heading = bus13Vehicle.dir,
-				RouteInfo = new VehicleRouteInfo
-				{
-					RouteId = bus13Vehicle.rid.ToString(),
-					DisplayName = bus13Vehicle.rnum
-				}
-			};
-
-			switch (bus13Vehicle.rtype)
-			{
-				case "А": 
-					vehicle.Type = VehicleTypes.Bus;
-					break;
-				
-				case "М":
-					vehicle.Type = VehicleTypes.ShuttleBus;
-					break;
-
-				case "Т":
-					vehicle.Type = VehicleTypes.Trolleybus;
-					break;
-			}
-
-			return vehicle;
-		}
-
-		private int CoordToInt(double coord)
-		{
-			return Convert.ToInt32(coord * 1000000);
 		}
 
 		private async Task<T> ExecuteAsync<T>(IRestClient client, IRestRequest request)

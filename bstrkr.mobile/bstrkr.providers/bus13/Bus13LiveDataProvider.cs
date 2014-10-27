@@ -82,7 +82,8 @@ namespace bstrkr.core.providers.bus13
 											   .GetResult();
 
 					timestamp = response.Timestamp;
-					this.RaiseVehicleLocationsUpdatedEvent(response.Vehicles);
+
+					this.RaiseVehicleLocationsUpdatedEvent(response.VehicleLocations.ToDictionary(x => x.Key.Id, x => x.Value));
 				} 
 				catch (Exception e)
 				{
@@ -94,11 +95,11 @@ namespace bstrkr.core.providers.bus13
 			}
 		}
 
-		private void RaiseVehicleLocationsUpdatedEvent(IEnumerable<Vehicle> vehicles)
+		private void RaiseVehicleLocationsUpdatedEvent(IDictionary<string, WaypointCollection> vehicleLocations)
 		{
 			if (this.VehicleLocationsUpdated != null)
 			{
-				this.VehicleLocationsUpdated(this, new VehicleLocationsUpdatedEventArgs(vehicles));
+				this.VehicleLocationsUpdated(this, new VehicleLocationsUpdatedEventArgs(vehicleLocations));
 			}
 		}
 	}

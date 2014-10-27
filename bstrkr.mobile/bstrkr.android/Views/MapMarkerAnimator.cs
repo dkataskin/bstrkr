@@ -12,7 +12,7 @@ namespace bstrkr.android.views
 {
 	public class MapMarkerAnimator : IMapMarkerAnimator
 	{
-		public void Animate(IMapMarker marker, GeoPoint finalPosition, IGeoPointInterpolator interpolator)
+		public void Animate(IMapMarker marker, GeoPoint finalPosition, IGeoPointInterpolator interpolator, long duration)
 		{
 			//var typeEvaluator = new TypeEvaluator<LatLng>() {
 //				public LatLng evaluate(float fraction, LatLng startValue, LatLng endValue) {
@@ -23,7 +23,7 @@ namespace bstrkr.android.views
 			var googleMapMarker = (marker as GoogleMapsMarkerBase).Marker;
 
 			ObjectAnimator.OfObject(googleMapMarker, "Position", null, finalPosition.ToLatLng())
-						  .SetDuration(3000)
+						  .SetDuration(duration)
 						  .Start();
 		}
 

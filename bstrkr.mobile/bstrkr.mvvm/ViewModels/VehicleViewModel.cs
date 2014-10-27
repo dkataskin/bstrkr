@@ -1,5 +1,8 @@
 ﻿using System;
 
+using System.Collections.Generic;
+using System.Linq;
+
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
@@ -12,6 +15,10 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
 	{
+		private readonly Queue<Tuple<double, GeoPoint>> _queue = new Queue<Tuple<double, GeoPoint>>();
+
+		private long _lastUpdate = 0;
+
 		public VehicleViewModel(IResourceManager resourceManager) : base(resourceManager)
 		{
 		}
@@ -84,6 +91,29 @@ namespace bstrkr.mvvm.viewmodels
 					this.RaisePropertyChanged(() => this.Location);
 				}
 			}
+		}
+
+		public void AddWaypoints(WaypointCollection waypoints)
+		{
+			var now = DateTime.UtcNow.Ticks;
+			var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
+			lock(_queue)
+			{
+				_queue.Enqueue(
+					new Tuple<double, GeoPoint>(
+						TimeSpan.FromTicks(now - _lastUpdate).TotalMilliseconds, 
+						sortedWaypoints.First().Location));
+
+				foreach (var waypoint in sortedWaypoints.Skip(1))
+				{
+					_queue.Enqueue(
+						new Tuple<double, GeoPoint>(
+							waypoints.TimeSpan.TotalMilliseconds * waypoint.Fraction, 
+							waypoint.Location));
+				}
+			}
+
+			_lastUpdate = now;
 		}
 
 		protected override object GetIcon()
