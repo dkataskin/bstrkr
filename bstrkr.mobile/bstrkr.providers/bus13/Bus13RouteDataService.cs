@@ -102,9 +102,7 @@ namespace bstrkr.core.providers.bus13
 
 			return new VehicleLocationsResponse(
 										response.MaxK, 
-										response.Anims
-												.Select(x => this.ParseVehicle(x))
-												.ToDictionary(y => y.Item1, y => y.Item2));
+										response.Anims.Select(x => this.ParseVehicleLocationUpdate(x)));
 		}
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
@@ -212,7 +210,7 @@ namespace bstrkr.core.providers.bus13
 			return routeStops;
 		}
 
-		private Tuple<Vehicle, WaypointCollection> ParseVehicle(Bus13VehicleLocation bus13Vehicle)
+		private VehicleLocationUpdate ParseVehicleLocationUpdate(Bus13VehicleLocation bus13Vehicle)
 		{
 			var vehicle = new Vehicle 
 			{
@@ -236,7 +234,7 @@ namespace bstrkr.core.providers.bus13
 					int.Parse(animPoint.Percent) / 100.0f);
 			}
 
-			return new Tuple<Vehicle, WaypointCollection>(vehicle, waypointCollection);
+			return new VehicleLocationUpdate(vehicle, waypointCollection);
 		}
 
 		private int CoordToInt(double coord)

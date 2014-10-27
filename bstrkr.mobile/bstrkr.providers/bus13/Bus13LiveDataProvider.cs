@@ -83,7 +83,7 @@ namespace bstrkr.core.providers.bus13
 
 					timestamp = response.Timestamp;
 
-					this.RaiseVehicleLocationsUpdatedEvent(response.VehicleLocations.ToDictionary(x => x.Key.Id, x => x.Value));
+					this.RaiseVehicleLocationsUpdatedEvent(response.VehicleLocations);
 				} 
 				catch (Exception e)
 				{
@@ -95,7 +95,7 @@ namespace bstrkr.core.providers.bus13
 			}
 		}
 
-		private void RaiseVehicleLocationsUpdatedEvent(IDictionary<string, WaypointCollection> vehicleLocations)
+		private void RaiseVehicleLocationsUpdatedEvent(IEnumerable<VehicleLocationUpdate> vehicleLocations)
 		{
 			if (this.VehicleLocationsUpdated != null)
 			{

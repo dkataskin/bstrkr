@@ -18,6 +18,7 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.views;
+using System.Collections.Generic;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -205,7 +206,7 @@ namespace bstrkr.mvvm.viewmodels
 														_vehicles.Merge(
 															args.VehicleLocations, 
 															vehicleVM => vehicleVM.VehicleId,
-															vehicle => vehicle.Id, 
+															update => update.Vehicle.Id, 
 															this.CreateVehicleVM,
 															this.UpdateVehicleVM,
 															MergeMode.Update));
@@ -218,10 +219,10 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private VehicleViewModel CreateVehicleVM(Vehicle vehicle)
+		private VehicleViewModel CreateVehicleVM(VehicleLocationUpdate locationUpdate)
 		{
 			var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
-			vehicleVM.Model = vehicle;
+			vehicleVM.Model = locationUpdate.Vehicle;
 			vehicleVM.MarkerSize = this.MarkerSize;
 
 			return vehicleVM;
@@ -236,10 +237,10 @@ namespace bstrkr.mvvm.viewmodels
 			return stopVM;
 		}
 
-		private void UpdateVehicleVM(VehicleViewModel vehicleVM, Vehicle vehicle)
+		private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
 		{
-			vehicleVM.Location = vehicle.Location;
-			vehicleVM.VehicleHeading = vehicle.Heading;
+			vehicleVM.Location = locationUpdate.Vehicle.Location;
+			vehicleVM.VehicleHeading = locationUpdate.Vehicle.Heading;
 		}
 
 		private void OnLocationUnknown()

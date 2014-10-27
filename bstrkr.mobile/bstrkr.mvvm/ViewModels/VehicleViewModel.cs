@@ -54,11 +54,11 @@ namespace bstrkr.mvvm.viewmodels
 			get { return this.Model == null ? VehicleTypes.Bus : this.Model.Type; }
 		}
 
-		public double VehicleHeading
+		public float VehicleHeading
 		{
 			get 
 			{ 
-				return this.Model == null ? 0.0 : this.Model.Heading; 
+				return this.Model == null ? 0.0f : this.Model.Heading; 
 			}
 
 			set
