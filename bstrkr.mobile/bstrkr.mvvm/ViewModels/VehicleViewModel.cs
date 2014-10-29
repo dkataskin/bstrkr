@@ -1,6 +1,6 @@
 ﻿using System;
-
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using Cirrious.MvvmCross.ViewModels;
@@ -15,12 +15,13 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
 	{
-		private readonly Queue<Tuple<double, GeoPoint>> _queue = new Queue<Tuple<double, GeoPoint>>();
+		private readonly ObservableCollection<Waypoint> _waypoints = new ObservableCollection<Waypoint>();
 
 		private long _lastUpdate = 0;
 
 		public VehicleViewModel(IResourceManager resourceManager) : base(resourceManager)
 		{
+			this.Waypoints = new ReadOnlyObservableCollection<Waypoint>(_waypoints);
 		}
 
 		public override Vehicle Model
@@ -93,27 +94,29 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public ReadOnlyObservableCollection<Waypoint> Waypoints { get; private set; }
+
 		public void AddWaypoints(WaypointCollection waypoints)
 		{
-			var now = DateTime.UtcNow.Ticks;
-			var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
-			lock(_queue)
-			{
-				_queue.Enqueue(
-					new Tuple<double, GeoPoint>(
-						TimeSpan.FromTicks(now - _lastUpdate).TotalMilliseconds, 
-						sortedWaypoints.First().Location));
-
-				foreach (var waypoint in sortedWaypoints.Skip(1))
-				{
-					_queue.Enqueue(
-						new Tuple<double, GeoPoint>(
-							1 * waypoint.Fraction, 
-							waypoint.Location));
-				}
-			}
-
-			_lastUpdate = now;
+//			var now = DateTime.UtcNow.Ticks;
+//			var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
+//			lock(_queue)
+//			{
+//				_queue.Enqueue(
+//					new Tuple<double, GeoPoint>(
+//						TimeSpan.FromTicks(now - _lastUpdate).TotalMilliseconds, 
+//						sortedWaypoints.First().Location));
+//
+//				foreach (var waypoint in sortedWaypoints.Skip(1))
+//				{
+//					_queue.Enqueue(
+//						new Tuple<double, GeoPoint>(
+//							1 * waypoint.Fraction, 
+//							waypoint.Location));
+//				}
+//			}
+//
+//			_lastUpdate = now;
 		}
 
 		protected override object GetIcon()
