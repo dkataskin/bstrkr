@@ -25,10 +25,11 @@ namespace bstrkr.android.views
 
 		public event EventHandler<EventArgs> ZoomChanged;
 
-		public void SetCamera(GeoPoint location, float zoom)
+		public event EventHandler<EventArgs> CameraLocationChanged;
+
+		public GeoPoint CameraLocation 
 		{
-			var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(location.ToLatLng(), zoom);
-			_map.MoveCamera(cameraUpdate);
+			get { return _map.CameraPosition.Target.ToGeoPoint(); }
 		}
 
 		public object MapObject 
@@ -39,6 +40,12 @@ namespace bstrkr.android.views
 		public float Zoom 
 		{
 			get { return _map.CameraPosition.Zoom; }
+		}
+
+		public void SetCamera(GeoPoint location, float zoom)
+		{
+			var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(location.ToLatLng(), zoom);
+			_map.MoveCamera(cameraUpdate);
 		}
 
 		public void AddMarker(IMapMarker marker)

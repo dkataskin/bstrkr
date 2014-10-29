@@ -108,7 +108,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_queue.Enqueue(
 						new Tuple<double, GeoPoint>(
-							waypoints.TimeSpan.TotalMilliseconds * waypoint.Fraction, 
+							1 * waypoint.Fraction, 
 							waypoint.Location));
 				}
 			}

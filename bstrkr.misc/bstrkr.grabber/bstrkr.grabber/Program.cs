@@ -17,11 +17,10 @@ namespace bstrkr.grabber
 		public static void Main(string[] args)
 		{
 			var delay = TimeSpan.FromSeconds(10);
-			var vehicleId = "47001093";
 
 			var cancellationTokenSource = new CancellationTokenSource();
 			var token = cancellationTokenSource.Token;
-			Task.Factory.StartNew(() => Update(delay, vehicleId, token), cancellationTokenSource.Token);
+			Task.Factory.StartNew(() => Update(delay, null, token), cancellationTokenSource.Token);
 
 			Console.ReadKey();
 			Console.WriteLine("Terminating...");
@@ -31,6 +30,7 @@ namespace bstrkr.grabber
 
 		private static void Update(TimeSpan sleepInterval, string vehicleId, CancellationToken token)
 		{
+			var idToTrack = vehicleId;
 			var restClient = new RestClient();
 			restClient.RemoveHandler("text/html");
 			restClient.AddHandler("text/html", new JsonDeserializer());
@@ -44,30 +44,37 @@ namespace bstrkr.grabber
 					var response = restClient.Execute<VehicleMarkersResponse>(request);
 					_timestamp = response.Data.maxk;
 
-					var vehicle = response.Data.anims.FirstOrDefault(x => x.id.Equals(vehicleId));
+					if (string.IsNullOrEmpty(idToTrack) && response.Data.anims.Count() > 0)
+					{
+						idToTrack = response.Data.anims.First().id;
+					}
+
+					var vehicle = response.Data.anims.FirstOrDefault(x => x.id.Equals(idToTrack));
 
 					if (vehicle == null)
 					{
 
 						Console.WriteLine(
-							"| {0} | {1} | {2:HH:mm:ss} |         |                   |", 
+							"| {0} | {1} | {2:HH:mm:ss} |          |                        |", 
 							_timestamp, 
-							vehicleId, 
+							idToTrack, 
 							now);
 					}
 					else
 					{
 						var points = vehicle.anim_points
-							.Select(x => string.Format("{0:F2}:{1},{2}", int.Parse(x.percent) / 100.0f, x.lat, x.lon));
+							.Select(x => string.Format(
+											"{0:F2}:{1}", 
+											int.Parse(x.percent) / 100.0f,
+											FormatCoords(x.lat, x.lon)));
 
 						Console.WriteLine(
-							"| {0} | {1} | {2:HH:mm:ss} | {3} | {4} {5} | {6}", 
+							"| {0} | {1} | {2:HH:mm:ss} | {3} | {4} | {5}", 
 							_timestamp, 
-							vehicleId, 
+							vehicle.id, 
 							now,
 							vehicle.lasttime.Substring(11),
-							vehicle.lat.ToString(),
-							vehicle.lon.ToString(),
+							FormatCoords(vehicle.lat, vehicle.lon),
 							string.Join(";", points));
 					}
 				} 
@@ -78,6 +85,26 @@ namespace bstrkr.grabber
 
 				Task.Delay(sleepInterval, token).Wait(token);
 			}
+		}
+
+		private static string FormatCoords(string lat, string lon)
+		{
+			return FormatCoords(int.Parse(lat), int.Parse(lon));
+		}
+
+		private static string FormatCoords(int lat, int lon)
+		{
+			return string.Format("{0:F6}N, {1:F6}E", ParseCoord(lat), ParseCoord(lon));
+		}
+
+		private static double ParseCoord(string coord)
+		{
+			return ParseCoord(int.Parse(coord));
+		}
+
+		private static double ParseCoord(int coord)
+		{
+			return coord / 1000000.0d;
 		}
 	}
 }

@@ -226,6 +226,7 @@ namespace bstrkr.core.providers.bus13
 			};
 
 			var waypointCollection = new WaypointCollection();
+			waypointCollection.Timestamp = DateTime.Parse(bus13Vehicle.LastTime);
 			foreach(var animPoint in bus13Vehicle.Anim_Points)
 			{
 				waypointCollection.Add(

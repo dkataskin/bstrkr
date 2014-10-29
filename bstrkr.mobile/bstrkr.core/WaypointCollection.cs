@@ -16,7 +16,7 @@ namespace bstrkr.core
 			this.Waypoints = new ReadOnlyCollection<Waypoint>(_waypoints);
 		}
 
-		public TimeSpan TimeSpan { get; set; }
+		public DateTime Timestamp { get; set; }
 
 		public IReadOnlyList<Waypoint> Waypoints { get; private set; }
 
