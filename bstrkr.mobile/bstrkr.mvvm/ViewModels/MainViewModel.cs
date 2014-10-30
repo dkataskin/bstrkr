@@ -239,8 +239,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
 		{
-			vehicleVM.UpdateLocation(locationUpdate.Waypoints);
-			//vehicleVM.VehicleHeading = locationUpdate.Vehicle.Heading;
+			vehicleVM.UpdateLocation(locationUpdate.Vehicle.Location, locationUpdate.Waypoints);
+			vehicleVM.VehicleHeading = locationUpdate.Vehicle.Heading;
 		}
 
 		private void OnLocationUnknown()

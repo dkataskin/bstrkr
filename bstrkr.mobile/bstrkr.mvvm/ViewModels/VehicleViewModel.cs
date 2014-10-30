@@ -22,7 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public VehicleViewModel(IResourceManager resourceManager) : base(resourceManager)
 		{
-			this.WaySegments = new ReadOnlyObservableCollection<Waypoint>(_waypoints);
+			this.WaySegments = new ReadOnlyObservableCollection<WaySegment>(_waypoints);
 		}
 
 		public override Vehicle Model
@@ -94,16 +94,17 @@ namespace bstrkr.mvvm.viewmodels
 
 		public void UpdateLocation(GeoPoint currentLocation, WaypointCollection waypoints)
 		{
-			if (this.Location.Equals(GeoPoint.Empty) || waypoints == null)
-			{
-				this.SetLocation(currentLocation);
-				_waypoints.Clear();
-			}
-
-			if (waypoints != null)
-			{
-				var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
-			}
+			this.SetLocation(currentLocation);
+//			if (this.Location.Equals(GeoPoint.Empty) || waypoints == null)
+//			{
+//				this.SetLocation(currentLocation);
+//				_waypoints.Clear();
+//			}
+//
+//			if (waypoints != null)
+//			{
+//				var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
+//			}
 		}
 
 		protected override object GetIcon()

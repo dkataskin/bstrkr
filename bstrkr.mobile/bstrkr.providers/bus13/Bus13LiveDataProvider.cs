@@ -110,15 +110,13 @@ namespace bstrkr.core.providers.bus13
 				}
 				else
 				{
+					_locationState[update.Vehicle.Id] = update;
 				}
+
+				vehicleLocationUpdates.Add(new VehicleLocationUpdate(update.Vehicle, new WaypointCollection()));
 			}
 
-			this.RaiseVehicleLocationsUpdatedEvent(vehicleLocationUpdates);
-		}
-
-		private VehicleLocationUpdate CreateUpdate()
-		{
-
+			return vehicleLocationUpdates;
 		}
 
 		private void RaiseVehicleLocationsUpdatedEvent(IEnumerable<VehicleLocationUpdate> vehicleLocations)
