@@ -13,10 +13,10 @@ namespace bstrkr.core
 			Heading = heading;
 		}
 
-		public float Heading;
+		public float Fraction;
 
 		public GeoPoint Location;
 
-		public float Fraction;
+		public float Heading;
 	}
-}
+}  

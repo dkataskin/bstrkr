@@ -14,6 +14,7 @@ using RestSharp.Portable.Deserializers;
 
 using bstrkr.core.interfaces;
 using bstrkr.core.spatial;
+using bstrkr.providers.bus13.data;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -23,6 +24,7 @@ namespace bstrkr.core.providers.bus13
 		private readonly string _location;
 		private readonly TimeSpan _updateInterval;
 		private readonly IBus13RouteDataService _dataService;
+		private readonly IDictionary<string, Bus13VehicleLocationUpdate> _locationState = new Dictionary<string, Bus13VehicleLocationUpdate>();
 
 		private Task _updateTask;
 		private CancellationTokenSource _cancellationTokenSource;
@@ -83,7 +85,9 @@ namespace bstrkr.core.providers.bus13
 
 					timestamp = response.Timestamp;
 
-					this.RaiseVehicleLocationsUpdatedEvent(response.VehicleLocations);
+					var vehicleLocationUpdates = this.UpdateVehicleLocations(response.Updates);
+
+					this.RaiseVehicleLocationsUpdatedEvent(vehicleLocationUpdates);
 				} 
 				catch (Exception e)
 				{
@@ -93,6 +97,28 @@ namespace bstrkr.core.providers.bus13
 					Task.Delay(sleepInterval).Wait();
 				}
 			}
+		}
+
+		private IEnumerable<VehicleLocationUpdate> UpdateVehicleLocations(IEnumerable<Bus13VehicleLocationUpdate> updates)
+		{
+			var vehicleLocationUpdates = new List<VehicleLocationUpdate>();
+			foreach (var update in updates)
+			{
+				if (!_locationState.ContainsKey(update.Vehicle.Id))
+				{
+					_locationState[update.Vehicle.Id] = update;
+				}
+				else
+				{
+				}
+			}
+
+			this.RaiseVehicleLocationsUpdatedEvent(vehicleLocationUpdates);
+		}
+
+		private VehicleLocationUpdate CreateUpdate()
+		{
+
 		}
 
 		private void RaiseVehicleLocationsUpdatedEvent(IEnumerable<VehicleLocationUpdate> vehicleLocations)

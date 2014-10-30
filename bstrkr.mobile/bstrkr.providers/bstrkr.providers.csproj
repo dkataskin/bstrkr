@@ -42,6 +42,7 @@
     <Compile Include="Bus13\Data\Bus13GeoPoint.cs" />
     <Compile Include="Bus13\Data\Bus13VehicleLocationResponse.cs" />
     <Compile Include="Bus13\Data\VehicleLocationsResponse.cs" />
+    <Compile Include="Bus13\Data\Bus13VehicleLocationUpdate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

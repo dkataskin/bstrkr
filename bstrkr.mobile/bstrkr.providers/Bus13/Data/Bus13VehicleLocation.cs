@@ -30,4 +30,3 @@ namespace bstrkr.providers.bus13.data
 		public IList<Bus13AnimPoint> Anim_Points { get; set; }
 	}
 }
-

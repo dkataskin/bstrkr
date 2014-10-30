@@ -10,18 +10,19 @@ using bstrkr.core.map;
 using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.views;
+using bstrkr.mvvm.maps;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
 	{
-		private readonly ObservableCollection<Waypoint> _waypoints = new ObservableCollection<Waypoint>();
+		private readonly ObservableCollection<WaySegment> _waypoints = new ObservableCollection<WaySegment>();
 
 		private long _lastUpdate = 0;
 
 		public VehicleViewModel(IResourceManager resourceManager) : base(resourceManager)
 		{
-			this.Waypoints = new ReadOnlyObservableCollection<Waypoint>(_waypoints);
+			this.WaySegments = new ReadOnlyObservableCollection<Waypoint>(_waypoints);
 		}
 
 		public override Vehicle Model
@@ -86,42 +87,37 @@ namespace bstrkr.mvvm.viewmodels
 
 			set
 			{
-				if (this.Model != null && !GeoPoint.Equals(this.Model.Location, value))
-				{
-					this.Model.Location = value;
-					this.RaisePropertyChanged(() => this.Location);
-				}
 			}
 		}
 
-		public ReadOnlyObservableCollection<Waypoint> Waypoints { get; private set; }
+		public ReadOnlyObservableCollection<WaySegment> WaySegments { get; private set; }
 
-		public void AddWaypoints(WaypointCollection waypoints)
+		public void UpdateLocation(GeoPoint currentLocation, WaypointCollection waypoints)
 		{
-//			var now = DateTime.UtcNow.Ticks;
-//			var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
-//			lock(_queue)
-//			{
-//				_queue.Enqueue(
-//					new Tuple<double, GeoPoint>(
-//						TimeSpan.FromTicks(now - _lastUpdate).TotalMilliseconds, 
-//						sortedWaypoints.First().Location));
-//
-//				foreach (var waypoint in sortedWaypoints.Skip(1))
-//				{
-//					_queue.Enqueue(
-//						new Tuple<double, GeoPoint>(
-//							1 * waypoint.Fraction, 
-//							waypoint.Location));
-//				}
-//			}
-//
-//			_lastUpdate = now;
+			if (this.Location.Equals(GeoPoint.Empty) || waypoints == null)
+			{
+				this.SetLocation(currentLocation);
+				_waypoints.Clear();
+			}
+
+			if (waypoints != null)
+			{
+				var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
+			}
 		}
 
 		protected override object GetIcon()
 		{
 			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize);
+		}
+
+		private void SetLocation(GeoPoint location)
+		{
+			if (this.Model != null && !GeoPoint.Equals(this.Model.Location, location))
+			{
+				this.Model.Location = location;
+				this.RaisePropertyChanged(() => this.Location);
+			}
 		}
 	}
 }

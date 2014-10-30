@@ -77,7 +77,10 @@ namespace bstrkr.core.providers.bus13
 			return new GeoPolyline(bus13GeoPoints.Select(this.ParsePoint).ToList());
 		}
 
-		public async Task<VehicleLocationsResponse> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp)
+		public async Task<VehicleLocationsResponse> GetVehicleLocationsAsync(
+														IEnumerable<Route> routes,
+														GeoRect rect,
+														int timestamp)
 		{
 			if (routes == null || !routes.Any())
 			{
@@ -210,7 +213,7 @@ namespace bstrkr.core.providers.bus13
 			return routeStops;
 		}
 
-		private VehicleLocationUpdate ParseVehicleLocationUpdate(Bus13VehicleLocation bus13Vehicle)
+		private Bus13VehicleLocationUpdate ParseVehicleLocationUpdate(Bus13VehicleLocation bus13Vehicle)
 		{
 			var vehicle = new Vehicle 
 			{
@@ -225,17 +228,18 @@ namespace bstrkr.core.providers.bus13
 				}
 			};
 
-			var waypointCollection = new WaypointCollection();
-			waypointCollection.Timestamp = DateTime.Parse(bus13Vehicle.LastTime);
-			foreach(var animPoint in bus13Vehicle.Anim_Points)
+			return new Bus13VehicleLocationUpdate
 			{
-				waypointCollection.Add(
-					this.ParsePoint(animPoint.Lat, animPoint.Lng),
-					Convert.ToSingle(int.Parse(animPoint.Dir)),
-					int.Parse(animPoint.Percent) / 100.0f);
-			}
-
-			return new VehicleLocationUpdate(vehicle, waypointCollection);
+				Vehicle = vehicle,
+				LastUpdate = DateTime.Parse(bus13Vehicle.LastTime),
+				Waypoints = bus13Vehicle.Anim_Points == null ? 
+									new List<Waypoint>() :
+									bus13Vehicle.Anim_Points.Select(x => new Waypoint(
+																				this.ParsePoint(x.Lat, x.Lng),
+																				Convert.ToSingle(int.Parse(x.Dir)),
+																				int.Parse(x.Percent) / 100.0f))
+															.ToList()
+			};
 		}
 
 		private int CoordToInt(double coord)
