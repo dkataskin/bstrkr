@@ -15,6 +15,8 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using Android.Gms.Common;
+using Xamarin;
 
 namespace bstrkr.android.views
 {
@@ -29,6 +31,15 @@ namespace bstrkr.android.views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+			try 
+			{
+				MapsInitializer.Initialize(this.ApplicationContext);
+			} 
+			catch (GooglePlayServicesNotAvailableException e) 
+			{
+				Insights.Report(e, ReportSeverity.Error);
+			}
         }
 
 		protected override void OnViewModelSet()
