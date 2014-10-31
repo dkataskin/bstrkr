@@ -1,9 +1,6 @@
-using Android.App;
 using Android.Content.PM;
 
 using Cirrious.MvvmCross.Droid.Views;
-
-using Xamarin;
 
 namespace bstrkr.android
 {
@@ -19,7 +16,6 @@ namespace bstrkr.android
         public SplashScreen()
             : base(Resource.Layout.SplashScreen)
         {
-			Insights.Initialize("<your_key_here>", Application.ApplicationContext);
         }
     }
 }

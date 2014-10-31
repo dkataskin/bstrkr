@@ -16,6 +16,7 @@ using bstrkr.core.services.resources;
 using bstrkr.mvvm;
 using bstrkr.mvvm.views;
 using bstrkr.android.views;
+using Xamarin;
 
 namespace bstrkr.android
 {
@@ -23,6 +24,7 @@ namespace bstrkr.android
     {
         public Setup(Context applicationContext) : base(applicationContext)
         {
+			Insights.Initialize("<your_key_here>", applicationContext);
         }
 
 		protected override void InitializeFirstChance()
