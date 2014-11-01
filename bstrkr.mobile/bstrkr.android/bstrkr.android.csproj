@@ -122,6 +122,9 @@
     <Reference Include="Xamarin.Insights">
       <HintPath>..\packages\Xamarin.Insights.1.7.3.98\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Droid.Fragging">
+      <HintPath>..\packages\MvvmCross.HotTuna.Droid.Fragging.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Droid.Fragging.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Views\MapMarkerAnimator.cs" />
     <Compile Include="Views\RouteStopMarker.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
+    <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -230,5 +234,8 @@
     <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
       <Link>Assets\config.json</Link>
     </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Adapters\" />
   </ItemGroup>
 </Project>
