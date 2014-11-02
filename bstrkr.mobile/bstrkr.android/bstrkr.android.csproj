@@ -144,6 +144,7 @@
     <Compile Include="Views\RouteStopMarker.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
     <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
+    <Compile Include="Helpers\IFragmentHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -237,5 +238,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Adapters\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>
