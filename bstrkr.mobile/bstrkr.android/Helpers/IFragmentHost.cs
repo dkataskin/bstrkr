@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.android.helpers
