@@ -146,6 +146,7 @@
     <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
     <Compile Include="Helpers\IFragmentHost.cs" />
     <Compile Include="Helpers\ICustomPresenter.cs" />
+    <Compile Include="Helpers\CustomPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
