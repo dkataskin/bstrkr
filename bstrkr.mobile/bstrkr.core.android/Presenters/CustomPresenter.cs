@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 
-namespace bstrkr.android.helpers
+namespace bstrkr.core.android.presenters
 {
 	public class CustomPresenter : MvxAndroidViewPresenter, ICustomPresenter
 	{

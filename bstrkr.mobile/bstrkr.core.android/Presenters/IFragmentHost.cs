@@ -2,7 +2,7 @@
 
 using Cirrious.MvvmCross.ViewModels;
 
-namespace bstrkr.android.helpers
+namespace bstrkr.core.android.presenters
 {
 	public interface IFragmentHost
 	{

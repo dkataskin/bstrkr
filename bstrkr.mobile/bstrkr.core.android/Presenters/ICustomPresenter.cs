@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace bstrkr.android.helpers
+namespace bstrkr.core.android.presenters
 {
 	public interface ICustomPresenter
 	{
