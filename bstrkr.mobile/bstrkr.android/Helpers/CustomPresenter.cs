@@ -6,16 +6,14 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.android.helpers
 {
-	public class CustomPresenter
-		: MvxAndroidViewPresenter
-	, ICustomPresenter
+	public class CustomPresenter : MvxAndroidViewPresenter, ICustomPresenter
 	{
-		private Dictionary<Type, IFragmentHost> _dictionary = new Dictionary<Type, IFragmentHost>();
+		private IDictionary<Type, IFragmentHost> _typeToHostMap = new Dictionary<Type, IFragmentHost>();
 
 		public override void Show(MvxViewModelRequest request)
 		{
 			IFragmentHost host;
-			if (this._dictionary.TryGetValue(request.ViewModelType, out host))
+			if (_typeToHostMap.TryGetValue(request.ViewModelType, out host))
 			{
 				if (host.Show(request))
 				{
@@ -28,7 +26,7 @@ namespace bstrkr.android.helpers
 
 		public void Register(Type viewModelType, IFragmentHost host)
 		{
-			this._dictionary[viewModelType] = host;
+			_typeToHostMap[viewModelType] = host;
 		}
 	}
 }

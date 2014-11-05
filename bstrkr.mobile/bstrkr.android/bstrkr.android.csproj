@@ -143,7 +143,6 @@
     <Compile Include="Views\MapMarkerAnimator.cs" />
     <Compile Include="Views\RouteStopMarker.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
-    <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
     <Compile Include="Helpers\IFragmentHost.cs" />
     <Compile Include="Helpers\ICustomPresenter.cs" />
     <Compile Include="Helpers\CustomPresenter.cs" />
@@ -239,7 +238,6 @@
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Adapters\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>
