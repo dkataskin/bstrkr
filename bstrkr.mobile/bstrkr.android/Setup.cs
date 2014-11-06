@@ -17,6 +17,8 @@ using bstrkr.mvvm;
 using bstrkr.mvvm.views;
 using bstrkr.android.views;
 using Xamarin;
+using Cirrious.MvvmCross.Droid.Views;
+using bstrkr.core.android.presenters;
 
 namespace bstrkr.android
 {
@@ -32,6 +34,7 @@ namespace bstrkr.android
 			Mvx.LazyConstructAndRegisterSingleton<IConfigManager, ConfigManager>();
 			Mvx.LazyConstructAndRegisterSingleton<ILocationService, SuperLocationService>();
 			Mvx.LazyConstructAndRegisterSingleton<IResourceManager, ResourceManager>();
+			Mvx.RegisterSingleton<ICustomPresenter>(new CustomPresenter());
 
 			base.InitializeFirstChance();
 		}
@@ -53,6 +56,11 @@ namespace bstrkr.android
 																		mapView => new MapViewZoomTargetBinding(mapView));
 
 			base.FillTargetFactories(registry);
+		}
+
+		protected override IMvxAndroidViewPresenter CreateViewPresenter()
+		{
+			return Mvx.Resolve<ICustomPresenter>();
 		}
     }
 }
