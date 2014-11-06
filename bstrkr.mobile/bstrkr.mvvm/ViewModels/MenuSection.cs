@@ -6,7 +6,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		Map,
 		Routes,
-		Vehicles,
+		Settings,
 		About
 	}
 }

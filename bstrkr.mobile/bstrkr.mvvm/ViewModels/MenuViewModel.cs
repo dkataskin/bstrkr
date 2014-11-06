@@ -4,7 +4,7 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class MenuViewModel : MvxViewModel
+	public class MenuViewModel : BusTrackerViewModelBase
 	{
 		private string _title;
 		private MenuSection _section;
@@ -30,6 +30,7 @@ namespace bstrkr.mvvm.viewmodels
 				if (_section != value)
 				{
 					_section = value;
+					this.Id = (int)value;
 					this.RaisePropertyChanged(() => this.Section);
 				}
 			}

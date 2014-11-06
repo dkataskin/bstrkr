@@ -19,10 +19,11 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.views;
+using System.Windows.Input;
 
 namespace bstrkr.mvvm.viewmodels
 {
-    public class HomeViewModel : MvxViewModel
+	public class HomeViewModel : BusTrackerViewModelBase
     {
 		private const int UpdateInterval = 1000;
 
@@ -49,6 +50,8 @@ namespace bstrkr.mvvm.viewmodels
 
 			_locationService = locationService;
 			_locationService.LocationUpdated += OnLocationUpdated;
+
+			this.SelectMenuItemCommand = new MvxCommand<MenuViewModel>(this.SelectMenuItem);
 
 			// android requires location watcher to be started on the UI thread
 			this.Dispatcher.RequestMainThreadAction(() => _locationService.StartUpdating());
@@ -129,12 +132,37 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public ICommand SelectMenuItemCommand { get; private set; }
+
 		private ObservableCollection<MenuViewModel> CreateMenuViewModels()
 		{
 			return new ObservableCollection<MenuViewModel> 
 			{
 				new MenuViewModel { Section = MenuSection.Map }
 			};
+		}
+
+		private void SelectMenuItem(MenuViewModel item)
+		{
+			switch (item.Section)
+			{
+				case MenuSection.Map:
+					this.ShowViewModel<MapViewModel>(new { item.Id });
+					break;
+
+				case MenuSection.Routes:
+					this.ShowViewModel<RoutesViewModel>(new { item.Id });
+					break;
+
+				case MenuSection.Settings:
+					this.ShowViewModel<SettingsViewModel>(new { item.Id });
+					break;
+
+
+				case MenuSection.About:
+					this.ShowViewModel<AboutViewModel>(new { item.Id });
+					break;
+			}
 		}
 
 		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)

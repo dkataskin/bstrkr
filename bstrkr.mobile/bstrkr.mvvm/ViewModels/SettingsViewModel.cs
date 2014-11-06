@@ -2,9 +2,9 @@
 
 using Cirrious.MvvmCross.ViewModels;
 
-namespace ViewModels
+namespace bstrkr.mvvm.viewmodels
 {
-	public class SettingsViewModel : MvxViewModel
+	public class SettingsViewModel : BusTrackerViewModelBase
 	{
 	}
 }
