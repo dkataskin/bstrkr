@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -18,11 +19,10 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.views;
-using System.Collections.Generic;
 
 namespace bstrkr.mvvm.viewmodels
 {
-    public class MainViewModel : MvxViewModel
+    public class HomeViewModel : MvxViewModel
     {
 		private const int UpdateInterval = 1000;
 
@@ -38,8 +38,10 @@ namespace bstrkr.mvvm.viewmodels
 		private RouteStop _routeStop;
 		private BusTrackerLocation _coarseLocation;
 
-		public MainViewModel(IConfigManager configManager, ILocationService locationService)
+		public HomeViewModel(IConfigManager configManager, ILocationService locationService)
 		{
+			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
+
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 			this.Stops = new ReadOnlyObservableCollection<RouteStopViewModel>(_stops);
 
@@ -51,6 +53,8 @@ namespace bstrkr.mvvm.viewmodels
 			// android requires location watcher to be started on the UI thread
 			this.Dispatcher.RequestMainThreadAction(() => _locationService.StartUpdating());
 		}
+
+		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
 
@@ -123,6 +127,14 @@ namespace bstrkr.mvvm.viewmodels
 					this.OnMarkerSizeChanged(value);
 				}
 			}
+		}
+
+		private ObservableCollection<MenuViewModel> CreateMenuViewModels()
+		{
+			return new ObservableCollection<MenuViewModel> 
+			{
+				new MenuViewModel { Section = MenuSection.Map }
+			};
 		}
 
 		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)

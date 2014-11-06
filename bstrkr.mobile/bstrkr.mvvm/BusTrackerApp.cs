@@ -9,7 +9,7 @@ namespace bstrkr.mvvm
     {
         public override void Initialize()
         {
-            this.RegisterAppStart<MainViewModel>();
+            this.RegisterAppStart<HomeViewModel>();
         }
     }
 }

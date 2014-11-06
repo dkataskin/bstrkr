@@ -44,7 +44,7 @@ namespace bstrkr.mobile.tests
 		private IConfigManager _configManager;
 		private ILocationService _locationService;
 
-		private MainViewModel _mainViewModel;
+		private HomeViewModel _mainViewModel;
 
 		[SetUp]
 		public void SetUp()
@@ -52,7 +52,7 @@ namespace bstrkr.mobile.tests
 			_configManager = new ConfigManagerStub(Config);
 			_locationService = new LocationServiceStub(new GeoPoint(54.6, 39.7));
 
-			_mainViewModel = new MainViewModel(_configManager, _locationService);
+			_mainViewModel = new HomeViewModel(_configManager, _locationService);
 		}
 
 		[Test]
