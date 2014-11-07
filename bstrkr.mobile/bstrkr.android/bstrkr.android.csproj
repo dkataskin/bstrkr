@@ -159,53 +159,53 @@
     <None Include="Resources\Drawable\drawable-xxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\MvxBindingAttributes.xml" />
-    <AndroidResource Include="Resources\values\SplashStyle.xml" />
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
+    <AndroidResource Include="Resources\Values\SplashStyle.xml" />
+    <AndroidResource Include="Resources\Values\Strings.xml" />
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_h.png">
-      <Link>Resources\drawable\bus_h.png</Link>
+      <Link>Resources\Drawable\bus_h.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_m.png">
-      <Link>Resources\drawable\bus_m.png</Link>
+      <Link>Resources\Drawable\bus_m.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_s.png">
-      <Link>Resources\drawable\bus_s.png</Link>
+      <Link>Resources\Drawable\bus_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_b.png">
-      <Link>Resources\drawable\bus_b.png</Link>
+      <Link>Resources\Drawable\bus_b.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_h.png">
-      <Link>Resources\drawable\shuttlebus_h.png</Link>
+      <Link>Resources\Drawable\shuttlebus_h.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_b.png">
-      <Link>Resources\drawable\shuttlebus_b.png</Link>
+      <Link>Resources\Drawable\shuttlebus_b.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_m.png">
-      <Link>Resources\drawable\shuttlebus_m.png</Link>
+      <Link>Resources\Drawable\shuttlebus_m.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_s.png">
-      <Link>Resources\drawable\shuttlebus_s.png</Link>
+      <Link>Resources\Drawable\shuttlebus_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_h.png">
-      <Link>Resources\drawable\trolleybus_h.png</Link>
+      <Link>Resources\Drawable\trolleybus_h.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_b.png">
-      <Link>Resources\drawable\trolleybus_b.png</Link>
+      <Link>Resources\Drawable\trolleybus_b.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_m.png">
-      <Link>Resources\drawable\trolleybus_m.png</Link>
+      <Link>Resources\Drawable\trolleybus_m.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_s.png">
-      <Link>Resources\drawable\trolleybus_s.png</Link>
+      <Link>Resources\Drawable\trolleybus_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_t.png">
-      <Link>Resources\drawable\bus_t.png</Link>
+      <Link>Resources\Drawable\bus_t.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_t.png">
-      <Link>Resources\drawable\shuttlebus_t.png</Link>
+      <Link>Resources\Drawable\shuttlebus_t.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_t.png">
-      <Link>Resources\drawable\trolleybus_t.png</Link>
+      <Link>Resources\Drawable\trolleybus_t.png</Link>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\item_menu.axml" />
     <AndroidResource Include="Resources\Layout\page_home_view.axml" />
@@ -263,6 +263,5 @@
     <Folder Include="Resources\Drawable\drawable-mdpi\" />
     <Folder Include="Resources\Drawable\drawable-xhdpi\" />
     <Folder Include="Resources\Drawable\drawable-xxhdpi\" />
-    <Folder Include="Resources\drawable\" />
   </ItemGroup>
 </Project>

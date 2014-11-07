@@ -10,7 +10,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public long Id 
 		{ 
-			public get { return _id; }
+			get { return _id; }
 			protected set
 			{
 				if (_id != value)
