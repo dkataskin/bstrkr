@@ -8,5 +8,6 @@ namespace bstrkr.providers.bus13.data
 		public int MaxK { get; set; }
 
 		public IList<Bus13VehicleLocation> Anims { get; set; }
+
 	}
 }
