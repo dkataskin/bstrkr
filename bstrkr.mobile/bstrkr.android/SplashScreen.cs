@@ -6,16 +6,16 @@ using Cirrious.MvvmCross.Droid.Views;
 namespace bstrkr.android
 {
     [Activity(
-		Label = "bstrkr.android"
-		, MainLauncher = true
-		, Icon = "@drawable/icon"
-		, Theme = "@style/Theme.Splash"
-		, NoHistory = true
-		, ScreenOrientation = ScreenOrientation.Portrait)]
+		Label = "bstrkr.android",
+		MainLauncher = true,
+		Icon = "@drawable/icon",
+		Theme = "@style/Theme.Splash",
+		NoHistory = true,
+		ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreen : MvxSplashScreenActivity
     {
         public SplashScreen()
-            : base(Resource.Layout.SplashScreen)
+            : base(Resource.Layout.page_splash_screen)
         {
         }
     }
