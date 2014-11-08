@@ -150,13 +150,6 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="packages.config" />
-    <None Include="Resources\Drawable\drawable-xhdpi\drawer_shadow_dark.9.png" />
-    <None Include="Resources\Drawable\drawable-xhdpi\drawer_shadow_light.9.png" />
-    <None Include="Resources\Drawable\drawable-xhdpi\ic_drawer_dark.png" />
-    <None Include="Resources\Drawable\drawable-xhdpi\ic_drawer_light.png" />
-    <None Include="Resources\Drawable\drawable-xhdpi\ic_launcher.png" />
-    <None Include="Resources\Drawable\drawable-xhdpi\ic_menu_refresh.png" />
-    <None Include="Resources\Drawable\drawable-xxhdpi\ic_launcher.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
@@ -226,6 +219,13 @@
     <AndroidResource Include="Resources\Drawable\drawable-mdpi\ic_drawer_light.png" />
     <AndroidResource Include="Resources\Drawable\drawable-mdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable\drawable-mdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\drawer_shadow_dark.9.png" />
+    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable\drawable-xxhdpi\ic_launcher.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
