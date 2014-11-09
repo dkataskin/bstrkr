@@ -207,25 +207,25 @@
     <AndroidResource Include="Views\HomeView.cs" />
     <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Drawable\Icon.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-hdpi\drawer_shadow_dark.9.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-hdpi\drawer_shadow_light.9.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-hdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-hdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-hdpi\ic_menu_refresh.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-hdpi\ic_drawer_dark.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-mdpi\drawer_shadow_dark.9.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-mdpi\drawer_shadow_light.9.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-mdpi\ic_drawer_dark.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-mdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-mdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-mdpi\ic_menu_refresh.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\drawer_shadow_dark.9.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\drawer_shadow_light.9.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_drawer_dark.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-xhdpi\ic_menu_refresh.png" />
-    <AndroidResource Include="Resources\Drawable\drawable-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\drawer_shadow_dark.9.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\drawer_shadow_dark.9.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\drawer_shadow_dark.9.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable\Drawable-xxhdpi\ic_launcher.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -259,9 +259,9 @@
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Drawable\drawable-hdpi\" />
-    <Folder Include="Resources\Drawable\drawable-mdpi\" />
-    <Folder Include="Resources\Drawable\drawable-xhdpi\" />
-    <Folder Include="Resources\Drawable\drawable-xxhdpi\" />
+    <Folder Include="Resources\Drawable\Drawable-hdpi\" />
+    <Folder Include="Resources\Drawable\Drawable-mdpi\" />
+    <Folder Include="Resources\Drawable\Drawable-xhdpi\" />
+    <Folder Include="Resources\Drawable\Drawable-xxhdpi\" />
   </ItemGroup>
 </Project>
