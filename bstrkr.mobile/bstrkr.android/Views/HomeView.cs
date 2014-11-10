@@ -25,6 +25,7 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using Cirrious.CrossCore;
 
 namespace bstrkr.android.views
 {
@@ -56,17 +57,19 @@ namespace bstrkr.android.views
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
 
-			//_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
+			_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
 			this.ActionBar.SetDisplayHomeAsUpEnabled(true);
 			this.ActionBar.SetHomeButtonEnabled(true);
 
 			//DrawerToggle is the animation that happens with the indicator next to the
 			//ActionBar icon.
-//			this._drawerToggle = new MyActionBarDrawerToggle(this, this._drawer,
-//				Resource.Drawable.ic_drawer_light,
-//				Resource.String.drawer_open,
-//				Resource.String.drawer_close);
+			_drawerToggle = new MyActionBarDrawerToggle(
+													this,
+													this._drawer,
+													Resource.Drawable.ic_drawer_light,
+													Resource.String.drawer_open,
+													Resource.String.drawer_close);
 
 			_drawerToggle.DrawerClosed += delegate
 			{
@@ -83,12 +86,13 @@ namespace bstrkr.android.views
 			_drawer.SetDrawerListener(_drawerToggle);
 
 
-//			this.RegisterForDetailsRequests();
-//
-//			if (null == savedInstanceState)
-//			{
-//				this.ViewModel.SelectMenuItemCommand.Execute(this.ViewModel.MenuItems[0]);
-//			}
+			this.RegisterForDetailsRequests();
+
+			if (null == savedInstanceState)
+			{
+				var homeViewModel = this.ViewModel as HomeViewModel;
+				homeViewModel.SelectMenuItemCommand.Execute(homeViewModel.MenuItems[0]);
+			}
 
 //			try 
 //			{
@@ -98,14 +102,11 @@ namespace bstrkr.android.views
 //			{
 //				Insights.Report(e, ReportSeverity.Error);
 //			}
-
-
         }
 
 		protected override void OnViewModelSet()
 		{
 			base.OnViewModelSet();
-
 
 //			MapFragment mapFrag = (MapFragment)FragmentManager.FindFragmentById(Resource.Id.map);
 //			GoogleMap map = mapFrag.Map;
@@ -132,6 +133,15 @@ namespace bstrkr.android.views
 //									 .To(vm => vm.MarkerSize)
 //									 .WithConversion(new ZoomToMarkerSizeConverter());
 //			set.Apply();
+		}
+
+		private void RegisterForDetailsRequests()
+		{
+			var customPresenter = Mvx.Resolve<ICustomPresenter>();
+			customPresenter.Register(typeof(SettingsViewModel), this);
+			customPresenter.Register(typeof(RoutesViewModel), this);
+			customPresenter.Register(typeof(AboutViewModel), this);
+			customPresenter.Register(typeof(MapViewModel), this);
 		}
     }
 }
