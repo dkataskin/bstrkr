@@ -145,6 +145,7 @@
     <Compile Include="Views\MapMarkerAnimator.cs" />
     <Compile Include="Views\RouteStopMarker.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
+    <Compile Include="Views\HomeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -204,28 +205,27 @@
     <AndroidResource Include="Resources\Layout\page_home_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_map_view.axml" />
     <AndroidResource Include="Resources\Layout\page_splash_screen.axml" />
-    <AndroidResource Include="Views\HomeView.cs" />
     <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Drawable\Icon.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\drawer_shadow_dark.9.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\drawer_shadow_light.9.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_menu_refresh.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-hdpi\ic_drawer_dark.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\drawer_shadow_dark.9.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\drawer_shadow_light.9.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_drawer_dark.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-mdpi\ic_menu_refresh.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\drawer_shadow_dark.9.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\drawer_shadow_light.9.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_drawer_dark.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-xhdpi\ic_menu_refresh.png" />
-    <AndroidResource Include="Resources\Drawable\Drawable-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_dark.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\drawer_shadow_dark.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ic_menu_refresh.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_dark.9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -257,11 +257,5 @@
     <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
       <Link>Assets\config.json</Link>
     </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Drawable\Drawable-hdpi\" />
-    <Folder Include="Resources\Drawable\Drawable-mdpi\" />
-    <Folder Include="Resources\Drawable\Drawable-xhdpi\" />
-    <Folder Include="Resources\Drawable\Drawable-xxhdpi\" />
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Support.V4.Widget;
+using Android.Views;
 
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
@@ -24,7 +25,6 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using Android.Views;
 
 namespace bstrkr.android.views
 {
@@ -56,17 +56,17 @@ namespace bstrkr.android.views
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
 
-			_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
+			//_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
 			this.ActionBar.SetDisplayHomeAsUpEnabled(true);
 			this.ActionBar.SetHomeButtonEnabled(true);
 
 			//DrawerToggle is the animation that happens with the indicator next to the
 			//ActionBar icon.
-			this._drawerToggle = new MyActionBarDrawerToggle(this, this._drawer,
-				Resource.Drawable.ic_drawer_light,
-				Resource.String.drawer_open,
-				Resource.String.drawer_close);
+//			this._drawerToggle = new MyActionBarDrawerToggle(this, this._drawer,
+//				Resource.Drawable.ic_drawer_light,
+//				Resource.String.drawer_open,
+//				Resource.String.drawer_close);
 
 			_drawerToggle.DrawerClosed += delegate
 			{
@@ -83,12 +83,12 @@ namespace bstrkr.android.views
 			_drawer.SetDrawerListener(_drawerToggle);
 
 
-			this.RegisterForDetailsRequests();
-
-			if (null == savedInstanceState)
-			{
-				this.ViewModel.SelectMenuItemCommand.Execute(this.ViewModel.MenuItems[0]);
-			}
+//			this.RegisterForDetailsRequests();
+//
+//			if (null == savedInstanceState)
+//			{
+//				this.ViewModel.SelectMenuItemCommand.Execute(this.ViewModel.MenuItems[0]);
+//			}
 
 //			try 
 //			{
