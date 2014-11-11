@@ -8,9 +8,11 @@ using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Views;
 
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
 using Cirrious.MvvmCross.Droid.Fragging;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 
@@ -25,7 +27,7 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using Cirrious.CrossCore;
+using System.Linq;
 
 namespace bstrkr.android.views
 {
@@ -38,14 +40,76 @@ namespace bstrkr.android.views
 		private string _title;
 		private MvxListView _drawerList;
 
-//		private IMapView _mapViewWrapper;
-//		private VehicleMarkerManager _vehicleMarkerManager;
-//		private RouteStopMarkerManager _routeStopMarkerManager;
-//		private MapLocationManager _mapLocationManager;
-
 		public bool Show(MvxViewModelRequest request)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var homeViewModel = this.ViewModel as HomeViewModel;
+				MvxFragment fragment = null;
+				var title = string.Empty;
+				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
+
+				switch (section)
+				{
+					case MenuSection.Map:
+						{
+							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as MapView != null)
+							{
+								return true;
+							}
+
+							fragment = new MapView();
+							title = "Map";
+						}
+						break;
+
+					case MenuSection.Routes:
+						{
+							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as RoutesView != null)
+							{
+								return true;
+							}
+
+							fragment = new RoutesView();
+							title = "Routes";
+						}
+						break;
+
+					case MenuSection.Settings:
+						{
+							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as SettingsView != null)
+							{
+								return true;
+							}
+
+							fragment = new SettingsView();
+							title = "Profile";
+						}
+						break;
+				}
+
+				var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
+				var viewModel = loaderService.LoadViewModel(request, null /* saved state */);
+
+				fragment.ViewModel = viewModel;
+
+				// TODO - replace this with extension method when available
+
+				//Normally we would do this, but we already have it
+				this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
+
+				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
+				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
+				this.ActionBar.Title = _title = title;
+
+				_drawer.CloseDrawer(this._drawerList);
+
+				return true;
+			}
+			finally
+			{
+				_drawer.CloseDrawer(_drawerList); 
+			}
 		}
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -66,7 +130,7 @@ namespace bstrkr.android.views
 			//ActionBar icon.
 			_drawerToggle = new MyActionBarDrawerToggle(
 													this,
-													this._drawer,
+													_drawer,
 													Resource.Drawable.ic_drawer_light,
 													Resource.String.drawer_open,
 													Resource.String.drawer_close);
@@ -93,47 +157,7 @@ namespace bstrkr.android.views
 				var homeViewModel = this.ViewModel as HomeViewModel;
 				homeViewModel.SelectMenuItemCommand.Execute(homeViewModel.MenuItems[0]);
 			}
-
-//			try 
-//			{
-//				MapsInitializer.Initialize(this.ApplicationContext);
-//			} 
-//			catch (GooglePlayServicesNotAvailableException e) 
-//			{
-//				Insights.Report(e, ReportSeverity.Error);
-//			}
         }
-
-		protected override void OnViewModelSet()
-		{
-			base.OnViewModelSet();
-
-//			MapFragment mapFrag = (MapFragment)FragmentManager.FindFragmentById(Resource.Id.map);
-//			GoogleMap map = mapFrag.Map;
-//			if (map != null) 
-//			{
-//				var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(
-//															AppConsts.DefaultLocation.ToLatLng(),
-//															AppConsts.DefaultZoom);
-//				map.MyLocationEnabled = true;
-//
-//				map.MoveCamera(cameraUpdate);
-//
-//				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
-//				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
-//				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
-//				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
-//			}
-//
-//			var set = this.CreateBindingSet<HomeView, HomeViewModel>();
-//			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
-//			set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
-//			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
-//			set.Bind(_mapViewWrapper).For(x => x.Zoom)
-//									 .To(vm => vm.MarkerSize)
-//									 .WithConversion(new ZoomToMarkerSizeConverter());
-//			set.Apply();
-		}
 
 		private void RegisterForDetailsRequests()
 		{

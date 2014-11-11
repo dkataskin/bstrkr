@@ -146,6 +146,9 @@
     <Compile Include="Views\RouteStopMarker.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
     <Compile Include="Views\HomeView.cs" />
+    <Compile Include="Views\MapView.cs" />
+    <Compile Include="Views\RoutesView.cs" />
+    <Compile Include="Views\SettingsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

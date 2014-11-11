@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
@@ -19,7 +20,6 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.views;
-using System.Windows.Input;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -133,6 +133,31 @@ namespace bstrkr.mvvm.viewmodels
 		}
 
 		public ICommand SelectMenuItemCommand { get; private set; }
+
+		public MenuSection GetSectionForViewModelType(Type type)
+		{
+			if (type == typeof(MapViewModel))
+			{
+				return MenuSection.Map;
+			}
+
+			if (type == typeof(RoutesViewModel))
+			{
+				return MenuSection.Routes;
+			}
+
+			if (type == typeof(SettingsViewModel))
+			{
+				return MenuSection.Settings;
+			}
+
+			if (type == typeof(AboutViewModel))
+			{
+				return MenuSection.About;
+			}
+
+			return MenuSection.Unknown;
+		}
 
 		private ObservableCollection<MenuViewModel> CreateMenuViewModels()
 		{
