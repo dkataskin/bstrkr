@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 
 using Android.App;
+using Android.Content.PM;
+using Android.Content.Res;
 using Android.Gms.Common;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
@@ -31,7 +33,9 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.android.views
 {
-    [Activity(Label = "HomeView")]
+	[Activity(Label = "Home", 
+			  LaunchMode = LaunchMode.SingleTop, 
+			  Icon = "@drawable/ic_launcher")]
 	public class HomeView : MvxFragmentActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
@@ -83,7 +87,20 @@ namespace bstrkr.android.views
 							}
 
 							fragment = new SettingsView();
-							title = "Profile";
+							title = "Settings";
+						}
+						break;
+
+
+					case MenuSection.About:
+						{
+							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as AboutView != null)
+							{
+								return true;
+							}
+
+							fragment = new AboutView();
+							title = "About";
 						}
 						break;
 				}
@@ -110,6 +127,47 @@ namespace bstrkr.android.views
 			{
 				_drawer.CloseDrawer(_drawerList); 
 			}
+		}
+
+		protected override void OnPostCreate(Bundle savedInstanceState)
+		{
+			base.OnPostCreate(savedInstanceState);
+			this._drawerToggle.SyncState();
+		}
+
+		public override void OnConfigurationChanged(Configuration newConfig)
+		{
+			base.OnConfigurationChanged(newConfig);
+			_drawerToggle.OnConfigurationChanged(newConfig);
+		}
+
+		public override bool OnCreateOptionsMenu(IMenu menu)
+		{
+			//MenuInflater.Inflate(Resource.Menu.main, menu);
+			return base.OnCreateOptionsMenu(menu);
+		}
+
+		public override bool OnPrepareOptionsMenu(IMenu menu)
+		{
+			var drawerOpen = _drawer.IsDrawerOpen(_drawerList);
+
+			//when open don't show anything
+			for (int i = 0; i < menu.Size(); i++)
+			{
+				menu.GetItem(i).SetVisible(!drawerOpen);
+			}
+
+			return base.OnPrepareOptionsMenu(menu);
+		}
+
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			if (_drawerToggle.OnOptionsItemSelected(item))
+			{
+				return true;
+			}
+
+			return base.OnOptionsItemSelected(item);
 		}
 
         protected override void OnCreate(Bundle savedInstanceState)

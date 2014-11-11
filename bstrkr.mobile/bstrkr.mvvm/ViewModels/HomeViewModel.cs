@@ -163,10 +163,26 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			return new ObservableCollection<MenuViewModel> 
 			{
-				new MenuViewModel { Section = MenuSection.Map },
-				new MenuViewModel { Section = MenuSection.Routes },
-				new MenuViewModel { Section = MenuSection.Settings },
-				new MenuViewModel { Section = MenuSection.About }
+				new MenuViewModel 
+				{ 
+					Title = "Map",
+					Section = MenuSection.Map
+				},
+				new MenuViewModel 
+				{
+					Title = "Routes",
+					Section = MenuSection.Routes
+				},
+				new MenuViewModel 
+				{ 
+					Title = "Settings",
+					Section = MenuSection.Settings
+				},
+				new MenuViewModel 
+				{ 
+					Title = "About",
+					Section = MenuSection.About 
+				}
 			};
 		}
 
@@ -185,7 +201,6 @@ namespace bstrkr.mvvm.viewmodels
 				case MenuSection.Settings:
 					this.ShowViewModel<SettingsViewModel>(new { item.Id });
 					break;
-
 
 				case MenuSection.About:
 					this.ShowViewModel<AboutViewModel>(new { item.Id });
