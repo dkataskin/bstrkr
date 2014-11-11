@@ -163,7 +163,10 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			return new ObservableCollection<MenuViewModel> 
 			{
-				new MenuViewModel { Section = MenuSection.Map }
+				new MenuViewModel { Section = MenuSection.Map },
+				new MenuViewModel { Section = MenuSection.Routes },
+				new MenuViewModel { Section = MenuSection.Settings },
+				new MenuViewModel { Section = MenuSection.About }
 			};
 		}
 

@@ -37,28 +37,41 @@ namespace bstrkr.core.android.views
 		public override void OnDrawerOpened(View drawerView)
 		{
 			if (null != this.DrawerOpened)
+			{
 				this.DrawerOpened(this, new ActionBarDrawerEventArgs { DrawerView = drawerView });
+			}
+
 			base.OnDrawerOpened(drawerView);
 		}
 
 		public override void OnDrawerSlide(View drawerView, float slideOffset)
 		{
 			if (null != this.DrawerSlide)
-				this.DrawerSlide(this, new ActionBarDrawerEventArgs
-				{
-					DrawerView = drawerView,
-					SlideOffset = slideOffset
-				});
+			{
+				this.DrawerSlide(
+								this, 
+								new ActionBarDrawerEventArgs
+								{
+									DrawerView = drawerView,
+									SlideOffset = slideOffset
+								});
+			}
+
 			base.OnDrawerSlide(drawerView, slideOffset);
 		}
 
 		public override void OnDrawerStateChanged(int newState)
 		{
 			if (null != this.DrawerStateChanged)
-				this.DrawerStateChanged(this, new ActionBarDrawerEventArgs
-				{
-					NewState = newState
-				});
+			{
+				this.DrawerStateChanged(
+									this,
+									new ActionBarDrawerEventArgs
+									{
+										NewState = newState
+									});
+			}
+
 			base.OnDrawerStateChanged(newState);
 		}
 	}

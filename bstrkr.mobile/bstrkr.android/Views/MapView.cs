@@ -1,22 +1,32 @@
 ﻿using System;
 
 using Android.OS;
+using Android.Views;
 
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Binding.Droid.BindingContext;
+
+using bstrkr.mvvm.views;
+using bstrkr.mvvm.maps;
 
 namespace bstrkr.android.views
 {
 	public class MapView : MvxFragment
 	{
-
-		//		private IMapView _mapViewWrapper;
-		//		private VehicleMarkerManager _vehicleMarkerManager;
-		//		private RouteStopMarkerManager _routeStopMarkerManager;
-		//		private MapLocationManager _mapLocationManager;
+		private IMapView _mapViewWrapper;
+		private VehicleMarkerManager _vehicleMarkerManager;
+		private RouteStopMarkerManager _routeStopMarkerManager;
+		private MapLocationManager _mapLocationManager;
 
 		public MapView()
 		{
 			this.RetainInstance = true;
+		}
+
+		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+		{
+			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
+			return this.BindingInflate(Resource.Layout.fragment_map_view, null);
 		}
 
 		public override void OnCreate(Bundle savedInstanceState)

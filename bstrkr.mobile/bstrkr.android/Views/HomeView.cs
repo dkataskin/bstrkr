@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 using Android.App;
 using Android.Gms.Common;
@@ -27,7 +28,6 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using System.Linq;
 
 namespace bstrkr.android.views
 {
@@ -148,7 +148,6 @@ namespace bstrkr.android.views
 			};
 
 			_drawer.SetDrawerListener(_drawerToggle);
-
 
 			this.RegisterForDetailsRequests();
 
