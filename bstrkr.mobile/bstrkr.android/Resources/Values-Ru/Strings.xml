@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">bstrkr.android</string>
+  	<string name="drawer_open">Откр</string>
+  	<string name="drawer_close">Закр</string>
+  	<string name="about_view_title">О BusTracker</string>
+  	<string name="routes_view_title">Маршруты</string>
+</resources>
