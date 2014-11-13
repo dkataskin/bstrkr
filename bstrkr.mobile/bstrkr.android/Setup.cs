@@ -4,9 +4,13 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Binding.Bindings.Target.Construction;
 using Cirrious.MvvmCross.Droid.Platform;
+using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 
+using Xamarin;
+
 using bstrkr.core.android.config;
+using bstrkr.core.android.presenters;
 using bstrkr.core.android.services;
 using bstrkr.core.android.services.location;
 using bstrkr.core.android.services.resources;
@@ -16,9 +20,6 @@ using bstrkr.core.services.resources;
 using bstrkr.mvvm;
 using bstrkr.mvvm.views;
 using bstrkr.android.views;
-using Xamarin;
-using Cirrious.MvvmCross.Droid.Views;
-using bstrkr.core.android.presenters;
 
 namespace bstrkr.android
 {
