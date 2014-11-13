@@ -1683,6 +1683,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050011
 			public const int abc_shareactionprovider_share_with_application = 2131034129;
 			
+			// aapt resource value: 0x7f050032
+			public const int about_view_title = 2131034162;
+			
 			// aapt resource value: 0x7f05002f
 			public const int app_name = 2131034159;
 			
@@ -1784,6 +1787,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f050001
 			public const int mr_user_route_category_name = 2131034113;
+			
+			// aapt resource value: 0x7f050033
+			public const int routes_view_title = 2131034163;
 			
 			// aapt resource value: 0x7f05002c
 			public const int wallet_buy_button_place_holder = 2131034156;
