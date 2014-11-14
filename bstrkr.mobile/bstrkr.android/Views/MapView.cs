@@ -1,13 +1,17 @@
 ﻿using System;
 
+using Android.Gms.Common;
+using Android.Gms.Maps;
 using Android.OS;
 using Android.Views;
 
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
-using bstrkr.mvvm.views;
+using Xamarin;
+
 using bstrkr.mvvm.maps;
+using bstrkr.mvvm.views;
 
 namespace bstrkr.android.views
 {
@@ -33,14 +37,14 @@ namespace bstrkr.android.views
 		{
 			base.OnCreate(savedInstanceState);
 
-			//			try 
-			//			{
-			//				MapsInitializer.Initialize(this.ApplicationContext);
-			//			} 
-			//			catch (GooglePlayServicesNotAvailableException e) 
-			//			{
-			//				Insights.Report(e, ReportSeverity.Error);
-			//			}
+			try 
+			{
+				MapsInitializer.Initialize(this.ApplicationContext);
+			} 
+			catch (GooglePlayServicesNotAvailableException e) 
+			{
+				Insights.Report(e, ReportSeverity.Error);
+			}
 		}
 
 //		protected override void OnViewModelSet()
