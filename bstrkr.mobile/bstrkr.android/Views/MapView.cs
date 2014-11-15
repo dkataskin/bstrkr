@@ -39,7 +39,7 @@ namespace bstrkr.android.views
 
 			try 
 			{
-				MapsInitializer.Initialize(this.ApplicationContext);
+				MapsInitializer.Initialize(this.Activity.ApplicationContext);
 			} 
 			catch (GooglePlayServicesNotAvailableException e) 
 			{
