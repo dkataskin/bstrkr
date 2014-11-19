@@ -6,7 +6,7 @@ using bstrkr.core.config;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class SettingsViewModel : BusTrackerViewModelBase
+	public class PreferencesViewModel : BusTrackerViewModelBase
 	{
 		public BusTrackerLocation Location { get; set; }
 	}

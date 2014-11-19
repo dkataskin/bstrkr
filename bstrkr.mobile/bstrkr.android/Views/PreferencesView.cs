@@ -4,9 +4,9 @@ using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 namespace bstrkr.android.views
 {
-	public class SettingsView : MvxFragment
+	public class PreferencesView : MvxFragment
 	{
-		public SettingsView()
+		public PreferencesView()
 		{
 		}
 	}

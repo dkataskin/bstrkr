@@ -81,12 +81,12 @@ namespace bstrkr.android.views
 
 					case MenuSection.Settings:
 						{
-							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as SettingsView != null)
+							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as PreferencesView != null)
 							{
 								return true;
 							}
 
-							fragment = new SettingsView();
+							fragment = new PreferencesView();
 							title = "Settings";
 						}
 						break;
@@ -219,7 +219,7 @@ namespace bstrkr.android.views
 		private void RegisterForDetailsRequests()
 		{
 			var customPresenter = Mvx.Resolve<ICustomPresenter>();
-			customPresenter.Register(typeof(SettingsViewModel), this);
+			customPresenter.Register(typeof(PreferencesViewModel), this);
 			customPresenter.Register(typeof(RoutesViewModel), this);
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);

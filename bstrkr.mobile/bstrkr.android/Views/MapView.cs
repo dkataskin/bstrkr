@@ -47,6 +47,11 @@ namespace bstrkr.android.views
 			}
 		}
 
+		public override void OnViewCreated(View view, Bundle savedInstanceState)
+		{
+			base.OnViewCreated(view, savedInstanceState);
+		}
+
 //		protected override void OnViewModelSet()
 //		{
 //			base.OnViewModelSet();

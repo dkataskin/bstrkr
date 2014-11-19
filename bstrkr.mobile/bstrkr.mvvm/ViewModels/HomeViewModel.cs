@@ -146,7 +146,7 @@ namespace bstrkr.mvvm.viewmodels
 				return MenuSection.Routes;
 			}
 
-			if (type == typeof(SettingsViewModel))
+			if (type == typeof(PreferencesViewModel))
 			{
 				return MenuSection.Settings;
 			}
@@ -199,7 +199,7 @@ namespace bstrkr.mvvm.viewmodels
 					break;
 
 				case MenuSection.Settings:
-					this.ShowViewModel<SettingsViewModel>(new { item.Id });
+					this.ShowViewModel<PreferencesViewModel>(new { item.Id });
 					break;
 
 				case MenuSection.About:

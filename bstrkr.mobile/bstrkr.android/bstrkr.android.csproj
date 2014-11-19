@@ -148,8 +148,8 @@
     <Compile Include="Views\HomeView.cs" />
     <Compile Include="Views\MapView.cs" />
     <Compile Include="Views\RoutesView.cs" />
-    <Compile Include="Views\SettingsView.cs" />
     <Compile Include="Views\AboutView.cs" />
+    <Compile Include="Views\PreferencesView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

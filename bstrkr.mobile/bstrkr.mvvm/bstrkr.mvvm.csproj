@@ -46,7 +46,6 @@
     <Compile Include="ViewModels\MapMarkerViewModelBase.cs" />
     <Compile Include="ViewModels\RouteStopViewModel.cs" />
     <Compile Include="Views\IRouteStopMarker.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\MapViewLocationTargetBinding.cs" />
     <Compile Include="Maps\WaySegment.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
@@ -57,6 +56,7 @@
     <Compile Include="ViewModels\RoutesViewModel.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\RouteViewModel.cs" />
+    <Compile Include="ViewModels\PreferencesViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
