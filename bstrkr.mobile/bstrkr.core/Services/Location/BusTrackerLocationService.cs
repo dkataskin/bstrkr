@@ -21,7 +21,7 @@ namespace bstrkr.core.services.location
 			_locationService.LocationUpdated += this.OnLocationUpdated;
 		}
 
-		public event EventHandler<AreaChangedEventArgs> AreaChanged;
+		public event EventHandler<EventArgs> LocationChanged;
 
 		public Area Area { get; private set; }
 
@@ -54,6 +54,16 @@ namespace bstrkr.core.services.location
 				{
 					this.Area = location.Item2;
 				}
+			}
+
+			this.RaiseLocationChangedEvent();
+		}
+
+		private void RaiseLocationChangedEvent()
+		{
+			if (this.LocationChanged != null)
+			{
+				this.LocationChanged(this, EventArgs.Empty);
 			}
 		}
 	}

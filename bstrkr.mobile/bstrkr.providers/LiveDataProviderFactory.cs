@@ -14,6 +14,11 @@ namespace bstrkr.providers
 	{
 		public ILiveDataProvider CreateProvider(Area area)
 		{
+			if (area == null)
+			{
+				return null;
+			}
+
 			return new Bus13LiveDataProvider(
 										area.Endpoint, 
 										area.Id,

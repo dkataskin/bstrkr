@@ -11,10 +11,10 @@ namespace bstrkr.mvvm.viewmodels
     {
 		private readonly IDictionary<Type, MenuSection> _menuSection2ViewModel = new Dictionary<Type, MenuSection>
 		{
-			{ MenuSection.Map, typeof(MapViewModel) },
-			{ MenuSection.Routes, typeof(RoutesViewModel) },
-			{ MenuSection.Preferences, typeof(PreferencesViewModel) },
-			{ MenuSection.About, typeof(AboutViewModel) }
+			{ typeof(MapViewModel), MenuSection.Map },
+			{ typeof(RoutesViewModel), MenuSection.Routes },
+			{ typeof(PreferencesViewModel), MenuSection.Preferences },
+			{ typeof(AboutViewModel), MenuSection.About }
 		};
 
 		public HomeViewModel()

@@ -7,7 +7,7 @@ namespace bstrkr.core.services.location
 {
 	public interface IBusTrackerLocationService
 	{
-		event EventHandler<AreaChangedEventArgs> AreaChanged;
+		event EventHandler<EventArgs> LocationChanged;
 
 		Area Area { get; }
 

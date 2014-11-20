@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
+using bstrkr.core.collections;
 using bstrkr.core.config;
 using bstrkr.core.map;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.mvvm.converters;
-using System.Linq;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class MapViewModel : BusTrackerViewModelBase
 	{
-		private readonly ILocationService _locationService;
-		private readonly IConfigManager _configManager;
+		private readonly IBusTrackerLocationService _locationService;
+		private readonly ILiveDataProviderFactory _providerFactory;
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 		private readonly ObservableCollection<RouteStopViewModel> _stops = new ObservableCollection<RouteStopViewModel>();
@@ -31,18 +33,18 @@ namespace bstrkr.mvvm.viewmodels
 		private RouteStop _routeStop;
 		private Area _coarseLocation;
 
-		public MapViewModel(IConfigManager configManager, ILocationService locationService)
+		public MapViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
 		{
-			_locationService = locationService;
-			_locationService.LocationUpdated += OnLocationUpdated;
+			_providerFactory = providerFactory;
 
-			_configManager = configManager;
+			_locationService = locationService;
+			_locationService.LocationChanged += OnLocationUpdated;
 
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 			this.Stops = new ReadOnlyObservableCollection<RouteStopViewModel>(_stops);
 
 			// android requires location watcher to be started on the UI thread
-			this.Dispatcher.RequestMainThreadAction(() => _locationService.StartUpdating());
+			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
 		}
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
@@ -64,24 +66,7 @@ namespace bstrkr.mvvm.viewmodels
 					this.RaisePropertyChanged(() => this.Location);
 				}
 			}
-		}
-
-		public Area CoarseLocation
-		{
-			get 
-			{ 
-				return _coarseLocation; 
-			}
-
-			private set 
-			{
-				if (_coarseLocation != value)
-				{
-					_coarseLocation = value;
-					this.RaisePropertyChanged(() => this.CoarseLocation);
-				}
-			}
-		}
+   		}
 
 		public RouteStop RouteStop
 		{
@@ -118,43 +103,20 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
+		private void OnLocationUpdated(object sender, EventArgs args)
 		{
-			this.Location = args.Location;
+			this.Location = _locationService.Location;
 
-			this.SelectLiveDataProvider();
-		}
-
-		private void SelectLiveDataProvider()
-		{
-			if (_liveDataProvider == null && !this.Location.Equals(GeoPoint.Empty))
+			var unknownLocation = false;
+			if (_liveDataProvider == null)
 			{
-				var config = _configManager.GetConfig();
+				_liveDataProvider = _providerFactory.CreateProvider(_locationService.Area);
+				unknownLocation = _liveDataProvider == null && _locationService.Area != null;
+			}
 
-				var location = config.Areas
-					.Select(x => new Tuple<double, Area>(
-						this.Location.DistanceTo(new GeoPoint(x.Latitude, x.Longitude)), 
-						x))
-					.OrderBy(x => x.Item1)
-					.First();
-
-				if (location.Item1 <= AppConsts.MaxDistanceFromCityCenter)
-				{
-					this.CoarseLocation = location.Item2;
-
-					_liveDataProvider = new Bus13LiveDataProvider(
-						location.Item2.Endpoint, 
-						location.Item2.Id,
-						TimeSpan.FromMilliseconds(UpdateInterval));
-					_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
-					_liveDataProvider.Start();
-
-					Task.Factory.StartNew(async () => await this.LoadRouteStopsAsync());
-				}
-				else
-				{
-					this.OnLocationUnknown();
-				}
+			if (unknownLocation)
+			{
+				this.OnLocationUnknown();
 			}
 		}
 
@@ -178,15 +140,15 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void SelectClosestRouteStop(GeoPoint location)
 		{
-			var closestStop = _stops.Select(x => x.Model)
-				.Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location), x))
-				.OrderBy(x => x.Item1)
-				.First();
-
-			if (closestStop.Item1 <= AppConsts.MaxDistanceFromBusStop)
-			{
-				this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestStop.Item2);
-			}
+//			var closestStop = _stops.Select(x => x.Model)
+//				.Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location), x))
+//				.OrderBy(x => x.Item1)
+//				.First();
+//
+//			if (closestStop.Item1 <= AppConsts.MaxDistanceFromBusStop)
+//			{
+//				this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestStop.Item2);
+//			}
 		}
 
 		private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)

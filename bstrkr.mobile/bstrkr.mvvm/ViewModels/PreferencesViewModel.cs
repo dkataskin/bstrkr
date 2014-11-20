@@ -2,6 +2,7 @@
 
 using Cirrious.MvvmCross.ViewModels;
 
+using bstrkr.core;
 using bstrkr.core.config;
 
 namespace bstrkr.mvvm.viewmodels
