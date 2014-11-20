@@ -1683,8 +1683,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050011
 			public const int abc_shareactionprovider_share_with_application = 2131034129;
 			
-			// aapt resource value: 0x7f050032
-			public const int about_view_title = 2131034162;
+			// aapt resource value: 0x7f050035
+			public const int about_view_title = 2131034165;
 			
 			// aapt resource value: 0x7f05002f
 			public const int app_name = 2131034159;
@@ -1770,6 +1770,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050030
 			public const int drawer_open = 2131034160;
 			
+			// aapt resource value: 0x7f050032
+			public const int map_view_title = 2131034162;
+			
 			// aapt resource value: 0x7f050002
 			public const int mr_media_route_button_content_description = 2131034114;
 			
@@ -1787,6 +1790,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f050001
 			public const int mr_user_route_category_name = 2131034113;
+			
+			// aapt resource value: 0x7f050034
+			public const int prefs_view_title = 2131034164;
 			
 			// aapt resource value: 0x7f050033
 			public const int routes_view_title = 2131034163;

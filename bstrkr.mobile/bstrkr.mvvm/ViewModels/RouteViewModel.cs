@@ -24,8 +24,8 @@ namespace bstrkr.mvvm.viewmodels
 				if (!string.Equals(_name, value))
 				{
 					_name = value;
-					this.RaisePropertyChanged(() => this.Name)
-				};
+					this.RaisePropertyChanged(() => this.Name);
+				}
 			} 
 		}
 	}

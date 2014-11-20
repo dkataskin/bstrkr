@@ -123,10 +123,10 @@
       <HintPath>..\packages\Xamarin.Android.Support.v4.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.8.0\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.dll</HintPath>
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.8.4\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp.Portable.Encodings">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.8.0\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.Encodings.dll</HintPath>
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.8.4\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

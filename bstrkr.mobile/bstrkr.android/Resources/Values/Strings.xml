@@ -3,4 +3,7 @@
 	<string name="app_name">bstrkr.android</string>
   	<string name="drawer_open">Open</string>
   	<string name="drawer_close">Close</string>
+  	<string name="map_view_title">Map</string>
+  	<string name="routes_view_title">Routes</string>
+  	<string name="prefs_view_title">Preferences</string>
 </resources>

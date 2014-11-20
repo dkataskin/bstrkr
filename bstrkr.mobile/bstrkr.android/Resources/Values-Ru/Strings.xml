@@ -3,6 +3,8 @@
 	<string name="app_name">bstrkr.android</string>
   	<string name="drawer_open">Откр</string>
   	<string name="drawer_close">Закр</string>
+  	<string name="map_view_title">Карта</string>
   	<string name="about_view_title">О BusTracker</string>
   	<string name="routes_view_title">Маршруты</string>
+  	<string name="prefs_view_title">Настройки</string>
 </resources>

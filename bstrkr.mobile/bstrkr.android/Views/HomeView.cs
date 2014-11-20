@@ -51,57 +51,48 @@ namespace bstrkr.android.views
 				var homeViewModel = this.ViewModel as HomeViewModel;
 				MvxFragment fragment = null;
 				var title = string.Empty;
-				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
 
+				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
 				switch (section)
 				{
 					case MenuSection.Map:
+						if (this.IsCurrentFragment<MapView>())
 						{
-							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as MapView != null)
-							{
-								return true;
-							}
-
-							fragment = new MapView();
-							title = "Map";
+							return true;
 						}
+
+						fragment = new MapView();
+						title = Resource.String.map_view_title;
 						break;
 
 					case MenuSection.Routes:
+						if (this.IsCurrentFragment<RoutesView>)
 						{
-							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as RoutesView != null)
-							{
-								return true;
-							}
-
-							fragment = new RoutesView();
-							title = "Routes";
+							return true;
 						}
+
+						fragment = new RoutesView();
+						title = Resource.String.routes_view_title;
 						break;
 
 					case MenuSection.Settings:
+						if (this.IsCurrentFragment<PreferencesView>)
 						{
-							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as PreferencesView != null)
-							{
-								return true;
-							}
-
-							fragment = new PreferencesView();
-							title = "Settings";
+							return true;
 						}
+
+						fragment = new PreferencesView();
+						title = Resource.String.prefs_view_title;
 						break;
 
-
 					case MenuSection.About:
+						if (this.IsCurrentFragment<AboutView>)
 						{
-							if (this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as AboutView != null)
-							{
-								return true;
-							}
-
-							fragment = new AboutView();
-							title = "About";
+							return true;
 						}
+
+						fragment = new AboutView();
+						title = Resource.String.about_view_title;
 						break;
 				}
 
@@ -110,8 +101,6 @@ namespace bstrkr.android.views
 
 				fragment.ViewModel = viewModel;
 
-				// TODO - replace this with extension method when available
-
 				//Normally we would do this, but we already have it
 				this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
 
@@ -119,7 +108,7 @@ namespace bstrkr.android.views
 				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
 				this.ActionBar.Title = _title = title;
 
-				_drawer.CloseDrawer(this._drawerList);
+				_drawer.CloseDrawer(_drawerList);
 
 				return true;
 			}
@@ -223,6 +212,11 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(RoutesViewModel), this);
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);
+		}
+
+		private bool IsCurrentFragment<TView>() where TView : MvxFragment
+		{
+			return this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as TView != null;
 		}
     }
 }
