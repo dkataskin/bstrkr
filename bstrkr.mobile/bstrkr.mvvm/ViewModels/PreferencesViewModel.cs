@@ -8,6 +8,6 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class PreferencesViewModel : BusTrackerViewModelBase
 	{
-		public BusTrackerLocation Location { get; set; }
+		public Area Location { get; set; }
 	}
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace bstrkr.core.config
+namespace bstrkr.core
 {
-	public class BusTrackerLocation
+	public class Area
 	{
-		public string Name { get; set; }
+		public string Id { get; set; }
 
-		public string LocationId { get; set; }
+		public string Name { get; set; }
 
 		public double Latitude { get; set; }
 

@@ -40,12 +40,10 @@
     <Compile Include="Spatial\GeoPoint.cs" />
     <Compile Include="Spatial\GeoPolyline.cs" />
     <Compile Include="Spatial\GeoRect.cs" />
-    <Compile Include="Interfaces\ILiveDataProvider.cs" />
     <Compile Include="VehicleRouteInfo.cs" />
     <Compile Include="Services\Location\ILocationService.cs" />
     <Compile Include="Services\Location\LocationUpdatedEventArgs.cs" />
     <Compile Include="Config\BusTrackerConfig.cs" />
-    <Compile Include="Config\BusTrackerLocation.cs" />
     <Compile Include="Config\IConfigManager.cs" />
     <Compile Include="Consts\AppConsts.cs" />
     <Compile Include="Config\ConfigManagerBase.cs" />
@@ -83,13 +81,16 @@
     <Compile Include="Waypoint.cs" />
     <Compile Include="WaypointCollection.cs" />
     <Compile Include="VehicleLocationUpdate.cs" />
+    <Compile Include="Area.cs" />
+    <Compile Include="Services\Location\IBusTrackerLocationService.cs" />
+    <Compile Include="Services\Location\AreaChangedEventArgs.cs" />
+    <Compile Include="Services\Location\BusTrackerLocationService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="Spatial\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Location\" />
     <Folder Include="Resources\" />

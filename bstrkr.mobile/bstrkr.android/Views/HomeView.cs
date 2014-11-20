@@ -75,7 +75,7 @@ namespace bstrkr.android.views
 						title = Resource.String.routes_view_title;
 						break;
 
-					case MenuSection.Settings:
+					case MenuSection.Preferences:
 						if (this.IsCurrentFragment<PreferencesView>)
 						{
 							return true;

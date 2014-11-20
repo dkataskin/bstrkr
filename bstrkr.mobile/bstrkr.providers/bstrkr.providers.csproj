@@ -43,6 +43,9 @@
     <Compile Include="Bus13\Data\Bus13VehicleLocationResponse.cs" />
     <Compile Include="Bus13\Data\VehicleLocationsResponse.cs" />
     <Compile Include="Bus13\Data\Bus13VehicleLocationUpdate.cs" />
+    <Compile Include="ILiveDataProviderFactory.cs" />
+    <Compile Include="ILiveDataProvider.cs" />
+    <Compile Include="LiveDataProviderFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -69,14 +72,14 @@
     <Reference Include="System.IO.Compression">
       <HintPath>..\packages\Microsoft.Bcl.Compression.3.9.85\lib\portable-net45+win8+wp8+wpa81\System.IO.Compression.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.7.0\lib\portable-net40+sl50+win+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp.Portable.Encodings">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.7.0\lib\portable-net45+win+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.Encodings.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.1.8.4\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable.Encodings">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.8.4\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

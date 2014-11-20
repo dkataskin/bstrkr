@@ -12,8 +12,8 @@ using Newtonsoft.Json.Linq;
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
-using bstrkr.core.interfaces;
 using bstrkr.core.spatial;
+using bstrkr.providers;
 using bstrkr.providers.bus13.data;
 
 namespace bstrkr.core.providers.bus13

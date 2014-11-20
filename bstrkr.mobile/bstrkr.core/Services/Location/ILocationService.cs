@@ -7,6 +7,7 @@ namespace bstrkr.core.services.location
 		event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
 
 		void StartUpdating();
+
 		void StopUpdating();
 	}
 }

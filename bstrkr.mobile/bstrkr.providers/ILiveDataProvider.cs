@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using bstrkr.core;
 
-namespace bstrkr.core.interfaces
+namespace bstrkr.providers
 {
 	public interface ILiveDataProvider
 	{
