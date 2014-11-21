@@ -13,6 +13,8 @@ namespace bstrkr.core.services.location
 		private readonly ILocationService _locationService;
 		private readonly IConfigManager _configManager;
 
+		private bool _unknownAreaReported;
+
 		public BusTrackerLocationService(IConfigManager configManager, ILocationService locationService)
 		{
 			_configManager = configManager;
@@ -22,6 +24,8 @@ namespace bstrkr.core.services.location
 		}
 
 		public event EventHandler<EventArgs> LocationChanged;
+
+		public event EventHandler<LocationErrorEventArgs> LocationError;
 
 		public Area Area { get; private set; }
 
@@ -54,6 +58,11 @@ namespace bstrkr.core.services.location
 				{
 					this.Area = location.Item2;
 				}
+				else if (!_unknownAreaReported)
+				{
+					this.RaiseLocationErrorEvent(LocationErrors.UnknownArea);
+					_unknownAreaReported = true;
+				}
 			}
 
 			this.RaiseLocationChangedEvent();
@@ -64,6 +73,14 @@ namespace bstrkr.core.services.location
 			if (this.LocationChanged != null)
 			{
 				this.LocationChanged(this, EventArgs.Empty);
+			}
+		}
+
+		private void RaiseLocationErrorEvent(LocationErrors error)
+		{
+			if (this.LocationError != null)
+			{
+				this.LocationError(this, new LocationErrorEventArgs(error));
 			}
 		}
 	}

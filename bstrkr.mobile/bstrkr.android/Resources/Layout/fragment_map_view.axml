@@ -4,6 +4,13 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+    <ProgressBar
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:id="@+id/ctrlActivityIndicator"
+        android:indeterminateOnly="true"
+        android:keepScreenOn="false" />
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"

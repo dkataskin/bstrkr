@@ -9,6 +9,8 @@ namespace bstrkr.core.services.location
 	{
 		event EventHandler<EventArgs> LocationChanged;
 
+		event EventHandler<LocationErrorEventArgs> LocationError;
+
 		Area Area { get; }
 
 		GeoPoint Location { get; }

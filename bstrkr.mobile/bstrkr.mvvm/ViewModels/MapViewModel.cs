@@ -31,20 +31,22 @@ namespace bstrkr.mvvm.viewmodels
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
 		private RouteStop _routeStop;
-		private Area _coarseLocation;
+		private bool _isBusy;
 
 		public MapViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
 		{
 			_providerFactory = providerFactory;
 
 			_locationService = locationService;
-			_locationService.LocationChanged += OnLocationUpdated;
+			_locationService.LocationChanged += OnLocationChanged;
+			_locationService.LocationError += OnLocationError;
 
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 			this.Stops = new ReadOnlyObservableCollection<RouteStopViewModel>(_stops);
 
 			// android requires location watcher to be started on the UI thread
 			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
+			this.IsBusy = true;
 		}
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
@@ -103,21 +105,29 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void OnLocationUpdated(object sender, EventArgs args)
+		public bool IsBusy 
+		{
+			get { return _isBusy; }
+			private set
+			{
+				if (_isBusy != value)
+				{
+					_isBusy = value;
+					this.RaisePropertyChanged(() => this.IsBusy);
+				}
+			}
+		}
+
+		private void OnLocationChanged(object sender, EventArgs args)
 		{
 			this.Location = _locationService.Location;
 
-			var unknownLocation = false;
 			if (_liveDataProvider == null)
 			{
 				_liveDataProvider = _providerFactory.CreateProvider(_locationService.Area);
-				unknownLocation = _liveDataProvider == null && _locationService.Area != null;
 			}
 
-			if (unknownLocation)
-			{
-				this.OnLocationUnknown();
-			}
+			this.IsBusy = false;
 		}
 
 		private async Task LoadRouteStopsAsync()
@@ -198,8 +208,16 @@ namespace bstrkr.mvvm.viewmodels
 			vehicleVM.VehicleHeading = locationUpdate.Vehicle.Heading;
 		}
 
-		private void OnLocationUnknown()
+		private void OnLocationError(object sender, LocationErrorEventArgs args)
 		{
+			switch (args.Error)
+			{
+				case LocationErrors.UnknownArea:
+					break;
+
+				default:
+					break;
+			}
 		}
 
 		private void OnMarkerSizeChanged(MapMarkerSizes size)
