@@ -12,6 +12,8 @@ using Newtonsoft.Json.Linq;
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
+using Xamarin;
+
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.providers.bus13.data;
@@ -55,6 +57,8 @@ namespace bstrkr.core.providers.bus13
 
 		public void Stop()
 		{
+			_cancellationTokenSource.Cancel();
+			_updateTask.Wait();
 		}
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
@@ -91,6 +95,7 @@ namespace bstrkr.core.providers.bus13
 				} 
 				catch (Exception e)
 				{
+					Insights.Report(e, ReportSeverity.Warning);
 				}
 				finally
 				{

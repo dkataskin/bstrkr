@@ -125,6 +125,11 @@ namespace bstrkr.mvvm.viewmodels
 			if (_liveDataProvider == null)
 			{
 				_liveDataProvider = _providerFactory.CreateProvider(_locationService.Area);
+				if (_liveDataProvider != null)
+				{
+					_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
+					_liveDataProvider.Start();
+				}
 			}
 
 			this.IsBusy = false;
