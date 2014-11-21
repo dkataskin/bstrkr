@@ -53,7 +53,7 @@ namespace bstrkr.android.views
 				Insights.Report(e, ReportSeverity.Error);
 			}
 
-			var mapFragment = (SupportMapFragment)this.FragmentManager.FindFragmentById(Resource.Id.map);
+			var mapFragment = (SupportMapFragment)this.ChildFragmentManager.FindFragmentById(Resource.Id.map);
 			GoogleMap map = mapFragment.Map;
 			if (map != null) 
 			{
