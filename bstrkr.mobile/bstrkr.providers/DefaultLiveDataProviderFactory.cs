@@ -10,7 +10,7 @@ using bstrkr.core.providers.bus13;
 
 namespace bstrkr.providers
 {
-	public class LiveDataProviderFactory : ILiveDataProviderFactory
+	public class DefaultLiveDataProviderFactory : ILiveDataProviderFactory
 	{
 		public ILiveDataProvider CreateProvider(Area area)
 		{
