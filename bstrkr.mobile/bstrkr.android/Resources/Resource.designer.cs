@@ -1281,6 +1281,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070028
 			public const int book_now = 2131165224;
 			
+			// aapt resource value: 0x7f07004f
+			public const int busyIndicator = 2131165263;
+			
 			// aapt resource value: 0x7f070022
 			public const int buyButton = 2131165218;
 			
@@ -1301,9 +1304,6 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f070057
 			public const int content_frame = 2131165271;
-			
-			// aapt resource value: 0x7f07004f
-			public const int ctrlActivityIndicator = 2131165263;
 			
 			// aapt resource value: 0x7f07003b
 			public const int default_activity_button = 2131165243;

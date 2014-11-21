@@ -6,11 +6,13 @@
     android:layout_height="fill_parent">
     <ProgressBar
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:id="@+id/ctrlActivityIndicator"
+        android:layout_width="match_parent"
+        android:id="@+id/busyIndicator"
         android:indeterminateOnly="true"
-        android:keepScreenOn="false" />
+        android:keepScreenOn="false"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal" />
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
