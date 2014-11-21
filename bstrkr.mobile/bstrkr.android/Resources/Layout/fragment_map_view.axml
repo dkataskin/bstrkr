@@ -12,6 +12,7 @@
         android:keepScreenOn="false"
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
+        local:MvxBind="Visibility Visibility(IsBusy)"
         style="@android:style/Widget.Holo.ProgressBar.Horizontal" />
     <fragment
         android:id="@+id/map"

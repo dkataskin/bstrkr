@@ -44,14 +44,14 @@ namespace bstrkr.android.views
 		{
 			base.OnViewCreated(view, savedInstanceState);
 
-			try 
-			{
-				MapsInitializer.Initialize(this.Activity.ApplicationContext);
-			} 
-			catch (GooglePlayServicesNotAvailableException e) 
-			{
-				Insights.Report(e, ReportSeverity.Error);
-			}
+//			try 
+//			{
+//				MapsInitializer.Initialize(this.Activity.ApplicationContext);
+//			} 
+//			catch (GooglePlayServicesNotAvailableException e) 
+//			{
+//				Insights.Report(e, ReportSeverity.Error);
+//			}
 
 			var mapFragment = (SupportMapFragment)this.FragmentManager.FindFragmentById(Resource.Id.map);
 			GoogleMap map = mapFragment.Map;
