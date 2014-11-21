@@ -62,37 +62,37 @@ namespace bstrkr.android.views
 						}
 
 						fragment = new MapView();
-						title = Resource.String.map_view_title;
+						title = Resources.GetString(Resource.String.map_view_title);
 						break;
 
 					case MenuSection.Routes:
-						if (this.IsCurrentFragment<RoutesView>)
+						if (this.IsCurrentFragment<RoutesView>())
 						{
 							return true;
 						}
 
 						fragment = new RoutesView();
-						title = Resource.String.routes_view_title;
+						title = Resources.GetString(Resource.String.routes_view_title);
 						break;
 
 					case MenuSection.Preferences:
-						if (this.IsCurrentFragment<PreferencesView>)
+						if (this.IsCurrentFragment<PreferencesView>())
 						{
 							return true;
 						}
 
 						fragment = new PreferencesView();
-						title = Resource.String.prefs_view_title;
+						title = Resources.GetString(Resource.String.prefs_view_title);
 						break;
 
 					case MenuSection.About:
-						if (this.IsCurrentFragment<AboutView>)
+						if (this.IsCurrentFragment<AboutView>())
 						{
 							return true;
 						}
 
 						fragment = new AboutView();
-						title = Resource.String.about_view_title;
+						title = Resources.GetString(Resource.String.about_view_title);
 						break;
 				}
 

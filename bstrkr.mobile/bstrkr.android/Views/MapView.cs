@@ -35,6 +35,8 @@ namespace bstrkr.android.views
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
+
+			this.EnsureBindingContextIsSet(savedInstanceState);
 			return this.BindingInflate(Resource.Layout.fragment_map_view, null);
 		}
 
@@ -51,7 +53,7 @@ namespace bstrkr.android.views
 				Insights.Report(e, ReportSeverity.Error);
 			}
 
-			var mapFragment = (MapFragment)this.FragmentManager.FindFragmentById(Resource.Id.map);
+			var mapFragment = (SupportMapFragment)this.FragmentManager.FindFragmentById(Resource.Id.map);
 			GoogleMap map = mapFragment.Map;
 			if (map != null) 
 			{
@@ -68,7 +70,7 @@ namespace bstrkr.android.views
 				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
 			}
 
-			var set = this.CreateBindingSet<HomeView, MapViewModel>();
+			var set = this.CreateBindingSet<MapView, MapViewModel>();
 			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
 			set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
