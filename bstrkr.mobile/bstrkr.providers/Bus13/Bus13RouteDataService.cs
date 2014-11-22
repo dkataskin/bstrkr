@@ -9,10 +9,11 @@ using Newtonsoft.Json.Linq;
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
+using Xamarin;
+
 using bstrkr.core;
 using bstrkr.core.spatial;
 using bstrkr.providers.bus13.data;
-using Xamarin;
 
 namespace bstrkr.core.providers.bus13
 {
