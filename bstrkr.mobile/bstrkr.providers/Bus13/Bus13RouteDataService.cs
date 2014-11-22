@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -231,7 +232,7 @@ namespace bstrkr.core.providers.bus13
 			return new Bus13VehicleLocationUpdate
 			{
 				Vehicle = vehicle,
-				LastUpdate = DateTime.Parse(bus13Vehicle.LastTime),
+				LastUpdate = DateTime.ParseExact(bus13Vehicle.LastTime, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture),
 				Waypoints = bus13Vehicle.Anim_Points == null ? 
 									new List<Waypoint>() :
 									bus13Vehicle.Anim_Points.Select(x => new Waypoint(

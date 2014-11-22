@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Cirrious.MvvmCross.Test.Core;
 
 using NUnit.Framework;
 
@@ -11,7 +14,7 @@ using bstrkr.core.spatial;
 namespace bstrkr.tests
 {
 	[TestFixture]
-	public class ProviderTests
+	public class ProviderTests : MvxIoCSupportingTest
 	{
 		private IBus13RouteDataService _service;
 
@@ -88,13 +91,22 @@ namespace bstrkr.tests
 			Assert.IsTrue(response.Timestamp > 0);
 			Assert.IsTrue(response.Updates.Any());
 
-			foreach (var vehicle in response.Updates)
+			foreach (var update in response.Updates)
 			{
-				Assert.IsNotNull(vehicle);
-				Assert.IsNotNull(vehicle.Id);
-				Assert.IsTrue(vehicle.Location.Latitude > 0);
-				Assert.IsTrue(vehicle.Location.Longitude > 0);
+				Assert.IsNotNull(update);
+				Assert.IsNotNull(update.Vehicle);
+				Assert.IsNotNull(update.Vehicle.Id);
+				Assert.IsTrue(update.Vehicle.Location.Latitude > 0);
+				Assert.IsTrue(update.Vehicle.Location.Longitude > 0);
 			}
+		}
+
+		[Test]
+		public void CanParseDateTime()
+		{
+			var dateTime = "22.11.2014 8:18:56";
+
+			var parsedDateTime = DateTime.ParseExact(dateTime, "dd.MM.yyyy hh:mm:ss", CultureInfo.InvariantCulture);
 		}
 	}
 }

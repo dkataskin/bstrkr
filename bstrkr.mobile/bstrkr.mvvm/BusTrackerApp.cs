@@ -11,5 +11,10 @@ namespace bstrkr.mvvm
         {
             this.RegisterAppStart<HomeViewModel>();
         }
+
+		protected override IMvxViewModelLocator CreateDefaultViewModelLocator()
+		{
+			return new BusTrackerViewModelLocator();
+		}
     }
 }

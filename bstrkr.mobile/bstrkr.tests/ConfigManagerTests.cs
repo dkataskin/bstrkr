@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Cirrious.MvvmCross.Test.Core;
+
 using NUnit.Framework;
 
 using bstrkr.core.config;
@@ -8,11 +10,13 @@ using bstrkr.core.config;
 namespace bstrkr.mobile.tests
 {
 	[TestFixture]
-	public class ConfigManagerTests
+	public class ConfigManagerTests : MvxIoCSupportingTest
 	{
 		[Test]
 		public void CanGetConfig()
 		{
+			base.Setup();
+
 //			var configSource = @"{ locations: [ { 
 //			""name"": ""test"",
 //      		""latitude"": 54.0,

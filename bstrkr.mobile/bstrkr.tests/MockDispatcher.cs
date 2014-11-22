@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Cirrious.CrossCore.Core;
-using Cirrious.MvvmCross.Views;
-using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Views;
 
 namespace bstrkr.mobile.tests
 {

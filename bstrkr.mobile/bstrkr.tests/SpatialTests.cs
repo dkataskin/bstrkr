@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Cirrious.MvvmCross.Test.Core;
+
 using NUnit.Framework;
 
 using bstrkr.core.spatial;
@@ -7,7 +9,7 @@ using bstrkr.core.spatial;
 namespace bstrkr.tests
 {
 	[TestFixture]
-	public class SpatialTests
+	public class SpatialTests : MvxIoCSupportingTest
 	{
 		[Test]
 		public void CanCalculateDistance()

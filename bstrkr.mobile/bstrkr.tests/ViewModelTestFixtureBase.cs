@@ -12,7 +12,8 @@ namespace bstrkr.mobile.tests
 
 		protected override void AdditionalSetup() 
 		{
-			MockDispatcher = new MockDispatcher();
+			this.MockDispatcher = new MockDispatcher();
+
 			Ioc.RegisterSingleton<IMvxViewDispatcher>(MockDispatcher);
 			Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(MockDispatcher);
 		}
