@@ -12,24 +12,28 @@ namespace bstrkr.mvvm.viewmodels
 			{ typeof(MapViewModel), null }
 		};
 
-		public override bool TryLoad(Type viewModelType, IDictionary<string, string> parameterValueLookup, out IMvxViewModel model)
+		public override bool TryLoad(Type viewModelType, IMvxBundle parameterValues, IMvxBundle savedState, out IMvxViewModel viewModel)
 		{
 			if (_singletons.ContainsKey(viewModelType))
 			{
 				if (_singletons[viewModelType] == null)
 				{
-					var viewModel = base.TryLoad(viewModelType, parameterValueLookup, out model);
-					_singletons[viewModelType] = viewModel;
+					var success = base.TryLoad(viewModelType, parameterValues, savedState, out viewModel);
+					if (success)
+					{
+						_singletons[viewModelType] = viewModel;
+					}
 
-					return viewModel;
+					return success;
 				}
 				else
 				{
-					return _singletons[viewModelType];
+					viewModel = _singletons[viewModelType];
+					return true;
 				}
 			}
 
-			return base.TryLoad(viewModelType, parameterValueLookup, out model);
+			return base.TryLoad(viewModelType, parameterValues, savedState, out viewModel);
 		}
 	}
 }

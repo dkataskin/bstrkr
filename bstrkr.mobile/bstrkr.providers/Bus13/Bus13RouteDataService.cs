@@ -12,6 +12,7 @@ using RestSharp.Portable.Deserializers;
 using bstrkr.core;
 using bstrkr.core.spatial;
 using bstrkr.providers.bus13.data;
+using Xamarin;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -104,9 +105,20 @@ namespace bstrkr.core.providers.bus13
 			var client = this.GetRestClient();
 			var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request).ConfigureAwait(false);
 
-			return new VehicleLocationsResponse(
-										response.MaxK, 
-										response.Anims.Select(x => this.ParseVehicleLocationUpdate(x)));
+			var updates = new List<Bus13VehicleLocationUpdate>();
+			foreach (var rawUpdate in response.Anims)
+			{
+				try
+				{
+					updates.Add(this.ParseVehicleLocationUpdate(rawUpdate));
+				} 
+				catch (Exception e)
+				{
+					Insights.Report(e, ReportSeverity.Warning);
+				}
+			}
+
+			return new VehicleLocationsResponse(response.MaxK, updates);
 		}
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync(Route route)
