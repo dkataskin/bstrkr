@@ -41,17 +41,40 @@ namespace bstrkr.android.views
 			//this.EnsureBindingContextIsSet(savedInstanceState);
 			var view = this.BindingInflate(Resource.Layout.fragment_map_view, null);
 			_googleMapView = view.FindViewById<Android.Gms.Maps.MapView>(Resource.Id.mapView);
+			_googleMapView.OnCreate(savedInstanceState);
 
 			return view;
 		}
 
-		public override void OnViewCreated(View view, Bundle savedInstanceState)
+		public override void OnStart()
 		{
-			base.OnViewCreated(view, savedInstanceState);
+			base.OnStart();
+			InitializeMapAndHandlers();
+		}
 
+		public override void OnDestroyView()
+		{
+			base.OnDestroyView();
+			_googleMapView.OnDestroy();
+		}
+
+		public override void OnPause()
+		{
+			base.OnPause();
+			_googleMapView.OnPause();
+		}
+
+		public override void OnLowMemory()
+		{
+			base.OnLowMemory();
+			_googleMapView.OnLowMemory();
+		}
+
+		private void InitializeMapAndHandlers()
+		{
 			try 
 			{
-				MapsInitializer.Initialize(this.Activity.ApplicationContext);
+				MapsInitializer.Initialize(this.Activity);
 			} 
 			catch (GooglePlayServicesNotAvailableException e) 
 			{
@@ -63,8 +86,8 @@ namespace bstrkr.android.views
 			if (map != null) 
 			{
 				var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(
-															AppConsts.DefaultLocation.ToLatLng(),
-															AppConsts.DefaultZoom);
+					AppConsts.DefaultLocation.ToLatLng(),
+					AppConsts.DefaultZoom);
 				map.MyLocationEnabled = true;
 
 				map.MoveCamera(cameraUpdate);
