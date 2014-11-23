@@ -6,4 +6,5 @@
   	<string name="map_view_title">Map</string>
   	<string name="routes_view_title">Routes</string>
   	<string name="prefs_view_title">Preferences</string>
+  	<string name="about_view_title">About</string>
 </resources>

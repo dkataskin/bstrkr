@@ -36,7 +36,7 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			this.EnsureBindingContextIsSet(savedInstanceState);
+			//this.EnsureBindingContextIsSet(savedInstanceState);
 			return this.BindingInflate(Resource.Layout.fragment_map_view, null);
 		}
 
