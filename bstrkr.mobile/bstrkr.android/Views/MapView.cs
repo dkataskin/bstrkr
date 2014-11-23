@@ -22,6 +22,8 @@ namespace bstrkr.android.views
 {
 	public class MapView : MvxFragment
 	{
+		private Android.Gms.Maps.MapView _googleMapView;
+
 		private IMapView _mapViewWrapper;
 		private VehicleMarkerManager _vehicleMarkerManager;
 		private RouteStopMarkerManager _routeStopMarkerManager;
@@ -37,24 +39,27 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			//this.EnsureBindingContextIsSet(savedInstanceState);
-			return this.BindingInflate(Resource.Layout.fragment_map_view, null);
+			var view = this.BindingInflate(Resource.Layout.fragment_map_view, null);
+			_googleMapView = view.FindViewById<Android.Gms.Maps.MapView>(Resource.Id.mapView);
+
+			return view;
 		}
 
 		public override void OnViewCreated(View view, Bundle savedInstanceState)
 		{
 			base.OnViewCreated(view, savedInstanceState);
 
-//			try 
-//			{
-//				MapsInitializer.Initialize(this.Activity.ApplicationContext);
-//			} 
-//			catch (GooglePlayServicesNotAvailableException e) 
-//			{
-//				Insights.Report(e, ReportSeverity.Error);
-//			}
+			try 
+			{
+				MapsInitializer.Initialize(this.Activity.ApplicationContext);
+			} 
+			catch (GooglePlayServicesNotAvailableException e) 
+			{
+				Insights.Report(e, ReportSeverity.Error);
+			}
 
-			var mapFragment = (SupportMapFragment)this.FragmentManager.FindFragmentById(Resource.Id.map);
-			GoogleMap map = mapFragment.Map;
+			//var mapFragment = (SupportMapFragment)this.FragmentManager.FindFragmentById(Resource.Id.map);
+			GoogleMap map = _googleMapView.Map;
 			if (map != null) 
 			{
 				var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(

@@ -1281,8 +1281,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070028
 			public const int book_now = 2131165224;
 			
-			// aapt resource value: 0x7f07004f
-			public const int busyIndicator = 2131165263;
+			// aapt resource value: 0x7f070050
+			public const int busyIndicator = 2131165264;
 			
 			// aapt resource value: 0x7f070022
 			public const int buyButton = 2131165218;
@@ -1368,8 +1368,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07003c
 			public const int list_item = 2131165244;
 			
-			// aapt resource value: 0x7f070050
-			public const int map = 2131165264;
+			// aapt resource value: 0x7f07004f
+			public const int mapView = 2131165263;
 			
 			// aapt resource value: 0x7f070024
 			public const int match_parent = 2131165220;
