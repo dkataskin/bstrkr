@@ -46,6 +46,20 @@ namespace bstrkr.android.views
 			return view;
 		}
 
+		public override void OnActivityCreated(Bundle savedInstanceState)
+		{
+			base.OnActivityCreated(savedInstanceState);
+
+			try 
+			{
+				MapsInitializer.Initialize(this.Activity);
+			} 
+			catch (GooglePlayServicesNotAvailableException e) 
+			{
+				Insights.Report(e, ReportSeverity.Error);
+			}
+		}
+
 		public override void OnStart()
 		{
 			base.OnStart();
@@ -56,6 +70,13 @@ namespace bstrkr.android.views
 		{
 			base.OnDestroyView();
 			_googleMapView.OnDestroy();
+		}
+
+		public override void OnResume()
+		{
+			base.OnResume();
+			SetUpMapIfNeeded();
+			_googleMapView.OnResume();
 		}
 
 		public override void OnPause()
@@ -70,24 +91,25 @@ namespace bstrkr.android.views
 			_googleMapView.OnLowMemory();
 		}
 
+		private void SetUpMapIfNeeded()
+		{
+			if (_googleMapView == null)
+			{
+				_googleMapView = View.FindViewById<Android.Gms.Maps.MapView>(Resource.Id.mapView);
+			}
+		}
+
 		private void InitializeMapAndHandlers()
 		{
-			try 
-			{
-				MapsInitializer.Initialize(this.Activity);
-			} 
-			catch (GooglePlayServicesNotAvailableException e) 
-			{
-				Insights.Report(e, ReportSeverity.Error);
-			}
+			this.SetUpMapIfNeeded();
 
-			//var mapFragment = (SupportMapFragment)this.FragmentManager.FindFragmentById(Resource.Id.map);
 			GoogleMap map = _googleMapView.Map;
 			if (map != null) 
 			{
 				var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(
-					AppConsts.DefaultLocation.ToLatLng(),
-					AppConsts.DefaultZoom);
+														AppConsts.DefaultLocation.ToLatLng(),
+														AppConsts.DefaultZoom);
+
 				map.MyLocationEnabled = true;
 
 				map.MoveCamera(cameraUpdate);
