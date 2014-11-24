@@ -231,6 +231,8 @@
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\Values\Styles.xml" />
     <AndroidResource Include="Resources\Values-Ru\Strings.xml" />
+    <AndroidResource Include="Resources\Layout\fragment_routes_view.axml" />
+    <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
