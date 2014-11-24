@@ -8,6 +8,7 @@ namespace bstrkr.mvvm.viewmodels
 		Map,
 		Routes,
 		Preferences,
+		Licenses,
 		About
 	}
 }
