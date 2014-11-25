@@ -177,24 +177,26 @@ namespace bstrkr.core.providers.bus13
 			}
 
 			var routes = new List<Route>();
-			foreach (var bus13Route in bus13Routes) 
+			var groupedRoutes = bus13Routes.GroupBy(x => new { Num = x.Num, Type = x.Type });
+			foreach (var routeGroup in groupedRoutes) 
 			{
+				var routeSource = routeGroup.First();
 				var route = new Route(
-					            bus13Route.Id, 
-					            bus13Route.Name, 
-								this.ParseRouteType(bus13Route.Type),
-					            new List<RouteStop>(),
-								new List<GeoPoint>());
+									routeSource.Id,
+									routeSource.Name, 
+									this.ParseRouteType(routeSource.Type),
+						            new List<RouteStop>(),
+									new List<GeoPoint>());
 
 				route.FirstStop = new RouteStop(
-										bus13Route.FromStId.ToString(), 
-										bus13Route.FromSt,
+										routeSource.FromStId.ToString(), 
+										routeSource.FromSt,
 										string.Empty,
 										GeoPoint.Empty);
 
 				route.LastStop = new RouteStop(
-										bus13Route.ToStId.ToString(),
-										bus13Route.ToSt,
+										routeSource.ToStId.ToString(),
+										routeSource.ToSt,
 										string.Empty,
 										GeoPoint.Empty);
 
