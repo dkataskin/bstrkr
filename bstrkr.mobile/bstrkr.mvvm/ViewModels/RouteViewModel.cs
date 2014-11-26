@@ -7,6 +7,8 @@ namespace bstrkr.mvvm.viewmodels
 	public class RouteViewModel : MvxViewModel
 	{
 		private string _name;
+		private string _from;
+		private string _to;
 
 		public RouteViewModel()
 		{
@@ -27,6 +29,32 @@ namespace bstrkr.mvvm.viewmodels
 					this.RaisePropertyChanged(() => this.Name);
 				}
 			} 
+		}
+
+		public string From
+		{
+			get { return _from; }
+			set
+			{
+				if (_from != value)
+				{
+					_from = value;
+					this.RaisePropertyChanged(() => this.From);
+				}
+			}
+		}
+
+		public string To
+		{
+			get { return _to; }
+			set
+			{
+				if (_to != value)
+				{
+					_to = value;
+					this.RaisePropertyChanged(() => this.To);
+				}
+			}
 		}
 	}
 }

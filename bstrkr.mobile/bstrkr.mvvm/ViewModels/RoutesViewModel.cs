@@ -25,7 +25,12 @@ namespace bstrkr.mvvm.viewmodels
 						{
 							foreach (var route in task.Result) 
 							{
-								_routes.Add(new RouteViewModel { Name = route.Name });
+								_routes.Add(new RouteViewModel 
+								{ 
+									Name = route.Name,
+									From = route.FirstStop.Name,
+									To = route.LastStop.Name
+								});
 							}
 						});
 					} 
