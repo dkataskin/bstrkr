@@ -1695,6 +1695,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050011
 			public const int abc_shareactionprovider_share_with_application = 2131034129;
 			
+			// aapt resource value: 0x7f050036
+			public const int about_text = 2131034166;
+			
 			// aapt resource value: 0x7f050035
 			public const int about_view_title = 2131034165;
 			

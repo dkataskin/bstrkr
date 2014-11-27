@@ -19,7 +19,6 @@ namespace bstrkr.android.views
 			var dialog = new AlertDialog.Builder(Activity);
 			dialog.SetTitle(Resources.GetString(Resource.String.about_view_title));
 			dialog.SetView(view);
-			dialog.SetNegativeButton("Cancel", (s, a) => { });
 			dialog.SetPositiveButton("OK", (s, a) => { });
 
 			return dialog.Create();

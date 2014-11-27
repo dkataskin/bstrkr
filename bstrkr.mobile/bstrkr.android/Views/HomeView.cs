@@ -109,17 +109,20 @@ namespace bstrkr.android.views
 						break;
 
 					case MenuSection.About:
-						if (this.IsCurrentFragment<AboutView>())
-						{
-							return true;
-						}
-
-						if (fragment == null)
-						{
-							fragment = new AboutView();
-						}
-
+						var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
+						var viewModel = loaderService.LoadViewModel(request, null /* saved state */);
+						var dialog = new AboutView();
+						dialog.ViewModel = viewModel;
 						title = Resources.GetString(Resource.String.about_view_title);
+//						var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
+//						_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
+//						this.ActionBar.Title = _title = title;
+//
+//						_drawer.CloseDrawer(_drawerList);
+
+						dialog.Show(this.SupportFragmentManager, null);
+
+						return true;
 						break;
 				}
 
