@@ -9,6 +9,7 @@
   	<string name="about_view_title">About</string>
   	<string name="about_text">BusTracker v0.1 © Vershi 2014</string>
   	<string name="unknow_location_dialog">Sorry, but it looks like we can't show you public transportation on the map, 
-  										  we don't have data for your area. Would you like to select from available 
+  										  we don't have data for your area. It might be though that we detected your 
+  										  location wrong. Would you like to select from one of available 
   										  locations?</string>
 </resources>
