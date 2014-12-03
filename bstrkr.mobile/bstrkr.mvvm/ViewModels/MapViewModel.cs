@@ -15,6 +15,7 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.mvvm.converters;
+using Chance.MvvmCross.Plugins.UserInteraction;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -218,6 +219,15 @@ namespace bstrkr.mvvm.viewmodels
 			switch (args.Error)
 			{
 				case LocationErrors.UnknownArea:
+					Mvx.Resolve<IUserInteraction>().Confirm(
+									"Wrong area", 
+									() => 
+									{
+										var i = 12;
+									},
+									"wrong area title",
+									"Yes",
+									"No, thanks");
 					break;
 
 				default:

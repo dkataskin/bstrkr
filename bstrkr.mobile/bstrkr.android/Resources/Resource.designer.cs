@@ -28,6 +28,7 @@ namespace bstrkr.android
 		{
 			global::Xamarin.InsightsCore.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::Xamarin.InsightsCore.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
+			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::bstrkr.android.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -1608,40 +1609,43 @@ namespace bstrkr.android
 			public const int fragment_about_view = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int fragment_map_view = 2130903065;
+			public const int fragment_licenses_view = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int fragment_preferences_view = 2130903066;
+			public const int fragment_map_view = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int fragment_routes_view = 2130903067;
+			public const int fragment_preferences_view = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int fragment_unknown_location_view = 2130903068;
+			public const int fragment_routes_view = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int item_menu = 2130903069;
+			public const int fragment_unknown_location_view = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int item_routes_list = 2130903070;
+			public const int item_menu = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int mr_media_route_chooser_dialog = 2130903071;
+			public const int item_routes_list = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int mr_media_route_controller_dialog = 2130903072;
+			public const int mr_media_route_chooser_dialog = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int mr_media_route_list_item = 2130903073;
+			public const int mr_media_route_controller_dialog = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int page_home_view = 2130903074;
+			public const int mr_media_route_list_item = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int page_splash_screen = 2130903075;
+			public const int page_home_view = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int support_simple_spinner_dropdown_item = 2130903076;
+			public const int page_splash_screen = 2130903076;
+			
+			// aapt resource value: 0x7f030025
+			public const int support_simple_spinner_dropdown_item = 2130903077;
 			
 			static Layout()
 			{
@@ -1656,11 +1660,11 @@ namespace bstrkr.android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f05002e
-			public const int ApplicationName = 2131034158;
+			// aapt resource value: 0x7f05002f
+			public const int ApplicationName = 2131034159;
 			
-			// aapt resource value: 0x7f05002d
-			public const int Hello = 2131034157;
+			// aapt resource value: 0x7f05002e
+			public const int Hello = 2131034158;
 			
 			// aapt resource value: 0x7f050007
 			public const int abc_action_bar_home_description = 2131034119;
@@ -1701,14 +1705,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050011
 			public const int abc_shareactionprovider_share_with_application = 2131034129;
 			
+			// aapt resource value: 0x7f050037
+			public const int about_text = 2131034167;
+			
 			// aapt resource value: 0x7f050036
-			public const int about_text = 2131034166;
+			public const int about_view_title = 2131034166;
 			
-			// aapt resource value: 0x7f050035
-			public const int about_view_title = 2131034165;
-			
-			// aapt resource value: 0x7f05002f
-			public const int app_name = 2131034159;
+			// aapt resource value: 0x7f050030
+			public const int app_name = 2131034160;
 			
 			// aapt resource value: 0x7f05001e
 			public const int common_google_play_services_enable_button = 2131034142;
@@ -1785,14 +1789,17 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f05002b
 			public const int common_signin_button_text_long = 2131034155;
 			
-			// aapt resource value: 0x7f050031
-			public const int drawer_close = 2131034161;
-			
-			// aapt resource value: 0x7f050030
-			public const int drawer_open = 2131034160;
-			
 			// aapt resource value: 0x7f050032
-			public const int map_view_title = 2131034162;
+			public const int drawer_close = 2131034162;
+			
+			// aapt resource value: 0x7f050031
+			public const int drawer_open = 2131034161;
+			
+			// aapt resource value: 0x7f05002d
+			public const int library_name = 2131034157;
+			
+			// aapt resource value: 0x7f050033
+			public const int map_view_title = 2131034163;
 			
 			// aapt resource value: 0x7f050002
 			public const int mr_media_route_button_content_description = 2131034114;
@@ -1812,11 +1819,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050001
 			public const int mr_user_route_category_name = 2131034113;
 			
-			// aapt resource value: 0x7f050034
-			public const int prefs_view_title = 2131034164;
+			// aapt resource value: 0x7f050035
+			public const int prefs_view_title = 2131034165;
 			
-			// aapt resource value: 0x7f050033
-			public const int routes_view_title = 2131034163;
+			// aapt resource value: 0x7f050034
+			public const int routes_view_title = 2131034164;
+			
+			// aapt resource value: 0x7f050038
+			public const int unknow_location_dialog = 2131034168;
 			
 			// aapt resource value: 0x7f05002c
 			public const int wallet_buy_button_place_holder = 2131034156;

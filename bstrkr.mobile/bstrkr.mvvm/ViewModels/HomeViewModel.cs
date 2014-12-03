@@ -56,6 +56,11 @@ namespace bstrkr.mvvm.viewmodels
 					Title = "Preferences",
 					Section = MenuSection.Preferences
 				},
+				new MenuViewModel
+				{
+					Title = "Licenses",
+					Section = MenuSection.Licenses
+				},
 				new MenuViewModel 
 				{ 
 					Title = "About",

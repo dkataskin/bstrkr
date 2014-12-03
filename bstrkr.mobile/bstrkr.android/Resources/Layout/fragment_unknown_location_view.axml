@@ -7,5 +7,5 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:Text="@string/unknow_location_dialog" />
+        android:text="@string/unknow_location_dialog" />
 </LinearLayout>

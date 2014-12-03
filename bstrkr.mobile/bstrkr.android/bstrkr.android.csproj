@@ -165,6 +165,7 @@
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Views\UnknownLocationView.cs" />
     <Compile Include="Bootstrap\UserInteractionPluginBootstrap.cs" />
+    <Compile Include="Views\LicensesView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -251,6 +252,7 @@
     <AndroidResource Include="Resources\Layout\fragment_about_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_unknown_location_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_preferences_view.axml" />
+    <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
