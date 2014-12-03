@@ -85,6 +85,10 @@ namespace bstrkr.mvvm.viewmodels
 					this.ShowViewModel<PreferencesViewModel>(new { item.Id });
 					break;
 
+				case MenuSection.Licenses:
+					this.ShowViewModel<LicensesViewModel>(new { item.Id });
+					break;
+
 				case MenuSection.About:
 					this.ShowViewModel<AboutViewModel>(new { item.Id });
 					break;

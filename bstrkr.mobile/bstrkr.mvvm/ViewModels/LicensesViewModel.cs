@@ -2,7 +2,7 @@
 
 using bstrkr.mvvm.viewmodels;
 
-namespace ViewModels
+namespace bstrkr.mvvm.viewmodels
 {
 	public class LicensesViewModel : BusTrackerViewModelBase
 	{
