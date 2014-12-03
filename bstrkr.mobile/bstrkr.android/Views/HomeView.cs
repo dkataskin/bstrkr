@@ -44,6 +44,7 @@ namespace bstrkr.android.views
 			{ MenuSection.Map, "map_view_frag" },
 			{ MenuSection.Routes, "routes_view_frag" },
 			{ MenuSection.Preferences, "prefs_view_frag" },
+			{ MenuSection.Licenses, "licenses_view_frag" },
 			{ MenuSection.About, "about_view_frag" }
 		};
 
@@ -129,10 +130,19 @@ namespace bstrkr.android.views
 					fragment.ViewModel = viewModel;
 				}
 
-				// Normally we would do this, but we already have it
-				this.SupportFragmentManager.BeginTransaction()
-										   .Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
-										   .Commit();
+				if (section != MenuSection.Map)
+				{
+					this.SupportFragmentManager.BeginTransaction()
+										.Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
+										.AddToBackStack(null)
+										.Commit();
+				}
+				else
+				{
+					this.SupportFragmentManager.BeginTransaction()
+										.Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
+										.Commit();
+				}
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
 				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
@@ -240,6 +250,7 @@ namespace bstrkr.android.views
 			var customPresenter = Mvx.Resolve<ICustomPresenter>();
 			customPresenter.Register(typeof(PreferencesViewModel), this);
 			customPresenter.Register(typeof(RoutesViewModel), this);
+			customPresenter.Register(typeof(LicensesViewModel), this);
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);
 		}

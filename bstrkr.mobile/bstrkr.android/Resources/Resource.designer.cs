@@ -1845,10 +1845,7 @@ namespace bstrkr.android
 		{
 			
 			// aapt resource value: 0x7f060094
-			public const int MyBaseTheme = 2131099796;
-			
-			// aapt resource value: 0x7f060095
-			public const int MyTheme = 2131099797;
+			public const int BusTrackerBaseTheme = 2131099796;
 			
 			// aapt resource value: 0x7f060067
 			public const int TextAppearance_AppCompat_Base_CompactMenu_Dialog = 2131099751;
@@ -2042,8 +2039,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f060003
 			public const int Theme_MediaRouter_Light = 2131099651;
 			
-			// aapt resource value: 0x7f060096
-			public const int Theme_Splash = 2131099798;
+			// aapt resource value: 0x7f060095
+			public const int Theme_Splash = 2131099797;
 			
 			// aapt resource value: 0x7f060092
 			public const int WalletFragmentDefaultButtonTextAppearance = 2131099794;
