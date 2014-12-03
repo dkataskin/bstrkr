@@ -53,7 +53,7 @@ namespace bstrkr.mvvm.viewmodels
 				},
 				new MenuViewModel 
 				{ 
-					Title = "Settings",
+					Title = "Preferences",
 					Section = MenuSection.Preferences
 				},
 				new MenuViewModel 
