@@ -14,7 +14,8 @@ namespace bstrkr.mvvm.viewmodels
 			{ typeof(MapViewModel), MenuSection.Map },
 			{ typeof(RoutesViewModel), MenuSection.Routes },
 			{ typeof(PreferencesViewModel), MenuSection.Preferences },
-			{ typeof(AboutViewModel), MenuSection.About }
+			{ typeof(AboutViewModel), MenuSection.About },
+			{ typeof(LicensesViewModel), MenuSection.Licenses }
 		};
 
 		public HomeViewModel()

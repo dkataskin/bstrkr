@@ -109,6 +109,20 @@ namespace bstrkr.android.views
 						title = Resources.GetString(Resource.String.prefs_view_title);
 						break;
 
+					case MenuSection.Licenses:
+						if (this.IsCurrentFragment<LicensesView>())
+						{
+							return true;
+						}
+
+						if (fragment == null)
+						{
+							fragment = new LicensesView();
+						}
+
+						title = Resources.GetString(Resource.String.licenses_view_title);
+						break;
+
 					case MenuSection.About:
 						var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
 						var viewModel = loaderService.LoadViewModel(request, null);

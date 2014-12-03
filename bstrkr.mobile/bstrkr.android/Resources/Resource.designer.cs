@@ -1705,11 +1705,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050011
 			public const int abc_shareactionprovider_share_with_application = 2131034129;
 			
-			// aapt resource value: 0x7f050037
-			public const int about_text = 2131034167;
+			// aapt resource value: 0x7f050038
+			public const int about_text = 2131034168;
 			
-			// aapt resource value: 0x7f050036
-			public const int about_view_title = 2131034166;
+			// aapt resource value: 0x7f050037
+			public const int about_view_title = 2131034167;
 			
 			// aapt resource value: 0x7f050030
 			public const int app_name = 2131034160;
@@ -1798,6 +1798,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f05002d
 			public const int library_name = 2131034157;
 			
+			// aapt resource value: 0x7f050036
+			public const int licenses_view_title = 2131034166;
+			
 			// aapt resource value: 0x7f050033
 			public const int map_view_title = 2131034163;
 			
@@ -1825,8 +1828,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050034
 			public const int routes_view_title = 2131034164;
 			
-			// aapt resource value: 0x7f050038
-			public const int unknow_location_dialog = 2131034168;
+			// aapt resource value: 0x7f050039
+			public const int unknow_location_dialog = 2131034169;
 			
 			// aapt resource value: 0x7f05002c
 			public const int wallet_buy_button_place_holder = 2131034156;

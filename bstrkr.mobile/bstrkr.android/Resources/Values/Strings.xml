@@ -6,6 +6,7 @@
   	<string name="map_view_title">Map</string>
   	<string name="routes_view_title">Routes</string>
   	<string name="prefs_view_title">Preferences</string>
+  	<string name="licenses_view_title">Licenses</string>
   	<string name="about_view_title">About</string>
   	<string name="about_text">BusTracker v0.1 © Vershi 2014</string>
   	<string name="unknow_location_dialog">
