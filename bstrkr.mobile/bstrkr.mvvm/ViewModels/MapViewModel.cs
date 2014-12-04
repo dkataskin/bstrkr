@@ -226,8 +226,8 @@ namespace bstrkr.mvvm.viewmodels
 										var i = 12;
 									},
 									"wrong area title",
-									"Yes",
-									"No, thanks");
+									"No, thanks",
+									"Yes");
 					break;
 
 				default:

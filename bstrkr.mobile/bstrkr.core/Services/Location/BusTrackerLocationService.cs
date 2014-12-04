@@ -48,11 +48,11 @@ namespace bstrkr.core.services.location
 				var config = _configManager.GetConfig();
 
 				var location = config.Areas
-					.Select(x => new Tuple<double, Area>(
-												this.Location.DistanceTo(new GeoPoint(x.Latitude, x.Longitude)), 
-												x))
-					.OrderBy(x => x.Item1)
-					.First();
+									 .Select(x => new Tuple<double, Area>(
+															this.Location.DistanceTo(new GeoPoint(x.Latitude, x.Longitude)), 
+															x))
+									 .OrderBy(x => x.Item1)
+								     .First();
 
 				if (location.Item1 <= AppConsts.MaxDistanceFromCityCenter)
 				{

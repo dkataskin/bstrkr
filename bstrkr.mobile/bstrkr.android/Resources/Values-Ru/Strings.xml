@@ -8,4 +8,9 @@
   	<string name="prefs_view_title">Настройки</string>
   	<string name="licenses_view_title">Лицензии</string>
   	<string name="about_view_title">О программе</string>
+  	<string name="unknow_location_dialog">
+  		<![CDATA[Sorry, but it looks like we can\'t show you public transportation on the map, we don\'t have data for 
+  				 your area. It might be though that we detected your location wrong. Would you like to select from one 
+  				 of the available locations?]]>
+  	</string>
 </resources>
