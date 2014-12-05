@@ -216,6 +216,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnLocationError(object sender, LocationErrorEventArgs args)
 		{
+			this.IsBusy = false;
+
 			switch (args.Error)
 			{
 				case LocationErrors.UnknownArea:
