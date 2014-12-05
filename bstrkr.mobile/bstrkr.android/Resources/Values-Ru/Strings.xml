@@ -9,8 +9,7 @@
   	<string name="licenses_view_title">Лицензии</string>
   	<string name="about_view_title">О программе</string>
   	<string name="unknow_location_dialog">
-  		<![CDATA[Sorry, but it looks like we can\'t show you public transportation on the map, we don\'t have data for 
-  				 your area. It might be though that we detected your location wrong. Would you like to select from one 
-  				 of the available locations?]]>
+  		<![CDATA[Похоже у нас нет данных о местоположении общественного транспорта для вашего города. Возможно это потому,
+  				 что мы неправильно определили ваше местоположение. Выбрать город из списка доступных?]]>
   	</string>
 </resources>
