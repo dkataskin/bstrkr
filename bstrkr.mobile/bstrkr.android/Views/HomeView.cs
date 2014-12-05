@@ -58,6 +58,18 @@ namespace bstrkr.android.views
 		{
 			try
 			{
+				if (request.ViewModelType == typeof(SetAreaViewModel))
+				{
+					var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
+					var viewModel = loaderService.LoadViewModel(request, null);
+					var dialog = new SetAreaView();
+					dialog.ViewModel = viewModel;
+
+					dialog.Show(this.SupportFragmentManager, null);
+
+					return true;
+				}
+
 				var homeViewModel = this.ViewModel as HomeViewModel;
 				MvxFragment fragment = null;
 				var title = string.Empty;
@@ -267,6 +279,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(LicensesViewModel), this);
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);
+			customPresenter.Register(typeof(SetAreaViewModel), this);
 		}
 
 		private bool IsCurrentFragment<TView>() where TView : MvxFragment

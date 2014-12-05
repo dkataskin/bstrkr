@@ -223,9 +223,9 @@ namespace bstrkr.mvvm.viewmodels
 				case LocationErrors.UnknownArea:
 					Mvx.Resolve<IUserInteraction>().Confirm(
 									"Wrong area", 
-									() => 
+									answer => 
 									{
-										var i = 12;
+										this.ShowViewModel<SetAreaViewModel>();
 									},
 									"wrong area title",
 									"No, thanks",
