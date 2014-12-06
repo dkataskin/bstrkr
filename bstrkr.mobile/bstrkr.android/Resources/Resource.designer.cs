@@ -1624,34 +1624,31 @@ namespace bstrkr.android
 			public const int fragment_set_area_view = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int fragment_unknown_location_view = 2130903070;
+			public const int item_areas_list = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int item_areas_list = 2130903071;
+			public const int item_menu = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int item_menu = 2130903072;
+			public const int item_routes_list = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int item_routes_list = 2130903073;
+			public const int mr_media_route_chooser_dialog = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int mr_media_route_chooser_dialog = 2130903074;
+			public const int mr_media_route_controller_dialog = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int mr_media_route_controller_dialog = 2130903075;
+			public const int mr_media_route_list_item = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int mr_media_route_list_item = 2130903076;
+			public const int page_home_view = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int page_home_view = 2130903077;
+			public const int page_splash_screen = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int page_splash_screen = 2130903078;
-			
-			// aapt resource value: 0x7f030027
-			public const int support_simple_spinner_dropdown_item = 2130903079;
+			public const int support_simple_spinner_dropdown_item = 2130903078;
 			
 			static Layout()
 			{

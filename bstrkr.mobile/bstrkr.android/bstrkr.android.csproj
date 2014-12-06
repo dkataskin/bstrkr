@@ -140,6 +140,9 @@
     <Reference Include="RestSharp.Portable.Encodings">
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.1.9.1\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.JsonLocalisation">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.JsonLocalisation.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.JsonLocalisation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -163,13 +166,12 @@
     <Compile Include="Views\AboutView.cs" />
     <Compile Include="Views\PreferencesView.cs" />
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
-    <Compile Include="Views\UnknownLocationView.cs" />
     <Compile Include="Bootstrap\UserInteractionPluginBootstrap.cs" />
     <Compile Include="Views\LicensesView.cs" />
     <Compile Include="Views\SetAreaView.cs" />
+    <Compile Include="Bootstrap\JsonLocalisationPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -251,7 +253,6 @@
     <AndroidResource Include="Resources\Layout\fragment_routes_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_about_view.axml" />
-    <AndroidResource Include="Resources\Layout\fragment_unknown_location_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_preferences_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_set_area_view.axml" />
