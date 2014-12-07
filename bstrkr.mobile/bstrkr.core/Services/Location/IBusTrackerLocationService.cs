@@ -18,5 +18,7 @@ namespace bstrkr.core.services.location
 		double? Accuracy { get; }
 
 		void Start();
+
+		void SelectArea(Area area);
 	}
 }

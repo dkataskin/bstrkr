@@ -38,6 +38,21 @@ namespace bstrkr.core.services.location
 			_locationService.StartUpdating();
 		}
 
+		public void SelectArea(Area area)
+		{
+			if (area == null)
+			{
+				throw new ArgumentNullException("area", "Area must not be null.");
+			}
+
+			_locationService.StopUpdating();
+
+			this.Area = area;
+			this.Location = new GeoPoint(area.Latitude, area.Longitude);
+			this.Accuracy = 8.0d;
+			this.RaiseLocationChangedEvent();
+		}
+
 		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
 		{
 			this.Location = args.Location;
