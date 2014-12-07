@@ -14,6 +14,8 @@ namespace bstrkr.android.views
 {
 	public class SetAreaView : MvxDialogFragment
 	{
+		private int _selectedIndex;
+
 		public override Dialog OnCreateDialog(Bundle savedState)
 		{
 			base.EnsureBindingContextSet(savedState);
@@ -25,9 +27,12 @@ namespace bstrkr.android.views
 			var dialog = new AlertDialog.Builder(Activity);
 			dialog.SetTitle(Resources.GetString(Resource.String.about_view_title));
 			dialog.SetView(view);
-			dialog.SetPositiveButton("OK", (s, a) => viewModel.SelectArea.Execute(a.Which));
+			dialog.SetPositiveButton("Select", (s, a) => viewModel.SelectArea.Execute(_selectedIndex));
 			dialog.SetNegativeButton("Cancel", (s, a) => { });
-			dialog.SetSingleChoiceItems(viewModel.Areas.Select(x => x.Name).ToArray(), 0, (s, a) => { });
+			dialog.SetSingleChoiceItems(
+							viewModel.Areas.Select(x => x.Name).ToArray(), 
+							0, 
+							(s, a) => _selectedIndex = a.Which);
 
 			return dialog.Create();
 		}
