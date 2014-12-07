@@ -4,9 +4,9 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Mvx.MvxListView
+<!--    <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         local:MvxBind="ItemsSource Areas"
-        local:MvxItemTemplate="@layout/item_areas_list" />
+        local:MvxItemTemplate="@layout/item_areas_list" />-->
 </LinearLayout>
