@@ -60,7 +60,7 @@
     <Compile Include="ViewModels\BusTrackerViewModelLocator.cs" />
     <Compile Include="ViewModels\LicensesViewModel.cs" />
     <Compile Include="ViewModels\SetAreaViewModel.cs" />
-    <Compile Include="Localisation\TextProviderBuilder.cs" />
+    <Compile Include="Localization\ResxTextProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -91,9 +91,6 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.2.2\lib\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Cirrious.MvvmCross.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.JsonLocalisation">
-      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.JsonLocalisation.3.2.2\lib\portable-win+net45+wp8+win8+wpa81+MonoTouch+MonoAndroid\Cirrious.MvvmCross.Plugins.JsonLocalisation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
