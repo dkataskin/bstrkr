@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Cirrious.MvvmCross.ViewModels;
+using Cirrious.MvvmCross.Localization;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -33,6 +34,11 @@ namespace bstrkr.mvvm.viewmodels
 					this.RaisePropertyChanged(() => this.IsBusy);
 				}
 			}
+		}
+
+		public IMvxLanguageBinder TextSource
+		{
+			get { return new MvxLanguageBinder(Constants.GeneralNamespace, GetType().Name); }
 		}
 	}
 }
