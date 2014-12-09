@@ -1,7 +1,8 @@
 ﻿using System;
 
-using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.Localization;
+using Cirrious.MvvmCross.ViewModels;
+
 using bstrkr.core.consts;
 
 namespace bstrkr.mvvm.viewmodels
@@ -39,7 +40,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public IMvxLanguageBinder TextSource
 		{
-			get { return new MvxLanguageBinder(AppConsts.LocalizationGeneralNamespace, GetType().Name); }
+			get { return new MvxLanguageBinder(string.Empty, GetType().Name); }
 		}
 	}
 }
