@@ -92,12 +92,6 @@
     <Reference Include="Cirrious.MvvmCross.Droid.Fragging">
       <HintPath>..\packages\MvvmCross.HotTuna.Droid.Fragging.3.2.1\lib\MonoAndroid\Cirrious.MvvmCross.Droid.Fragging.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v13">
-      <HintPath>..\packages\Xamarin.Android.Support.v13.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\packages\Xamarin.Android.Support.v4.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net">
       <HintPath>..\packages\MvvmCross.PortableSupport.3.2.2\lib\MonoAndroid\System.Net.dll</HintPath>
     </Reference>
@@ -142,6 +136,12 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.JsonLocalisation">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.JsonLocalisation.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.JsonLocalisation.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\packages\Xamarin.Android.Support.v4.21.0.0.0\lib\MonoAndroid10\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v13">
+      <HintPath>..\packages\Xamarin.Android.Support.v13.21.0.0.0\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -261,10 +261,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
-      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
-      <Name>bstrkr.core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bstrkr.providers\bstrkr.providers.csproj">
       <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
       <Name>bstrkr.providers</Name>
@@ -276,6 +272,10 @@
     <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
       <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
       <Name>bstrkr.mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
+      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
+      <Name>bstrkr.core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

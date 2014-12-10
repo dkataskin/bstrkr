@@ -67,10 +67,6 @@
     <Compile Include="ViewModelTestFixtureBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
-      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
-      <Name>bstrkr.core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bstrkr.providers\bstrkr.providers.csproj">
       <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
       <Name>bstrkr.providers</Name>
@@ -82,6 +78,10 @@
     <ProjectReference Include="..\bstrkr.tests.infrastructure\bstrkr.tests.infrastructure.csproj">
       <Project>{FC611476-8401-4774-A5C1-0F8EFF58A1D2}</Project>
       <Name>bstrkr.tests.infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
+      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
+      <Name>bstrkr.core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

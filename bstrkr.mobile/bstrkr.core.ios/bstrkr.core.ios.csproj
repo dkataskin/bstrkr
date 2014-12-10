@@ -104,13 +104,13 @@
     <Compile Include="Extensions\CLLocationCoordinate2DExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
-      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
-      <Name>bstrkr.core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
       <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
       <Name>bstrkr.mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
+      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
+      <Name>bstrkr.core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

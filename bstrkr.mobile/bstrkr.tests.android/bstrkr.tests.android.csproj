@@ -119,13 +119,13 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
-      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
-      <Name>bstrkr.core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bstrkr.providers\bstrkr.providers.csproj">
       <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
       <Name>bstrkr.providers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
+      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
+      <Name>bstrkr.core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

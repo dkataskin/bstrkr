@@ -125,12 +125,6 @@
     <Folder Include="Presenters\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
-      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
-      <Name>bstrkr.core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <XamarinComponentReference Include="googleplayservices">
       <Version>19.0.0</Version>
       <Visible>False</Visible>
@@ -138,5 +132,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
+      <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
+      <Name>bstrkr.core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
