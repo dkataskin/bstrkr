@@ -47,15 +47,39 @@ namespace Resources.Strings {
             }
         }
         
+        public static string unknown_location_dialog_title {
+            get {
+                return ResourceManager.GetString("unknown_location_dialog_title", resourceCulture);
+            }
+        }
+        
         public static string about_view_title {
             get {
                 return ResourceManager.GetString("about_view_title", resourceCulture);
             }
         }
         
-        public static string about_view_text {
+        public static string unknown_location_dialog_text {
             get {
-                return ResourceManager.GetString("about_view_text", resourceCulture);
+                return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
+            }
+        }
+        
+        public static string no {
+            get {
+                return ResourceManager.GetString("no", resourceCulture);
+            }
+        }
+        
+        public static string yes {
+            get {
+                return ResourceManager.GetString("yes", resourceCulture);
+            }
+        }
+        
+        public static string no_thanks {
+            get {
+                return ResourceManager.GetString("no_thanks", resourceCulture);
             }
         }
     }

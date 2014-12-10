@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Chance.MvvmCross.Plugins.UserInteraction;
+
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 
@@ -15,7 +17,8 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.mvvm.converters;
-using Chance.MvvmCross.Plugins.UserInteraction;
+
+using Strings = Resources.Strings.Strings;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -222,14 +225,11 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				case LocationErrors.UnknownArea:
 					Mvx.Resolve<IUserInteraction>().Confirm(
-									"Wrong area", 
-									answer => 
-									{
-										this.ShowViewModel<SetAreaViewModel>();
-									},
-									"wrong area title",
-									"No, thanks",
-									"Yes");
+									Strings.unknown_location_dialog_text, 
+									answer => this.ShowViewModel<SetAreaViewModel>(),
+									Strings.unknown_location_dialog_title,
+									Strings.no_thanks,
+									Strings.no);
 					break;
 
 				default:
