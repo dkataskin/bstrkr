@@ -123,7 +123,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Strings\Strings.en-US.resx" />
     <EmbeddedResource Include="Resources\Strings\Strings.ru.resx" />
     <EmbeddedResource Include="Resources\Strings\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
