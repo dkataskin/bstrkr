@@ -1,7 +1,10 @@
 using System.Collections.Specialized;
 using System.Windows.Input;
+
 using Android.Views;
 using Android.Widget;
+
+using Cirrious.MvvmCross.Droid.Views;
 
 namespace bstrkr.android
 {
@@ -18,6 +21,11 @@ namespace bstrkr.android
         {
             checkBox.CheckedChange += (sender, args) => checkBox.Checked = !checkBox.Checked;
         }
+        
+        public void Include(Switch @switch)
+        {
+            @switch.CheckedChange += (sender, args) => @switch.Checked = !@switch.Checked;
+        }
 
         public void Include(View view)
         {
@@ -29,6 +37,12 @@ namespace bstrkr.android
             text.TextChanged += (sender, args) => text.Text = "" + text.Text;
 			text.Hint = "" + text.Hint;
         }
+        
+        public void Include(CheckedTextView text)
+        {
+            text.TextChanged += (sender, args) => text.Text = "" + text.Text;
+            text.Hint = "" + text.Hint;
+        }
 
         public void Include(CompoundButton cb)
         {
@@ -38,6 +52,11 @@ namespace bstrkr.android
         public void Include(SeekBar sb)
         {
             sb.ProgressChanged += (sender, args) => sb.Progress = sb.Progress + 1;
+        }
+
+        public void Include(MvxActivity act)
+        {
+            act.Title = act.Title + "";
         }
 
         public void Include(INotifyCollectionChanged changed)
