@@ -226,8 +226,8 @@ namespace bstrkr.mvvm.viewmodels
 									AppResources.unknown_location_dialog_text, 
 									answer => this.ShowViewModel<SetAreaViewModel>(),
 									AppResources.unknown_location_dialog_title,
-									AppResources.no_thanks,
-									AppResources.no);
+									AppResources.yes,
+									AppResources.no_thanks);
 					break;
 
 				default:
