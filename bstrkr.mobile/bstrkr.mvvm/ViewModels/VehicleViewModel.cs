@@ -20,7 +20,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private long _lastUpdate = 0;
 
-		public VehicleViewModel(IResourceManager resourceManager) : base(resourceManager)
+		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
 			this.WaySegments = new ReadOnlyObservableCollection<WaySegment>(_waypoints);
 		}

@@ -140,6 +140,9 @@
     <Reference Include="Cirrious.MvvmCross.Droid.Fragging">
       <HintPath>..\packages\MvvmCross.HotTuna.Droid.Fragging.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Droid.Fragging.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.JsonLocalisation">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.JsonLocalisation.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.JsonLocalisation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="Views\LicensesView.cs" />
     <Compile Include="Views\SetAreaView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Bootstrap\JsonLocalisationPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

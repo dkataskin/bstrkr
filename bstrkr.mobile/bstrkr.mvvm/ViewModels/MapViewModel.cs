@@ -18,8 +18,6 @@ using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.mvvm.converters;
 
-using Strings = Resources.Strings.Strings;
-
 namespace bstrkr.mvvm.viewmodels
 {
 	public class MapViewModel : BusTrackerViewModelBase
@@ -225,11 +223,11 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				case LocationErrors.UnknownArea:
 					Mvx.Resolve<IUserInteraction>().Confirm(
-									Strings.unknown_location_dialog_text, 
+									AppResources.unknown_location_dialog_text, 
 									answer => this.ShowViewModel<SetAreaViewModel>(),
-									Strings.unknown_location_dialog_title,
-									Strings.no_thanks,
-									Strings.no);
+									AppResources.unknown_location_dialog_title,
+									AppResources.no_thanks,
+									AppResources.no);
 					break;
 
 				default:

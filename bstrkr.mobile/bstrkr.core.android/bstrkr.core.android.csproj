@@ -102,7 +102,6 @@
     <Compile Include="Services\Location\LocationService.cs" />
     <Compile Include="Services\Location\SuperLocationService.cs" />
     <Compile Include="Config\ConfigManager.cs" />
-    <Compile Include="Services\Resources\ResourceManager.cs" />
     <Compile Include="Extensions\GeoPointExtensions.cs" />
     <Compile Include="Extensions\LatLngExtensions.cs" />
     <Compile Include="Views\ActionBarDrawerEventArgs.cs" />
@@ -114,6 +113,7 @@
     <Compile Include="Presenters\IFragmentHost.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
+    <Compile Include="Services\Resources\AndroidAppResourceManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

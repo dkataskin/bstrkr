@@ -31,7 +31,7 @@ namespace bstrkr.ios
 		{
 			Mvx.LazyConstructAndRegisterSingleton<IConfigManager, ConfigManager>();
 			Mvx.LazyConstructAndRegisterSingleton<ILocationService, LocationService>();
-			Mvx.LazyConstructAndRegisterSingleton<IResourceManager, ResourceManager>();
+			Mvx.LazyConstructAndRegisterSingleton<IAppResourceManager, ResourceManager>();
 
 			base.InitializeFirstChance();
 		}

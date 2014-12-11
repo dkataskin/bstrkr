@@ -10,7 +10,7 @@ using System.IO;
 
 namespace bstrkr.core.android.services.resources
 {
-	public class ResourceManager : ResourceManagerBase
+	public class AndroidAppResourceManager : AppResourceManagerBase
 	{
 		protected override object GetImageResource(string path)
 		{

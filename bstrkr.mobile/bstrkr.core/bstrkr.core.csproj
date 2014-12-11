@@ -50,8 +50,6 @@
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\MergeMode.cs" />
     <Compile Include="VehicleTypes.cs" />
-    <Compile Include="Services\Resources\IResourceManager.cs" />
-    <Compile Include="Services\Resources\ResourceManagerBase.cs" />
     <Compile Include="Map\MapMarkerSizes.cs" />
     <None Include="Resources\Images\bus_h.png" />
     <None Include="Resources\Images\bus_b.png" />
@@ -86,7 +84,11 @@
     <Compile Include="Services\Location\BusTrackerLocationService.cs" />
     <Compile Include="Services\Location\LocationErrors.cs" />
     <Compile Include="Services\Location\LocationErrorEventArgs.cs" />
-    <Compile Include="Resources\Strings\Strings.Designer.cs" />
+    <Compile Include="Services\Resources\IAppResourceManager.cs" />
+    <Compile Include="Services\Resources\AppResourceManagerBase.cs" />
+    <Compile Include="AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -103,7 +105,6 @@
     <Folder Include="Map\" />
     <Folder Include="Utils\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Resources\Strings\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\config.json" />
@@ -123,10 +124,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Strings\Strings.ru.resx" />
-    <EmbeddedResource Include="Resources\Strings\Strings.resx">
+    <EmbeddedResource Include="AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

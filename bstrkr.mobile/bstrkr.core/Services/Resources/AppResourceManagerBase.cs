@@ -5,7 +5,7 @@ using bstrkr.core.map;
 
 namespace bstrkr.core.services.resources
 {
-	public abstract class ResourceManagerBase : IResourceManager
+	public abstract class AppResourceManagerBase : IAppResourceManager
 	{
 		private const string VehicleMarkerImgFormatString = "{0}_{1}.png";
 		private const string RouteStopMarkerImgFormatString = "busstop_{0}.png";

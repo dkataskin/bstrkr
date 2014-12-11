@@ -10,7 +10,7 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public abstract class MapMarkerViewModelBase<T> : MvxViewModel where T : class
 	{
-		protected IResourceManager _resourceManager;
+		protected IAppResourceManager _resourceManager;
 
 		private MapMarkerSizes _markerSize;
 		private object _icon;
@@ -18,7 +18,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private T _model;
 
-		public MapMarkerViewModelBase(IResourceManager resourceManager)
+		public MapMarkerViewModelBase(IAppResourceManager resourceManager)
 		{
 			_resourceManager = resourceManager;
 		}

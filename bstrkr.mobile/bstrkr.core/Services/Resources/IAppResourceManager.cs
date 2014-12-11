@@ -4,7 +4,7 @@ using bstrkr.core.map;
 
 namespace bstrkr.core.services.resources
 {
-	public interface IResourceManager
+	public interface IAppResourceManager
 	{
 		object GetVehicleMarker(VehicleTypes type, MapMarkerSizes size);
 
