@@ -31,6 +31,7 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using Android.Widget;
 
 namespace bstrkr.android.views
 {
@@ -80,17 +81,23 @@ namespace bstrkr.android.views
 				switch (section)
 				{
 					case MenuSection.Map:
-						if (this.IsCurrentFragment<MapView>())
-						{
-							return true;
-						}
-
-						if (fragment == null)
-						{
-							fragment = new MapView();
-						}
-
 						title = Resources.GetString(Resource.String.map_view_title);
+						this.ActionBar.Title = _title = title;
+
+						var map = this.FindFragmentById<MapView>(Resource.Id.mapView);
+						if (map.ViewModel == null)
+						{
+							var loaderService1 = Mvx.Resolve<IMvxViewModelLoader>();
+							var viewModel1 = loaderService1.LoadViewModel(request, null /* saved state */);
+							map.ViewModel = viewModel1;
+						}
+
+						//var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
+						//var tr = this.SupportFragmentManager.BeginTransaction();
+						//frame.RemoveAllViews();
+						//tr.Commit();
+
+						return true;
 						break;
 
 					case MenuSection.Routes:
@@ -156,19 +163,13 @@ namespace bstrkr.android.views
 					fragment.ViewModel = viewModel;
 				}
 
-				if (section != MenuSection.Map)
-				{
-					this.SupportFragmentManager.BeginTransaction()
-										.Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
-										.AddToBackStack(null)
-										.Commit();
-				}
-				else
-				{
-					this.SupportFragmentManager.BeginTransaction()
-										.Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
-										.Commit();
-				}
+				var t = this.SupportFragmentManager.BeginTransaction()
+							.Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
+
+				//fragment.View.BringToFront();
+				//t.Show(fragment)
+				.AddToBackStack(null)
+					.Commit();
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
 				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
