@@ -92,10 +92,10 @@ namespace bstrkr.android.views
 							map.ViewModel = viewModel1;
 						}
 
-						//var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
-						//var tr = this.SupportFragmentManager.BeginTransaction();
-						//frame.RemoveAllViews();
-						//tr.Commit();
+						var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
+						var tr = this.SupportFragmentManager.BeginTransaction();
+						frame.RemoveAllViews();
+						tr.Commit();
 
 						return true;
 						break;
@@ -164,12 +164,16 @@ namespace bstrkr.android.views
 				}
 
 				var t = this.SupportFragmentManager.BeginTransaction()
-							.Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
+							.Add(Resource.Id.content_frame, fragment, _menu2Tag[section]);
 
-				//fragment.View.BringToFront();
-				//t.Show(fragment)
+				if (fragment.View != null)
+				{
+					fragment.View.BringToFront();
+				}
+
+				t.Show(fragment)
 				.AddToBackStack(null)
-					.Commit();
+				.Commit();
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
 				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
