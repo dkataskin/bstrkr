@@ -26,9 +26,9 @@ namespace bstrkr.android
 		
 		public static void UpdateIdValues()
 		{
+			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::bstrkr.android.Resource.String.library_name;
 			global::Xamarin.InsightsCore.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::Xamarin.InsightsCore.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
-			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::bstrkr.android.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -1924,11 +1924,11 @@ namespace bstrkr.android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f05002f
-			public const int ApplicationName = 2131034159;
-			
 			// aapt resource value: 0x7f05002e
-			public const int Hello = 2131034158;
+			public const int ApplicationName = 2131034158;
+			
+			// aapt resource value: 0x7f05002d
+			public const int Hello = 2131034157;
 			
 			// aapt resource value: 0x7f050007
 			public const int abc_action_bar_home_description = 2131034119;
@@ -2059,8 +2059,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050031
 			public const int drawer_open = 2131034161;
 			
-			// aapt resource value: 0x7f05002d
-			public const int library_name = 2131034157;
+			// aapt resource value: 0x7f05002f
+			public const int library_name = 2131034159;
 			
 			// aapt resource value: 0x7f050036
 			public const int licenses_view_title = 2131034166;

@@ -78,6 +78,8 @@ namespace bstrkr.android.views
 				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
 				fragment = this.SupportFragmentManager.FindFragmentByTag(_menu2Tag[section]) as MvxFragment;
 
+				var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
+
 				switch (section)
 				{
 					case MenuSection.Map:
@@ -92,7 +94,6 @@ namespace bstrkr.android.views
 							map.ViewModel = viewModel1;
 						}
 
-						var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
 						var tr = this.SupportFragmentManager.BeginTransaction();
 						frame.RemoveAllViews();
 						tr.Commit();
@@ -163,13 +164,15 @@ namespace bstrkr.android.views
 					fragment.ViewModel = viewModel;
 				}
 
-				var t = this.SupportFragmentManager.BeginTransaction()
-							.Add(Resource.Id.content_frame, fragment, _menu2Tag[section]);
 
-				if (fragment.View != null)
-				{
-					fragment.View.BringToFront();
-				}
+				var t = this.SupportFragmentManager.BeginTransaction();
+				frame.RemoveAllViews();
+				t.Add(Resource.Id.content_frame, fragment, _menu2Tag[section]);
+
+//				if (fragment.View != null)
+//				{
+//					fragment.View.BringToFront();
+//				}
 
 				t.Show(fragment)
 				.AddToBackStack(null)
