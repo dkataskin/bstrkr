@@ -568,8 +568,8 @@ namespace bstrkr.android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f08001a
-			public const int abc_search_url_text_holo = 2131230746;
+			// aapt resource value: 0x7f080071
+			public const int abc_search_url_text_holo = 2131230833;
 			
 			// aapt resource value: 0x7f080000
 			public const int abc_search_url_text_normal = 2131230720;
@@ -579,6 +579,57 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f080001
 			public const int abc_search_url_text_selected = 2131230721;
+			
+			// aapt resource value: 0x7f08001e
+			public const int background_dark = 2131230750;
+			
+			// aapt resource value: 0x7f08004a
+			public const int background_holo_dark = 2131230794;
+			
+			// aapt resource value: 0x7f08004b
+			public const int background_holo_light = 2131230795;
+			
+			// aapt resource value: 0x7f08001f
+			public const int background_light = 2131230751;
+			
+			// aapt resource value: 0x7f08001c
+			public const int black = 2131230748;
+			
+			// aapt resource value: 0x7f080020
+			public const int bright_foreground_dark = 2131230752;
+			
+			// aapt resource value: 0x7f080022
+			public const int bright_foreground_dark_disabled = 2131230754;
+			
+			// aapt resource value: 0x7f080024
+			public const int bright_foreground_dark_inverse = 2131230756;
+			
+			// aapt resource value: 0x7f08004e
+			public const int bright_foreground_disabled_holo_dark = 2131230798;
+			
+			// aapt resource value: 0x7f08004f
+			public const int bright_foreground_disabled_holo_light = 2131230799;
+			
+			// aapt resource value: 0x7f08004c
+			public const int bright_foreground_holo_dark = 2131230796;
+			
+			// aapt resource value: 0x7f08004d
+			public const int bright_foreground_holo_light = 2131230797;
+			
+			// aapt resource value: 0x7f080050
+			public const int bright_foreground_inverse_holo_dark = 2131230800;
+			
+			// aapt resource value: 0x7f080051
+			public const int bright_foreground_inverse_holo_light = 2131230801;
+			
+			// aapt resource value: 0x7f080021
+			public const int bright_foreground_light = 2131230753;
+			
+			// aapt resource value: 0x7f080023
+			public const int bright_foreground_light_disabled = 2131230755;
+			
+			// aapt resource value: 0x7f080025
+			public const int bright_foreground_light_inverse = 2131230757;
 			
 			// aapt resource value: 0x7f08000c
 			public const int common_action_bar_splitter = 2131230732;
@@ -610,11 +661,218 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f080008
 			public const int common_signin_btn_light_text_pressed = 2131230728;
 			
-			// aapt resource value: 0x7f08001b
-			public const int common_signin_btn_text_dark = 2131230747;
+			// aapt resource value: 0x7f080072
+			public const int common_signin_btn_text_dark = 2131230834;
 			
-			// aapt resource value: 0x7f08001c
-			public const int common_signin_btn_text_light = 2131230748;
+			// aapt resource value: 0x7f080073
+			public const int common_signin_btn_text_light = 2131230835;
+			
+			// aapt resource value: 0x7f080036
+			public const int darker_gray = 2131230774;
+			
+			// aapt resource value: 0x7f080026
+			public const int dim_foreground_dark = 2131230758;
+			
+			// aapt resource value: 0x7f080027
+			public const int dim_foreground_dark_disabled = 2131230759;
+			
+			// aapt resource value: 0x7f080028
+			public const int dim_foreground_dark_inverse = 2131230760;
+			
+			// aapt resource value: 0x7f080029
+			public const int dim_foreground_dark_inverse_disabled = 2131230761;
+			
+			// aapt resource value: 0x7f080053
+			public const int dim_foreground_disabled_holo_dark = 2131230803;
+			
+			// aapt resource value: 0x7f080058
+			public const int dim_foreground_disabled_holo_light = 2131230808;
+			
+			// aapt resource value: 0x7f080052
+			public const int dim_foreground_holo_dark = 2131230802;
+			
+			// aapt resource value: 0x7f080057
+			public const int dim_foreground_holo_light = 2131230807;
+			
+			// aapt resource value: 0x7f080055
+			public const int dim_foreground_inverse_disabled_holo_dark = 2131230805;
+			
+			// aapt resource value: 0x7f08005a
+			public const int dim_foreground_inverse_disabled_holo_light = 2131230810;
+			
+			// aapt resource value: 0x7f080054
+			public const int dim_foreground_inverse_holo_dark = 2131230804;
+			
+			// aapt resource value: 0x7f080059
+			public const int dim_foreground_inverse_holo_light = 2131230809;
+			
+			// aapt resource value: 0x7f08002b
+			public const int dim_foreground_light = 2131230763;
+			
+			// aapt resource value: 0x7f08002c
+			public const int dim_foreground_light_disabled = 2131230764;
+			
+			// aapt resource value: 0x7f08002d
+			public const int dim_foreground_light_inverse = 2131230765;
+			
+			// aapt resource value: 0x7f08002e
+			public const int dim_foreground_light_inverse_disabled = 2131230766;
+			
+			// aapt resource value: 0x7f080049
+			public const int facelock_color_background = 2131230793;
+			
+			// aapt resource value: 0x7f080061
+			public const int group_button_dialog_focused_holo_dark = 2131230817;
+			
+			// aapt resource value: 0x7f080063
+			public const int group_button_dialog_focused_holo_light = 2131230819;
+			
+			// aapt resource value: 0x7f080060
+			public const int group_button_dialog_pressed_holo_dark = 2131230816;
+			
+			// aapt resource value: 0x7f080062
+			public const int group_button_dialog_pressed_holo_light = 2131230818;
+			
+			// aapt resource value: 0x7f080030
+			public const int highlighted_text_dark = 2131230768;
+			
+			// aapt resource value: 0x7f08005c
+			public const int highlighted_text_holo_dark = 2131230812;
+			
+			// aapt resource value: 0x7f08005d
+			public const int highlighted_text_holo_light = 2131230813;
+			
+			// aapt resource value: 0x7f080031
+			public const int highlighted_text_light = 2131230769;
+			
+			// aapt resource value: 0x7f08002a
+			public const int hint_foreground_dark = 2131230762;
+			
+			// aapt resource value: 0x7f080056
+			public const int hint_foreground_holo_dark = 2131230806;
+			
+			// aapt resource value: 0x7f08005b
+			public const int hint_foreground_holo_light = 2131230811;
+			
+			// aapt resource value: 0x7f08002f
+			public const int hint_foreground_light = 2131230767;
+			
+			// aapt resource value: 0x7f080070
+			public const int holo_blue_bright = 2131230832;
+			
+			// aapt resource value: 0x7f08006a
+			public const int holo_blue_dark = 2131230826;
+			
+			// aapt resource value: 0x7f080067
+			public const int holo_blue_light = 2131230823;
+			
+			// aapt resource value: 0x7f08006b
+			public const int holo_green_dark = 2131230827;
+			
+			// aapt resource value: 0x7f080068
+			public const int holo_green_light = 2131230824;
+			
+			// aapt resource value: 0x7f08006f
+			public const int holo_orange_dark = 2131230831;
+			
+			// aapt resource value: 0x7f08006e
+			public const int holo_orange_light = 2131230830;
+			
+			// aapt resource value: 0x7f08006d
+			public const int holo_purple = 2131230829;
+			
+			// aapt resource value: 0x7f08006c
+			public const int holo_red_dark = 2131230828;
+			
+			// aapt resource value: 0x7f080069
+			public const int holo_red_light = 2131230825;
+			
+			// aapt resource value: 0x7f080044
+			public const int keyguard_text_color_decline = 2131230788;
+			
+			// aapt resource value: 0x7f080040
+			public const int keyguard_text_color_normal = 2131230784;
+			
+			// aapt resource value: 0x7f080042
+			public const int keyguard_text_color_soundoff = 2131230786;
+			
+			// aapt resource value: 0x7f080043
+			public const int keyguard_text_color_soundon = 2131230787;
+			
+			// aapt resource value: 0x7f080041
+			public const int keyguard_text_color_unlock = 2131230785;
+			
+			// aapt resource value: 0x7f080066
+			public const int legacy_long_pressed_highlight = 2131230822;
+			
+			// aapt resource value: 0x7f080064
+			public const int legacy_pressed_highlight = 2131230820;
+			
+			// aapt resource value: 0x7f080065
+			public const int legacy_selected_highlight = 2131230821;
+			
+			// aapt resource value: 0x7f080035
+			public const int lighter_gray = 2131230773;
+			
+			// aapt resource value: 0x7f080032
+			public const int link_text_dark = 2131230770;
+			
+			// aapt resource value: 0x7f08005e
+			public const int link_text_holo_dark = 2131230814;
+			
+			// aapt resource value: 0x7f08005f
+			public const int link_text_holo_light = 2131230815;
+			
+			// aapt resource value: 0x7f080033
+			public const int link_text_light = 2131230771;
+			
+			// aapt resource value: 0x7f080047
+			public const int lockscreen_clock_am_pm = 2131230791;
+			
+			// aapt resource value: 0x7f080045
+			public const int lockscreen_clock_background = 2131230789;
+			
+			// aapt resource value: 0x7f080046
+			public const int lockscreen_clock_foreground = 2131230790;
+			
+			// aapt resource value: 0x7f080048
+			public const int lockscreen_owner_info = 2131230792;
+			
+			// aapt resource value: 0x7f080037
+			public const int perms_dangerous_grp_color = 2131230775;
+			
+			// aapt resource value: 0x7f080038
+			public const int perms_dangerous_perm_color = 2131230776;
+			
+			// aapt resource value: 0x7f08001a
+			public const int safe_mode_text = 2131230746;
+			
+			// aapt resource value: 0x7f08003a
+			public const int search_url_text_normal = 2131230778;
+			
+			// aapt resource value: 0x7f08003c
+			public const int search_url_text_pressed = 2131230780;
+			
+			// aapt resource value: 0x7f08003b
+			public const int search_url_text_selected = 2131230779;
+			
+			// aapt resource value: 0x7f08003d
+			public const int search_widget_corpus_item_background = 2131230781;
+			
+			// aapt resource value: 0x7f080039
+			public const int shadow = 2131230777;
+			
+			// aapt resource value: 0x7f08003e
+			public const int sliding_tab_text_color_active = 2131230782;
+			
+			// aapt resource value: 0x7f08003f
+			public const int sliding_tab_text_color_shadow = 2131230783;
+			
+			// aapt resource value: 0x7f080034
+			public const int suggestion_highlight_text = 2131230772;
+			
+			// aapt resource value: 0x7f08001d
+			public const int transparent = 2131230749;
 			
 			// aapt resource value: 0x7f080012
 			public const int wallet_bright_foreground_disabled_holo_light = 2131230738;
@@ -655,11 +913,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f080019
 			public const int wallet_link_text_light = 2131230745;
 			
-			// aapt resource value: 0x7f08001d
-			public const int wallet_primary_text_holo_light = 2131230749;
+			// aapt resource value: 0x7f080074
+			public const int wallet_primary_text_holo_light = 2131230836;
 			
-			// aapt resource value: 0x7f08001e
-			public const int wallet_secondary_text_holo_dark = 2131230750;
+			// aapt resource value: 0x7f080075
+			public const int wallet_secondary_text_holo_dark = 2131230837;
+			
+			// aapt resource value: 0x7f08001b
+			public const int white = 2131230747;
 			
 			static Color()
 			{

@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    style="@android:style/Theme.Holo">
+    android:background="@color/background_holo_dark">
     <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
