@@ -32,6 +32,8 @@ using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 using Android.Widget;
+using Chance.MvvmCross.Plugins.UserInteraction;
+using bstrkr.core;
 
 namespace bstrkr.android.views
 {
@@ -79,7 +81,6 @@ namespace bstrkr.android.views
 				fragment = this.SupportFragmentManager.FindFragmentByTag(_menu2Tag[section]) as MvxFragment;
 
 				var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
-
 				switch (section)
 				{
 					case MenuSection.Map:
@@ -102,10 +103,7 @@ namespace bstrkr.android.views
 						break;
 
 					case MenuSection.Routes:
-						if (this.IsCurrentFragment<RoutesView>())
-						{
-							return true;
-						}
+						fragment = this.FindFragment<RoutesView>();
 
 						if (fragment == null)
 						{
@@ -116,10 +114,7 @@ namespace bstrkr.android.views
 						break;
 
 					case MenuSection.Preferences:
-						if (this.IsCurrentFragment<PreferencesView>())
-						{
-							return true;
-						}
+						fragment = this.FindFragment<PreferencesView>();
 
 						if (fragment == null)
 						{
@@ -130,11 +125,7 @@ namespace bstrkr.android.views
 						break;
 
 					case MenuSection.Licenses:
-						if (this.IsCurrentFragment<LicensesView>())
-						{
-							return true;
-						}
-
+						fragment = this.FindFragment<LicensesView>();
 						if (fragment == null)
 						{
 							fragment = new LicensesView();
@@ -144,13 +135,11 @@ namespace bstrkr.android.views
 						break;
 
 					case MenuSection.About:
-						var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
-						var viewModel = loaderService.LoadViewModel(request, null);
-						var dialog = new AboutView();
-						dialog.ViewModel = viewModel;
-						title = Resources.GetString(Resource.String.about_view_title);
-
-						dialog.Show(this.SupportFragmentManager, null);
+						Mvx.Resolve<IUserInteraction>().Alert(
+												AppResources.about_view_text,
+												null,
+												AppResources.about_view_title,
+												AppResources.ok);
 
 						return true;
 						break;
@@ -164,19 +153,10 @@ namespace bstrkr.android.views
 					fragment.ViewModel = viewModel;
 				}
 
-
-				var t = this.SupportFragmentManager.BeginTransaction();
-				frame.RemoveAllViews();
-				t.Add(Resource.Id.content_frame, fragment, _menu2Tag[section]);
-
-//				if (fragment.View != null)
-//				{
-//					fragment.View.BringToFront();
-//				}
-
-				t.Show(fragment)
-				.AddToBackStack(null)
-				.Commit();
+				this.SupportFragmentManager.BeginTransaction()
+										   .Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
+										   .AddToBackStack(null)
+										   .Commit();
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
 				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
@@ -290,9 +270,9 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(SetAreaViewModel), this);
 		}
 
-		private bool IsCurrentFragment<TView>() where TView : MvxFragment
+		private MvxFragment FindFragment<TView>() where TView : MvxFragment
 		{
-			return this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as TView != null;
+			return this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as TView;
 		}
     }
 }

@@ -71,6 +71,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string ok {
+            get {
+                return ResourceManager.GetString("ok", resourceCulture);
+            }
+        }
+        
         public static string yes {
             get {
                 return ResourceManager.GetString("yes", resourceCulture);
@@ -80,6 +86,12 @@ namespace bstrkr.core {
         public static string no_thanks {
             get {
                 return ResourceManager.GetString("no_thanks", resourceCulture);
+            }
+        }
+        
+        public static string about_view_text {
+            get {
+                return ResourceManager.GetString("about_view_text", resourceCulture);
             }
         }
     }

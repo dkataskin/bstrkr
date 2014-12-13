@@ -1867,49 +1867,46 @@ namespace bstrkr.android
 			public const int abc_simple_decor = 2130903063;
 			
 			// aapt resource value: 0x7f030018
-			public const int fragment_about_view = 2130903064;
+			public const int fragment_licenses_view = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int fragment_licenses_view = 2130903065;
+			public const int fragment_map_view = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int fragment_map_view = 2130903066;
+			public const int fragment_preferences_view = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int fragment_preferences_view = 2130903067;
+			public const int fragment_routes_view = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int fragment_routes_view = 2130903068;
+			public const int fragment_set_area_view = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int fragment_set_area_view = 2130903069;
+			public const int item_areas_list = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int item_areas_list = 2130903070;
+			public const int item_menu = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int item_menu = 2130903071;
+			public const int item_routes_list = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int item_routes_list = 2130903072;
+			public const int mr_media_route_chooser_dialog = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int mr_media_route_chooser_dialog = 2130903073;
+			public const int mr_media_route_controller_dialog = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int mr_media_route_controller_dialog = 2130903074;
+			public const int mr_media_route_list_item = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int mr_media_route_list_item = 2130903075;
+			public const int page_home_view = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int page_home_view = 2130903076;
+			public const int page_splash_screen = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int page_splash_screen = 2130903077;
-			
-			// aapt resource value: 0x7f030026
-			public const int support_simple_spinner_dropdown_item = 2130903078;
+			public const int support_simple_spinner_dropdown_item = 2130903077;
 			
 			static Layout()
 			{

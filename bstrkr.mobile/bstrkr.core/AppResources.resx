@@ -15,6 +15,9 @@
 	<data name="about_view_title" xml:space="preserve">
     <value>About</value>
   </data>
+	<data name="about_view_text" xml:space="preserve">
+    <value>BusTracker v0.1 © Vershi, Dmitriy Kataskin 2014</value>
+  </data>
 	<data name="unknown_location_dialog_title" xml:space="preserve">
     <value>Location</value>
   </data>
@@ -29,5 +32,8 @@
   </data>
 	<data name="no" xml:space="preserve">
     <value>No</value>
+  </data>
+	<data name="ok" xml:space="preserve">
+    <value>OK</value>
   </data>
 </root>
