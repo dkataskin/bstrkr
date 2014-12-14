@@ -96,7 +96,7 @@ namespace bstrkr.android.views
 						}
 
 						var tr = this.SupportFragmentManager.BeginTransaction();
-						frame.RemoveAllViews();
+						tr.Add(Resource.Id.content_frame, null);
 						tr.Commit();
 
 						return true;
@@ -135,9 +135,10 @@ namespace bstrkr.android.views
 						break;
 
 					case MenuSection.About:
+						var position = _drawerList.SelectedItemPosition;
 						Mvx.Resolve<IUserInteraction>().Alert(
 												AppResources.about_view_text,
-												null,
+												() => _drawerList.SetItemChecked(position, true),
 												AppResources.about_view_title,
 												AppResources.ok);
 
