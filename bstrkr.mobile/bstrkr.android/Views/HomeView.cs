@@ -11,6 +11,9 @@ using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Support.V4.Widget;
 using Android.Views;
+using Android.Widget;
+
+using Chance.MvvmCross.Plugins.UserInteraction;
 
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
@@ -22,6 +25,7 @@ using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
 
+using bstrkr.core;
 using bstrkr.core.android.extensions;
 using bstrkr.core.android.presenters;
 using bstrkr.core.android.services;
@@ -31,9 +35,6 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using Android.Widget;
-using Chance.MvvmCross.Plugins.UserInteraction;
-using bstrkr.core;
 
 namespace bstrkr.android.views
 {
@@ -42,20 +43,12 @@ namespace bstrkr.android.views
 			  Icon = "@drawable/ic_launcher")]
 	public class HomeView : MvxFragmentActivity, IFragmentHost
     {
-		private readonly IDictionary<MenuSection, string> _menu2Tag = new Dictionary<MenuSection, string>
-		{
-			{ MenuSection.Map, "map_view_frag" },
-			{ MenuSection.Routes, "routes_view_frag" },
-			{ MenuSection.Preferences, "prefs_view_frag" },
-			{ MenuSection.Licenses, "licenses_view_frag" },
-			{ MenuSection.About, "about_view_frag" }
-		};
-
 		private DrawerLayout _drawer;
 		private MyActionBarDrawerToggle _drawerToggle;
 		private string _drawerTitle;
 		private string _title;
 		private MvxListView _drawerList;
+		private string _tag;
 
 		public bool Show(MvxViewModelRequest request)
 		{
@@ -78,7 +71,6 @@ namespace bstrkr.android.views
 				var title = string.Empty;
 
 				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
-				fragment = this.SupportFragmentManager.FindFragmentByTag(_menu2Tag[section]) as MvxFragment;
 
 				var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
 				switch (section)
@@ -96,7 +88,12 @@ namespace bstrkr.android.views
 						}
 
 						var tr = this.SupportFragmentManager.BeginTransaction();
-						tr.Add(Resource.Id.content_frame, null);
+						var fragmentToRemove = this.SupportFragmentManager.FindFragmentByTag(_tag);
+						if (fragmentToRemove != null)
+						{
+							tr.Remove(fragmentToRemove);
+						}
+
 						tr.Commit();
 
 						return true;
@@ -154,8 +151,9 @@ namespace bstrkr.android.views
 					fragment.ViewModel = viewModel;
 				}
 
+				_tag = Guid.NewGuid().ToString();
 				this.SupportFragmentManager.BeginTransaction()
-										   .Replace(Resource.Id.content_frame, fragment, _menu2Tag[section])
+										   .Replace(Resource.Id.content_frame, fragment, _tag)
 										   .AddToBackStack(null)
 										   .Commit();
 

@@ -253,9 +253,9 @@
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_preferences_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
-    <AndroidResource Include="Resources\Layout\fragment_set_area_view.axml" />
     <AndroidResource Include="Resources\Layout\item_areas_list.axml" />
     <AndroidResource Include="Resources\Values\colors.xml" />
+    <AndroidResource Include="Resources\Layout\fragment_set_area_view.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
