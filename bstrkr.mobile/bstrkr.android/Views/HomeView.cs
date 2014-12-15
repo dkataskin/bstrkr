@@ -143,6 +143,11 @@ namespace bstrkr.android.views
 						break;
 				}
 
+				if (fragment.Tag == _tag && _tag != null)
+				{
+					return true;
+				}
+
 				if (fragment.ViewModel == null)
 				{
 					var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
