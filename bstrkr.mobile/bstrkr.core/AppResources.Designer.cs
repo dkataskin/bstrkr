@@ -47,9 +47,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string unknown_location_dialog_title {
+        public static string no {
             get {
-                return ResourceManager.GetString("unknown_location_dialog_title", resourceCulture);
+                return ResourceManager.GetString("no", resourceCulture);
             }
         }
         
@@ -59,21 +59,15 @@ namespace bstrkr.core {
             }
         }
         
-        public static string unknown_location_dialog_text {
+        public static string select {
             get {
-                return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
+                return ResourceManager.GetString("select", resourceCulture);
             }
         }
         
-        public static string no {
+        public static string about_view_text {
             get {
-                return ResourceManager.GetString("no", resourceCulture);
-            }
-        }
-        
-        public static string ok {
-            get {
-                return ResourceManager.GetString("ok", resourceCulture);
+                return ResourceManager.GetString("about_view_text", resourceCulture);
             }
         }
         
@@ -83,15 +77,33 @@ namespace bstrkr.core {
             }
         }
         
-        public static string no_thanks {
+        public static string unknown_location_dialog_text {
             get {
-                return ResourceManager.GetString("no_thanks", resourceCulture);
+                return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
             }
         }
         
-        public static string about_view_text {
+        public static string cancel {
             get {
-                return ResourceManager.GetString("about_view_text", resourceCulture);
+                return ResourceManager.GetString("cancel", resourceCulture);
+            }
+        }
+        
+        public static string unknown_location_dialog_title {
+            get {
+                return ResourceManager.GetString("unknown_location_dialog_title", resourceCulture);
+            }
+        }
+        
+        public static string ok {
+            get {
+                return ResourceManager.GetString("ok", resourceCulture);
+            }
+        }
+        
+        public static string no_thanks {
+            get {
+                return ResourceManager.GetString("no_thanks", resourceCulture);
             }
         }
     }

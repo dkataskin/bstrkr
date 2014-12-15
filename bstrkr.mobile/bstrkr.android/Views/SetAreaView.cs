@@ -9,6 +9,7 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 using bstrkr.mvvm.viewmodels;
+using bstrkr.core;
 
 namespace bstrkr.android.views
 {
@@ -20,15 +21,12 @@ namespace bstrkr.android.views
 		{
 			base.EnsureBindingContextSet(savedState);
 
-			var view = this.BindingInflate(Resource.Layout.fragment_set_area_view, null);
-
 			var viewModel = this.ViewModel as SetAreaViewModel;
 
 			var dialog = new AlertDialog.Builder(Activity);
 			dialog.SetTitle(Resources.GetString(Resource.String.about_view_title));
-			dialog.SetView(view);
-			dialog.SetPositiveButton("Select", (s, a) => viewModel.SelectArea.Execute(_selectedIndex));
-			dialog.SetNegativeButton("Cancel", (s, a) => { });
+			dialog.SetPositiveButton(AppResources.select, (s, a) => viewModel.SelectArea.Execute(_selectedIndex));
+			dialog.SetNegativeButton(AppResources.cancel, (s, a) => { });
 			dialog.SetSingleChoiceItems(
 							viewModel.Areas.Select(x => x.Name).ToArray(), 
 							0, 

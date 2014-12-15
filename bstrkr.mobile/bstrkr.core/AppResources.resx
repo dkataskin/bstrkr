@@ -36,4 +36,10 @@
 	<data name="ok" xml:space="preserve">
     <value>OK</value>
   </data>
+	<data name="select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+	<data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>
