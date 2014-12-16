@@ -47,6 +47,30 @@ namespace bstrkr.core {
             }
         }
         
+        public static string ok {
+            get {
+                return ResourceManager.GetString("ok", resourceCulture);
+            }
+        }
+        
+        public static string licenses_view_title {
+            get {
+                return ResourceManager.GetString("licenses_view_title", resourceCulture);
+            }
+        }
+        
+        public static string routes_view_title {
+            get {
+                return ResourceManager.GetString("routes_view_title", resourceCulture);
+            }
+        }
+        
+        public static string preferences_view_title {
+            get {
+                return ResourceManager.GetString("preferences_view_title", resourceCulture);
+            }
+        }
+        
         public static string no {
             get {
                 return ResourceManager.GetString("no", resourceCulture);
@@ -65,15 +89,15 @@ namespace bstrkr.core {
             }
         }
         
-        public static string about_view_text {
-            get {
-                return ResourceManager.GetString("about_view_text", resourceCulture);
-            }
-        }
-        
         public static string yes {
             get {
                 return ResourceManager.GetString("yes", resourceCulture);
+            }
+        }
+        
+        public static string map_view_title {
+            get {
+                return ResourceManager.GetString("map_view_title", resourceCulture);
             }
         }
         
@@ -95,9 +119,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string ok {
+        public static string about_view_text {
             get {
-                return ResourceManager.GetString("ok", resourceCulture);
+                return ResourceManager.GetString("about_view_text", resourceCulture);
             }
         }
         

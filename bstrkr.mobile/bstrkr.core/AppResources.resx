@@ -15,6 +15,19 @@
 	<data name="about_view_title" xml:space="preserve">
     <value>About</value>
   </data>
+	<data name="map_view_title" xml:space="preserve">
+    <value>Map</value>
+  </data>
+	<data name="routes_view_title" xml:space="preserve">
+    <value>Routes</value>
+  </data>
+	<data name="preferences_view_title" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+
+	<data name="licenses_view_title" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
 	<data name="about_view_text" xml:space="preserve">
     <value>BusTracker v0.1 © Vershi, Dmitriy Kataskin 2014</value>
   </data>

@@ -75,7 +75,7 @@ namespace bstrkr.android.views
 				switch (section)
 				{
 					case MenuSection.Map:
-						title = Resources.GetString(Resource.String.map_view_title);
+						title = AppResources.map_view_title;
 						this.ActionBar.Title = _title = title;
 						_drawerList.SetItemChecked(0, true);
 
@@ -104,7 +104,7 @@ namespace bstrkr.android.views
 							fragment = new RoutesView();
 						}
 
-						title = Resources.GetString(Resource.String.routes_view_title);
+						title = AppResources.routes_view_title;
 						_currentSection = section;
 						break;
 
@@ -116,7 +116,7 @@ namespace bstrkr.android.views
 							fragment = new PreferencesView();
 						}
 
-						title = Resources.GetString(Resource.String.prefs_view_title);
+						title = AppResources.preferences_view_title;
 						_currentSection = section;
 						break;
 
@@ -127,7 +127,7 @@ namespace bstrkr.android.views
 							fragment = new LicensesView();
 						}
 
-						title = Resources.GetString(Resource.String.licenses_view_title);
+						title = AppResources.licenses_view_title;
 						_currentSection = section;
 						break;
 
@@ -136,7 +136,7 @@ namespace bstrkr.android.views
 						var position = homeViewModel.MenuItems.IndexOf(menuItem1);
 						Mvx.Resolve<IUserInteraction>().Alert(
 												AppResources.about_view_text,
-												() => { _drawerList.SetItemChecked(position, true); },
+												() => _drawerList.SetItemChecked(position, true),
 												AppResources.about_view_title,
 												AppResources.ok);
 
