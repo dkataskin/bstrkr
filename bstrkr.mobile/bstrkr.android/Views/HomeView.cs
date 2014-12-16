@@ -49,18 +49,18 @@ namespace bstrkr.android.views
 		private string _title;
 		private MvxListView _drawerList;
 		private string _tag;
+		private MenuSection _currentSection;
 
 		public bool Show(MvxViewModelRequest request)
 		{
 			try
 			{
+				var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
+
 				if (request.ViewModelType == typeof(SetAreaViewModel))
 				{
-					var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
-					var viewModel = loaderService.LoadViewModel(request, null);
 					var dialog = new SetAreaView();
-					dialog.ViewModel = viewModel;
-
+					dialog.ViewModel = loaderService.LoadViewModel(request, null);
 					dialog.Show(this.SupportFragmentManager, null);
 
 					return true;
@@ -72,32 +72,29 @@ namespace bstrkr.android.views
 
 				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
 
-				var frame = this.FindViewById<FrameLayout>(Resource.Id.content_frame);
 				switch (section)
 				{
 					case MenuSection.Map:
 						title = Resources.GetString(Resource.String.map_view_title);
 						this.ActionBar.Title = _title = title;
+						_drawerList.SetItemChecked(0, true);
 
 						var map = this.FindFragmentById<MapView>(Resource.Id.mapView);
 						if (map.ViewModel == null)
 						{
-							var loaderService1 = Mvx.Resolve<IMvxViewModelLoader>();
-							var viewModel1 = loaderService1.LoadViewModel(request, null /* saved state */);
-							map.ViewModel = viewModel1;
+							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);;
 						}
 
-						var tr = this.SupportFragmentManager.BeginTransaction();
+						var transaction = this.SupportFragmentManager.BeginTransaction();
 						var fragmentToRemove = this.SupportFragmentManager.FindFragmentByTag(_tag);
 						if (fragmentToRemove != null)
 						{
-							tr.Remove(fragmentToRemove);
+							transaction.Remove(fragmentToRemove);
 						}
 
-						tr.Commit();
+						transaction.Commit();
 
 						return true;
-						break;
 
 					case MenuSection.Routes:
 						fragment = this.FindFragment<RoutesView>();
@@ -108,6 +105,7 @@ namespace bstrkr.android.views
 						}
 
 						title = Resources.GetString(Resource.String.routes_view_title);
+						_currentSection = section;
 						break;
 
 					case MenuSection.Preferences:
@@ -119,6 +117,7 @@ namespace bstrkr.android.views
 						}
 
 						title = Resources.GetString(Resource.String.prefs_view_title);
+						_currentSection = section;
 						break;
 
 					case MenuSection.Licenses:
@@ -129,18 +128,19 @@ namespace bstrkr.android.views
 						}
 
 						title = Resources.GetString(Resource.String.licenses_view_title);
+						_currentSection = section;
 						break;
 
 					case MenuSection.About:
-						var position = _drawerList.SelectedItemPosition;
+						var menuItem1 = homeViewModel.MenuItems.First(x => x.Id == (int)_currentSection);
+						var position = homeViewModel.MenuItems.IndexOf(menuItem1);
 						Mvx.Resolve<IUserInteraction>().Alert(
 												AppResources.about_view_text,
-												() => _drawerList.SetItemChecked(position, true),
+												() => { _drawerList.SetItemChecked(position, true); },
 												AppResources.about_view_title,
 												AppResources.ok);
 
 						return true;
-						break;
 				}
 
 				if (fragment.Tag == _tag && _tag != null)
@@ -150,10 +150,7 @@ namespace bstrkr.android.views
 
 				if (fragment.ViewModel == null)
 				{
-					var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
-					var viewModel = loaderService.LoadViewModel(request, null /* saved state */);
-
-					fragment.ViewModel = viewModel;
+					fragment.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);;
 				}
 
 				_tag = Guid.NewGuid().ToString();
