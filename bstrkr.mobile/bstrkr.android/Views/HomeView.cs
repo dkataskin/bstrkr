@@ -97,36 +97,19 @@ namespace bstrkr.android.views
 						return true;
 
 					case MenuSection.Routes:
-						fragment = this.FindFragment<RoutesView>();
-
-						if (fragment == null)
-						{
-							fragment = new RoutesView();
-						}
-
+						fragment = this.FindFragment<RoutesView>() ?? new RoutesView();
 						title = AppResources.routes_view_title;
 						_currentSection = section;
 						break;
 
 					case MenuSection.Preferences:
-						fragment = this.FindFragment<PreferencesView>();
-
-						if (fragment == null)
-						{
-							fragment = new PreferencesView();
-						}
-
+						fragment = this.FindFragment<PreferencesView>() ?? new PreferencesView();
 						title = AppResources.preferences_view_title;
 						_currentSection = section;
 						break;
 
 					case MenuSection.Licenses:
-						fragment = this.FindFragment<LicensesView>();
-						if (fragment == null)
-						{
-							fragment = new LicensesView();
-						}
-
+						fragment = this.FindFragment<LicensesView>() ?? new LicensesView();
 						title = AppResources.licenses_view_title;
 						_currentSection = section;
 						break;
