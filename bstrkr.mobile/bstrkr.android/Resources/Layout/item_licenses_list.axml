@@ -4,18 +4,31 @@
     android:id="@+id/licensesView"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/background_holo_dark">
+    android:layout_height="fill_parent">
     <TextView
-        android:layout_width="fill_parent"
+        android:id="@android:id/text1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MVVMCross" />
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="#fff"
+        local:MvxBind="Text Name"
+        android:singleLine="true"
+        android:background="?android:attr/activatedBackgroundIndicator"
+        android:minHeight="?android:attr/listPreferredItemHeight" />
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MVVMCross" />
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="#fff"
+        local:MvxBind="Text License"
+        android:singleLine="false" />
 </LinearLayout>

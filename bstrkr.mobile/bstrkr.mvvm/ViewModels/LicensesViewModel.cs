@@ -5,6 +5,7 @@ using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.CrossCore.Platform;
+using bstrkr.core.consts;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -14,7 +15,9 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			this.Licenses = new List<LicenseInfo> 
 			{
-				new LicenseInfo("MVVMCross", "")
+				new LicenseInfo(
+						"MvvmCross", 
+						resourceLoader.GetTextResource(string.Format("{0}/MVVMCross.txt", AppConsts.LicensesPath)))
 			};
 		}
 

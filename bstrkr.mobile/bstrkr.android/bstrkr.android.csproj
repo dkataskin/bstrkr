@@ -288,10 +288,11 @@
       <Link>Assets\config.json</Link>
     </AndroidAsset>
     <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\MVVMCross.txt">
-      <Link>Assets\MVVMCross.txt</Link>
+      <Link>Assets\Licenses\MVVMCross.txt</Link>
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Values-Ru\" />
+    <Folder Include="Assets\Licenses\" />
   </ItemGroup>
 </Project>
