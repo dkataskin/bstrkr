@@ -53,6 +53,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string locations_dialog_title {
+            get {
+                return ResourceManager.GetString("locations_dialog_title", resourceCulture);
+            }
+        }
+        
         public static string licenses_view_title {
             get {
                 return ResourceManager.GetString("licenses_view_title", resourceCulture);
