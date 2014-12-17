@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/licensesView"
+    android:id="@+id/routesView"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_holo_dark">
-    <TextView
+    <Mvx.MvxListView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="MVVMCross" />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="MVVMCross" />
+        android:layout_height="fill_parent"
+        local:MvxBind="ItemsSource Licenses"
+        local:MvxItemTemplate="@layout/item_licenses_list" />
 </LinearLayout>

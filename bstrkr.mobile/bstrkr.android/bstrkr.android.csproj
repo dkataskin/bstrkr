@@ -255,6 +255,7 @@
     <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
     <AndroidResource Include="Resources\Layout\item_areas_list.axml" />
     <AndroidResource Include="Resources\Values\colors.xml" />
+    <AndroidResource Include="Resources\Layout\item_licenses_list.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -285,6 +286,9 @@
   <ItemGroup>
     <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
       <Link>Assets\config.json</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\MVVMCross.txt">
+      <Link>Assets\MVVMCross.txt</Link>
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>

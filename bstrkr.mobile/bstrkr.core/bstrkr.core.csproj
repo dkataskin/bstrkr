@@ -89,6 +89,8 @@
     <Compile Include="AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="LicensesInfo.cs" />
+    <None Include="Resources\Licenses\MVVMCross.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -105,6 +107,7 @@
     <Folder Include="Map\" />
     <Folder Include="Utils\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Resources\Licenses\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\config.json" />
