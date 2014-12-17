@@ -9,6 +9,11 @@
     <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@android:color/transparent"
         local:MvxBind="ItemsSource Licenses"
         local:MvxItemTemplate="@layout/item_licenses_list" />
 </LinearLayout>
