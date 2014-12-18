@@ -33,7 +33,6 @@ namespace bstrkr.mvvm.viewmodels
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
 		private RouteStop _routeStop;
-		private bool _isBusy;
 
 		public MapViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
 		{

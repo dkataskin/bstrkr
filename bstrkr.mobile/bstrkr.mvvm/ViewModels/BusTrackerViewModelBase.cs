@@ -46,10 +46,5 @@ namespace bstrkr.mvvm.viewmodels
 				return AppResources.ResourceManager.GetString(index);
 			}
 		}
-
-		public IMvxLanguageBinder TextSource
-		{
-			get { return new MvxLanguageBinder(string.Empty, GetType().Name); }
-		}
 	}
 }

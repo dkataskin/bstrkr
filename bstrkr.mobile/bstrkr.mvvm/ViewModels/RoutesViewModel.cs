@@ -17,7 +17,7 @@ namespace bstrkr.mvvm.viewmodels
 		public RoutesViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
 		{
 			this.Routes = new ReadOnlyObservableCollection<RouteViewModel>(_routes);
-			this.UnknownArea = locationService.Area != null;
+			this.UnknownArea = locationService.Area == null;
 
 			if (locationService.Area != null)
 			{
