@@ -107,19 +107,6 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public bool IsBusy 
-		{
-			get { return _isBusy; }
-			private set
-			{
-				if (_isBusy != value)
-				{
-					_isBusy = value;
-					this.RaisePropertyChanged(() => this.IsBusy);
-				}
-			}
-		}
-
 		private void OnLocationChanged(object sender, EventArgs args)
 		{
 			this.Location = _locationService.Location;
@@ -224,7 +211,13 @@ namespace bstrkr.mvvm.viewmodels
 				case LocationErrors.UnknownArea:
 					Mvx.Resolve<IUserInteraction>().Confirm(
 									AppResources.unknown_location_dialog_text, 
-									answer => this.ShowViewModel<SetAreaViewModel>(),
+									answer => 
+									{
+										if (answer)
+										{
+											this.ShowViewModel<SetAreaViewModel>();
+										}
+									},
 									AppResources.unknown_location_dialog_title,
 									AppResources.yes,
 									AppResources.no_thanks);

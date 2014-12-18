@@ -4,6 +4,7 @@ using Cirrious.MvvmCross.Localization;
 using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core.consts;
+using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -35,6 +36,14 @@ namespace bstrkr.mvvm.viewmodels
 					_isBusy = value;
 					this.RaisePropertyChanged(() => this.IsBusy);
 				}
+			}
+		}
+
+		public string this[string index]
+		{
+			get
+			{
+				return AppResources.ResourceManager.GetString(index);
 			}
 		}
 

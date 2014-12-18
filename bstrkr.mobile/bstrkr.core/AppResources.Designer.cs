@@ -131,6 +131,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string unknown_location_no_data {
+            get {
+                return ResourceManager.GetString("unknown_location_no_data", resourceCulture);
+            }
+        }
+        
         public static string no_thanks {
             get {
                 return ResourceManager.GetString("no_thanks", resourceCulture);

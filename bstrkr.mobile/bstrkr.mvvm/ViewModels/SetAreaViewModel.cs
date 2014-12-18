@@ -23,16 +23,27 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.Areas = new ObservableCollection<Area>(config.Areas);
 
-			this.SelectArea = new MvxCommand<int>(this.SelectAreaManually);
+			this.SelectAreaCommand = new MvxCommand<int>(this.SelectAreaManually);
+			this.CancelCommand = new MvxCommand(this.Cancel);
 		}
 
-		public MvxCommand<int> SelectArea { get; private set; }
+		public MvxCommand<int> SelectAreaCommand { get; private set; }
+
+		public MvxCommand CancelCommand { get; private set; }
 
 		public ObservableCollection<Area> Areas { get; private set; }
 
 		private void SelectAreaManually(int index)
 		{
-			_locationService.SelectArea(this.Areas[index]);
+			if (index >= 0)
+			{
+				_locationService.SelectArea(this.Areas[index]);
+			}
+		}
+
+		private void Cancel()
+		{
+			_locationService.SelectArea(null);
 		}
 	}
 }
