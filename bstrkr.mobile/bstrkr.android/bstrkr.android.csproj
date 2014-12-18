@@ -290,6 +290,12 @@
     <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\MVVMCross.txt">
       <Link>Assets\Licenses\MVVMCross.txt</Link>
     </AndroidAsset>
+    <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\Newtonsoft.Json.txt">
+      <Link>Assets\Licenses\Newtonsoft.Json.txt</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\RestSharp.txt">
+      <Link>Assets\Licenses\RestSharp.txt</Link>
+    </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Values-Ru\" />

@@ -24,7 +24,7 @@ namespace bstrkr.android.views
 			var viewModel = this.ViewModel as SetAreaViewModel;
 
 			var dialog = new AlertDialog.Builder(Activity);
-			dialog.SetTitle(Resources.GetString(AppResources.locations_dialog_title));
+			dialog.SetTitle(AppResources.locations_dialog_title);
 			dialog.SetPositiveButton(AppResources.select, (s, a) => viewModel.SelectArea.Execute(_selectedIndex));
 			dialog.SetNegativeButton(AppResources.cancel, (s, a) => { });
 			dialog.SetSingleChoiceItems(

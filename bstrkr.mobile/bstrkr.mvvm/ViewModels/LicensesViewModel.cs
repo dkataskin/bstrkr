@@ -17,7 +17,15 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				new LicenseInfo(
 						"MvvmCross", 
-						resourceLoader.GetTextResource(string.Format("{0}/MVVMCross.txt", AppConsts.LicensesPath)))
+						resourceLoader.GetTextResource(string.Format("{0}/MVVMCross.txt", AppConsts.LicensesPath))),
+
+				new LicenseInfo(
+						"RestSharp", 
+						resourceLoader.GetTextResource(string.Format("{0}/RestSharp.txt", AppConsts.LicensesPath))),
+
+				new LicenseInfo(
+						"Json.NET", 
+						resourceLoader.GetTextResource(string.Format("{0}/Newtonsoft.Json.txt", AppConsts.LicensesPath))),
 			};
 		}
 
