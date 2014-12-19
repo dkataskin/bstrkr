@@ -201,7 +201,7 @@ namespace bstrkr.mvvm.viewmodels
 			vehicleVM.VehicleHeading = locationUpdate.Vehicle.Heading;
 		}
 
-		private void OnLocationError(object sender, LocationErrorEventArgs args)
+		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)
 		{
 			this.IsBusy = false;
 

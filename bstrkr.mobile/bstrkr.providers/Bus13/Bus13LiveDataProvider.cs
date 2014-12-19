@@ -50,7 +50,8 @@ namespace bstrkr.core.providers.bus13
 				routes = _dataService.GetRoutesAsync()
 								     .ConfigureAwait(false)
 									 .GetAwaiter()
-									 .GetResult();
+									 .GetResult()
+									 .ToList();
 			} 
 			catch (Exception e)
 			{

@@ -25,7 +25,7 @@ namespace bstrkr.core.services.location
 
 		public event EventHandler<EventArgs> LocationChanged;
 
-		public event EventHandler<LocationErrorEventArgs> LocationError;
+		public event EventHandler<BusTrackerLocationErrorEventArgs> LocationError;
 
 		public Area Area { get; private set; }
 
@@ -94,7 +94,7 @@ namespace bstrkr.core.services.location
 		{
 			if (this.LocationError != null)
 			{
-				//this.LocationError(this, new LocationErrorEventArgs(error));
+				this.LocationError(this, new BusTrackerLocationErrorEventArgs(error));
 			}
 		}
 	}

@@ -9,7 +9,7 @@ namespace bstrkr.core.services.location
 	{
 		event EventHandler<EventArgs> LocationChanged;
 
-		event EventHandler<LocationErrorEventArgs> LocationError;
+		event EventHandler<BusTrackerLocationErrorEventArgs> LocationError;
 
 		Area Area { get; }
 

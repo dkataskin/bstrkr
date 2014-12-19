@@ -47,17 +47,20 @@ namespace bstrkr.core.android.services.location
 				throw new MvxException("Google Play Services are not available");
 			}
 
+			this.InitializeGoogleAPI();
+
 			_locationRequest = LocationRequest.Create();
 			_locationRequest.SetInterval(_interval);
 			_locationRequest.SetSmallestDisplacement(_displacement);
 			_locationRequest.SetFastestInterval(1000);
 			_locationRequest.SetPriority(LocationRequest.PriorityBalancedPowerAccuracy);
 
-			this.InitializeGoogleAPI();
+			this.ConnectGoogleAPI();
 		}
 
 		public void StopUpdating()
 		{
+			LocationServices.FusedLocationApi.RemoveLocationUpdates(_googleAPIClient, this);
 			this.DisconnectGoogleAPI();
 			_googleAPIClient = null;
 		}
