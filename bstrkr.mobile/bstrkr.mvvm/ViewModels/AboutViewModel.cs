@@ -1,21 +1,17 @@
 ﻿using System;
 
+using bstrkr.core;
+using bstrkr.core.context;
+
 namespace bstrkr.mvvm.viewmodels
 {
 	public class AboutViewModel : BusTrackerViewModelBase
 	{
-		private string _aboutText;
-
 		public string AboutText
 		{
-			get { return _aboutText; }
-			set
-			{
-				if (_aboutText != value)
-				{
-					_aboutText = value;
-					this.RaisePropertyChanged(() => this.AboutText);
-				}
+			get 
+			{ 
+				return string.Format(AppResources.about_view_text, BusTrackerAppContext.Version); 
 			}
 		}
 	}

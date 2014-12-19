@@ -74,7 +74,7 @@ namespace bstrkr.core.services.location
 				}
 				else if (!_unknownAreaReported)
 				{
-					this.RaiseLocationErrorEvent(LocationErrors.UnknownArea);
+					this.RaiseLocationErrorEvent(BusTrackerLocationErrors.UnknownArea);
 					_unknownAreaReported = true;
 				}
 			}
@@ -90,11 +90,11 @@ namespace bstrkr.core.services.location
 			}
 		}
 
-		private void RaiseLocationErrorEvent(LocationErrors error)
+		private void RaiseLocationErrorEvent(BusTrackerLocationErrors error)
 		{
 			if (this.LocationError != null)
 			{
-				this.LocationError(this, new LocationErrorEventArgs(error));
+				//this.LocationError(this, new LocationErrorEventArgs(error));
 			}
 		}
 	}

@@ -207,7 +207,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			switch (args.Error)
 			{
-				case LocationErrors.UnknownArea:
+				case BusTrackerLocationErrors.UnknownArea:
 					Mvx.Resolve<IUserInteraction>().Confirm(
 									AppResources.unknown_location_dialog_text, 
 									answer => 

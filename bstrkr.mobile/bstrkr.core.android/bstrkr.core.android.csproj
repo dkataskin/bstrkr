@@ -97,6 +97,9 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Location.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Location.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Location.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\packages\Xamarin.Insights.1.8.2.105\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\Location\LocationService.cs" />
@@ -114,6 +117,7 @@
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
     <Compile Include="Services\Resources\AndroidAppResourceManager.cs" />
+    <Compile Include="Services\Location\PlayServicesLocationWatcher.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

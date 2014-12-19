@@ -3,55 +3,71 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Android.App;
+using Android.Content;
 using Android.Gms.Common;
 using Android.Gms.Location;
 using Android.Locations;
 using Android.OS;
 
+using Cirrious.CrossCore.Droid;
+using Cirrious.CrossCore.Exceptions;
+
 using bstrkr.core.services.location;
+using Android.Gms.Common.Apis;
+using bstrkr.core.spatial;
 
 namespace bstrkr.core.android.services.location
 {
-	public class LocationService : ILocationService, IGooglePlayServicesClientConnectionCallbacks, 
-	IGooglePlayServicesClientOnConnectionFailedListener, Android.Gms.Location.ILocationListener
+	public class LocationService : Java.Lang.Object, 
+								   ILocationService, 
+								   IGoogleApiClientConnectionCallbacks, 
+								   IGoogleApiClientOnConnectionFailedListener, 
+								   Android.Gms.Location.ILocationListener
 	{
-		private Activity _mainActivity;
-		private LocationClient _locationClient;
+		private readonly long _interval = 10000;
+		private readonly float _displacement = 30;
+		private readonly IMvxAndroidGlobals _androidGlobals;
 
-		public LocationService()
+		private LocationRequest _locationRequest;
+		private IGoogleApiClient _googleAPIClient;
+
+		public LocationService(IMvxAndroidGlobals androidGlobals)
 		{
-			//_mainActivity = androidAppService.GetMainActivity();
-			_locationClient = new LocationClient(_mainActivity, this, this);
+			_androidGlobals = androidGlobals;
 		}
 
 		public event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
 
+		public event EventHandler<LocationErrorEventArgs> LocatingFailed;
+
 		public void StartUpdating()
 		{
-			_locationClient.Connect();
+			if (GooglePlayServicesUtil.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext) != ConnectionResult.Success)
+			{
+				throw new MvxException("Google Play Services are not available");
+			}
+
+			_locationRequest = LocationRequest.Create();
+			_locationRequest.SetInterval(_interval);
+			_locationRequest.SetSmallestDisplacement(_displacement);
+			_locationRequest.SetFastestInterval(1000);
+			_locationRequest.SetPriority(LocationRequest.PriorityBalancedPowerAccuracy);
+
+			this.InitializeGoogleAPI();
 		}
 
 		public void StopUpdating()
 		{
-			if (_locationClient.IsConnected)
-			{
-				_locationClient.RemoveLocationUpdates(this);
-				_locationClient.Disconnect();
-			}
+			this.DisconnectGoogleAPI();
+			_googleAPIClient = null;
 		}
 
 		public void OnConnected(Bundle connectionHint)
 		{
-			var locationRequest = new LocationRequest();
-
-			locationRequest.SetPriority(100);
-			locationRequest.SetFastestInterval(500);
-			locationRequest.SetInterval(1000);
-
-			_locationClient.RequestLocationUpdates(locationRequest, this);
+			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _locationRequest, this);
 		}
 
-		public void OnDisconnected()
+		public void OnConnectionSuspended(int cause)
 		{
 		}
 
@@ -61,16 +77,69 @@ namespace bstrkr.core.android.services.location
 
 		public void OnLocationChanged(Location location)
 		{
-			this.RaiseLocationUpdatedEvent(location);
+			if (location != null)
+			{
+				this.RaiseLocationUpdatedEvent(location);
+			}
 		}
 
-		public void Dispose()
+		private void InitializeGoogleAPI()
 		{
+			var queryResult = GooglePlayServicesUtil.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
+
+			if (queryResult == ConnectionResult.Success)
+			{
+				_googleAPIClient = new GoogleApiClientBuilder(_androidGlobals.ApplicationContext)
+										.AddApi(LocationServices.Api)
+										.AddConnectionCallbacks(this)
+										.AddOnConnectionFailedListener(this)
+										.Build();
+			}
+			else
+			{
+				var errorString = string.Format(
+										"There is a problem with Google Play Services on this device: {0} - {1}", 
+										queryResult, 
+										GooglePlayServicesUtil.GetErrorString(queryResult));
+
+				throw new MvxException(errorString);
+			}
 		}
 
-		public IntPtr Handle 
+		private void ConnectGoogleAPI()
 		{
-			get { return _mainActivity.Handle; }
+			if (!_googleAPIClient.IsConnectionCallbacksRegistered(this))
+			{
+				_googleAPIClient.RegisterConnectionCallbacks(this);
+			}
+
+			if (!_googleAPIClient.IsConnectionFailedListenerRegistered(this))
+			{
+				_googleAPIClient.RegisterConnectionFailedListener(this);
+			}
+
+			if (!_googleAPIClient.IsConnected || !_googleAPIClient.IsConnecting)
+			{
+				_googleAPIClient.Connect();
+			}
+		}
+
+		private void DisconnectGoogleAPI()
+		{
+			if (_googleAPIClient != null && _googleAPIClient.IsConnected)
+			{
+				if (_googleAPIClient.IsConnectionCallbacksRegistered(this))
+				{
+					_googleAPIClient.UnregisterConnectionCallbacks(this);
+				}
+
+				if (_googleAPIClient.IsConnectionFailedListenerRegistered(this))
+				{
+					_googleAPIClient.UnregisterConnectionFailedListener(this);
+				}
+
+				_googleAPIClient.Disconnect();
+			}
 		}
 
 		private void RaiseLocationUpdatedEvent(Location location)

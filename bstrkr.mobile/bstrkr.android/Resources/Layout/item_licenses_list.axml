@@ -9,19 +9,14 @@
         android:id="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textColor="#fff"
-        local:MvxBind="Text Name"
         android:singleLine="true"
-        android:background="?android:attr/activatedBackgroundIndicator"
-        android:minHeight="?android:attr/listPreferredItemHeight" />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        style="?android:attr/listSeparatorTextViewStyle"
+        local:MvxBind="Text Name" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

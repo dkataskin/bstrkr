@@ -82,8 +82,6 @@
     <Compile Include="Area.cs" />
     <Compile Include="Services\Location\IBusTrackerLocationService.cs" />
     <Compile Include="Services\Location\BusTrackerLocationService.cs" />
-    <Compile Include="Services\Location\LocationErrors.cs" />
-    <Compile Include="Services\Location\LocationErrorEventArgs.cs" />
     <Compile Include="Services\Resources\IAppResourceManager.cs" />
     <Compile Include="Services\Resources\AppResourceManagerBase.cs" />
     <Compile Include="AppResources.Designer.cs">
@@ -93,6 +91,11 @@
     <None Include="Resources\Licenses\MVVMCross.txt" />
     <None Include="Resources\Licenses\RestSharp.txt" />
     <None Include="Resources\Licenses\Newtonsoft.Json.txt" />
+    <Compile Include="Context\BusTrackerAppContext.cs" />
+    <Compile Include="Services\Location\BusTrackerLocationErrors.cs" />
+    <Compile Include="Services\Location\LocationErrors.cs" />
+    <Compile Include="Services\Location\BusTrackerLocationErrorEventArgs.cs" />
+    <Compile Include="Services\Location\LocationErrorEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -110,6 +113,7 @@
     <Folder Include="Utils\" />
     <Folder Include="Extensions\" />
     <Folder Include="Resources\Licenses\" />
+    <Folder Include="Context\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\config.json" />

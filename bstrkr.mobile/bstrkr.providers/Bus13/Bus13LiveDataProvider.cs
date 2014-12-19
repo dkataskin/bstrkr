@@ -44,21 +44,39 @@ namespace bstrkr.core.providers.bus13
 
 		public void Start()
 		{
-			var routes = _dataService.GetRoutesAsync()
-									 .ConfigureAwait(false)
+			var routes = new List<Route>();
+			try
+			{
+				routes = _dataService.GetRoutesAsync()
+								     .ConfigureAwait(false)
 									 .GetAwaiter()
 									 .GetResult();
+			} 
+			catch (Exception e)
+			{
+				Insights.Report(e, ReportSeverity.Warning);
+			}
 
-			_cancellationTokenSource = new CancellationTokenSource();
-			_updateTask = Task.Factory.StartNew(
-										() => this.UpdateInLoop(_dataService, routes, _updateInterval, _cancellationTokenSource.Token), 
-										_cancellationTokenSource.Token);
+			if (routes.Any())
+			{
+				_cancellationTokenSource = new CancellationTokenSource();
+				_updateTask = Task.Factory.StartNew(
+						() => this.UpdateInLoop(_dataService, routes, _updateInterval, _cancellationTokenSource.Token), 
+						_cancellationTokenSource.Token);
+			}
 		}
 
 		public void Stop()
 		{
-			_cancellationTokenSource.Cancel();
-			_updateTask.Wait();
+			if (_cancellationTokenSource != null)
+			{
+				_cancellationTokenSource.Cancel();
+			}
+
+			if (_updateTask != null)
+			{
+				_cancellationTokenSource.Cancel();
+			}
 		}
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()

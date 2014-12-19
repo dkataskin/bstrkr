@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.Gms.Common;
@@ -14,7 +15,6 @@ using Android.Views;
 using Android.Widget;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
-
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
@@ -31,6 +31,8 @@ using bstrkr.core.android.presenters;
 using bstrkr.core.android.services;
 using bstrkr.core.android.views;
 using bstrkr.core.consts;
+using bstrkr.core.context;
+using bstrkr.core.utils;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
@@ -117,8 +119,9 @@ namespace bstrkr.android.views
 					case MenuSection.About:
 						var menuItem1 = homeViewModel.MenuItems.First(x => x.Id == (int)_currentSection);
 						var position = homeViewModel.MenuItems.IndexOf(menuItem1);
+						var aboutViewModel = loaderService.LoadViewModel(request, null) as AboutViewModel;
 						Mvx.Resolve<IUserInteraction>().Alert(
-												AppResources.about_view_text,
+												aboutViewModel.AboutText,
 												() => _drawerList.SetItemChecked(position, true),
 												AppResources.about_view_title,
 												AppResources.ok);
@@ -133,7 +136,7 @@ namespace bstrkr.android.views
 
 				if (fragment.ViewModel == null)
 				{
-					fragment.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);;
+					fragment.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
 				}
 
 				_tag = Guid.NewGuid().ToString();
@@ -199,6 +202,11 @@ namespace bstrkr.android.views
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+			var context = this.ApplicationContext;
+			BusTrackerAppContext.Version = context.PackageManager
+												  .GetPackageInfo(context.PackageName, 0)
+												  .VersionName;
+
             base.OnCreate(savedInstanceState);
 			this.SetContentView(Resource.Layout.page_home_view);
 

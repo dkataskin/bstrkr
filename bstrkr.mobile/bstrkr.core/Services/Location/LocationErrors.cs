@@ -4,7 +4,9 @@ namespace bstrkr.core.services.location
 {
 	public enum LocationErrors
 	{
-		UnknownArea,
-		LocationServiceUnavailable
+		LocationServiceUnavailable,
+		PermissionDenied,
+		PositionUnavailable,
+		Timeout
 	}
 }

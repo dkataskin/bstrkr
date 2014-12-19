@@ -30,5 +30,5 @@
         android:paddingRight="16dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
-        local:MvxBind="Text [unknown_location_no_data], Visibility Visibility(UnknownArea)" />
+        local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
 </FrameLayout>
