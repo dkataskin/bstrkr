@@ -27,6 +27,6 @@ namespace bstrkr.providers.bus13.data
 
 		public string Big_Jump { get; set; }
 
-		public IList<Bus13AnimPoint> Anim_Points { get; set; }
+		public List<Bus13AnimPoint> Anim_Points { get; set; }
 	}
 }

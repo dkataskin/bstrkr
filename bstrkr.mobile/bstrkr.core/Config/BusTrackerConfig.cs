@@ -5,6 +5,6 @@ namespace bstrkr.core.config
 {
 	public class BusTrackerConfig
 	{
-		public IList<Area> Areas { get; set; }
+		public List<Area> Areas { get; set; }
 	}
 }

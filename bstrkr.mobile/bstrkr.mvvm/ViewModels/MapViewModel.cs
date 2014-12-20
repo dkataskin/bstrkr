@@ -17,6 +17,8 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.mvvm.converters;
+using Cirrious.CrossCore.Platform;
+using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -108,6 +110,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnLocationChanged(object sender, EventArgs args)
 		{
+			MvxTrace.Trace(MvxTraceLevel.Diagnostic, () => "Location changed");
+
 			this.Location = _locationService.Location;
 
 			if (_liveDataProvider == null)
@@ -173,7 +177,7 @@ namespace bstrkr.mvvm.viewmodels
 			} 
 			catch (Exception e)
 			{
-				Debug.WriteLine(e.ToString());
+				Insights.Report(e, ReportSeverity.Warning);
 			}
 		}
 

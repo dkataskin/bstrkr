@@ -6,4 +6,3 @@ namespace bstrkr.providers.bus13.data
 	{
 	}
 }
-

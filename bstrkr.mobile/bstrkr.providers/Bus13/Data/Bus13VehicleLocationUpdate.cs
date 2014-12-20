@@ -11,6 +11,6 @@ namespace bstrkr.providers.bus13.data
 
 		public DateTime LastUpdate { get; set; }
 
-		public IList<Waypoint> Waypoints { get; set; }
+		public List<Waypoint> Waypoints { get; set; }
 	}
 }
