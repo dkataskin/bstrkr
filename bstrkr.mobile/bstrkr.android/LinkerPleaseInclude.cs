@@ -5,6 +5,7 @@ using Android.Views;
 using Android.Widget;
 
 using Cirrious.MvvmCross.Droid.Views;
+using System.Threading.Tasks;
 
 namespace bstrkr.android
 {
@@ -79,6 +80,11 @@ namespace bstrkr.android
 			changed.PropertyChanged += (sender, e) =>  {
 				var test = e.PropertyName;
 			};
+		}
+
+		public void Include(ProgressBar progressBar)
+		{
+			progressBar.Visibility = progressBar.Visibility;
 		}
     }
 }
