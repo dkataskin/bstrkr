@@ -121,6 +121,8 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
 					_liveDataProvider.Start();
+
+					MvxTrace.Trace(() => "provider started");
 				}
 			}
 
@@ -162,6 +164,8 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			try
 			{
+				MvxTrace.Trace("vehicle locations received, count={0}", args.VehicleLocations.Count);
+
 				lock(_vehicles)
 				{
 					this.Dispatcher.RequestMainThreadAction(() =>

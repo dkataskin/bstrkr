@@ -5,7 +5,7 @@ using Android.Views;
 using Android.Widget;
 
 using Cirrious.MvvmCross.Droid.Views;
-using System.Threading.Tasks;
+using Cirrious.MvvmCross.Binding.Droid.Views;
 
 namespace bstrkr.android
 {
@@ -85,6 +85,16 @@ namespace bstrkr.android
 		public void Include(ProgressBar progressBar)
 		{
 			progressBar.Visibility = progressBar.Visibility;
+		}
+
+		public void Include(ListView listView)
+		{
+			listView.Adapter = listView.Adapter;
+		}
+
+		public void Include(MvxListView listView)
+		{
+			listView.Adapter = listView.Adapter;
 		}
     }
 }

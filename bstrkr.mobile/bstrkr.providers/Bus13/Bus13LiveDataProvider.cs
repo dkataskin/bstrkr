@@ -17,6 +17,7 @@ using Xamarin;
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.providers.bus13.data;
+using Cirrious.CrossCore.Platform;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -44,6 +45,7 @@ namespace bstrkr.core.providers.bus13
 
 		public void Start()
 		{
+			MvxTrace.Trace(() => "started retrieving routes");
 			var routes = new List<Route>();
 			try
 			{
@@ -52,9 +54,12 @@ namespace bstrkr.core.providers.bus13
 									 .GetAwaiter()
 									 .GetResult()
 									 .ToList();
+
+				MvxTrace.Trace("{0} routes retrieved", routes.Count);
 			} 
 			catch (Exception e)
 			{
+				MvxTrace.Trace("an exception occured while retrieving routes: {0}", e);
 				Insights.Report(e, ReportSeverity.Warning);
 			}
 

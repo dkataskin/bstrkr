@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
@@ -14,6 +14,7 @@ using Xamarin;
 using bstrkr.core;
 using bstrkr.core.spatial;
 using bstrkr.providers.bus13.data;
+using bstrkr.providers;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -58,7 +59,7 @@ namespace bstrkr.core.providers.bus13
 			var client = this.GetRestClient();
 			var request = this.GetRequestBase(RoutesResource);
 
-			var bus13Routes = await this.ExecuteAsync<IList<Bus13Route>>(client, request).ConfigureAwait(false);
+			var bus13Routes = await this.ExecuteAsync<List<Bus13Route>>(client, request).ConfigureAwait(false);
 
 			return this.ParseRoutes(bus13Routes);
 		}
@@ -142,11 +143,11 @@ namespace bstrkr.core.providers.bus13
 		private RestClient GetRestClient()
 		{
 			var client = new RestClient(_endpoint);
-			client.ClearHandlers();
+			//client.ClearHandlers();
 
 			client.RemoveHandler("text/html");
 			client.AddHandler("text/html", new JsonDeserializer());
-
+			//client.AddHandler("text/html", new jsondeseri());
 			return client;
 		}
 
