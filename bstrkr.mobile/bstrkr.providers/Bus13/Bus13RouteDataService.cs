@@ -4,8 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-//using Newtonsoft.Json.Linq;
-
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
@@ -76,7 +74,7 @@ namespace bstrkr.core.providers.bus13
 			request.AddParameter(RouteTypeParam, 0, ParameterType.QueryString);
 
 			var client = this.GetRestClient();
-			var bus13GeoPoints = await this.ExecuteAsync<IEnumerable<Bus13GeoPoint>>(client, request).ConfigureAwait(false);
+			var bus13GeoPoints = await this.ExecuteAsync<List<Bus13GeoPoint>>(client, request).ConfigureAwait(false);
 
 			return new GeoPolyline(bus13GeoPoints.Select(this.ParsePoint).ToList());
 		}
@@ -135,7 +133,7 @@ namespace bstrkr.core.providers.bus13
 			var request = this.GetRequestBase(StopsResource);
 			request = this.AddRandom(request);
 
-			var bus13Stops = await this.ExecuteAsync<IList<Bus13RouteStop>>(client, request).ConfigureAwait(false);
+			var bus13Stops = await this.ExecuteAsync<List<Bus13RouteStop>>(client, request).ConfigureAwait(false);
 
 			return this.ParseRouteStops(bus13Stops);
 		}
@@ -143,11 +141,8 @@ namespace bstrkr.core.providers.bus13
 		private RestClient GetRestClient()
 		{
 			var client = new RestClient(_endpoint);
-			//client.ClearHandlers();
-
 			client.RemoveHandler("text/html");
 			client.AddHandler("text/html", new JsonDeserializer());
-			//client.AddHandler("text/html", new jsondeseri());
 			return client;
 		}
 
