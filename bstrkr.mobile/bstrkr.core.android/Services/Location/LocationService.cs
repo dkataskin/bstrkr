@@ -39,12 +39,10 @@ namespace bstrkr.core.android.services.location
 
 			_fineLocationRequest = LocationRequest.Create();
 			_fineLocationRequest.SetInterval(_interval);
-			_fineLocationRequest.SetFastestInterval(1000);
 			_fineLocationRequest.SetPriority(LocationRequest.PriorityBalancedPowerAccuracy);
 
 			_coarseLocationRequest = LocationRequest.Create();
 			_coarseLocationRequest.SetSmallestDisplacement(_displacement);
-			_coarseLocationRequest.SetFastestInterval(1000);
 			_coarseLocationRequest.SetPriority(LocationRequest.PriorityBalancedPowerAccuracy);
 
 			this.InitializeGoogleAPI();
@@ -72,7 +70,7 @@ namespace bstrkr.core.android.services.location
 
 		public void OnConnected(Bundle connectionHint)
 		{
-			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _fineLocationRequest, this);
+			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _coarseLocationRequest, this);
 		}
 
 		public void OnConnectionSuspended(int cause)
@@ -87,11 +85,11 @@ namespace bstrkr.core.android.services.location
 		{
 			if (location != null)
 			{
-				if (location.Accuracy <= _desiredAccuracy)
-				{
-					LocationServices.FusedLocationApi.RemoveLocationUpdates(_googleAPIClient, this);
-					LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _coarseLocationRequest, this);
-				}
+//				if (location.HasAccuracy && location.Accuracy <= _desiredAccuracy)
+//				{
+//					LocationServices.FusedLocationApi.RemoveLocationUpdates(_googleAPIClient, this);
+//					LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _coarseLocationRequest, this);
+//				}
 
 				this.RaiseLocationUpdatedEvent(location);
 			}

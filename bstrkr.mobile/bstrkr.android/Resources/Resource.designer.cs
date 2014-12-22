@@ -33,6 +33,8 @@ namespace bstrkr.android
 			global::RestSharp.Portable.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 			global::RestSharp.Portable.Encodings.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::RestSharp.Portable.Encodings.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
+			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
+			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 		}
 		
 		public partial class Animation

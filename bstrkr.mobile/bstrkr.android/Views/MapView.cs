@@ -7,7 +7,7 @@ using Android.Views;
 
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
 

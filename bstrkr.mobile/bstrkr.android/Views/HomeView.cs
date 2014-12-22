@@ -15,11 +15,12 @@ using Android.Views;
 using Android.Widget;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
+
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Droid.Fragging;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.FullFragging;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
 
@@ -43,7 +44,7 @@ namespace bstrkr.android.views
 	[Activity(Label = "Home", 
 			  LaunchMode = LaunchMode.SingleTop, 
 			  Icon = "@drawable/ic_launcher")]
-	public class HomeView : MvxFragmentActivity, IFragmentHost
+	public class HomeView : MvxActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
 		private MyActionBarDrawerToggle _drawerToggle;
@@ -63,7 +64,7 @@ namespace bstrkr.android.views
 				{
 					var dialog = new SetAreaView();
 					dialog.ViewModel = loaderService.LoadViewModel(request, null);
-					dialog.Show(this.SupportFragmentManager, null);
+					dialog.Show(this.FragmentManager, null);
 
 					return true;
 				}
@@ -87,8 +88,8 @@ namespace bstrkr.android.views
 							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);;
 						}
 
-						var transaction = this.SupportFragmentManager.BeginTransaction();
-						var fragmentToRemove = this.SupportFragmentManager.FindFragmentByTag(_tag);
+						var transaction = this.FragmentManager.BeginTransaction();
+						var fragmentToRemove = this.FragmentManager.FindFragmentByTag(_tag);
 						if (fragmentToRemove != null)
 						{
 							transaction.Remove(fragmentToRemove);
@@ -140,10 +141,10 @@ namespace bstrkr.android.views
 				}
 
 				_tag = Guid.NewGuid().ToString();
-				this.SupportFragmentManager.BeginTransaction()
-										   .Replace(Resource.Id.content_frame, fragment, _tag)
-										   .AddToBackStack(null)
-										   .Commit();
+				this.FragmentManager.BeginTransaction()
+								    .Replace(Resource.Id.content_frame, fragment, _tag)
+								   	.AddToBackStack(null)
+								   	.Commit();
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
 				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
@@ -264,7 +265,7 @@ namespace bstrkr.android.views
 
 		private MvxFragment FindFragment<TView>() where TView : MvxFragment
 		{
-			return this.SupportFragmentManager.FindFragmentById(Resource.Id.content_frame) as TView;
+			return this.FragmentManager.FindFragmentById(Resource.Id.content_frame) as TView;
 		}
     }
 }
