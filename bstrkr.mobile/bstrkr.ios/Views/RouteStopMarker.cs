@@ -12,7 +12,7 @@ namespace bstrkr.ios.views
 {
 	public class RouteStopMarker : GoogleMapsMarkerBase, IRouteStopMarker
 	{
-		public RouteStopMarker(RouteStopViewModel routeStopVM)
+		public RouteStopMarker(RouteStopMapViewModel routeStopVM)
 		{
 			this.ViewModel = routeStopVM;
 			this.Location = routeStopVM.Location;
@@ -21,7 +21,7 @@ namespace bstrkr.ios.views
 			routeStopVM.PropertyChanged += this.OnVMPropertyChanged;
 		}
 
-		public RouteStopViewModel ViewModel { get; private set; }
+		public RouteStopMapViewModel ViewModel { get; private set; }
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{

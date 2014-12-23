@@ -10,12 +10,12 @@ namespace bstrkr.android.views
 {
 	public class RouteStopMarker : GoogleMapsMarkerBase, IRouteStopMarker
 	{
-		public RouteStopMarker(RouteStopViewModel routeStopVM)
+		public RouteStopMarker(RouteStopMapViewModel routeStopVM)
 		{
 			this.ViewModel = routeStopVM;
 		}
 
-		public RouteStopViewModel ViewModel { get; private set; }
+		public RouteStopMapViewModel ViewModel { get; private set; }
 
 		public override MarkerOptions GetOptions()
 		{

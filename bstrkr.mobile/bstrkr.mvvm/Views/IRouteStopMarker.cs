@@ -6,6 +6,6 @@ namespace bstrkr.mvvm.views
 {
 	public interface IRouteStopMarker : IMapMarker
 	{
-		RouteStopViewModel ViewModel { get; }
+		RouteStopMapViewModel ViewModel { get; }
 	}
 }

@@ -7,6 +7,7 @@ namespace bstrkr.mvvm.viewmodels
 		Unknown,
 		Map,
 		Routes,
+		RouteStops,
 		Preferences,
 		Licenses,
 		About

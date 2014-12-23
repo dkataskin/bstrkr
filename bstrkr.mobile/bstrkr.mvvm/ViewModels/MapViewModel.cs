@@ -28,7 +28,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ILiveDataProviderFactory _providerFactory;
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
-		private readonly ObservableCollection<RouteStopViewModel> _stops = new ObservableCollection<RouteStopViewModel>();
+		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
 		private readonly ZoomToMarkerSizeConverter _zoomConverter = new ZoomToMarkerSizeConverter();
 
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Small;
@@ -45,7 +45,7 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService.LocationError += OnLocationError;
 
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
-			this.Stops = new ReadOnlyObservableCollection<RouteStopViewModel>(_stops);
+			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 
 			// android requires location watcher to be started on the UI thread
 			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
@@ -54,7 +54,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
 
-		public ReadOnlyObservableCollection<RouteStopViewModel> Stops { get; private set; }
+		public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
 
 		public GeoPoint Location 
 		{ 
@@ -194,9 +194,9 @@ namespace bstrkr.mvvm.viewmodels
 			return vehicleVM;
 		}
 
-		private RouteStopViewModel CreateRouteStopVM(RouteStop routeStop)
+		private RouteStopMapViewModel CreateRouteStopVM(RouteStop routeStop)
 		{
-			var stopVM = Mvx.IocConstruct<RouteStopViewModel>();
+			var stopVM = Mvx.IocConstruct<RouteStopMapViewModel>();
 			stopVM.Model = routeStop;
 			stopVM.MarkerSize = this.MarkerSize;
 

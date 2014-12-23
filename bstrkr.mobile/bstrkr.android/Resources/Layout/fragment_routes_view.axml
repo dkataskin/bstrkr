@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:id="@+id/routesView"
     android:orientation="vertical"
@@ -13,9 +13,11 @@
         local:MvxItemTemplate="@layout/item_routes_list" />
     <ProgressBar
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:id="@+id/busyIndicator"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:indeterminateOnly="true"
         android:keepScreenOn="false"
         android:indeterminate="true"
@@ -31,4 +33,4 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
         local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
-</FrameLayout>
+</RelativeLayout>

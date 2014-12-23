@@ -1,29 +1,26 @@
 ﻿using System;
 
-using Cirrious.MvvmCross.ViewModels;
-
-using bstrkr.core.services.resources;
-using bstrkr.core.map;
-using bstrkr.core;
-using bstrkr.core.spatial;
-
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteStopViewModel : MapMarkerViewModelBase<RouteStop>
+	public class RouteStopViewModel : BusTrackerViewModelBase
 	{
-		public RouteStopViewModel(IAppResourceManager resourceManager) : base(resourceManager)
-		{
-		}
+		private string _name;
 
-		public override GeoPoint Location
-		{
-			get { return this.Model == null ? GeoPoint.Empty : this.Model.Location; }
-			set	{ }
-		}
+		public string Name 
+		{ 
+			get
+			{
+				return _name;
+			} 
 
-		protected override object GetIcon()
-		{
-			return _resourceManager.GetRouteStopMarker(this.MarkerSize);
+			set
+			{
+				if (!string.Equals(_name, value))
+				{
+					_name = value;
+					this.RaisePropertyChanged(() => this.Name);
+				}
+			} 
 		}
 	}
 }

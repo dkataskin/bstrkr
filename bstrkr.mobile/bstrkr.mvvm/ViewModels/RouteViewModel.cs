@@ -10,10 +10,6 @@ namespace bstrkr.mvvm.viewmodels
 		private string _from;
 		private string _to;
 
-		public RouteViewModel()
-		{
-		}
-
 		public string Name 
 		{ 
 			get

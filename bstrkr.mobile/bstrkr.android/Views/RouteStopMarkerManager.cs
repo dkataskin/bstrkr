@@ -14,7 +14,7 @@ namespace bstrkr.android.views
 
 		protected override IMapMarker CreateMarker(object item)
 		{
-			return new RouteStopMarker(item as RouteStopViewModel);
+			return new RouteStopMarker(item as RouteStopMapViewModel);
 		}
 	}
 }
