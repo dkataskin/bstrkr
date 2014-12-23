@@ -21,6 +21,9 @@
 	<data name="routes_view_title" xml:space="preserve">
     <value>Routes</value>
   </data>
+	<data name="route_stops_view_title" xml:space="preserve">
+    <value>Stops</value>
+  </data>
 	<data name="preferences_view_title" xml:space="preserve">
     <value>Preferences</value>
   </data>

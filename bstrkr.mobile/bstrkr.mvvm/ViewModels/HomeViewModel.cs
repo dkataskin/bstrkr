@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 using Cirrious.MvvmCross.ViewModels;
+using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -13,6 +14,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			{ typeof(MapViewModel), MenuSection.Map },
 			{ typeof(RoutesViewModel), MenuSection.Routes },
+			{ typeof(RouteStopsViewModel), MenuSection.RouteStops },
 			{ typeof(PreferencesViewModel), MenuSection.Preferences },
 			{ typeof(AboutViewModel), MenuSection.About },
 			{ typeof(LicensesViewModel), MenuSection.Licenses }
@@ -44,27 +46,32 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				new MenuViewModel 
 				{ 
-					Title = "Map",
+					Title = AppResources.map_view_title,
 					Section = MenuSection.Map
 				},
 				new MenuViewModel 
 				{
-					Title = "Routes",
+					Title = AppResources.routes_view_title,
 					Section = MenuSection.Routes
 				},
 				new MenuViewModel 
+				{
+					Title = AppResources.route_stops_view_title,
+					Section = MenuSection.RouteStops
+				},
+				new MenuViewModel 
 				{ 
-					Title = "Preferences",
+					Title = AppResources.preferences_view_title,
 					Section = MenuSection.Preferences
 				},
 				new MenuViewModel
 				{
-					Title = "Licenses",
+					Title = AppResources.licenses_view_title,
 					Section = MenuSection.Licenses
 				},
 				new MenuViewModel 
 				{ 
-					Title = "About",
+					Title = AppResources.about_view_title,
 					Section = MenuSection.About 
 				}
 			};
@@ -80,6 +87,10 @@ namespace bstrkr.mvvm.viewmodels
 
 				case MenuSection.Routes:
 					this.ShowViewModel<RoutesViewModel>(new { item.Id });
+					break;
+
+				case MenuSection.RouteStops:
+					this.ShowViewModel<RouteStopsViewModel>(new { item.Id });
 					break;
 
 				case MenuSection.Preferences:

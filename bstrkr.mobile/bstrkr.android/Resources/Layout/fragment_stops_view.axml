@@ -8,8 +8,8 @@
     <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        local:MvxBind="ItemsSource Routes"
-        local:MvxItemTemplate="@layout/item_routes_list" />
+        local:MvxBind="ItemsSource Stops"
+        local:MvxItemTemplate="@layout/item_stops_list" />
     <ProgressBar
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"

@@ -77,9 +77,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string no {
+        public static string route_stops_view_title {
             get {
-                return ResourceManager.GetString("no", resourceCulture);
+                return ResourceManager.GetString("route_stops_view_title", resourceCulture);
             }
         }
         
@@ -92,6 +92,12 @@ namespace bstrkr.core {
         public static string select {
             get {
                 return ResourceManager.GetString("select", resourceCulture);
+            }
+        }
+        
+        public static string no {
+            get {
+                return ResourceManager.GetString("no", resourceCulture);
             }
         }
         

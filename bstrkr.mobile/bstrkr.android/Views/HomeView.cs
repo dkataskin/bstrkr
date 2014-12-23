@@ -105,6 +105,12 @@ namespace bstrkr.android.views
 						_currentSection = section;
 						break;
 
+					case MenuSection.RouteStops:
+						fragment = this.FindFragment<RouteStopsView>() ?? new RouteStopsView();
+						title = AppResources.route_stops_view_title;
+						_currentSection = section;
+						break;
+
 					case MenuSection.Preferences:
 						fragment = this.FindFragment<PreferencesView>() ?? new PreferencesView();
 						title = AppResources.preferences_view_title;

@@ -175,6 +175,7 @@
     <Compile Include="Views\LicensesView.cs" />
     <Compile Include="Views\SetAreaView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Views\RouteStopsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -262,6 +263,8 @@
     <AndroidResource Include="Resources\Layout\item_areas_list.axml" />
     <AndroidResource Include="Resources\Values\colors.xml" />
     <AndroidResource Include="Resources\Layout\item_licenses_list.axml" />
+    <AndroidResource Include="Resources\Layout\item_stops_list.axml" />
+    <AndroidResource Include="Resources\Layout\fragment_stops_view.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
