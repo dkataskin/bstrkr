@@ -184,51 +184,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
     <AndroidResource Include="Resources\Values\Strings.xml" />
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_h.png">
-      <Link>Resources\Drawable\bus_h.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_m.png">
-      <Link>Resources\Drawable\bus_m.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_s.png">
-      <Link>Resources\Drawable\bus_s.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_b.png">
-      <Link>Resources\Drawable\bus_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_h.png">
-      <Link>Resources\Drawable\shuttlebus_h.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_b.png">
-      <Link>Resources\Drawable\shuttlebus_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_m.png">
-      <Link>Resources\Drawable\shuttlebus_m.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_s.png">
-      <Link>Resources\Drawable\shuttlebus_s.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_h.png">
-      <Link>Resources\Drawable\trolleybus_h.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_b.png">
-      <Link>Resources\Drawable\trolleybus_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_m.png">
-      <Link>Resources\Drawable\trolleybus_m.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_s.png">
-      <Link>Resources\Drawable\trolleybus_s.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_t.png">
-      <Link>Resources\Drawable\bus_t.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_t.png">
-      <Link>Resources\Drawable\shuttlebus_t.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_t.png">
-      <Link>Resources\Drawable\trolleybus_t.png</Link>
-    </AndroidResource>
     <AndroidResource Include="Resources\Layout\item_menu.axml" />
     <AndroidResource Include="Resources\Layout\page_home_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_map_view.axml" />
@@ -265,6 +220,42 @@
     <AndroidResource Include="Resources\Layout\item_licenses_list.axml" />
     <AndroidResource Include="Resources\Layout\item_stops_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_stops_view.axml" />
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_s.png">
+      <Link>Resources\Drawable\trolleybus_s.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_m.png">
+      <Link>Resources\Drawable\trolleybus_m.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolleybus_b.png">
+      <Link>Resources\Drawable\trolleybus_b.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_s.png">
+      <Link>Resources\Drawable\shuttlebus_s.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_m.png">
+      <Link>Resources\Drawable\shuttlebus_m.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\shuttlebus_b.png">
+      <Link>Resources\Drawable\shuttlebus_b.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\busstop_s.png">
+      <Link>Resources\Drawable\busstop_s.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\busstop_m.png">
+      <Link>Resources\Drawable\busstop_m.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\busstop_b.png">
+      <Link>Resources\Drawable\busstop_b.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_s.png">
+      <Link>Resources\Drawable\bus_s.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_m.png">
+      <Link>Resources\Drawable\bus_m.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_b.png">
+      <Link>Resources\Drawable\bus_b.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

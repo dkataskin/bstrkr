@@ -263,6 +263,7 @@ namespace bstrkr.android.views
 			var customPresenter = Mvx.Resolve<ICustomPresenter>();
 			customPresenter.Register(typeof(PreferencesViewModel), this);
 			customPresenter.Register(typeof(RoutesViewModel), this);
+			customPresenter.Register(typeof(RouteStopsViewModel), this);
 			customPresenter.Register(typeof(LicensesViewModel), this);
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);

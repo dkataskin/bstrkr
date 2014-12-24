@@ -31,7 +31,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
 		private readonly ZoomToMarkerSizeConverter _zoomConverter = new ZoomToMarkerSizeConverter();
 
-		private MapMarkerSizes _markerSize = MapMarkerSizes.Small;
+		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
 		private RouteStop _routeStop;

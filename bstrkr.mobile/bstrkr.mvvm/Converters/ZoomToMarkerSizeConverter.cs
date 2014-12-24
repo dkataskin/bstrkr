@@ -14,10 +14,8 @@ namespace bstrkr.mvvm.converters
 	{
 		private readonly IList<Tuple<float, MapMarkerSizes>> _map = new List<Tuple<float, MapMarkerSizes>>
 		{
-			new Tuple<float, MapMarkerSizes>(19.0f, MapMarkerSizes.Huge),
-			new Tuple<float, MapMarkerSizes>(17.0f, MapMarkerSizes.Big),
-			new Tuple<float, MapMarkerSizes>(15.0f, MapMarkerSizes.Medium),
-			new Tuple<float, MapMarkerSizes>(12.0f, MapMarkerSizes.Small)
+			new Tuple<float, MapMarkerSizes>(13.0f, MapMarkerSizes.Big),
+			new Tuple<float, MapMarkerSizes>(12.0f, MapMarkerSizes.Medium)
 		};
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -41,7 +39,7 @@ namespace bstrkr.mvvm.converters
 				}
 			}
 
-			return MapMarkerSizes.Tiny;
+			return MapMarkerSizes.Medium;
 		}
 	}
 }
