@@ -39,7 +39,7 @@ namespace bstrkr.mvvm.converters
 				}
 			}
 
-			return MapMarkerSizes.Medium;
+			return MapMarkerSizes.Small;
 		}
 	}
 }

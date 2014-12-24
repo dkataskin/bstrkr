@@ -34,7 +34,6 @@
     <None Include="packages.config" />
     <Compile Include="Route.cs" />
     <Compile Include="Vehicle.cs" />
-    <Compile Include="RouteType.cs" />
     <Compile Include="RouteStop.cs" />
     <Compile Include="VehicleLocationsUpdatedEventArgs.cs" />
     <Compile Include="Spatial\GeoPoint.cs" />

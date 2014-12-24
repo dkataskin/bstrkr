@@ -180,9 +180,9 @@ namespace bstrkr.core.providers.bus13
 				var route = new Route(
 									routeSource.Id,
 									routeSource.Name, 
-									this.ParseRouteType(routeSource.Type),
 						            new List<RouteStop>(),
-									new List<GeoPoint>());
+									new List<GeoPoint>(),
+									new List<VehicleTypes> { this.ParseVehicleType(routeSource.Type) });
 
 				route.FirstStop = new RouteStop(
 										routeSource.FromStId.ToString(), 
@@ -233,6 +233,7 @@ namespace bstrkr.core.providers.bus13
 				CarPlate = bus13Vehicle.Gos_Num,
 				Location = this.ParsePoint(bus13Vehicle.Lat, bus13Vehicle.Lon),
 				Heading = Convert.ToSingle(bus13Vehicle.Dir),
+				Type = this.ParseVehicleType(bus13Vehicle.RType),
 				RouteInfo = new VehicleRouteInfo
 				{
 					RouteId = bus13Vehicle.RId.ToString(),
@@ -274,18 +275,18 @@ namespace bstrkr.core.providers.bus13
 			return new GeoPoint(latitude / 1000000f, longitude / 1000000f);
 		}
 
-		private RouteType ParseRouteType(string routeType)
+		private VehicleTypes ParseVehicleType(string vehicleType)
 		{
-			switch (routeType)
+			switch (vehicleType)
 			{
 				case "Т":
-					return new RouteType("Троллейбс", routeType);
+					return VehicleTypes.Trolleybus;
 
 				case "М":
-					return new RouteType("Маршрутное такси", routeType);
+					return VehicleTypes.ShuttleBus;
 
 				case "А":
-					return new RouteType("Автобус", routeType);
+					return VehicleTypes.Bus;
 
 				default:
 					throw new ArgumentOutOfRangeException();

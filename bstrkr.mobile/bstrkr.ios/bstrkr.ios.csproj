@@ -164,15 +164,6 @@
     <BundleResource Include="..\bstrkr.core\Resources\Images\trolleybus_s.png">
       <Link>Resources\trolleybus_s.png</Link>
     </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\bus_t.png">
-      <Link>Resources\bus_t.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\shuttlebus_t.png">
-      <Link>Resources\shuttlebus_t.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\trolleybus_t.png">
-      <Link>Resources\trolleybus_t.png</Link>
-    </BundleResource>
     <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_b.png">
       <Link>Resources\busstop_b.png</Link>
     </BundleResource>
@@ -184,9 +175,6 @@
     </BundleResource>
     <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_s.png">
       <Link>Resources\busstop_s.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_t.png">
-      <Link>Resources\busstop_t.png</Link>
     </BundleResource>
   </ItemGroup>
   <ItemGroup>
