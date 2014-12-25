@@ -13,15 +13,19 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private string _name;
 
-		public UmbrellaRoutesListItemViewModel(string name, IEnumerable<RouteViewModel> routeVMs)
+		public UmbrellaRoutesListItemViewModel(string name, IEnumerable<Route> routes)
 		{
 			this.Name = name;
 
-			var vehicleTypes = routeVMs.Select(x => x.VehicleType).OrderBy(x => x);
+			var vehicleTypes = routes.SelectMany(x => x.VehicleTypes)
+									 .Distinct()
+									 .OrderBy(x => x)
+									 .ToList();
+
 			var observableVehicleTypes = new ObservableCollection<VehicleTypes>(vehicleTypes);
 			this.VehicleTypes = new ReadOnlyObservableCollection<VehicleTypes>(observableVehicleTypes);
 
-			this.Routes = new ReadOnlyCollection<RouteViewModel>(routeVMs.ToList());
+			this.Routes = new ReadOnlyCollection<Route>(routes.ToList());
 		}
 
 		public string Name 
@@ -43,6 +47,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<VehicleTypes> VehicleTypes { get; private set; }
 
-		public IReadOnlyCollection<RouteViewModel> Routes { get; private set; }
+		public IReadOnlyCollection<Route> Routes { get; private set; }
 	}
 }

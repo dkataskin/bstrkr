@@ -54,34 +54,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand<UmbrellaRoutesListItemViewModel> ShowRouteDetailsCommand { get; private set; }
 
-		private IEnumerable<RouteViewModel> CreateRouteViewModels(string name, Route route)
-		{
-			var vms = new List<RouteViewModel>();
-			foreach (var vehicleType in route.VehicleTypes)
-			{
-				var vm = new RouteViewModel 
-				{
-					Id = route.Id,
-					Name = name,
-					VehicleType = vehicleType
-				};
-
-				if (route.FirstStop != null)
-				{
-					vm.From = route.FirstStop.Name;
-				}
-
-				if (route.LastStop != null)
-				{
-					vm.To = route.LastStop.Name;
-				}
-
-				vms.Add(vm);
-			}
-
-			return vms;
-		}
-
 		private void Refresh()
 		{
 			_routes.Clear();
@@ -103,8 +75,7 @@ namespace bstrkr.mvvm.viewmodels
 								{
 									_routes.Add(new UmbrellaRoutesListItemViewModel(
 										routeGroup.Key,
-										routeGroup.SelectMany(x => this.CreateRouteViewModels(routeGroup.Key, x))
-										.ToList()));
+										routeGroup.ToList()));
 								}
 							}
 						});
@@ -123,7 +94,11 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ShowRouteDetails(UmbrellaRoutesListItemViewModel route)
 		{
-			this.ShowViewModel<UmbrellaRouteViewModel>(new { name = route.Name, routeVMs = route.Routes.ToList() });
+			this.ShowViewModel<UmbrellaRouteViewModel>(new 
+			{ 
+				name = route.Name, 
+				routes = route.Routes.Select(x => x.Id).ToList() 
+			});
 		}
 
 		public override void Start()

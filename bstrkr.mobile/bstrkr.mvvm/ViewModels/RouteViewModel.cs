@@ -9,7 +9,7 @@ using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteViewModel : MvxViewModel
+	public class RouteViewModel : BusTrackerViewModelBase
 	{
 		private string _id;
 		private string _name;
