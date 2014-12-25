@@ -17,7 +17,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProvider _liveDataProvider;
-		private readonly ObservableCollection<UmbrellaRouteViewModel> _routes = new ObservableCollection<UmbrellaRouteViewModel>();
+		private readonly ObservableCollection<UmbrellaRoutesListItemViewModel> _routes = new ObservableCollection<UmbrellaRoutesListItemViewModel>();
 
 		private bool _unknownArea;
 
@@ -26,9 +26,9 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService = locationService;
 			_liveDataProvider = providerFactory.CreateProvider(locationService.Area);
 
-			this.Routes = new ReadOnlyObservableCollection<UmbrellaRouteViewModel>(_routes);
+			this.Routes = new ReadOnlyObservableCollection<UmbrellaRoutesListItemViewModel>(_routes);
 			this.RefreshCommand = new MvxCommand(this.Refresh);
-			this.ShowRouteDetailsCommand = new MvxCommand<UmbrellaRouteViewModel>(this.ShowRouteDetails, vm => !this.IsBusy);
+			this.ShowRouteDetailsCommand = new MvxCommand<UmbrellaRoutesListItemViewModel>(this.ShowRouteDetails, vm => !this.IsBusy);
 		}
 
 		public bool UnknownArea
@@ -48,11 +48,11 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public ReadOnlyObservableCollection<UmbrellaRouteViewModel> Routes { get; private set; }
+		public ReadOnlyObservableCollection<UmbrellaRoutesListItemViewModel> Routes { get; private set; }
 
 		public MvxCommand RefreshCommand { get; private set; }
 
-		public MvxCommand<UmbrellaRouteViewModel> ShowRouteDetailsCommand { get; private set; }
+		public MvxCommand<UmbrellaRoutesListItemViewModel> ShowRouteDetailsCommand { get; private set; }
 
 		private IEnumerable<RouteViewModel> CreateRouteViewModels(string name, Route route)
 		{
@@ -101,7 +101,7 @@ namespace bstrkr.mvvm.viewmodels
 							{
 								foreach (var routeGroup in task.Result.GroupBy(x => x.Number)) 
 								{
-									_routes.Add(new UmbrellaRouteViewModel(
+									_routes.Add(new UmbrellaRoutesListItemViewModel(
 										routeGroup.Key,
 										routeGroup.SelectMany(x => this.CreateRouteViewModels(routeGroup.Key, x))
 										.ToList()));
@@ -121,8 +121,9 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void ShowRouteDetails(UmbrellaRouteViewModel route)
+		private void ShowRouteDetails(UmbrellaRoutesListItemViewModel route)
 		{
+			this.ShowViewModel<UmbrellaRouteViewModel>(new { name = route.Name, routeVMs = route.Routes.ToList() });
 		}
 
 		public override void Start()

@@ -17,10 +17,6 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			this.Name = name;
 
-			var vehicleTypes = routeVMs.Select(x => x.VehicleType).OrderBy(x => x);
-			var observableVehicleTypes = new ObservableCollection<VehicleTypes>(vehicleTypes);
-			this.VehicleTypes = new ReadOnlyObservableCollection<VehicleTypes>(observableVehicleTypes);
-
 			var observableRoutes = new ObservableCollection<RouteViewModel>(routeVMs);
 			this.Routes = new ReadOnlyObservableCollection<RouteViewModel>(observableRoutes);
 		}
@@ -40,9 +36,7 @@ namespace bstrkr.mvvm.viewmodels
 					this.RaisePropertyChanged(() => this.Name);
 				}
 			} 
-		}
-
-		public ReadOnlyObservableCollection<VehicleTypes> VehicleTypes { get; private set; }
+   		}
 
 		public ReadOnlyObservableCollection<RouteViewModel> Routes { get; private set; }
 	}

@@ -69,6 +69,19 @@ namespace bstrkr.android.views
 					return true;
 				}
 
+				if (request.ViewModelType == typeof(UmbrellaRouteViewModel))
+				{
+					MvxFragment umbrellaRouteView = new UmbrellaRouteView();
+					umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
+
+					this.FragmentManager.BeginTransaction()
+						.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
+						.AddToBackStack(null)
+						.Commit();
+
+					return true;
+				}
+
 				var homeViewModel = this.ViewModel as HomeViewModel;
 				MvxFragment fragment = null;
 				var title = string.Empty;
@@ -268,6 +281,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);
 			customPresenter.Register(typeof(SetAreaViewModel), this);
+			customPresenter.Register(typeof(UmbrellaRouteViewModel), this);
 		}
 
 		private MvxFragment FindFragment<TView>() where TView : MvxFragment
