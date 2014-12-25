@@ -179,7 +179,8 @@ namespace bstrkr.core.providers.bus13
 				var routeSource = routeGroup.First();
 				var route = new Route(
 									routeSource.Id,
-									routeSource.Name, 
+									routeSource.Name,
+									routeSource.Num,
 						            new List<RouteStop>(),
 									new List<GeoPoint>(),
 									new List<VehicleTypes> { this.ParseVehicleType(routeSource.Type) });

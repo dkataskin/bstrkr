@@ -12,12 +12,14 @@ namespace bstrkr.core
 		public Route(
 				string id, 
 				string name, 
+				string number,
 				IEnumerable<RouteStop> stops,
 				IEnumerable<GeoPoint> nodes,
 				IEnumerable<VehicleTypes> vehicleTypes)
 		{
 			this.Id = id;
 			this.Name = name;
+			this.Number = number;
 			this.Stops = new ReadOnlyCollection<RouteStop>(stops.ToList());
 			this.Nodes = new ReadOnlyCollection<GeoPoint>(nodes.ToList());
 			this.VehicleTypes = new ReadOnlyCollection<VehicleTypes>(vehicleTypes.ToList());
@@ -26,6 +28,8 @@ namespace bstrkr.core
 		public string Id { get; private set; }
 
 		public string Name { get; private set; }
+
+		public string Number { get; private set; }
 
 		public IReadOnlyCollection<RouteStop> Stops { get; private set; }
 

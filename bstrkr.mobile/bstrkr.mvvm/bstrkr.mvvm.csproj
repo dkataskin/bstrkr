@@ -63,6 +63,8 @@
     <Compile Include="ViewModels\RouteStopsViewModel.cs" />
     <Compile Include="ViewModels\RouteStopMapViewModel.cs" />
     <Compile Include="ViewModels\RouteStopViewModel.cs" />
+    <Compile Include="ViewModels\UmbrellaRouteViewModel.cs" />
+    <Compile Include="Converters\VehicleTypeToImageConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
