@@ -97,7 +97,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.ShowViewModel<UmbrellaRouteViewModel>(new 
 			{ 
 				name = route.Name, 
-				routes = route.Routes.Select(x => x.Id).ToList() 
+				routes = string.Join(",", route.Routes.Select(x => x.Id))
 			});
 		}
 

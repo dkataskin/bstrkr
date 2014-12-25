@@ -48,10 +48,11 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RouteViewModel> Routes { get; private set; }
 
-		public void Init(string name, IEnumerable<string> routes)
+		public void Init(string name, string routes)
 		{
 			this.Name = name;
 
+			var routeIds = routes.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
 			var liveDataProvider = _providerFactory.CreateProvider(_locationService.Area);
 			liveDataProvider.GetRoutesAsync().ContinueWith(task =>
 			{
@@ -63,7 +64,7 @@ namespace bstrkr.mvvm.viewmodels
 						{
 							foreach (var route in task.Result) 
 							{
-								if (routes.Contains(route.Id))
+								if (routeIds.Contains(route.Id))
 								{
 									foreach (var routeVM in this.CreateRouteViewModels(route)) 
 									{
