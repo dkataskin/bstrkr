@@ -19,6 +19,8 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
+			this.Activity.ActionBar.SetDisplayHomeAsUpEnabled(true);
+
 			return this.BindingInflate(Resource.Layout.fragment_umbrellaroute_view, null);
 		}
 	}

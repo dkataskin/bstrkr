@@ -1651,6 +1651,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b0054
 			public const int media_route_volume_slider = 2131427412;
 			
+			// aapt resource value: 0x7f0b005a
+			public const int menu_refresh = 2131427418;
+			
 			// aapt resource value: 0x7f0b0019
 			public const int middle = 2131427353;
 			
@@ -1929,6 +1932,22 @@ namespace bstrkr.android
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int refresh = 2131492864;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}

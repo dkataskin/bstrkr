@@ -260,6 +260,7 @@
     <AndroidResource Include="Resources\Layout\item_umbrellaroutes_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_umbrellaroute_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
+    <AndroidResource Include="Resources\Menu\refresh.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -304,5 +305,6 @@
   <ItemGroup>
     <Folder Include="Resources\Values-Ru\" />
     <Folder Include="Assets\Licenses\" />
+    <Folder Include="Resources\Menu\" />
   </ItemGroup>
 </Project>
