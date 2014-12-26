@@ -73,6 +73,7 @@ namespace bstrkr.android.views
 				{
 					MvxFragment umbrellaRouteView = new UmbrellaRouteView();
 					umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
+					this.ActionBar.Title = (umbrellaRouteView.ViewModel as UmbrellaRouteViewModel).Title;
 
 					this.FragmentManager.BeginTransaction()
 						.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")

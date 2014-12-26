@@ -20,7 +20,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private readonly ObservableCollection<RouteViewModel> _routes = new ObservableCollection<RouteViewModel>();
 
-		private string _name;
+		private string _title;
 
 		public UmbrellaRouteViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
 		{
@@ -29,19 +29,19 @@ namespace bstrkr.mvvm.viewmodels
 			this.Routes = new ReadOnlyObservableCollection<RouteViewModel>(_routes);
 		}
 
-		public string Name 
+		public string Title 
 		{ 
 			get
 			{
-				return _name;
+				return _title;
 			} 
 
 			private set
 			{
-				if (!string.Equals(_name, value))
+				if (!string.Equals(_title, value))
 				{
-					_name = value;
-					this.RaisePropertyChanged(() => this.Name);
+					_title = value;
+					this.RaisePropertyChanged(() => this.Title);
 				}
 			} 
    		}
@@ -50,7 +50,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public void Init(string name, string routes)
 		{
-			this.Name = name;
+			this.Title = string.Format(AppResources.umbrella_route_title_format, name);
 
 			var routeIds = routes.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
 			var liveDataProvider = _providerFactory.CreateProvider(_locationService.Area);
@@ -95,7 +95,7 @@ namespace bstrkr.mvvm.viewmodels
 				var vm = new RouteViewModel 
 				{
 					Id = route.Id,
-					Name = route.Name,
+					Name = this.GetRouteTitle(route.Number, vehicleType),
 					VehicleType = vehicleType
 				};
 
@@ -113,6 +113,27 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			return vms;
+		}
+
+		private string GetRouteTitle(string number, VehicleTypes vehicleType)
+		{
+			switch (vehicleType)
+			{
+				case VehicleTypes.Bus:
+					return string.Format(AppResources.bus_route_title_format, number);
+
+				case VehicleTypes.ShuttleBus:
+					return string.Format(AppResources.shuttlebus_route_title_format, number);
+
+				case VehicleTypes.Trolleybus:
+					return string.Format(AppResources.troll_route_title_format, number);
+
+				case VehicleTypes.Tramway:
+					return string.Format(AppResources.tramway_route_title_format, number);
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 	}
 }

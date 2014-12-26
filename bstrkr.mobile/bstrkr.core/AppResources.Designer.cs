@@ -53,6 +53,18 @@ namespace bstrkr.core {
             }
         }
         
+        public static string umbrella_route_title_format {
+            get {
+                return ResourceManager.GetString("umbrella_route_title_format", resourceCulture);
+            }
+        }
+        
+        public static string shuttlebus_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("shuttlebus_vehicle_type_title", resourceCulture);
+            }
+        }
+        
         public static string locations_dialog_title {
             get {
                 return ResourceManager.GetString("locations_dialog_title", resourceCulture);
@@ -95,15 +107,27 @@ namespace bstrkr.core {
             }
         }
         
+        public static string tramway_route_title_format {
+            get {
+                return ResourceManager.GetString("tramway_route_title_format", resourceCulture);
+            }
+        }
+        
+        public static string troll_route_title_format {
+            get {
+                return ResourceManager.GetString("troll_route_title_format", resourceCulture);
+            }
+        }
+        
         public static string no {
             get {
                 return ResourceManager.GetString("no", resourceCulture);
             }
         }
         
-        public static string yes {
+        public static string bus_vehicle_type_title {
             get {
-                return ResourceManager.GetString("yes", resourceCulture);
+                return ResourceManager.GetString("bus_vehicle_type_title", resourceCulture);
             }
         }
         
@@ -125,9 +149,33 @@ namespace bstrkr.core {
             }
         }
         
+        public static string tramway_vehicle_type {
+            get {
+                return ResourceManager.GetString("tramway_vehicle_type", resourceCulture);
+            }
+        }
+        
         public static string unknown_location_dialog_title {
             get {
                 return ResourceManager.GetString("unknown_location_dialog_title", resourceCulture);
+            }
+        }
+        
+        public static string yes {
+            get {
+                return ResourceManager.GetString("yes", resourceCulture);
+            }
+        }
+        
+        public static string troll_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("troll_vehicle_type_title", resourceCulture);
+            }
+        }
+        
+        public static string bus_route_title_format {
+            get {
+                return ResourceManager.GetString("bus_route_title_format", resourceCulture);
             }
         }
         
@@ -140,6 +188,12 @@ namespace bstrkr.core {
         public static string unknown_location_no_data {
             get {
                 return ResourceManager.GetString("unknown_location_no_data", resourceCulture);
+            }
+        }
+        
+        public static string shuttlebus_route_title_format {
+            get {
+                return ResourceManager.GetString("shuttlebus_route_title_format", resourceCulture);
             }
         }
         
