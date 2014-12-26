@@ -12,6 +12,24 @@ namespace bstrkr.providers
 {
 	public class DefaultLiveDataProviderFactory : ILiveDataProviderFactory
 	{
+		private readonly IBusTrackerLocationService _locationService;
+
+		private Area _currentArea;
+		private ILiveDataProvider _currentProvider;
+
+		public DefaultLiveDataProviderFactory(IBusTrackerLocationService locationService)
+		{
+			_locationService = locationService;
+			_locationService.LocationChanged += this.OnLocationChanged;
+
+			_currentArea = _locationService.Area;
+		}
+
+		public ILiveDataProvider GetCurrentProvider()
+		{
+			return _currentProvider;
+		}
+
 		public ILiveDataProvider CreateProvider(Area area)
 		{
 			if (area == null)
@@ -23,6 +41,27 @@ namespace bstrkr.providers
 										area.Endpoint, 
 										area.Id,
 										TimeSpan.FromMilliseconds(10000));
+		}
+
+		private void OnLocationChanged(object sender, EventArgs args)
+		{
+			lock(_locationService)
+			{
+				var area = _locationService.Area;
+				if (_currentArea == null || area == null)
+				{
+					_currentArea = area;
+					_currentProvider = this.CreateProvider(_currentArea);
+				}
+				else
+				{
+					if (!_currentArea.Id.Equals(area.Id))
+					{
+						_currentArea = area;
+						_currentProvider = this.CreateProvider(_currentArea);
+					}
+				}
+			}
 		}
 	}
 }

@@ -59,7 +59,6 @@
     <Compile Include="ViewModels\BusTrackerViewModelLocator.cs" />
     <Compile Include="ViewModels\SetAreaViewModel.cs" />
     <Compile Include="ViewModels\LicensesViewModel.cs" />
-    <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="ViewModels\RouteStopsViewModel.cs" />
     <Compile Include="ViewModels\RouteStopMapViewModel.cs" />
     <Compile Include="ViewModels\RouteStopViewModel.cs" />

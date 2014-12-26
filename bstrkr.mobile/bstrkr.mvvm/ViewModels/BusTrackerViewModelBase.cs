@@ -35,6 +35,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_isBusy = value;
 					this.RaisePropertyChanged(() => this.IsBusy);
+					this.OnIsBusyChanged();
 				}
 			}
 		}
@@ -45,6 +46,10 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				return AppResources.ResourceManager.GetString(index);
 			}
+		}
+
+		protected virtual void OnIsBusyChanged()
+		{
 		}
 	}
 }

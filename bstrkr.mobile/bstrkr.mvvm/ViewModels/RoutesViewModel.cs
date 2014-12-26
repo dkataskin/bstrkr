@@ -15,16 +15,14 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class RoutesViewModel : BusTrackerViewModelBase
 	{
-		private readonly IBusTrackerLocationService _locationService;
-		private readonly ILiveDataProvider _liveDataProvider;
+		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly ObservableCollection<UmbrellaRoutesListItemViewModel> _routes = new ObservableCollection<UmbrellaRoutesListItemViewModel>();
 
 		private bool _unknownArea;
 
-		public RoutesViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
+		public RoutesViewModel(ILiveDataProviderFactory providerFactory)
 		{
-			_locationService = locationService;
-			_liveDataProvider = providerFactory.CreateProvider(locationService.Area);
+			_providerFactory = providerFactory;
 
 			this.Routes = new ReadOnlyObservableCollection<UmbrellaRoutesListItemViewModel>(_routes);
 			this.RefreshCommand = new MvxCommand(this.Refresh);
@@ -54,16 +52,34 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand<UmbrellaRoutesListItemViewModel> ShowRouteDetailsCommand { get; private set; }
 
+		public override void Start()
+		{
+			base.Start();
+			this.RefreshCommand.Execute();
+		}
+
+		protected override void OnIsBusyChanged()
+		{
+			base.OnIsBusyChanged();
+			this.RefreshCommand.RaiseCanExecuteChanged();
+		}
+
 		private void Refresh()
 		{
 			_routes.Clear();
-			this.UnknownArea = _locationService.Area == null;
+			var provider = _providerFactory.GetCurrentProvider();
+
+			if (provider == null)
+			{
+				this.UnknownArea = true;
+			}
 
 			if (!this.UnknownArea && !this.IsBusy)
 			{
+				this.UnknownArea = false;
 				this.IsBusy = true;
 
-				_liveDataProvider.GetRoutesAsync().ContinueWith(task =>
+				provider.GetRoutesAsync().ContinueWith(task =>
 				{
 					try 
 					{
@@ -99,12 +115,6 @@ namespace bstrkr.mvvm.viewmodels
 				name = route.Name, 
 				routes = string.Join(",", route.Routes.Select(x => x.Id))
 			});
-		}
-
-		public override void Start()
-		{
-			base.Start();
-			this.RefreshCommand.Execute();
 		}
 	}
 }
