@@ -1,10 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopViewModel : BusTrackerViewModelBase
 	{
 		private string _name;
+
+		public RouteStopViewModel(string name, IEnumerable<RouteStop> stops)
+		{
+			this.Name = name;
+			this.Stops = new ReadOnlyCollection<RouteStop>(stops.ToList());
+		}
 
 		public string Name 
 		{ 
@@ -13,7 +24,7 @@ namespace bstrkr.mvvm.viewmodels
 				return _name;
 			} 
 
-			set
+			private set
 			{
 				if (!string.Equals(_name, value))
 				{
@@ -22,5 +33,7 @@ namespace bstrkr.mvvm.viewmodels
 				}
 			} 
 		}
+
+		public IReadOnlyCollection<RouteStop> Stops { get; private set; }
 	}
 }

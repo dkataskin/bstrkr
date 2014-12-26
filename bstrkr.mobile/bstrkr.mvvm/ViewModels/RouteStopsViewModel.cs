@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 using Cirrious.MvvmCross.ViewModels;
 
@@ -20,9 +21,11 @@ namespace bstrkr.mvvm.viewmodels
 		public RouteStopsViewModel(ILiveDataProviderFactory providerFactory)
 		{
 			_providerFactory = providerFactory;
+
 			this.Stops = new ReadOnlyObservableCollection<RouteStopViewModel>(_stops);
 
 			this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
+			this.ShowStopDetailsCommand = new MvxCommand<RouteStopViewModel>(this.ShowStopDetails, vm => !this.IsBusy);
 		}
 
 		public bool UnknownArea
@@ -46,6 +49,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand RefreshCommand { get; private set; }
 
+		public MvxCommand<RouteStopViewModel> ShowStopDetailsCommand { get; private set; }
+
 		public override void Start()
 		{
 			base.Start();
@@ -56,6 +61,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			base.OnIsBusyChanged();
 			this.RefreshCommand.RaiseCanExecuteChanged();
+			this.ShowStopDetailsCommand.RaiseCanExecuteChanged();
 		}
 
 		private void Refresh()
@@ -78,12 +84,9 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						this.Dispatcher.RequestMainThreadAction(() =>
 						{
-							foreach (var stop in task.Result) 
+							foreach (var stopsGroup in task.Result.GroupBy(x => x.Name)) 
 							{
-								_stops.Add(new RouteStopViewModel 
-								{ 
-									Name = stop.Name
-								});
+								_stops.Add(new RouteStopViewModel(stopsGroup.Key, stopsGroup.ToList()));
 							}
 						});
 					} 
@@ -96,6 +99,13 @@ namespace bstrkr.mvvm.viewmodels
 						this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 					}
 				});
+			}
+		}
+
+		private void ShowStopDetails(RouteStopViewModel routeStopViewModel)
+		{
+			if (routeStopViewModel.Stops.Count > 1)
+			{
 			}
 		}
 	}
