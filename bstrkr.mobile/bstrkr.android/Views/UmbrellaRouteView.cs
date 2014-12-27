@@ -6,6 +6,8 @@ using Android.Views;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
+using bstrkr.mvvm.viewmodels;
+
 namespace bstrkr.android.views
 {
 	public class UmbrellaRouteView : MvxFragment
@@ -18,6 +20,9 @@ namespace bstrkr.android.views
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
+
+			var dataContext = this.DataContext as UmbrellaRouteViewModel;
+			this.Activity.ActionBar.Title = dataContext.Title;
 
 			return this.BindingInflate(Resource.Layout.fragment_umbrellaroute_view, null);
 		}
