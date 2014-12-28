@@ -38,7 +38,6 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			//this.EnsureBindingContextIsSet(savedInstanceState);
 			var view = this.BindingInflate(Resource.Layout.fragment_map_view, null);
 			_googleMapView = view.FindViewById<Android.Gms.Maps.MapView>(Resource.Id.mapView);
 			_googleMapView.OnCreate(savedInstanceState);

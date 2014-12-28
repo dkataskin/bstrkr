@@ -21,6 +21,9 @@ namespace bstrkr.android.views
 		{
 			this.SetHasOptionsMenu(true);
 
+			var dataContext = this.DataContext as RoutesViewModel;
+			this.Activity.ActionBar.Title = dataContext.Title;
+
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			return this.BindingInflate(Resource.Layout.fragment_routes_view, null);
