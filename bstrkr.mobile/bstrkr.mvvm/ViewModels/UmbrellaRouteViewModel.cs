@@ -15,16 +15,14 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class UmbrellaRouteViewModel : BusTrackerViewModelBase
 	{
-		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
 
 		private readonly ObservableCollection<RouteViewModel> _routes = new ObservableCollection<RouteViewModel>();
 
 		private string _title;
 
-		public UmbrellaRouteViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
+		public UmbrellaRouteViewModel(ILiveDataProviderFactory providerFactory)
 		{
-			_locationService = locationService;
 			_providerFactory = providerFactory;
 			this.Routes = new ReadOnlyObservableCollection<RouteViewModel>(_routes);
 		}
@@ -53,7 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.Title = string.Format(AppResources.umbrella_route_title_format, name);
 
 			var routeIds = routes.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-			var liveDataProvider = _providerFactory.CreateProvider(_locationService.Area);
+			var liveDataProvider = _providerFactory.GetCurrentProvider();
 			liveDataProvider.GetRoutesAsync().ContinueWith(task =>
 			{
 				try 

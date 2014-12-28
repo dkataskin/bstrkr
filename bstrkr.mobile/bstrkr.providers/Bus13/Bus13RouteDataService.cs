@@ -32,6 +32,7 @@ namespace bstrkr.core.providers.bus13
 		private const string RandomParam = "_";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
+		private readonly IDictionary<string, Route> _routesCache = new Dictionary<string, Route>();
 
 		private string _endpoint;
 		private string _location;
@@ -54,12 +55,26 @@ namespace bstrkr.core.providers.bus13
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
+			lock(_routesCache)
+			{
+				if (_routesCache.Count != 0)
+				{
+					return _routesCache.Values;
+				}
+			}
+
 			var client = this.GetRestClient();
 			var request = this.GetRequestBase(RoutesResource);
 
 			var bus13Routes = await this.ExecuteAsync<List<Bus13Route>>(client, request).ConfigureAwait(false);
 
-			return this.ParseRoutes(bus13Routes);
+			var routes = this.ParseRoutes(bus13Routes);
+			foreach (var route in routes)
+			{
+				_routesCache[route.Id] = route;
+			}
+
+			return _routesCache.Values;
 		}
 
 		public async Task<GeoPolyline> GetRouteNodesAsync(Route route)
