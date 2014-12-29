@@ -7,6 +7,7 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using bstrkr.mvvm.viewmodels;
+using bstrkr.core;
 
 namespace bstrkr.android.views
 {
@@ -21,8 +22,7 @@ namespace bstrkr.android.views
 		{
 			this.SetHasOptionsMenu(true);
 
-			var dataContext = this.DataContext as RoutesViewModel;
-			this.Activity.ActionBar.Title = dataContext.Title;
+			this.Activity.ActionBar.Title = AppResources.routes_view_title;
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 

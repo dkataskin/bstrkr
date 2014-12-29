@@ -46,11 +46,6 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public string Title 
-		{
-			get { return AppResources.routes_view_title; }
-		}
-
 		public ReadOnlyObservableCollection<UmbrellaRoutesListItemViewModel> Routes { get; private set; }
 
 		public MvxCommand RefreshCommand { get; private set; }

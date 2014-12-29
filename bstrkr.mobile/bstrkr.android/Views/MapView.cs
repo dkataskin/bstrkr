@@ -17,6 +17,7 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using bstrkr.core;
 
 namespace bstrkr.android.views
 {
@@ -37,6 +38,8 @@ namespace bstrkr.android.views
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
+
+			this.Activity.ActionBar.Title = AppResources.map_view_title;
 
 			var view = this.BindingInflate(Resource.Layout.fragment_map_view, null);
 			_googleMapView = view.FindViewById<Android.Gms.Maps.MapView>(Resource.Id.mapView);
@@ -62,7 +65,7 @@ namespace bstrkr.android.views
 		public override void OnStart()
 		{
 			base.OnStart();
-			InitializeMapAndHandlers();
+			this.InitializeMapAndHandlers();
 		}
 
 		public override void OnDestroyView()

@@ -54,6 +54,8 @@ namespace bstrkr.android.views
 		private string _tag;
 		private MenuSection _currentSection;
 
+		private static IDictionary<string, Type> _frags = new Dictionary<string, Type>();
+
 		public bool Show(MvxViewModelRequest request)
 		{
 			try
@@ -73,7 +75,6 @@ namespace bstrkr.android.views
 				{
 					MvxFragment umbrellaRouteView = new UmbrellaRouteView();
 					umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
-					this.ActionBar.Title = (umbrellaRouteView.ViewModel as UmbrellaRouteViewModel).Title;
 
 					this.FragmentManager.BeginTransaction()
 						.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")

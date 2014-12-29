@@ -7,6 +7,7 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using bstrkr.mvvm.viewmodels;
+using bstrkr.core;
 
 namespace bstrkr.android.views
 {
@@ -22,6 +23,7 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			this.SetHasOptionsMenu(true);
+			this.Activity.Title = AppResources.route_stops_view_title;
 
 			return this.BindingInflate(Resource.Layout.fragment_stops_view, null);
 		}
