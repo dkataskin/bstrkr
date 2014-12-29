@@ -177,6 +177,7 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Views\RouteStopsView.cs" />
     <Compile Include="Views\UmbrellaRouteView.cs" />
+    <Compile Include="Views\RouteView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

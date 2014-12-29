@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+
+using Cirrious.MvvmCross.ViewModels;
 
 using bstrkr.core;
-using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteViewModel : BusTrackerViewModelBase
+	public class RoutesListItemViewModel : BusTrackerViewModelBase
 	{
 		private string _id;
 		private string _name;
@@ -80,7 +83,5 @@ namespace bstrkr.mvvm.viewmodels
 		}
 
 		public Route Route { get; set; }
-
-		public ReadOnlyObservableCollection<RouteForecastViewModel> Stops { get; set; }
 	}
 }

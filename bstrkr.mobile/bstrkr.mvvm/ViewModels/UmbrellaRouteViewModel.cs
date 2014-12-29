@@ -17,14 +17,14 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly ILiveDataProviderFactory _providerFactory;
 
-		private readonly ObservableCollection<RouteViewModel> _routes = new ObservableCollection<RouteViewModel>();
+		private readonly ObservableCollection<RoutesListItemViewModel> _routes = new ObservableCollection<RoutesListItemViewModel>();
 
 		private string _title;
 
 		public UmbrellaRouteViewModel(ILiveDataProviderFactory providerFactory)
 		{
 			_providerFactory = providerFactory;
-			this.Routes = new ReadOnlyObservableCollection<RouteViewModel>(_routes);
+			this.Routes = new ReadOnlyObservableCollection<RoutesListItemViewModel>(_routes);
 		}
 
 		public string Title 
@@ -44,7 +44,7 @@ namespace bstrkr.mvvm.viewmodels
 			} 
    		}
 
-		public ReadOnlyObservableCollection<RouteViewModel> Routes { get; private set; }
+		public ReadOnlyObservableCollection<RoutesListItemViewModel> Routes { get; private set; }
 
 		public void Init(string name, string routes)
 		{
@@ -85,12 +85,12 @@ namespace bstrkr.mvvm.viewmodels
 
 		}
 
-		private IEnumerable<RouteViewModel> CreateRouteViewModels(Route route)
+		private IEnumerable<RoutesListItemViewModel> CreateRouteViewModels(Route route)
 		{
-			var vms = new List<RouteViewModel>();
+			var vms = new List<RoutesListItemViewModel>();
 			foreach (var vehicleType in route.VehicleTypes)
 			{
-				var vm = new RouteViewModel 
+				var vm = new RoutesListItemViewModel 
 				{
 					Id = route.Id,
 					Name = this.GetRouteTitle(route.Number, vehicleType),
