@@ -61,34 +61,16 @@ namespace bstrkr.android.views
 			try
 			{
 				var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
-
-				if (request.ViewModelType == typeof(SetAreaViewModel))
-				{
-					var dialog = new SetAreaView();
-					dialog.ViewModel = loaderService.LoadViewModel(request, null);
-					dialog.Show(this.FragmentManager, null);
-
-					return true;
-				}
-
-				if (request.ViewModelType == typeof(UmbrellaRouteViewModel))
-				{
-					MvxFragment umbrellaRouteView = new UmbrellaRouteView();
-					umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
-
-					this.FragmentManager.BeginTransaction()
-						.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
-						.AddToBackStack(null)
-						.Commit();
-
-					return true;
-				}
-
 				var homeViewModel = this.ViewModel as HomeViewModel;
 				MvxFragment fragment = null;
 				var title = string.Empty;
 
 				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
+				if (section == MenuSection.Unknown)
+				{
+					this.Navigate(request, loaderService);
+					return true;
+				}
 
 				switch (section)
 				{
@@ -289,6 +271,27 @@ namespace bstrkr.android.views
 		private MvxFragment FindFragment<TView>() where TView : MvxFragment
 		{
 			return this.FragmentManager.FindFragmentById(Resource.Id.content_frame) as TView;
+		}
+
+		private void Navigate(MvxViewModelRequest request, IMvxViewModelLoader loaderService)
+		{
+			if (request.ViewModelType == typeof(SetAreaViewModel))
+			{
+				var dialog = new SetAreaView();
+				dialog.ViewModel = loaderService.LoadViewModel(request, null);
+				dialog.Show(this.FragmentManager, null);
+			}
+
+			if (request.ViewModelType == typeof(UmbrellaRouteViewModel))
+			{
+				MvxFragment umbrellaRouteView = new UmbrellaRouteView();
+				umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
+
+				this.FragmentManager.BeginTransaction()
+									.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
+									.AddToBackStack(null)
+									.Commit();
+			}
 		}
     }
 }
