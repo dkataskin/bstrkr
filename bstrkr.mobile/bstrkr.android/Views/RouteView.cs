@@ -11,19 +11,15 @@ using bstrkr.core;
 
 namespace bstrkr.android.views
 {
-	public class RoutesView : MvxFragment
+	public class RouteView : MvxFragment
 	{
-		public RoutesView()
+		public RouteView()
 		{
 			this.RetainInstance = true;
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			this.SetHasOptionsMenu(true);
-
-			this.Activity.ActionBar.Title = AppResources.routes_view_title;
-
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			return this.BindingInflate(Resource.Layout.fragment_routes_view, null);
