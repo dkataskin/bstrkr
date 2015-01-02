@@ -15,6 +15,7 @@ namespace bstrkr.android.views
 		{
 			this.ViewModel = vehicleVM;
 			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
+
 		}
 
 		public VehicleViewModel ViewModel { get; private set; }
@@ -23,6 +24,7 @@ namespace bstrkr.android.views
 		{
 			return new MarkerOptions()
 				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
+				.SetTitle(this.ViewModel.RouteNumber)
 				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(true)
 				.InvokeRotation(Convert.ToSingle(this.ViewModel.VehicleHeading));

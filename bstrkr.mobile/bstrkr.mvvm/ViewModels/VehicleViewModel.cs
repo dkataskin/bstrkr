@@ -40,8 +40,10 @@ namespace bstrkr.mvvm.viewmodels
 
 					this.RaisePropertyChanged(() => this.VehicleId);
 					this.RaisePropertyChanged(() => this.VehicleType);
+					this.RaisePropertyChanged(() => this.VehicleHeading);
 					this.RaisePropertyChanged(() => this.CarPlate);
 					this.RaisePropertyChanged(() => this.Location);
+					this.RaisePropertyChanged(() => this.Icon);
 				}
 			}
 		}
@@ -76,6 +78,11 @@ namespace bstrkr.mvvm.viewmodels
 		public string CarPlate
 		{
 			get { return this.Model == null ? string.Empty : this.Model.CarPlate; }
+		}
+
+		public string RouteNumber
+		{
+			get { return (this.Model == null || this.Model.RouteInfo == null) ? string.Empty : this.Model.RouteInfo.DisplayName; }
 		}
 
 		public override GeoPoint Location
