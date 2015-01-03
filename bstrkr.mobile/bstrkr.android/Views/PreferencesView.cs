@@ -21,5 +21,13 @@ namespace bstrkr.android.views
 
 			this.Activity.ActionBar.Title = AppResources.preferences_view_title;
 		}
+
+		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+		{
+			var view = base.OnCreateView(inflater, container, savedInstanceState);
+			view.SetBackgroundResource(Resource.Color.background_holo_dark);
+
+			return view;
+		}
 	}
 }
