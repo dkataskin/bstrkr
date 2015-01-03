@@ -82,7 +82,6 @@ namespace bstrkr.mvvm.viewmodels
 					this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 				}
 			});
-
 		}
 
 		private IEnumerable<RoutesListItemViewModel> CreateRouteViewModels(Route route)

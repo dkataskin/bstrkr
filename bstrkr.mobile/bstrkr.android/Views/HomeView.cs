@@ -93,6 +93,7 @@ namespace bstrkr.android.views
 							}
 						}
 
+						this.FragmentManager.PopBackStackImmediate(null, PopBackStackFlags.None | PopBackStackFlags.Inclusive);
 						transaction.Commit();
 						return true;
 
@@ -217,7 +218,6 @@ namespace bstrkr.android.views
             base.OnCreate(savedInstanceState);
 			this.SetContentView(Resource.Layout.page_home_view);
 
-			//_title = _drawerTitle = this.Title;
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
 
@@ -237,13 +237,11 @@ namespace bstrkr.android.views
 
 			_drawerToggle.DrawerClosed += delegate
 			{
-				//this.ActionBar.Title = _title;
 				this.InvalidateOptionsMenu();
 			};
 
 			_drawerToggle.DrawerOpened += delegate
 			{
-				//this.ActionBar.Title = _drawerTitle;
 				this.InvalidateOptionsMenu();
 			};
 
@@ -253,10 +251,21 @@ namespace bstrkr.android.views
 
 			if (null == savedInstanceState)
 			{
-				var homeViewModel = this.ViewModel as HomeViewModel;
-				homeViewModel.SelectMenuItemCommand.Execute(homeViewModel.MenuItems[0]);
+				this.ShowMap();
 			}
         }
+
+		public override void OnBackPressed()
+		{
+			if (this.FragmentManager.BackStackEntryCount == 1)
+			{
+				this.ShowMap();
+			}
+			else
+			{
+				base.OnBackPressed();
+			}
+		}
 
 		private void RegisterForDetailsRequests()
 		{
@@ -300,6 +309,12 @@ namespace bstrkr.android.views
 									.AddToBackStack(null)
 									.Commit();
 			}
+		}
+
+		private void ShowMap()
+		{
+			var homeViewModel = this.ViewModel as HomeViewModel;
+			homeViewModel.SelectMenuItemCommand.Execute(homeViewModel.MenuItems[0]);
 		}
     }
 }
