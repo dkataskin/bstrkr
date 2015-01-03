@@ -1,27 +1,25 @@
 ﻿using System;
 
 using Android.OS;
+using Android.Preferences;
 using Android.Views;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+
 using bstrkr.core;
 
 namespace bstrkr.android.views
 {
-	public class PreferencesView : MvxFragment
+	public class PreferencesView : PreferenceFragment
 	{
-		public PreferencesView()
+		public override void OnCreate(Bundle savedInstanceState)
 		{
-		}
+			base.OnCreate(savedInstanceState);
 
-		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-		{
-			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
+			this.AddPreferencesFromResource(Resource.Xml.preferences);
 
-			this.Activity.Title = AppResources.preferences_view_title;
-
-			return this.BindingInflate(Resource.Layout.fragment_preferences_view, null);
+			this.Activity.ActionBar.Title = AppResources.preferences_view_title;
 		}
 	}
 }
