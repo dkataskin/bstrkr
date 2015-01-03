@@ -23,7 +23,7 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			this.SetHasOptionsMenu(true);
-			this.Activity.Title = AppResources.route_stops_view_title;
+			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
 
 			return this.BindingInflate(Resource.Layout.fragment_stops_view, null);
 		}

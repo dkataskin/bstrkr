@@ -48,13 +48,13 @@ namespace bstrkr.android.views
     {
 		private DrawerLayout _drawer;
 		private MyActionBarDrawerToggle _drawerToggle;
-		private string _drawerTitle;
-		private string _title;
+		//private string _drawerTitle;
+		//private string _title;
 		private MvxListView _drawerList;
-		private string _tag;
+		//private string _tag;
 		private MenuSection _currentSection;
 
-		private static IDictionary<string, Type> _frags = new Dictionary<string, Type>();
+		private static IDictionary<Type, string> _frag2tag = new Dictionary<Type, string>();
 
 		public bool Show(MvxViewModelRequest request)
 		{
@@ -63,7 +63,7 @@ namespace bstrkr.android.views
 				var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
 				var homeViewModel = this.ViewModel as HomeViewModel;
 				MvxFragment fragment = null;
-				var title = string.Empty;
+				//var title = string.Empty;
 
 				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
 				if (section == MenuSection.Unknown)
@@ -75,8 +75,7 @@ namespace bstrkr.android.views
 				switch (section)
 				{
 					case MenuSection.Map:
-						title = AppResources.map_view_title;
-						this.ActionBar.Title = _title = title;
+						this.ActionBar.Title = AppResources.map_view_title;
 						_drawerList.SetItemChecked(0, true);
 
 						var map = this.FindFragmentById<MapView>(Resource.Id.mapView);
@@ -86,37 +85,43 @@ namespace bstrkr.android.views
 						}
 
 						var transaction = this.FragmentManager.BeginTransaction();
-						var fragmentToRemove = this.FragmentManager.FindFragmentByTag(_tag);
-						if (fragmentToRemove != null)
+						foreach (var viewType in _frag2tag.Keys) 
 						{
-							transaction.Remove(fragmentToRemove);
+							if (viewType != typeof(MapView))
+							{
+								var fragmentToRemove = this.FragmentManager.FindFragmentByTag(_frag2tag[viewType]);
+								if (fragmentToRemove != null)
+								{
+									transaction.Remove(fragmentToRemove);
+								}
+							}
 						}
 
 						transaction.Commit();
-
+						//_tag = string.Empty;
 						return true;
 
 					case MenuSection.Routes:
 						fragment = this.FindFragment<RoutesView>() ?? new RoutesView();
-						title = AppResources.routes_view_title;
+						//title = AppResources.routes_view_title;
 						_currentSection = section;
 						break;
 
 					case MenuSection.RouteStops:
 						fragment = this.FindFragment<RouteStopsView>() ?? new RouteStopsView();
-						title = AppResources.route_stops_view_title;
+						//title = AppResources.route_stops_view_title;
 						_currentSection = section;
 						break;
 
 					case MenuSection.Preferences:
 						fragment = this.FindFragment<PreferencesView>() ?? new PreferencesView();
-						title = AppResources.preferences_view_title;
+						//title = AppResources.preferences_view_title;
 						_currentSection = section;
 						break;
 
 					case MenuSection.Licenses:
 						fragment = this.FindFragment<LicensesView>() ?? new LicensesView();
-						title = AppResources.licenses_view_title;
+						//title = AppResources.licenses_view_title;
 						_currentSection = section;
 						break;
 
@@ -132,26 +137,30 @@ namespace bstrkr.android.views
 
 						return true;
 				}
-
-				if (fragment.Tag == _tag && _tag != null)
-				{
-					return true;
-				}
+//
+//				if (fragment.Tag == _tag && _tag != null)
+//				{
+//					return true;
+//				}
 
 				if (fragment.ViewModel == null)
 				{
 					fragment.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
 				}
 
-				_tag = Guid.NewGuid().ToString();
+				if (!_frag2tag.ContainsKey(fragment.GetType()))
+				{
+					_frag2tag[fragment.GetType()] = Guid.NewGuid().ToString();
+				}
+				//_tag = Guid.NewGuid().ToString();
 				this.FragmentManager.BeginTransaction()
-								    .Replace(Resource.Id.content_frame, fragment, _tag)
+									.Replace(Resource.Id.content_frame, fragment, _frag2tag[fragment.GetType()])
 								   	.AddToBackStack(null)
 								   	.Commit();
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
 				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
-				this.ActionBar.Title = _title = title;
+				//this.ActionBar.Title = _title = title;
 
 				_drawer.CloseDrawer(_drawerList);
 
@@ -214,7 +223,7 @@ namespace bstrkr.android.views
             base.OnCreate(savedInstanceState);
 			this.SetContentView(Resource.Layout.page_home_view);
 
-			_title = _drawerTitle = this.Title;
+			//_title = _drawerTitle = this.Title;
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
 
@@ -234,13 +243,13 @@ namespace bstrkr.android.views
 
 			_drawerToggle.DrawerClosed += delegate
 			{
-				this.ActionBar.Title = _title;
+				//this.ActionBar.Title = _title;
 				this.InvalidateOptionsMenu();
 			};
 
 			_drawerToggle.DrawerOpened += delegate
 			{
-				this.ActionBar.Title = _drawerTitle;
+				//this.ActionBar.Title = _drawerTitle;
 				this.InvalidateOptionsMenu();
 			};
 
@@ -270,7 +279,12 @@ namespace bstrkr.android.views
 
 		private MvxFragment FindFragment<TView>() where TView : MvxFragment
 		{
-			return this.FragmentManager.FindFragmentById(Resource.Id.content_frame) as TView;
+			if (_frag2tag.ContainsKey(typeof(TView)))
+			{
+				return this.FragmentManager.FindFragmentByTag(_frag2tag[typeof(TView)]) as TView;
+			}
+
+			return null;
 		}
 
 		private void Navigate(MvxViewModelRequest request, IMvxViewModelLoader loaderService)
