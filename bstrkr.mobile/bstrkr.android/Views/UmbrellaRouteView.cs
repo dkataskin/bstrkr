@@ -23,6 +23,7 @@ namespace bstrkr.android.views
 
 			var dataContext = this.DataContext as UmbrellaRouteViewModel;
 			this.Activity.ActionBar.Title = dataContext.Title;
+			this.Activity.ActionBar.SetDisplayHomeAsUpEnabled(true);
 
 			return this.BindingInflate(Resource.Layout.fragment_umbrellaroute_view, null);
 		}

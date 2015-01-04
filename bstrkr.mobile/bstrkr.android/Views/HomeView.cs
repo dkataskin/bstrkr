@@ -308,7 +308,16 @@ namespace bstrkr.android.views
 									.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
 									.AddToBackStack(null)
 									.Commit();
+
+				this.DisableDrawer();
 			}
+		}
+
+		private void DisableDrawer()
+		{
+			_drawer.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
+			_drawerToggle.DrawerIndicatorEnabled = false;
+			this.ActionBar.SetDisplayHomeAsUpEnabled(true);
 		}
 
 		private void ShowMap()
