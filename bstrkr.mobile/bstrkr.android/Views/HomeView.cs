@@ -205,6 +205,12 @@ namespace bstrkr.android.views
 				return true;
 			}
 
+			if (item.ItemId == Android.Resource.Id.Home)
+			{
+				this.FragmentManager.PopBackStack();
+				return true;
+			}
+
 			return base.OnOptionsItemSelected(item);
 		}
 
