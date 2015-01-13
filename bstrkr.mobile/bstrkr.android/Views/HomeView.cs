@@ -207,8 +207,10 @@ namespace bstrkr.android.views
 
 			if (item.ItemId == Android.Resource.Id.Home)
 			{
-				this.FragmentManager.PopBackStack();
-				return true;
+				if (this.NavigateBack())
+				{
+					return true;
+				}
 			}
 
 			return base.OnOptionsItemSelected(item);
@@ -263,11 +265,7 @@ namespace bstrkr.android.views
 
 		public override void OnBackPressed()
 		{
-			if (this.FragmentManager.BackStackEntryCount == 1)
-			{
-				this.ShowMap();
-			}
-			else
+			if (!this.NavigateBack())
 			{
 				base.OnBackPressed();
 			}
@@ -294,6 +292,28 @@ namespace bstrkr.android.views
 			}
 
 			return null;
+		}
+
+		private bool NavigateBack()
+		{
+			if (this.FragmentManager.BackStackEntryCount == 0)
+			{
+				return false;
+			}
+
+			if (this.FragmentManager.BackStackEntryCount == 1)
+			{
+				this.ShowMap();
+				return true;
+			}
+
+			this.FragmentManager.PopBackStackImmediate();
+			if (this.FragmentManager.BackStackEntryCount == 1)
+			{
+				this.EnableDrawer();
+			}
+
+			return true;
 		}
 
 		private void Navigate(MvxViewModelRequest request, IMvxViewModelLoader loaderService)
@@ -323,7 +343,16 @@ namespace bstrkr.android.views
 		{
 			_drawer.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
 			_drawerToggle.DrawerIndicatorEnabled = false;
-			this.ActionBar.SetDisplayHomeAsUpEnabled(true);
+
+
+			_drawerToggle.SyncState();
+		}
+
+		private void EnableDrawer()
+		{
+			_drawer.SetDrawerLockMode(DrawerLayout.LockModeUnlocked);
+			_drawerToggle.DrawerIndicatorEnabled = true;
+			_drawerToggle.SyncState();
 		}
 
 		private void ShowMap()
