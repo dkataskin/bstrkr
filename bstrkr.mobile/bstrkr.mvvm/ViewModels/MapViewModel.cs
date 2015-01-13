@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
 
 using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
+
+using Xamarin;
 
 using bstrkr.core;
 using bstrkr.core.collections;
@@ -17,8 +20,6 @@ using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.mvvm.converters;
-using Cirrious.CrossCore.Platform;
-using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -34,6 +35,7 @@ namespace bstrkr.mvvm.viewmodels
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
+		private bool _detectedArea = false;
 		private RouteStop _routeStop;
 
 		public MapViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
@@ -72,6 +74,19 @@ namespace bstrkr.mvvm.viewmodels
 				}
 			}
    		}
+
+		public bool DetectedArea
+		{
+			get { return _detectedArea; }
+			private set
+			{
+				if (_detectedArea != value)
+				{
+					_detectedArea = value;
+					this.RaisePropertyChanged(() => this.DetectedArea);
+				}
+			}
+		}
 
 		public RouteStop RouteStop
 		{
@@ -113,6 +128,7 @@ namespace bstrkr.mvvm.viewmodels
 			MvxTrace.Trace(MvxTraceLevel.Diagnostic, () => "Location changed");
 
 			this.Location = _locationService.Location;
+			this.DetectedArea = _locationService.DetectedArea;
 
 			if (_liveDataProvider == null)
 			{

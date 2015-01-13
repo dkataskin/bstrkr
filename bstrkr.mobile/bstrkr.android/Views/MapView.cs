@@ -112,24 +112,23 @@ namespace bstrkr.android.views
 														AppConsts.DefaultLocation.ToLatLng(),
 														AppConsts.DefaultZoom);
 
-				map.MyLocationEnabled = true;
-
 				map.MoveCamera(cameraUpdate);
 
 				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
 				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
 				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
 				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
-			}
 
-			var set = this.CreateBindingSet<MapView, MapViewModel>();
-			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
-			set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
-			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
-			set.Bind(_mapViewWrapper).For(x => x.Zoom)
-									 .To(vm => vm.MarkerSize)
-									 .WithConversion(new ZoomToMarkerSizeConverter());
-			set.Apply();
+				var set = this.CreateBindingSet<MapView, MapViewModel>();
+				set.Bind(map).For(m => m.MyLocationEnabled).To(vm => vm.DetectedArea);
+				set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
+				set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
+				set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
+				set.Bind(_mapViewWrapper).For(x => x.Zoom)
+									     .To(vm => vm.MarkerSize)
+									     .WithConversion(new ZoomToMarkerSizeConverter());
+				set.Apply();
+			}
 		}
 	}
 }

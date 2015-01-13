@@ -33,6 +33,8 @@ namespace bstrkr.core.services.location
 
 		public double? Accuracy { get; private set; }
 
+		public bool DetectedArea { get; private set; }
+
 		public void Start()
 		{
 			_locationService.StartUpdating();
@@ -41,12 +43,14 @@ namespace bstrkr.core.services.location
 		public void SelectArea(Area area)
 		{
 			_locationService.StopUpdating();
+
 			this.Area = area;
 
 			if (area != null)
 			{
 				this.Location = new GeoPoint(area.Latitude, area.Longitude);
 				this.Accuracy = 8.0d;
+				this.DetectedArea = false;
 			}
 
 			this.RaiseLocationChangedEvent();
@@ -71,6 +75,7 @@ namespace bstrkr.core.services.location
 				if (location.Item1 <= AppConsts.MaxDistanceFromCityCenter)
 				{
 					this.Area = location.Item2;
+					this.DetectedArea = true;
 				}
 				else if (!_unknownAreaReported)
 				{
