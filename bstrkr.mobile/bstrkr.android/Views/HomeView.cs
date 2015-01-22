@@ -77,10 +77,10 @@ namespace bstrkr.android.views
 					case MenuSection.Map:
 						_drawerList.SetItemChecked(0, true);
 
-						var map = this.FindFragmentById<MapView>(Resource.Id.mapView);
+						var map = this.FragmentManager.FindFragmentById<MapView>(Resource.Id.mapView);
 						if (map.ViewModel == null)
 						{
-							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);;
+							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
 						}
 
 						var transaction = this.FragmentManager.BeginTransaction();
@@ -236,15 +236,6 @@ namespace bstrkr.android.views
 
 			_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
-			this.DisableDrawer();
-
-			this.ActionBar.SetDisplayHomeAsUpEnabled(false);
-			this.ActionBar.SetHomeButtonEnabled(false);
-			this.ActionBar.Title = AppResources.refreshing;
-			_messenger.Subscribe<LocationUpdateMessage>(msg => {
-				var i = 1;
-			});
-
 			//DrawerToggle is the animation that happens with the indicator next to the
 			//ActionBar icon.
 			_drawerToggle = new MyActionBarDrawerToggle(
@@ -267,6 +258,15 @@ namespace bstrkr.android.views
 			_drawer.SetDrawerListener(_drawerToggle);
 
 			this.RegisterForDetailsRequests();
+
+			this.DisableDrawer();
+
+			this.ActionBar.SetDisplayHomeAsUpEnabled(false);
+			this.ActionBar.SetHomeButtonEnabled(false);
+			this.ActionBar.Title = AppResources.refreshing;
+			_messenger.Subscribe<LocationUpdateMessage>(msg => {
+				var i = 1;
+			});
 
 			if (null == savedInstanceState)
 			{
@@ -354,7 +354,6 @@ namespace bstrkr.android.views
 		{
 			_drawer.SetDrawerLockMode(DrawerLayout.LockModeLockedClosed);
 			_drawerToggle.DrawerIndicatorEnabled = false;
-
 
 			_drawerToggle.SyncState();
 		}
