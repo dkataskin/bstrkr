@@ -67,30 +67,6 @@
     <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
       <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net">
-      <HintPath>..\packages\MvvmCross.PortableSupport.3.2.2\lib\MonoAndroid\System.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows">
-      <HintPath>..\packages\MvvmCross.PortableSupport.3.2.2\lib\MonoAndroid\System.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Serialization">
-      <HintPath>..\packages\MvvmCross.PortableSupport.3.2.2\lib\MonoAndroid\System.Xml.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.CrossCore.Droid">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.2.2\lib\MonoAndroid\Cirrious.CrossCore.Droid.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding.Droid">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.CrossCore">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.2.2\lib\MonoAndroid\Cirrious.CrossCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Binding.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Localization">
-      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Localization.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.2.2\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
     </Reference>
@@ -142,14 +118,32 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.1.0\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp.Portable.Encodings">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.1.0\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Insights">
       <HintPath>..\packages\Xamarin.Insights.1.8.3\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.0\lib\MonoAndroid\Cirrious.CrossCore.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.0\lib\MonoAndroid\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Binding.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.1.1\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable.Encodings">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.1.1\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +172,7 @@
     <Compile Include="Views\RouteStopsView.cs" />
     <Compile Include="Views\UmbrellaRouteView.cs" />
     <Compile Include="Views\RouteView.cs" />
+    <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 using Cirrious.MvvmCross.ViewModels;
+
 using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels

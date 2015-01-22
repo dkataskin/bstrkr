@@ -91,4 +91,7 @@
 	<data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+	<data name="refreshing" xml:space="preserve">
+    <value>Refreshing...</value>
+  </data>
 </root>

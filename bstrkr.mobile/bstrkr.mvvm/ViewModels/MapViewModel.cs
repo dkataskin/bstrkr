@@ -4,22 +4,25 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Chance.MvvmCross.Plugins.UserInteraction;
-
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
-using Cirrious.MvvmCross.ViewModels;
-
-using Xamarin;
-
 using bstrkr.core;
 using bstrkr.core.collections;
 using bstrkr.core.config;
 using bstrkr.core.map;
 using bstrkr.core.services.location;
+
 using bstrkr.core.spatial;
-using bstrkr.providers;
 using bstrkr.mvvm.converters;
+using bstrkr.providers;
+
+using Chance.MvvmCross.Plugins.UserInteraction;
+
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.ViewModels;
+
+using Xamarin;
+using bstrkr.mvvm.messages;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -27,6 +30,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
+		private readonly IMvxMessenger _messenger;
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
@@ -38,10 +42,13 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _detectedArea = false;
 		private RouteStop _routeStop;
 
-		public MapViewModel(IBusTrackerLocationService locationService, ILiveDataProviderFactory providerFactory)
+		public MapViewModel(
+					IBusTrackerLocationService locationService, 
+					ILiveDataProviderFactory providerFactory,
+					IMvxMessenger messenger)
 		{
 			_providerFactory = providerFactory;
-
+			_messenger = messenger;
 			_locationService = locationService;
 			_locationService.LocationChanged += OnLocationChanged;
 			_locationService.LocationError += OnLocationError;
@@ -142,6 +149,7 @@ namespace bstrkr.mvvm.viewmodels
 				}
 			}
 
+			_messenger.Publish(new LocationUpdateMessage(this, _locationService.Area));
 			this.IsBusy = false;
 		}
 

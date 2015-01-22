@@ -14,18 +14,6 @@ using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 
-using Chance.MvvmCross.Plugins.UserInteraction;
-
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Droid.FullFragging;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
-using Cirrious.MvvmCross.Droid.Views;
-using Cirrious.MvvmCross.ViewModels;
-
-using Xamarin;
-
 using bstrkr.core;
 using bstrkr.core.android.extensions;
 using bstrkr.core.android.presenters;
@@ -36,8 +24,22 @@ using bstrkr.core.context;
 using bstrkr.core.utils;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
+using bstrkr.mvvm.messages;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+
+using Chance.MvvmCross.Plugins.UserInteraction;
+
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Binding.BindingContext;
+using Cirrious.MvvmCross.Binding.Droid.Views;
+using Cirrious.MvvmCross.Droid.FullFragging;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Cirrious.MvvmCross.Droid.Views;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.ViewModels;
+
+using Xamarin;
 
 namespace bstrkr.android.views
 {
@@ -50,6 +52,8 @@ namespace bstrkr.android.views
 		private MyActionBarDrawerToggle _drawerToggle;
 		private MvxListView _drawerList;
 		private MenuSection _currentSection;
+
+		private IMvxMessenger _messenger;
 
 		private static IDictionary<Type, string> _frag2tag = new Dictionary<Type, string>();
 
@@ -71,7 +75,6 @@ namespace bstrkr.android.views
 				switch (section)
 				{
 					case MenuSection.Map:
-						this.ActionBar.Title = AppResources.map_view_title;
 						_drawerList.SetItemChecked(0, true);
 
 						var map = this.FindFragmentById<MapView>(Resource.Id.mapView);
@@ -226,13 +229,21 @@ namespace bstrkr.android.views
             base.OnCreate(savedInstanceState);
 			this.SetContentView(Resource.Layout.page_home_view);
 
+			_messenger = Mvx.Resolve<IMvxMessenger>();
+
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
 
 			_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
-			this.ActionBar.SetDisplayHomeAsUpEnabled(true);
-			this.ActionBar.SetHomeButtonEnabled(true);
+			this.DisableDrawer();
+
+			this.ActionBar.SetDisplayHomeAsUpEnabled(false);
+			this.ActionBar.SetHomeButtonEnabled(false);
+			this.ActionBar.Title = AppResources.refreshing;
+			_messenger.Subscribe<LocationUpdateMessage>(msg => {
+				var i = 1;
+			});
 
 			//DrawerToggle is the animation that happens with the indicator next to the
 			//ActionBar icon.

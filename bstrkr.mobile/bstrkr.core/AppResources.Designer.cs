@@ -143,6 +143,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string refreshing {
+            get {
+                return ResourceManager.GetString("refreshing", resourceCulture);
+            }
+        }
+        
         public static string cancel {
             get {
                 return ResourceManager.GetString("cancel", resourceCulture);
