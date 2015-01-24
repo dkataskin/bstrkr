@@ -15,7 +15,6 @@ namespace bstrkr.android.views
 		{
 			this.ViewModel = vehicleVM;
 			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
-
 		}
 
 		public VehicleViewModel ViewModel { get; private set; }

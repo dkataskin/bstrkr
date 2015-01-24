@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -10,11 +11,11 @@ using Android.Gms.Location;
 using Android.Locations;
 using Android.OS;
 
-using Cirrious.CrossCore.Droid;
-using Cirrious.CrossCore.Exceptions;
-
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
+
+using Cirrious.CrossCore.Droid;
+using Cirrious.CrossCore.Exceptions;
 
 namespace bstrkr.core.android.services.location
 {
@@ -27,10 +28,15 @@ namespace bstrkr.core.android.services.location
 		private readonly float _desiredAccuracy = 1000.0f;
 		private readonly long _interval = 10000;
 		private readonly float _displacement = 30;
+		private readonly object _lockObject = new object();
+
 		private readonly IMvxAndroidGlobals _androidGlobals;
 
 		private LocationRequest _coarseLocationRequest;
 		private IGoogleApiClient _googleAPIClient;
+		private LocationManager _locationManager;
+
+		private bool _located;
 
 		public LocationService(IMvxAndroidGlobals androidGlobals)
 		{
@@ -61,11 +67,19 @@ namespace bstrkr.core.android.services.location
 		{
 			LocationServices.FusedLocationApi.RemoveLocationUpdates(_googleAPIClient, this);
 			this.DisconnectGoogleAPI();
+
+			if (_locationManager != null)
+			{
+				_locationManager.RemoveUpdates(this);
+			}
 		}
 
 		public void OnConnected(Bundle connectionHint)
 		{
 			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _coarseLocationRequest, this);
+
+			Task.Delay(TimeSpan.FromSeconds(20))
+				.ContinueWith(task => this.UseDifferentProviderIfNotLocated);
 		}
 
 		public void OnConnectionSuspended(int cause)
@@ -78,6 +92,11 @@ namespace bstrkr.core.android.services.location
 
 		public void OnLocationChanged(Location location)
 		{
+			lock(_lockObject)
+			{
+				_located = true;
+			}
+
 			if (location != null)
 			{
 				this.RaiseLocationUpdatedEvent(location);
@@ -148,6 +167,32 @@ namespace bstrkr.core.android.services.location
 			if (this.LocationUpdated != null)
 			{
 				this.LocationUpdated(this, new LocationUpdatedEventArgs(location.Latitude, location.Longitude));
+			}
+		}
+
+		private void UseDifferentProviderIfNotLocated(Task task)
+		{
+			lock(_lockObject)
+			{
+				if (!_located)
+				{
+					this.StopUpdating();
+
+					var criteria = new Criteria();
+					criteria.Accuracy = Accuracy.Coarse;
+					criteria.PowerRequirement = Power.Low;
+					criteria.AltitudeRequired = false;
+					criteria.BearingRequired = false;
+					criteria.SpeedRequired = false;
+
+					_locationManager = _androidGlobals.ApplicationContext.GetSystemService(Context.LocationService) as LocationManager;
+					var provider = _locationManager.GetBestProvider(criteria, true);
+
+					if (!string.IsNullOrEmpty(provider))
+					{
+						_locationManager.RequestLocationUpdates(provider, 15000, 30.0f, this);
+					}
+				}
 			}
 		}
 	}

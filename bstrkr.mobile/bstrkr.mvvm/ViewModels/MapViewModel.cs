@@ -12,6 +12,7 @@ using bstrkr.core.services.location;
 
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
+using bstrkr.mvvm.messages;
 using bstrkr.providers;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
@@ -22,7 +23,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using bstrkr.mvvm.messages;
 
 namespace bstrkr.mvvm.viewmodels
 {
