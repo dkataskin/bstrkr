@@ -9,5 +9,7 @@ namespace bstrkr.core.services.resources
 		object GetVehicleMarker(VehicleTypes type, MapMarkerSizes size);
 
 		object GetRouteStopMarker(MapMarkerSizes size);
+
+		object GetVehicleTypeIcon(VehicleTypes vehicleType);
 	}
 }

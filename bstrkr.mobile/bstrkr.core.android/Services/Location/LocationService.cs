@@ -23,7 +23,8 @@ namespace bstrkr.core.android.services.location
 								   ILocationService, 
 								   IGoogleApiClientConnectionCallbacks, 
 								   IGoogleApiClientOnConnectionFailedListener, 
-								   Android.Gms.Location.ILocationListener
+								   Android.Gms.Location.ILocationListener,
+	Android.Locations.ILocationListener
 	{
 		private readonly float _desiredAccuracy = 1000.0f;
 		private readonly long _interval = 10000;
@@ -79,7 +80,7 @@ namespace bstrkr.core.android.services.location
 			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _coarseLocationRequest, this);
 
 			Task.Delay(TimeSpan.FromSeconds(20))
-				.ContinueWith(task => this.UseDifferentProviderIfNotLocated);
+				.ContinueWith(task => this.UseDifferentProviderIfNotLocated());
 		}
 
 		public void OnConnectionSuspended(int cause)
@@ -101,6 +102,18 @@ namespace bstrkr.core.android.services.location
 			{
 				this.RaiseLocationUpdatedEvent(location);
 			}
+		}
+
+		public void OnProviderDisabled(string provider)
+		{
+		}
+
+		public void OnProviderEnabled(string provider)
+		{
+		}
+
+		public void OnStatusChanged(string provider, Availability status, Bundle extras)
+		{
 		}
 
 		private void InitializeGoogleAPI()
@@ -170,7 +183,7 @@ namespace bstrkr.core.android.services.location
 			}
 		}
 
-		private void UseDifferentProviderIfNotLocated(Task task)
+		private void UseDifferentProviderIfNotLocated()
 		{
 			lock(_lockObject)
 			{

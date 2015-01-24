@@ -5,19 +5,19 @@ using Android.Gms.Maps;
 using Android.OS;
 using Android.Views;
 
-using Cirrious.MvvmCross.Binding.BindingContext;
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
-
-using Xamarin;
-
+using bstrkr.core;
 using bstrkr.core.android.extensions;
 using bstrkr.core.consts;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using bstrkr.core;
+
+using Cirrious.MvvmCross.Binding.BindingContext;
+using Cirrious.MvvmCross.Binding.Droid.BindingContext;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+
+using Xamarin;
 
 namespace bstrkr.android.views
 {

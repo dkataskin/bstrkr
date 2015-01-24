@@ -264,8 +264,12 @@ namespace bstrkr.android.views
 			this.ActionBar.SetDisplayHomeAsUpEnabled(false);
 			this.ActionBar.SetHomeButtonEnabled(false);
 			this.ActionBar.Title = AppResources.refreshing;
-			_messenger.Subscribe<LocationUpdateMessage>(msg => {
-				var i = 1;
+
+			_messenger.SubscribeOnMainThread<LocationUpdateMessage>(msg => 
+			{
+				this.ActionBar.SetDisplayHomeAsUpEnabled(true);
+				this.ActionBar.SetHomeButtonEnabled(true);
+				this.ActionBar.Title = AppResources.map_view_title;
 			});
 
 			if (null == savedInstanceState)

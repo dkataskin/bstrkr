@@ -81,12 +81,15 @@
     <None Include="Resources\Images\busstop_b.png" />
     <None Include="Resources\Images\busstop_m.png" />
     <None Include="Resources\Images\busstop_s.png" />
-    <None Include="Resources\Images\shuttlebus_b.png" />
-    <None Include="Resources\Images\shuttlebus_m.png" />
-    <None Include="Resources\Images\shuttlebus_s.png" />
-    <None Include="Resources\Images\trolleybus_b.png" />
-    <None Include="Resources\Images\trolleybus_m.png" />
-    <None Include="Resources\Images\trolleybus_s.png" />
+    <None Include="Resources\Images\minibus_b.png" />
+    <None Include="Resources\Images\minibus_m.png" />
+    <None Include="Resources\Images\minibus_s.png" />
+    <None Include="Resources\Images\trolley_b.png" />
+    <None Include="Resources\Images\trolley_m.png" />
+    <None Include="Resources\Images\trolley_s.png" />
+    <None Include="Resources\Images\vehicletypes_bus.png" />
+    <None Include="Resources\Images\vehicletypes_minibus.png" />
+    <None Include="Resources\Images\vehicletypes_trolley.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

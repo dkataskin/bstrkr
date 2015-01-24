@@ -5,8 +5,8 @@ namespace bstrkr.core
 	public enum VehicleTypes
 	{
 		Bus,
-		ShuttleBus,
-		Trolleybus,
-		Tramway,
+		MiniBus,
+		Trolley,
+		Tram,
 	}
 }

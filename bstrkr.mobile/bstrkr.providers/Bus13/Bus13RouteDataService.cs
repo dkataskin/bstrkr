@@ -296,10 +296,10 @@ namespace bstrkr.core.providers.bus13
 			switch (vehicleType)
 			{
 				case "Т":
-					return VehicleTypes.Trolleybus;
+					return VehicleTypes.Trolley;
 
 				case "М":
-					return VehicleTypes.ShuttleBus;
+					return VehicleTypes.MiniBus;
 
 				case "А":
 					return VehicleTypes.Bus;
