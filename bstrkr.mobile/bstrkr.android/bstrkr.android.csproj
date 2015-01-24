@@ -178,7 +178,6 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="packages.config" />
-    <None Include="ToDo-MvvmCross\_ Droid UI.txt" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
