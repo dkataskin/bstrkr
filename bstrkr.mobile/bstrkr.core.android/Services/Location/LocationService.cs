@@ -29,17 +29,12 @@ namespace bstrkr.core.android.services.location
 		private readonly float _displacement = 30;
 		private readonly IMvxAndroidGlobals _androidGlobals;
 
-		private LocationRequest _fineLocationRequest;
 		private LocationRequest _coarseLocationRequest;
 		private IGoogleApiClient _googleAPIClient;
 
 		public LocationService(IMvxAndroidGlobals androidGlobals)
 		{
 			_androidGlobals = androidGlobals;
-
-			_fineLocationRequest = LocationRequest.Create();
-			_fineLocationRequest.SetInterval(_interval);
-			_fineLocationRequest.SetPriority(LocationRequest.PriorityBalancedPowerAccuracy);
 
 			_coarseLocationRequest = LocationRequest.Create();
 			_coarseLocationRequest.SetSmallestDisplacement(_displacement);
@@ -85,12 +80,6 @@ namespace bstrkr.core.android.services.location
 		{
 			if (location != null)
 			{
-//				if (location.HasAccuracy && location.Accuracy <= _desiredAccuracy)
-//				{
-//					LocationServices.FusedLocationApi.RemoveLocationUpdates(_googleAPIClient, this);
-//					LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _coarseLocationRequest, this);
-//				}
-
 				this.RaiseLocationUpdatedEvent(location);
 			}
 		}
