@@ -3,15 +3,4 @@
 	<string name="app_name">bstrkr.android</string>
   	<string name="drawer_open">Open</string>
   	<string name="drawer_close">Close</string>
-  	<string name="map_view_title">Map</string>
-  	<string name="routes_view_title">Routes</string>
-  	<string name="prefs_view_title">Preferences</string>
-  	<string name="licenses_view_title">Licenses</string>
-  	<string name="about_view_title">About</string>
-  	<string name="about_text">BusTracker v0.1 © Vershi 2014</string>
-  	<string name="unknow_location_dialog">
-  		<![CDATA[Sorry, but it looks like we can\'t show you public transportation on the map, we don\'t have data for 
-  				 your area. It might be though that we detected your location wrong. Would you like to select from one 
-  				 of the available locations?]]>
-  	</string>
 </resources>

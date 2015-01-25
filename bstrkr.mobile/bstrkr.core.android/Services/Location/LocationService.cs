@@ -24,7 +24,7 @@ namespace bstrkr.core.android.services.location
 								   IGoogleApiClientConnectionCallbacks, 
 								   IGoogleApiClientOnConnectionFailedListener, 
 								   Android.Gms.Location.ILocationListener,
-	Android.Locations.ILocationListener
+								   Android.Locations.ILocationListener
 	{
 		private readonly float _desiredAccuracy = 1000.0f;
 		private readonly long _interval = 10000;

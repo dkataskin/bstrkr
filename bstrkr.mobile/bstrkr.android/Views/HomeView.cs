@@ -267,6 +267,8 @@ namespace bstrkr.android.views
 
 			_messenger.SubscribeOnMainThread<LocationUpdateMessage>(msg => 
 			{
+				this.EnableDrawer();
+
 				this.ActionBar.SetDisplayHomeAsUpEnabled(true);
 				this.ActionBar.SetHomeButtonEnabled(true);
 				this.ActionBar.Title = AppResources.map_view_title;

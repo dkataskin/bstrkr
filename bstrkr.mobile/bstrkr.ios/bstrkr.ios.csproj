@@ -143,26 +143,8 @@
     <BundleResource Include="..\bstrkr.core\Resources\Images\shuttlebus_h.png">
       <Link>Resources\shuttlebus_h.png</Link>
     </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\shuttlebus_b.png">
-      <Link>Resources\shuttlebus_b.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\shuttlebus_m.png">
-      <Link>Resources\shuttlebus_m.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\shuttlebus_s.png">
-      <Link>Resources\shuttlebus_s.png</Link>
-    </BundleResource>
     <BundleResource Include="..\bstrkr.core\Resources\Images\trolleybus_h.png">
       <Link>Resources\trolleybus_h.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\trolleybus_b.png">
-      <Link>Resources\trolleybus_b.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\trolleybus_m.png">
-      <Link>Resources\trolleybus_m.png</Link>
-    </BundleResource>
-    <BundleResource Include="..\bstrkr.core\Resources\Images\trolleybus_s.png">
-      <Link>Resources\trolleybus_s.png</Link>
     </BundleResource>
     <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_b.png">
       <Link>Resources\busstop_b.png</Link>
@@ -175,6 +157,24 @@
     </BundleResource>
     <BundleResource Include="..\bstrkr.core\Resources\Images\busstop_s.png">
       <Link>Resources\busstop_s.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\minibus_b.png">
+      <Link>Resources\minibus_b.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\minibus_m.png">
+      <Link>Resources\minibus_m.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\minibus_s.png">
+      <Link>Resources\minibus_s.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\trolley_b.png">
+      <Link>Resources\trolley_b.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\trolley_m.png">
+      <Link>Resources\trolley_m.png</Link>
+    </BundleResource>
+    <BundleResource Include="..\bstrkr.core\Resources\Images\trolley_s.png">
+      <Link>Resources\trolley_s.png</Link>
     </BundleResource>
   </ItemGroup>
   <ItemGroup>

@@ -172,7 +172,6 @@
     <Compile Include="Views\RouteView.cs" />
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Bootstrap\UserInteractionPluginBootstrap.cs" />
-    <Compile Include="Views\FirstView.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,9 +240,6 @@
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
     <AndroidResource Include="Resources\Menu\refresh.xml" />
     <AndroidResource Include="Resources\Xml\preferences.xml" />
-    <AndroidResource Include="Resources\layout\FirstView.axml" />
-    <AndroidResource Include="Resources\layout\SplashScreen.axml" />
-    <AndroidResource Include="Resources\values\SplashStyle.xml" />
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolley_s.png">
       <Link>Resources\Drawable\trolley_s.png</Link>
     </AndroidResource>
