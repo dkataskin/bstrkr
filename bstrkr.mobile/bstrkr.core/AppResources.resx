@@ -52,8 +52,8 @@
 	<data name="bus_vehicle_type_title" xml:space="preserve">
     <value>Bus</value>
   </data>
-	<data name="shuttlebus_vehicle_type_title" xml:space="preserve">
-    <value>Shuttle Bus</value>
+	<data name="minibus_vehicle_type_title" xml:space="preserve">
+    <value>Minibus</value>
   </data>
 	<data name="tramway_vehicle_type" xml:space="preserve">
     <value>Tramway</value>
@@ -64,8 +64,8 @@
 	<data name="bus_route_title_format" xml:space="preserve">
     <value>Bus {0}</value>
   </data>
-	<data name="shuttlebus_route_title_format" xml:space="preserve">
-    <value>Shuttle Bus {0}</value>
+	<data name="minibus_route_title_format" xml:space="preserve">
+    <value>Minibus {0}</value>
   </data>
 	<data name="tramway_route_title_format" xml:space="preserve">
     <value>Tramway {0}</value>

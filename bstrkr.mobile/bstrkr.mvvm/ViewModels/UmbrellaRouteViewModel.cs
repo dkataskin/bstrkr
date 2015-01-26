@@ -120,7 +120,7 @@ namespace bstrkr.mvvm.viewmodels
 					return string.Format(AppResources.bus_route_title_format, number);
 
 				case VehicleTypes.MiniBus:
-					return string.Format(AppResources.shuttlebus_route_title_format, number);
+					return string.Format(AppResources.minibus_route_title_format, number);
 
 				case VehicleTypes.Trolley:
 					return string.Format(AppResources.troll_route_title_format, number);

@@ -21,6 +21,7 @@ namespace bstrkr.android.views
 		{
 			return new MarkerOptions()
 				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
+				.SetTitle(this.ViewModel.Model.Name)
 				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(false);
 		}
