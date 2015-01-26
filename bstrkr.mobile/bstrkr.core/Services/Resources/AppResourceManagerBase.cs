@@ -9,7 +9,6 @@ namespace bstrkr.core.services.resources
 	{
 		private const string VehicleMarkerImgFormatString = "{0}_{1}.png";
 		private const string RouteStopMarkerImgFormatString = "busstop_{0}.png";
-		private const string VehicleTypeImgFormatString = "vehicletypes_{0}.png";
 
 		private readonly IDictionary<string, object> _cache = new Dictionary<string, object>();
 
@@ -28,11 +27,6 @@ namespace bstrkr.core.services.resources
 			var key = string.Format(RouteStopMarkerImgFormatString, this.GetSizeKey(size));
 
 			return this.GetImageFromCache(key);
-		}
-
-		public object GetVehicleTypeIcon(VehicleTypes vehicleType)
-		{
-			return this.GetImageResource(string.Format(VehicleTypeImgFormatString, vehicleType.ToString().ToLower()));
 		}
 
 		private object GetImageFromCache(string key)

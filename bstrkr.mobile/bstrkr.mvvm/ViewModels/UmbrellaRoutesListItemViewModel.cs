@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-using Cirrious.MvvmCross.ViewModels;
-
 using bstrkr.core;
+
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
