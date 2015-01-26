@@ -23,6 +23,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using System.Collections.Generic;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -143,6 +144,10 @@ namespace bstrkr.mvvm.viewmodels
 				if (_liveDataProvider != null)
 				{
 					_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
+					_liveDataProvider.GetRouteStopsAsync()
+									 .ContinueWith(this.ShowRouteStops)
+									 .ConfigureAwait(false);
+
 					_liveDataProvider.Start();
 
 					MvxTrace.Trace(() => "provider started");
@@ -153,22 +158,24 @@ namespace bstrkr.mvvm.viewmodels
 			this.IsBusy = false;
 		}
 
-		private async Task LoadRouteStopsAsync()
+		private void ShowRouteStops(Task<IEnumerable<RouteStop>> task)
 		{
-			var stops = await _liveDataProvider.GetRouteStopsAsync();
-			lock(_stops)
+			if (task.Status == TaskStatus.RanToCompletion && task.Result != null)
 			{
-				this.Dispatcher.RequestMainThreadAction(() =>
+				lock(_stops)
 				{
-					foreach (var stop in stops)
+					this.Dispatcher.RequestMainThreadAction(() =>
 					{
-						var vm = this.CreateRouteStopVM(stop);
-						_stops.Add(vm);
-					}
-				});
+						foreach (var stop in task.Result)
+						{
+							var vm = this.CreateRouteStopVM(stop);
+							_stops.Add(vm);
+						}
+					});
 
-				this.SelectClosestRouteStop(this.Location);
-			};
+					this.SelectClosestRouteStop(this.Location);
+				};
+			}
 		}
 
 		private void SelectClosestRouteStop(GeoPoint location)
