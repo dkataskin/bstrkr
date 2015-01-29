@@ -112,12 +112,6 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.1.1\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp.Portable.Encodings">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.1.1\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
-    </Reference>
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">
       <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.3\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.dll</HintPath>
     </Reference>
@@ -144,6 +138,12 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Visibility.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.2.0\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable.Encodings">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.2.0\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
