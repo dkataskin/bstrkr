@@ -45,7 +45,8 @@ namespace bstrkr.android.views
 {
 	[Activity(Label = "Home", 
 			  LaunchMode = LaunchMode.SingleTop, 
-			  Icon = "@drawable/ic_launcher")]
+			  Icon = "@drawable/ic_launcher",
+			  ScreenOrientation = ScreenOrientation.Portrait)]
 	public class HomeView : MvxActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
