@@ -13,6 +13,7 @@ namespace bstrkr.android.views
 		public RouteStopMarker(RouteStopMapViewModel routeStopVM)
 		{
 			this.ViewModel = routeStopVM;
+			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
 		}
 
 		public RouteStopMapViewModel ViewModel { get; private set; }

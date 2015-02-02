@@ -21,6 +21,7 @@ namespace bstrkr.mvvm.viewmodels
 		public MapMarkerViewModelBase(IAppResourceManager resourceManager)
 		{
 			_resourceManager = resourceManager;
+			this.Icon = this.GetIcon();
 		}
 
 		public virtual MapMarkerSizes MarkerSize
@@ -36,6 +37,10 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_markerSize = value;
 					this.RaisePropertyChanged(() => this.MarkerSize);
+					this.Icon = this.GetIcon();
+				}
+				else if (this.Icon == null)
+				{
 					this.Icon = this.GetIcon();
 				}
 			}

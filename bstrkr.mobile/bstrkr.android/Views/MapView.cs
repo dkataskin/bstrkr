@@ -18,6 +18,7 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
+using bstrkr.core.map;
 
 namespace bstrkr.android.views
 {
@@ -128,6 +129,13 @@ namespace bstrkr.android.views
 									     .To(vm => vm.MarkerSize)
 									     .WithConversion(new ZoomToMarkerSizeConverter());
 				set.Apply();
+
+				var converter = new ZoomToMarkerSizeConverter();
+				(this.DataContext as MapViewModel).MarkerSize = (MapMarkerSizes)converter.Convert(
+					_mapViewWrapper.Zoom,
+					typeof(MapMarkerSizes),
+					null,
+					null);
 			}
 		}
 	}
