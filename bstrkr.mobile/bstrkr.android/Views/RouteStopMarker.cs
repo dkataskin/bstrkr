@@ -23,6 +23,7 @@ namespace bstrkr.android.views
 			return new MarkerOptions()
 				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
 				.SetTitle(this.ViewModel.Model.Name)
+				.SetSnippet(this.ViewModel.Model.Description)
 				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(false);
 		}
