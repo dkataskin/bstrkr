@@ -15,6 +15,7 @@ namespace bstrkr.mvvm.viewmodels
 		private MapMarkerSizes _markerSize;
 		private object _icon;
 		private GeoPoint _location;
+		private bool _isVisible = true;
 
 		private T _model;
 
@@ -93,6 +94,23 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_icon = value;
 					this.RaisePropertyChanged(() => this.Icon);
+				}
+			}
+		}
+
+		public virtual bool IsVisible
+		{
+			get
+			{
+				return _isVisible;
+			}
+
+			set
+			{
+				if (_isVisible != value)
+				{
+					_isVisible = value;
+					this.RaisePropertyChanged(() => this.IsVisible);
 				}
 			}
 		}

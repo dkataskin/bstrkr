@@ -39,6 +39,11 @@ namespace bstrkr.android.views
 			{
 				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
 			}
+
+			if (args.PropertyName.Equals("IsVisible"))
+			{
+				this.Marker.Visible = this.ViewModel.IsVisible;
+			}
 		}
 	}
 }

@@ -10,7 +10,7 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.converters
 {
-	public class ZoomToMarkerSizeConverter : IMvxValueConverter
+	public class ZoomToMarkerSizeConverter : MvxValueConverter<float, MapMarkerSizes>
 	{
 		private readonly IList<Tuple<float, MapMarkerSizes>> _map = new List<Tuple<float, MapMarkerSizes>>
 		{
@@ -18,12 +18,7 @@ namespace bstrkr.mvvm.converters
 			new Tuple<float, MapMarkerSizes>(12.0f, MapMarkerSizes.Medium)
 		};
 
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return this.ConvertBack(value, targetType, parameter, culture);
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		protected override MapMarkerSizes Convert(float value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (targetType != typeof(MapMarkerSizes))
 			{
@@ -41,5 +36,43 @@ namespace bstrkr.mvvm.converters
 
 			return MapMarkerSizes.Small;
 		}
+
+//		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//		{
+//			if (targetType != typeof(MapMarkerSizes))
+//			{
+//				throw new InvalidOperationException("Invalid target type");
+//			}
+//
+//			var zoom = (float)value;
+//			foreach (var tuple in _map)
+//			{
+//				if (zoom >= tuple.Item1)
+//				{
+//					return tuple.Item2;
+//				}
+//			}
+//
+//			return MapMarkerSizes.Small;
+//		}
+//
+//		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//		{
+//			if (targetType != typeof(MapMarkerSizes))
+//			{
+//				throw new InvalidOperationException("Invalid target type");
+//			}
+//
+//			var zoom = (float)value;
+//			foreach (var tuple in _map)
+//			{
+//				if (zoom >= tuple.Item1)
+//				{
+//					return tuple.Item2;
+//				}
+//			}
+//
+//			return MapMarkerSizes.Small;
+//		}
 	}
 }

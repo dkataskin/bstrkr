@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -8,8 +9,8 @@ using bstrkr.core;
 using bstrkr.core.collections;
 using bstrkr.core.config;
 using bstrkr.core.map;
-using bstrkr.core.services.location;
 
+using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.messages;
@@ -23,7 +24,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using System.Collections.Generic;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -41,6 +41,7 @@ namespace bstrkr.mvvm.viewmodels
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
 		private bool _detectedArea = false;
+		private float _zoom;
 		private RouteStop _routeStop;
 
 		public MapViewModel(
@@ -113,20 +114,20 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public MapMarkerSizes MarkerSize
+		public float Zoom
 		{
 			get
 			{
-				return _markerSize;
+				return _zoom;
 			}
 
 			set
 			{
-				if (_markerSize != value)
+				if (_zoom != value)
 				{
-					_markerSize = value;
-					this.RaisePropertyChanged(() => this.MarkerSize);
-					this.OnMarkerSizeChanged(value);
+					_zoom = value;
+					this.RaisePropertyChanged(() => this.Zoom);
+					this.OnZoomChanged(value);
 				}
 			}
 		}
@@ -220,7 +221,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
 			vehicleVM.Model = locationUpdate.Vehicle;
-			vehicleVM.MarkerSize = this.MarkerSize;
+			vehicleVM.MarkerSize = _markerSize;
 
 			return vehicleVM;
 		}
@@ -229,7 +230,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			var stopVM = Mvx.IocConstruct<RouteStopMapViewModel>();
 			stopVM.Model = routeStop;
-			stopVM.MarkerSize = this.MarkerSize;
+			stopVM.MarkerSize = MapMarkerSizes.Medium;
 
 			return stopVM;
 		}
@@ -266,21 +267,28 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void OnMarkerSizeChanged(MapMarkerSizes size)
+		private void OnZoomChanged(float zoom)
 		{
-			lock(_vehicles)
+			var conv = new ZoomToMarkerSizeConverter();
+			var markerSize = (MapMarkerSizes)conv.Convert(zoom, typeof(MapMarkerSizes), null, null);
+			if (_markerSize != markerSize)
 			{
-				foreach (var vm in _vehicles)
+				_markerSize = markerSize;
+
+				lock(_vehicles)
 				{
-					vm.MarkerSize = size;
+					foreach (var vm in _vehicles)
+					{
+						vm.MarkerSize = _markerSize;
+					}
 				}
 			}
 
 			lock(_stops)
 			{
-				foreach (var vm in _stops)
+				foreach (var routeStop in _stops)
 				{
-					vm.MarkerSize = size;
+					routeStop.IsVisible = zoom > 13.0f;
 				}
 			}
 		}
