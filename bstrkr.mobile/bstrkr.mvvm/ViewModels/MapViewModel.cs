@@ -37,6 +37,9 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
 		private readonly ZoomToMarkerSizeConverter _zoomConverter = new ZoomToMarkerSizeConverter();
 
+		private ReadOnlyObservableCollection<VehicleViewModel> _vehiclesReadOnly = 
+			new ReadOnlyObservableCollection<VehicleViewModel>(new ObservableCollection<VehicleViewModel>());
+
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
@@ -55,7 +58,7 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService.LocationChanged += OnLocationChanged;
 			_locationService.LocationError += OnLocationError;
 
-			this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
+			//this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 
 			// android requires location watcher to be started on the UI thread
@@ -63,17 +66,21 @@ namespace bstrkr.mvvm.viewmodels
 			this.IsBusy = true;
 		}
 
-		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; private set; }
+		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
+		{ 
+			get { return _vehiclesReadOnly; } 
+			private set
+			{
+				_vehiclesReadOnly = value;
+				this.RaisePropertyChanged(() => this.Vehicles);
+			}
+		}
 
 		public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
 
 		public GeoPoint Location 
 		{ 
-			get 
-			{
-				return _location;
-			}
-
+			get { return _location; }
 			private set 
 			{
 				if (!_location.Equals(value))
@@ -99,11 +106,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public RouteStop RouteStop
 		{
-			get 
-			{
-				return _routeStop;
-			}
-
+			get { return _routeStop; }
 			private set
 			{
 				if (_routeStop != value)
@@ -116,11 +119,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public float Zoom
 		{
-			get
-			{
-				return _zoom;
-			}
-
+			get { return _zoom; }
 			set
 			{
 				if (_zoom != value)
@@ -163,20 +162,36 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			if (task.Status == TaskStatus.RanToCompletion && task.Result != null)
 			{
-				lock(_stops)
+				this.Dispatcher.RequestMainThreadAction(() =>
 				{
-					this.Dispatcher.RequestMainThreadAction(() =>
+					lock(_stops)
 					{
 						foreach (var stop in task.Result)
 						{
 							var vm = this.CreateRouteStopVM(stop);
 							_stops.Add(vm);
 						}
-					});
 
-					this.SelectClosestRouteStop(this.Location);
-				};
+						this.SelectClosestRouteStop(this.Location);
+					};
+
+					lock(_vehicles)
+					{
+						this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
+					}
+				});
 			}
+			else
+			{
+				this.Dispatcher.RequestMainThreadAction(() =>
+				{
+					lock(_vehicles)
+					{
+						this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
+					}
+				});
+			}
+
 		}
 
 		private void SelectClosestRouteStop(GeoPoint location)
