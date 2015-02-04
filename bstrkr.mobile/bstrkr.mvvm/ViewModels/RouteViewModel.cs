@@ -81,6 +81,9 @@ namespace bstrkr.mvvm.viewmodels
 
 		public Route Route { get; set; }
 
-		public ReadOnlyObservableCollection<RouteForecastViewModel> Stops { get; set; }
+		public ReadOnlyObservableCollection<RouteVehiclesListItemViewModel> Vehicles { get; set; }
+
+		public ReadOnlyObservableCollection<RouteStopViewModel> Stops { get; set; }
 	}
 }
+

@@ -67,10 +67,10 @@
     <Compile Include="ViewModels\SelectRouteStopViewModel.cs" />
     <Compile Include="ViewModels\RouteViewModel.cs" />
     <Compile Include="ViewModels\RoutesListItemViewModel.cs" />
-    <Compile Include="ViewModels\RouteForecastViewModel.cs" />
     <Compile Include="Messages\LocationUpdateMessage.cs" />
     <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="App.cs" />
+    <Compile Include="ViewModels\RouteVehiclesListItemViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
