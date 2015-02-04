@@ -1,10 +1,10 @@
 ﻿using System;
 
-using Cirrious.MvvmCross.ViewModels;
-
 using bstrkr.core.map;
 using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
+
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {

@@ -3,10 +3,10 @@
 using Android.OS;
 using Android.Views;
 
+using bstrkr.mvvm.viewmodels;
+
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
-
-using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.android.views
 {
