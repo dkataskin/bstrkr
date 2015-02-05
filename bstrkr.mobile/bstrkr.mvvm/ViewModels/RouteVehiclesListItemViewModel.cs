@@ -1,6 +1,7 @@
 ﻿using System;
 
 using bstrkr.mvvm.viewmodels;
+using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -11,6 +12,12 @@ namespace bstrkr.mvvm.viewmodels
 		private string _routeStopId;
 		private string _routeStopName;
 		private string _routeStopDescription;
+
+		public RouteVehiclesListItemViewModel(Vehicle vehicle)
+		{
+			this.VehicleId = vehicle.Id;
+			this.VehicleCarPlateNumber = vehicle.CarPlate;
+		}
 
 		public string VehicleId { get; set; }
 

@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
+using bstrkr.core.spatial;
+using bstrkr.providers;
+using bstrkr.providers.bus13.data;
+
+using Cirrious.CrossCore.Platform;
+
 using Newtonsoft.Json.Linq;
 
 using RestSharp.Portable;
@@ -14,20 +20,17 @@ using RestSharp.Portable.Deserializers;
 
 using Xamarin;
 
-using bstrkr.core.spatial;
-using bstrkr.providers;
-using bstrkr.providers.bus13.data;
-using Cirrious.CrossCore.Platform;
-
 namespace bstrkr.core.providers.bus13
 {
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
+		private readonly object _lockObject = new object();
 		private readonly string _endpoint;
 		private readonly string _location;
 		private readonly TimeSpan _updateInterval;
 		private readonly IBus13RouteDataService _dataService;
 		private readonly IDictionary<string, Bus13VehicleLocationUpdate> _locationState = new Dictionary<string, Bus13VehicleLocationUpdate>();
+		private readonly IDictionary<string, Route> _routesCache = new Dictionary<string, Route>();
 
 		private Task _updateTask;
 		private CancellationTokenSource _cancellationTokenSource;
@@ -87,12 +90,45 @@ namespace bstrkr.core.providers.bus13
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
 		{
-			return await _dataService.GetRoutesAsync();
+			lock(_routesCache)
+			{
+				if (_routesCache.Count != 0)
+				{
+					return _routesCache.Values.ToList();
+				}
+			}
+
+			var routes = await _dataService.GetRoutesAsync();
+			lock (_routesCache)
+			{
+				foreach (var route in routes)
+				{
+					_routesCache[route.Id] = route;
+				}
+			}
+
+			return routes;
 		}
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync()
 		{
 			return await _dataService.GetStopsAsync();
+		}
+
+		public async Task<IEnumerable<Vehicle>> GetVehiclesAsync()
+		{
+			lock(_locationState)
+			{
+				if (_locationState.Keys.Any())
+				{
+					return _locationState.Values.Select(v => v.Vehicle);
+				}
+			}
+
+			var routes = await this.GetRoutesAsync();
+			var response = await _dataService.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, 0);
+
+			return response.Updates.Select(x => x.Vehicle);
 		}
 
 		private void UpdateInLoop(
@@ -130,22 +166,17 @@ namespace bstrkr.core.providers.bus13
 
 		private IEnumerable<VehicleLocationUpdate> UpdateVehicleLocations(IEnumerable<Bus13VehicleLocationUpdate> updates)
 		{
-			var vehicleLocationUpdates = new List<VehicleLocationUpdate>();
-			foreach (var update in updates)
+			lock(_locationState)
 			{
-				if (!_locationState.ContainsKey(update.Vehicle.Id))
+				var vehicleLocationUpdates = new List<VehicleLocationUpdate>();
+				foreach (var update in updates)
 				{
 					_locationState[update.Vehicle.Id] = update;
-				}
-				else
-				{
-					_locationState[update.Vehicle.Id] = update;
+					vehicleLocationUpdates.Add(new VehicleLocationUpdate(update.Vehicle, new WaypointCollection()));
 				}
 
-				vehicleLocationUpdates.Add(new VehicleLocationUpdate(update.Vehicle, new WaypointCollection()));
+				return vehicleLocationUpdates;
 			}
-
-			return vehicleLocationUpdates;
 		}
 
 		private void RaiseVehicleLocationsUpdatedEvent(IEnumerable<VehicleLocationUpdate> vehicleLocations)

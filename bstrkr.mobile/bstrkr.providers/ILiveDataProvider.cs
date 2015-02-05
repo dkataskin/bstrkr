@@ -14,6 +14,8 @@ namespace bstrkr.providers
 
 		Task<IEnumerable<RouteStop>> GetRouteStopsAsync();
 
+		Task<IEnumerable<Vehicle>> GetVehiclesAsync();
+
 		void Start();
 
 		void Stop();
