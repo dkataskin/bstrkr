@@ -6,6 +6,8 @@ using System.Linq;
 using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
+using System.Threading.Tasks;
+using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -110,8 +112,15 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void ShowRouteVehicles(IEnumerable<Vehicle> vehicles)
+		private void ShowRouteVehicles(Task<IEnumerable<Vehicle>> task)
 		{
+			if (task.Status != TaskStatus.RanToCompletion)
+			{
+				Insights.Report(task.Exception, ReportSeverity.Error);
+				return;
+			}
+
+			var vehicles = task.Result;
 			if (vehicles != null)
 			{
 				var vms = vehicles.Where(x => x.RouteInfo != null && x.RouteInfo.RouteId.Equals(this.Id))
