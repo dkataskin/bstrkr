@@ -92,7 +92,9 @@ namespace bstrkr.core.providers.bus13
 			var request = this.GetRequestBase(VehicleLocationResource);
 			request.AddParameter(
 						RouteIdsParam, 
-						string.Join(",", routes.Select(x => string.Format(RouteIdFormatStr, x.Id))),
+						string.Join(
+							",", 
+							routes.Select(x => string.Join(",", x.Ids.Select(id => string.Format(RouteIdFormatStr, id))))),
 						ParameterType.QueryString);
 
 			request.AddParameter("lat0", this.CoordToInt(rect.LeftTop.Latitude), ParameterType.QueryString);
@@ -179,6 +181,7 @@ namespace bstrkr.core.providers.bus13
 				var routeSource = routeGroup.First();
 				var route = new Route(
 									routeSource.Id,
+									routeGroup.Select(x => x.Id).ToList(),
 									routeSource.Name,
 									routeSource.Num,
 						            new List<RouteStop>(),

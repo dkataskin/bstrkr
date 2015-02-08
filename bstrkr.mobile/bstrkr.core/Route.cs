@@ -10,7 +10,8 @@ namespace bstrkr.core
 	public class Route
 	{
 		public Route(
-				string id, 
+				string id,
+				IEnumerable<string> ids,
 				string name, 
 				string number,
 				IEnumerable<RouteStop> stops,
@@ -20,6 +21,16 @@ namespace bstrkr.core
 			this.Id = id;
 			this.Name = name;
 			this.Number = number;
+
+			if (ids == null || !ids.Any())
+			{
+				this.Ids = new ReadOnlyCollection<string>(new List<string> { id });
+			}
+			else
+			{
+				this.Ids = new ReadOnlyCollection<string>(ids.ToList());
+			}
+
 			this.Stops = new ReadOnlyCollection<RouteStop>(stops.ToList());
 			this.Nodes = new ReadOnlyCollection<GeoPoint>(nodes.ToList());
 			this.VehicleTypes = new ReadOnlyCollection<VehicleTypes>(vehicleTypes.ToList());
@@ -31,11 +42,13 @@ namespace bstrkr.core
 
 		public string Number { get; private set; }
 
-		public IReadOnlyCollection<RouteStop> Stops { get; private set; }
+		public IReadOnlyList<string> Ids { get; private set; }
 
-		public IReadOnlyCollection<GeoPoint> Nodes { get; private set; }
+		public IReadOnlyList<RouteStop> Stops { get; private set; }
 
-		public IReadOnlyCollection<VehicleTypes> VehicleTypes { get; private set; }
+		public IReadOnlyList<GeoPoint> Nodes { get; private set; }
+
+		public IReadOnlyList<VehicleTypes> VehicleTypes { get; private set; }
 
 		public RouteStop FirstStop { get; set; }
 
