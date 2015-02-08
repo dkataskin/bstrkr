@@ -190,7 +190,13 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void UpdateForecast()
 		{
-
+			Task.Factory.StartNew(() =>
+			{
+				foreach (var vehicle in this.Vehicles) 
+				{
+					vehicle.Update();
+				}
+			});
 		}
 	}
 }

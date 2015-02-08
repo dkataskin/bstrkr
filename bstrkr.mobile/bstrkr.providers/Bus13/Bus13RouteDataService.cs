@@ -22,6 +22,7 @@ namespace bstrkr.core.providers.bus13
 		private const string StopsResource = "getStations.php";
 		private const string ZonesResource = "getZones.php";
 		private const string VehicleLocationResource = "getVehiclesMarkers.php";
+		private const string VehicleForecastResource = "getVehicleForecasts.php";
 		private const string RouteNodesResource = "getRouteNodes.php";
 		private const string RouteIdFormatStr = "{0}-0";
 		private const string LocationParam = "city";
@@ -30,6 +31,8 @@ namespace bstrkr.core.providers.bus13
 		private const string RouteIdParam = "rid";
 		private const string RouteTypeParam = "type";
 		private const string RandomParam = "_";
+		private const string InfoParam = "info";
+		private const string InfoParamValue = "01234";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
 
@@ -103,6 +106,7 @@ namespace bstrkr.core.providers.bus13
 			request.AddParameter("lng1", this.CoordToInt(rect.RightBottom.Longitude), ParameterType.QueryString);
 
 			request.AddParameter(TimestampParam, timestamp, ParameterType.QueryString);
+			request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
 
 			var client = this.GetRestClient();
 			var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request).ConfigureAwait(false);
@@ -133,11 +137,26 @@ namespace bstrkr.core.providers.bus13
 			var client = this.GetRestClient();
 
 			var request = this.GetRequestBase(StopsResource);
-			request = this.AddRandom(request);
 
 			var bus13Stops = await this.ExecuteAsync<List<Bus13RouteStop>>(client, request).ConfigureAwait(false);
 
 			return this.ParseRouteStops(bus13Stops);
+		}
+
+		public async Task<VehicleForecast> GetVehicleForecast(Vehicle vehicle)
+		{
+			var request = this.GetRequestBase(VehicleForecastResource);
+			request.AddParameter("vid", vehicle.Id, ParameterType.QueryString);
+			request.AddParameter("type", 0, ParameterType.QueryString);
+			request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
+
+			var client = this.GetRestClient();
+			var forecast = await this.ExecuteAsync<List<Bus13VehicleForecastItem>>(client, request);
+
+			if (forecast != null && forecast.Any())
+			{
+				return new VehicleForecast(vehicle, forecast.Select(this.ParseVehicleForecast).ToList());
+			}
 		}
 
 		private RestClient GetRestClient()
@@ -263,6 +282,13 @@ namespace bstrkr.core.providers.bus13
 			};
 
 			return locationUpdate;
+		}
+
+		private VehicleForecastItem ParseVehicleForecast(Bus13VehicleForecastItem item)
+		{
+			var routeStop = new RouteStop(item.StId, item.StName, item.StDescr, this.ParsePoint(item.Lat0, item.Lng0));
+
+			return new VehicleForecastItem(routeStop, item.Arrt);
 		}
 
 		private int CoordToInt(double coord)
