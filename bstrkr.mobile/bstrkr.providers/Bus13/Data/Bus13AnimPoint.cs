@@ -10,6 +10,6 @@ namespace bstrkr.providers.bus13.data
 
 		public string Lat { get; set; }
 
-		public string Lng { get; set; }
+		public string Lon { get; set; }
 	}
 }

@@ -242,18 +242,24 @@ namespace bstrkr.core.providers.bus13
 				}
 			};
 
-			return new Bus13VehicleLocationUpdate
+			var locationUpdate = new Bus13VehicleLocationUpdate
 			{
 				Vehicle = vehicle,
 				LastUpdate = DateTime.ParseExact(bus13Vehicle.LastTime, "dd.MM.yyyy H:mm:ss", CultureInfo.InvariantCulture),
-				Waypoints = bus13Vehicle.Anim_Points == null ? 
-									new List<Waypoint>() :
-									bus13Vehicle.Anim_Points.Select(x => new Waypoint(
-																				this.ParsePoint(x.Lat, x.Lng),
-																				Convert.ToSingle(int.Parse(x.Dir)),
-																				int.Parse(x.Percent) / 100.0f))
-															.ToList()
+				Waypoints = new List<Waypoint>()
 			};
+
+			if (bus13Vehicle.Anim_Points != null && bus13Vehicle.Anim_Points.Any())
+			{
+				locationUpdate.Waypoints = bus13Vehicle.Anim_Points.Select(
+																		x => new Waypoint(
+																			this.ParsePoint(x.Lat, x.Lon),
+																			Convert.ToSingle(int.Parse(x.Dir)),
+																			int.Parse(x.Percent) / 100.0f))
+																	.ToList();
+			};
+
+			return locationUpdate;
 		}
 
 		private int CoordToInt(double coord)
