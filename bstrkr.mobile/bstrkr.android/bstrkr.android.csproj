@@ -267,6 +267,8 @@
     <AndroidResource Include="..\bstrkr.core\Resources\Images\vehicletypes_trolley.png">
       <Link>Resources\Drawable\vehicletypes_trolley.png</Link>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\fragment_route_view.axml" />
+    <AndroidResource Include="Resources\Layout\item_routevehicles_list.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

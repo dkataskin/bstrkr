@@ -22,7 +22,7 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			return this.BindingInflate(Resource.Layout.fragment_routes_view, null);
+			return this.BindingInflate(Resource.Layout.fragment_route_view, null);
 		}
 	}
 }

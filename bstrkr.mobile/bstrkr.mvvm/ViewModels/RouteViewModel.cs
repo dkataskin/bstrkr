@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 using bstrkr.core;
+using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
-using System.Threading.Tasks;
+
+using Cirrious.MvvmCross.ViewModels;
+
 using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
@@ -16,7 +20,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly ObservableCollection<RouteVehiclesListItemViewModel> _vehicles = new ObservableCollection<RouteVehiclesListItemViewModel>();
 
-		private string _id;
+		private string _routeId;
 		private string _name;
 		private string _from;
 		private string _to;
@@ -26,17 +30,20 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_providerFactory = providerFactory;
 			this.Vehicles = new ReadOnlyObservableCollection<RouteVehiclesListItemViewModel>(_vehicles);
+			this.ShowRouteVehicleDetailsCommand = new MvxCommand(() => {});
 		}
 
-		public string Id
+		public MvxCommand ShowRouteVehicleDetailsCommand { get; private set; }
+
+		public string RouteId
 		{
-			get { return _id; }
-			set
+			get { return _routeId; }
+			private set
 			{
-				if (_id != value)
+				if (_routeId != value)
 				{
-					_id = value;
-					this.RaisePropertyChanged(() => this.Id);
+					_routeId = value;
+					this.RaisePropertyChanged(() => this.RouteId);
 				}
 			}
 		}
@@ -44,7 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 		public string Name 
 		{ 
 			get { return _name; } 
-			set
+			private set
 			{
 				if (!string.Equals(_name, value))
 				{
@@ -99,6 +106,27 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RouteStop> Stops { get; private set; }
 
+		public void Init(string routeId, string routeName, string routeIds)
+		{
+			string[] ids = null;
+			if (!string.IsNullOrEmpty(routeIds))
+			{
+				ids = routeIds.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+			}
+
+			this.RouteId = routeId;
+			this.Name = routeName;
+
+			this.Route = new Route(
+				routeId, 
+				ids, 
+				routeName, 
+				string.Empty, 
+				new List<RouteStop>(), 
+				new List<GeoPoint>(),
+				new List<VehicleTypes>());
+		}
+
 		public override void Start()
 		{
 			base.Start();
@@ -123,7 +151,7 @@ namespace bstrkr.mvvm.viewmodels
 			var vehicles = task.Result;
 			if (vehicles != null)
 			{
-				var vms = vehicles.Where(x => x.RouteInfo != null && x.RouteInfo.RouteId.Equals(this.Id))
+				var vms = vehicles.Where(x => x.RouteInfo != null && x.RouteInfo.RouteId.Equals(this.RouteId))
 								  .Select(this.CreateFromVehicle)
 								  .ToList();
 

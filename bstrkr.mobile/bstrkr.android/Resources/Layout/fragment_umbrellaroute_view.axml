@@ -3,6 +3,6 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    local:MvxBind="ItemsSource Routes"
+    local:MvxBind="ItemsSource Routes; ItemClick ShowRouteVehiclesCommand"
     local:MvxItemTemplate="@layout/item_routes_list"
     android:background="@color/background_holo_dark" />

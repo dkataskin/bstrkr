@@ -25,7 +25,11 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_providerFactory = providerFactory;
 			this.Routes = new ReadOnlyObservableCollection<RoutesListItemViewModel>(_routes);
+
+			this.ShowRouteVehiclesCommand = new MvxCommand<RoutesListItemViewModel>(this.ShowRouteVehicles);
 		}
+
+		public MvxCommand<RoutesListItemViewModel> ShowRouteVehiclesCommand { get; private set; }
 
 		public string Title 
 		{ 
@@ -131,6 +135,22 @@ namespace bstrkr.mvvm.viewmodels
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		private void ShowRouteVehicles(RoutesListItemViewModel selectedRoute)
+		{
+			var ids = string.Empty;
+			if (selectedRoute.Route != null && selectedRoute.Route.Ids != null)
+			{
+				ids = string.Join(",", selectedRoute.Route.Ids);
+			}
+
+			this.ShowViewModel<RouteViewModel>(new 
+			{ 
+				routeId = selectedRoute.Id, 
+				routeName = selectedRoute.Name,
+				routeIds = ids
+			});
 		}
 	}
 }
