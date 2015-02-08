@@ -300,6 +300,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(MapViewModel), this);
 			customPresenter.Register(typeof(SetAreaViewModel), this);
 			customPresenter.Register(typeof(UmbrellaRouteViewModel), this);
+			customPresenter.Register(typeof(RouteViewModel), this);
 		}
 
 		private Fragment FindFragment<TView>() where TView : Fragment
@@ -347,11 +348,26 @@ namespace bstrkr.android.views
 			{
 				MvxFragment umbrellaRouteView = new UmbrellaRouteView();
 				umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
+				_frag2tag[typeof(UmbrellaRouteView)] = "umbrella_route_view";
 
 				this.FragmentManager.BeginTransaction()
 									.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
 									.AddToBackStack(null)
 									.Commit();
+
+				this.DisableDrawer();
+			}
+
+			if (request.ViewModelType == typeof(RouteViewModel))
+			{
+				MvxFragment routeView = new RouteView();
+				routeView.ViewModel = loaderService.LoadViewModel(request, null);
+				_frag2tag[typeof(RouteView)] = "route_view";
+
+				this.FragmentManager.BeginTransaction()
+					.Replace(Resource.Id.content_frame, routeView, "route_view")
+					.AddToBackStack(null)
+					.Commit();
 
 				this.DisableDrawer();
 			}

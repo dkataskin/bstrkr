@@ -134,7 +134,7 @@ namespace bstrkr.mvvm.viewmodels
 			var provider = _providerFactory.GetCurrentProvider();
 			if (provider != null)
 			{
-				provider.GetVehiclesAsync()
+				provider.GetRouteVehiclesAsync(new[] { this.Route })
 						.ContinueWith(this.ShowRouteVehicles)
 						.ConfigureAwait(false);
 			}
@@ -151,10 +151,7 @@ namespace bstrkr.mvvm.viewmodels
 			var vehicles = task.Result;
 			if (vehicles != null)
 			{
-				var vms = vehicles.Where(x => x.RouteInfo != null && x.RouteInfo.RouteId.Equals(this.RouteId))
-								  .Select(this.CreateFromVehicle)
-								  .ToList();
-
+				var vms = vehicles.Select(this.CreateFromVehicle).ToList();
 				this.Dispatcher.RequestMainThreadAction(() =>
 				{
 					foreach(var vm in vms)

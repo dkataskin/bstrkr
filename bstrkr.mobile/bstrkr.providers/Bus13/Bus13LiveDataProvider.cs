@@ -131,6 +131,24 @@ namespace bstrkr.core.providers.bus13
 			return response.Updates.Select(x => x.Vehicle);
 		}
 
+		public async Task<IEnumerable<Vehicle>> GetRouteVehiclesAsync(IEnumerable<Route> routes)
+		{
+			var ids = routes.SelectMany(r => r.Ids).ToList();
+			lock(_locationState)
+			{
+				if (_locationState.Keys.Any())
+				{
+					return _locationState.Values.Select(v => v.Vehicle)
+												.Where(v => v.RouteInfo != null && ids.Any(id => id.Equals(v.RouteInfo.RouteId)))
+												.ToList();
+				}
+			}
+
+			var response = await _dataService.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, 0);
+
+			return response.Updates.Select(x => x.Vehicle);
+		}
+
 		private void UpdateInLoop(
 							IBus13RouteDataService dataService, 
 							IEnumerable<Route> routes, 
