@@ -19,5 +19,7 @@ namespace bstrkr.core.providers.bus13
 		Task<VehicleLocationsResponse> GetVehicleLocationsAsync(IEnumerable<Route> routes, GeoRect rect, int timestamp);
 
 		Task<IEnumerable<RouteStop>> GetStopsAsync();
+
+		Task<VehicleForecast> GetVehicleForecast(Vehicle vehicle);
 	}
 }

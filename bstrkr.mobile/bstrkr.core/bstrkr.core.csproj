@@ -90,6 +90,8 @@
     <None Include="Resources\Images\vehicletypes_bus.png" />
     <None Include="Resources\Images\vehicletypes_minibus.png" />
     <None Include="Resources\Images\vehicletypes_trolley.png" />
+    <Compile Include="VehicleForecast.cs" />
+    <Compile Include="VehicleForecastItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
