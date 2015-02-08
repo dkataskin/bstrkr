@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using bstrkr.core;
+using bstrkr.core.services.location;
+using bstrkr.mvvm.converters;
+using bstrkr.providers;
+
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-
-using bstrkr.core;
-using bstrkr.core.services.location;
-using bstrkr.providers;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class UmbrellaRouteViewModel : BusTrackerViewModelBase
 	{
 		private readonly ILiveDataProviderFactory _providerFactory;
-
+		private readonly RouteNumberToTitleConverter _routeNumberConverter = new RouteNumberToTitleConverter();
 		private readonly ObservableCollection<RoutesListItemViewModel> _routes = new ObservableCollection<RoutesListItemViewModel>();
 
 		private string _title;
@@ -118,23 +119,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private string GetRouteTitle(string number, VehicleTypes vehicleType)
 		{
-			switch (vehicleType)
-			{
-				case VehicleTypes.Bus:
-					return string.Format(AppResources.bus_route_title_format, number);
-
-				case VehicleTypes.MiniBus:
-					return string.Format(AppResources.minibus_route_title_format, number);
-
-				case VehicleTypes.Trolley:
-					return string.Format(AppResources.troll_route_title_format, number);
-
-				case VehicleTypes.Tram:
-					return string.Format(AppResources.tramway_route_title_format, number);
-
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
+			return _routeNumberConverter.Convert(number, vehicleType);
 		}
 
 		private void ShowRouteVehicles(RoutesListItemViewModel selectedRoute)
@@ -149,7 +134,9 @@ namespace bstrkr.mvvm.viewmodels
 			{ 
 				routeId = selectedRoute.Id, 
 				routeName = selectedRoute.Name,
-				routeIds = ids
+				routeNumber = selectedRoute.Route.Number,
+				routeIds = ids,
+				vehicleType = selectedRoute.VehicleType
 			});
 		}
 	}

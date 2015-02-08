@@ -24,6 +24,7 @@ namespace bstrkr.mvvm.viewmodels
 		private string _name;
 		private string _from;
 		private string _to;
+		private int _number;
 		private VehicleTypes _vehicleType;
 
 		public RouteViewModel(ILiveDataProviderFactory providerFactory)
@@ -44,6 +45,19 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_routeId = value;
 					this.RaisePropertyChanged(() => this.RouteId);
+				}
+			}
+		}
+
+		public int Number
+		{
+			get { return _number; }
+			private set 
+			{
+				if (_number != value)
+				{
+					_number = value;
+					this.RaisePropertyChanged(() => this.Number);
 				}
 			}
 		}
@@ -90,7 +104,7 @@ namespace bstrkr.mvvm.viewmodels
 		public VehicleTypes VehicleType
 		{
 			get { return _vehicleType; }
-			set
+			private set
 			{
 				if (_vehicleType != value)
 				{
@@ -106,7 +120,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RouteStop> Stops { get; private set; }
 
-		public void Init(string routeId, string routeName, string routeIds)
+		public void Init(string routeId, string routeName, int routeNumber, string routeIds, VehicleTypes vehicleType)
 		{
 			string[] ids = null;
 			if (!string.IsNullOrEmpty(routeIds))
@@ -115,16 +129,18 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			this.RouteId = routeId;
+			this.Number = routeNumber;
 			this.Name = routeName;
+			this.VehicleType = vehicleType;
 
 			this.Route = new Route(
-				routeId, 
-				ids, 
-				routeName, 
-				string.Empty, 
-				new List<RouteStop>(), 
-				new List<GeoPoint>(),
-				new List<VehicleTypes>());
+							routeId, 
+							ids, 
+							routeName, 
+							string.Empty, 
+							new List<RouteStop>(), 
+							new List<GeoPoint>(),
+							new List<VehicleTypes> { vehicleType });
 		}
 
 		public override void Start()
@@ -164,11 +180,17 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
+			this.UpdateForecast();
 		}
 
 		private RouteVehiclesListItemViewModel CreateFromVehicle(Vehicle vehicle)
 		{
 			return new RouteVehiclesListItemViewModel(vehicle);
+		}
+
+		private void UpdateForecast()
+		{
+
 		}
 	}
 }

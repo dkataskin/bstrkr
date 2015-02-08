@@ -85,5 +85,10 @@ namespace bstrkr.mvvm.viewmodels
 				}
 			}
 		}
+
+		public void Update()
+		{
+			this.IsBusy = true;
+		}
 	}
 }
