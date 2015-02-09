@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace bstrkr.core
 {
@@ -9,7 +10,7 @@ namespace bstrkr.core
 		public VehicleForecast(Vehicle vehicle, IEnumerable<VehicleForecastItem> items)
 		{
 			this.Vehicle = vehicle;
-			this.Items = new ReadOnlyCollection<VehicleForecastItem>();
+			this.Items = new ReadOnlyCollection<VehicleForecastItem>(items.ToList());
 		}
 
 		public Vehicle Vehicle { get; private set; }

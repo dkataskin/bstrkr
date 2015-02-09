@@ -8,7 +8,7 @@ namespace bstrkr.mvvm.converters
 {
 	public class RouteNumberToTitleConverter
 	{
-		public string Convert(int routeNumber, VehicleTypes vehicleType)
+		public string Convert(string routeNumber, VehicleTypes vehicleType)
 		{
 			switch (vehicleType)
 			{

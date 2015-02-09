@@ -143,7 +143,7 @@ namespace bstrkr.core.providers.bus13
 			return this.ParseRouteStops(bus13Stops);
 		}
 
-		public async Task<VehicleForecast> GetVehicleForecast(Vehicle vehicle)
+		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
 		{
 			var request = this.GetRequestBase(VehicleForecastResource);
 			request.AddParameter("vid", vehicle.Id, ParameterType.QueryString);
@@ -157,6 +157,8 @@ namespace bstrkr.core.providers.bus13
 			{
 				return new VehicleForecast(vehicle, forecast.Select(this.ParseVehicleForecast).ToList());
 			}
+
+			return new VehicleForecast(vehicle, new List<VehicleForecastItem>());
 		}
 
 		private RestClient GetRestClient()
@@ -286,7 +288,11 @@ namespace bstrkr.core.providers.bus13
 
 		private VehicleForecastItem ParseVehicleForecast(Bus13VehicleForecastItem item)
 		{
-			var routeStop = new RouteStop(item.StId, item.StName, item.StDescr, this.ParsePoint(item.Lat0, item.Lng0));
+			var routeStop = new RouteStop(
+									item.StId.ToString(), 
+									item.StName, 
+									item.StDescr, 
+									this.ParsePoint(item.Lat0, item.Lng0));
 
 			return new VehicleForecastItem(routeStop, item.Arrt);
 		}

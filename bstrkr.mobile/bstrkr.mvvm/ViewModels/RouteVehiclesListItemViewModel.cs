@@ -1,38 +1,27 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-using bstrkr.mvvm.viewmodels;
 using bstrkr.core;
+using bstrkr.mvvm.viewmodels;
+using bstrkr.providers;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase
 	{
-		private string _vehicleCarPlateNumber;
+		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
+
 		private int _arrivesInSeconds;
 		private string _routeStopId;
 		private string _routeStopName;
 		private string _routeStopDescription;
 
-		public RouteVehiclesListItemViewModel(Vehicle vehicle)
+		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
-			this.VehicleId = vehicle.Id;
-			this.VehicleCarPlateNumber = vehicle.CarPlate;
+			_liveDataProviderFactory = liveDataProviderFactory;
 		}
 
-		public string VehicleId { get; set; }
-
-		public string VehicleCarPlateNumber
-		{
-			get { return _vehicleCarPlateNumber; }
-			private set
-			{
-				if (_vehicleCarPlateNumber != value)
-				{
-					_vehicleCarPlateNumber = value;
-					this.RaisePropertyChanged(() => this.VehicleCarPlateNumber);
-				}
-			}
-		}
+		public Vehicle Vehicle { get; set; }
 
 		public int ArrivesInSeconds 
 		{ 
@@ -86,9 +75,18 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public void Update()
+		public async Task UpdateAsync()
 		{
-			this.IsBusy = true;
+			var provider = _liveDataProviderFactory.GetCurrentProvider();
+			if (provider != null)
+			{
+				return;
+			}
+
+			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
+
+			var forecast = await provider.GetVehicleForecastAsync(this.Vehicle);
+			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 		}
 	}
 }

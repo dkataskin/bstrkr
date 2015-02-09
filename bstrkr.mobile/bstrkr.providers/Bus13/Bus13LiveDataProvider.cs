@@ -149,7 +149,7 @@ namespace bstrkr.core.providers.bus13
 			return response.Updates.Select(x => x.Vehicle);
 		}
 
-		public async Task<VehicleForecast> GetVehicleForecast(Vehicle vehicle)
+		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
 		{
 			return await _dataService.GetVehicleForecastAsync(vehicle);
 		}

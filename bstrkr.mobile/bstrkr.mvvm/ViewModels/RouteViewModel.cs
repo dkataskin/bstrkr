@@ -12,6 +12,7 @@ using bstrkr.providers;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using Cirrious.CrossCore;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -185,7 +186,10 @@ namespace bstrkr.mvvm.viewmodels
 
 		private RouteVehiclesListItemViewModel CreateFromVehicle(Vehicle vehicle)
 		{
-			return new RouteVehiclesListItemViewModel(vehicle);
+			var vm = Mvx.Resolve<RouteVehiclesListItemViewModel>();
+			vm.Vehicle = vehicle;
+
+			return vm;
 		}
 
 		private void UpdateForecast()
@@ -194,7 +198,7 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				foreach (var vehicle in this.Vehicles) 
 				{
-					vehicle.Update();
+					vehicle.UpdateAsync().Wait();
 				}
 			});
 		}
