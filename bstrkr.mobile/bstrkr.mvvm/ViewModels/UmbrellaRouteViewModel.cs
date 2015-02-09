@@ -98,7 +98,8 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					Id = route.Id,
 					Name = this.GetRouteTitle(route.Number, vehicleType),
-					VehicleType = vehicleType
+					VehicleType = vehicleType,
+					Route = route
 				};
 
 				if (route.FirstStop != null)

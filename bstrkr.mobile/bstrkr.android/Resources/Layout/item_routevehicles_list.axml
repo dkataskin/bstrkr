@@ -12,7 +12,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textColor="#fff"
-        local:MvxBind="Text VehicleCarPlateNumber"
+        local:MvxBind="Text Vehicle.CarPlate"
         android:singleLine="true"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:minHeight="?android:attr/listPreferredItemHeight" />

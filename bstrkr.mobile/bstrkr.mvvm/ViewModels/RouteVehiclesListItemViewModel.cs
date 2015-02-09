@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using bstrkr.core;
@@ -86,7 +87,18 @@ namespace bstrkr.mvvm.viewmodels
 			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
 
 			var forecast = await provider.GetVehicleForecastAsync(this.Vehicle);
-			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
+
+			this.Dispatcher.RequestMainThreadAction(() => 
+			{
+				if (forecast.Items.Any())
+				{
+					this.RouteStopId = forecast.Items.First().RouteStop.Id;
+					this.RouteStopName = forecast.Items.First().RouteStop.Name;
+					this.RouteStopDescription = forecast.Items.First().RouteStop.Description;
+				}
+
+				this.IsBusy = false;
+			});
 		}
 	}
 }
