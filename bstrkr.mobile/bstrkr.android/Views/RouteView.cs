@@ -25,8 +25,8 @@ namespace bstrkr.android.views
 
 			var routeNumberConverter = new RouteNumberToTitleConverter();
 			var dataContext = this.DataContext as RouteViewModel;
-
-			this.Activity.ActionBar.Title = routeNumberConverter.Convert(dataContext.Name, dataContext.VehicleType);
+		
+			this.Activity.ActionBar.Title = routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
 
 			return this.BindingInflate(Resource.Layout.fragment_route_view, null);
 		}

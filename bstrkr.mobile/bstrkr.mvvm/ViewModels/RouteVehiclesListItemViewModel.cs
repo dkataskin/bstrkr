@@ -18,6 +18,7 @@ namespace bstrkr.mvvm.viewmodels
 		private string _routeStopId;
 		private string _routeStopName;
 		private string _routeStopDescription;
+		private bool _noData;
 
 		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
@@ -25,6 +26,19 @@ namespace bstrkr.mvvm.viewmodels
 		}
 
 		public Vehicle Vehicle { get; set; }
+
+		public bool NoData 
+		{
+			get { return _noData; }
+			private set
+			{
+				if (_noData != value)
+				{
+					_noData = value;
+					this.RaisePropertyChanged(() => this.NoData);
+				}
+			}
+		}
 
 		public int ArrivesInSeconds 
 		{ 
@@ -93,15 +107,19 @@ namespace bstrkr.mvvm.viewmodels
 				var forecast = await provider.GetVehicleForecastAsync(this.Vehicle)
 											 .ConfigureAwait(false);
 
-				if (forecast.Items.Any())
+				this.Dispatcher.RequestMainThreadAction(() => 
 				{
-					this.Dispatcher.RequestMainThreadAction(() => 
+					if (forecast.Items.Any())
 					{
 						this.RouteStopId = forecast.Items.First().RouteStop.Id;
 						this.RouteStopName = forecast.Items.First().RouteStop.Name;
 						this.RouteStopDescription = forecast.Items.First().RouteStop.Description;
-					});
-				}
+					}
+					else
+					{
+						this.NoData = true;
+					}
+				});
 			} 
 			catch (Exception e)
 			{
