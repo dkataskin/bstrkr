@@ -13,6 +13,7 @@ using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
 using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -177,11 +178,18 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						_vehicles.Add(vm);
 					}
+
+					this.IsBusy = false;
+
+					this.UpdateForecastAsync()
+						.ContinueWith(task1 => MvxTrace.Trace("Finished updating forecasts"))
+						.ConfigureAwait(false);
 				});
 			}
-
-			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
-			this.UpdateForecast();
+			else
+			{
+				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
+			}
 		}
 
 		private RouteVehiclesListItemViewModel CreateFromVehicle(Vehicle vehicle)
@@ -192,13 +200,19 @@ namespace bstrkr.mvvm.viewmodels
 			return vm;
 		}
 
-		private void UpdateForecast()
+		private async Task UpdateForecastAsync()
 		{
-			Task.Factory.StartNew(() =>
+			await Task.Factory.StartNew(() =>
 			{
+				MvxTrace.Trace("There are {0} vehicles in the list", this.Vehicles.Count());
 				foreach (var vehicle in this.Vehicles) 
 				{
-					vehicle.UpdateAsync().Wait();
+					MvxTrace.Trace("Updating forecast for {0}", vehicle.Vehicle.CarPlate);
+					vehicle.UpdateAsync()
+						   .ConfigureAwait(false)
+						   .GetAwaiter()
+						   .GetResult();
+					MvxTrace.Trace("Forecast for {0} updated", vehicle.Vehicle.CarPlate);
 				}
 			});
 		}

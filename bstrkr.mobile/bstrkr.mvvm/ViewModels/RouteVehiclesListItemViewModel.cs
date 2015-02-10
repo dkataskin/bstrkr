@@ -6,6 +6,8 @@ using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
 
+using Xamarin;
+
 namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase
@@ -27,7 +29,7 @@ namespace bstrkr.mvvm.viewmodels
 		public int ArrivesInSeconds 
 		{ 
 			get { return _arrivesInSeconds; } 
-			set
+			private set
 			{
 				if (_arrivesInSeconds != value)
 				{
@@ -40,7 +42,7 @@ namespace bstrkr.mvvm.viewmodels
 		public string RouteStopId 
 		{ 
 			get { return _routeStopId; } 
-			set
+			private set
 			{
 				if (_routeStopId != value)
 				{
@@ -53,7 +55,7 @@ namespace bstrkr.mvvm.viewmodels
 		public string RouteStopName 
 		{ 
 			get { return _routeStopName; }
-			set
+			private set
 			{
 				if (_routeStopName != value)
 				{
@@ -66,7 +68,7 @@ namespace bstrkr.mvvm.viewmodels
 		public string RouteStopDescription 
 		{ 
 			get { return _routeStopDescription; } 
-			set
+			private set
 			{
 				if (_routeStopDescription != value)
 				{
@@ -79,26 +81,36 @@ namespace bstrkr.mvvm.viewmodels
 		public async Task UpdateAsync()
 		{
 			var provider = _liveDataProviderFactory.GetCurrentProvider();
-			if (provider != null)
+			if (provider == null)
 			{
 				return;
 			}
 
 			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
 
-			var forecast = await provider.GetVehicleForecastAsync(this.Vehicle);
-
-			this.Dispatcher.RequestMainThreadAction(() => 
+			try
 			{
+				var forecast = await provider.GetVehicleForecastAsync(this.Vehicle)
+											 .ConfigureAwait(false);
+
 				if (forecast.Items.Any())
 				{
-					this.RouteStopId = forecast.Items.First().RouteStop.Id;
-					this.RouteStopName = forecast.Items.First().RouteStop.Name;
-					this.RouteStopDescription = forecast.Items.First().RouteStop.Description;
+					this.Dispatcher.RequestMainThreadAction(() => 
+					{
+						this.RouteStopId = forecast.Items.First().RouteStop.Id;
+						this.RouteStopName = forecast.Items.First().RouteStop.Name;
+						this.RouteStopDescription = forecast.Items.First().RouteStop.Description;
+					});
 				}
-
-				this.IsBusy = false;
-			});
+			} 
+			catch (Exception e)
+			{
+				Insights.Report(e, ReportSeverity.Warning);
+			}
+			finally
+			{
+				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
+			}
 		}
 	}
 }

@@ -151,7 +151,7 @@ namespace bstrkr.core.providers.bus13
 
 		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
 		{
-			return await _dataService.GetVehicleForecastAsync(vehicle);
+			return await _dataService.GetVehicleForecastAsync(vehicle).ConfigureAwait(false);
 		}
 
 		private void UpdateInLoop(

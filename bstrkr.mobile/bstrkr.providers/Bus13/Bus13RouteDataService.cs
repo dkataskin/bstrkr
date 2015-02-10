@@ -151,7 +151,7 @@ namespace bstrkr.core.providers.bus13
 			request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
 
 			var client = this.GetRestClient();
-			var forecast = await this.ExecuteAsync<List<Bus13VehicleForecastItem>>(client, request);
+			var forecast = await this.ExecuteAsync<List<Bus13VehicleForecastItem>>(client, request).ConfigureAwait(false);
 
 			if (forecast != null && forecast.Any())
 			{
