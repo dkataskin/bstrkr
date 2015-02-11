@@ -10,10 +10,28 @@ using bstrkr.providers;
 
 using Cirrious.MvvmCross.ViewModels;
 
+using Stateless;
+
 using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
+	public enum RouteVehicleVMStates
+	{
+		Start,
+		Loading,
+		LoadComplete
+	}
+
+	public enum RouteVehicleVMTriggers
+	{
+		ForecastRequested,
+		ForecastReturned,
+		NoForecastDataReturned,
+		DuplicateForecastReturned,
+		RequestFailed
+	}
+
 	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase, IDisposable
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
@@ -34,6 +52,21 @@ namespace bstrkr.mvvm.viewmodels
 			_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
 
 			this.UpdateForecastCommand = new MvxCommand(this.Update, () => !this.IsBusy);
+
+			var sm = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
+			sm.Configure(RouteVehicleVMStates.Start)
+			  .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
+
+			sm.Configure(RouteVehicleVMStates.Loading)
+			  .Permit(RouteVehicleVMTriggers.ForecastReturned, RouteVehicleVMStates.LoadComplete)
+			  .Permit(RouteVehicleVMTriggers.NoForecastDataReturned, RouteVehicleVMStates.LoadComplete)
+			  .Permit(RouteVehicleVMTriggers.DuplicateForecastReturned, RouteVehicleVMStates.LoadComplete)
+			  .Permit(RouteVehicleVMTriggers.RequestFailed, RouteVehicleVMStates.LoadComplete);
+
+			sm.Configure(RouteVehicleVMStates.LoadComplete)
+			  .OnEntryFrom(RouteVehicleVMTriggers.ForecastReturned, this.UpdateForecast)
+			  .OnEntryFrom(RouteVehicleVMTriggers.NoForecastDataReturned, this.ClearForecast)
+			  .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
 		}
 
 		public MvxCommand UpdateForecastCommand { get; private set; }
@@ -208,6 +241,14 @@ namespace bstrkr.mvvm.viewmodels
 					}
 				}
 			});
+		}
+
+		private void UpdateForecast()
+		{
+		}
+
+		private void ClearForecast()
+		{
 		}
 	}
 }
