@@ -201,7 +201,8 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						this.ArrivesInSeconds--;
 					}
-					else
+
+					if (this.ArrivesInSeconds == 0 && this.HasForecast)
 					{
 						this.UpdateAsync();
 					}
