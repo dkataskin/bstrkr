@@ -1,29 +1,42 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
 
+using Cirrious.MvvmCross.ViewModels;
+
 using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase
+	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase, IDisposable
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
+		private readonly object _lockObject = new object();
+		private readonly IObservable<long> _intervalObservable;
+		private readonly IDisposable _intervalSubscription;
 
 		private int _arrivesInSeconds;
 		private string _routeStopId;
 		private string _routeStopName;
 		private string _routeStopDescription;
-		private bool _noData;
+		private bool _noData = true;
 
 		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
 			_liveDataProviderFactory = liveDataProviderFactory;
+			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
+			_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
+
+			this.UpdateForecastCommand = new MvxCommand(this.Update, () => !this.IsBusy);
 		}
+
+		public MvxCommand UpdateForecastCommand { get; private set; }
 
 		public Vehicle Vehicle { get; set; }
 
@@ -36,8 +49,14 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_noData = value;
 					this.RaisePropertyChanged(() => this.NoData);
+					this.RaisePropertyChanged(() => this.HasForecast);
 				}
 			}
+		}
+
+		public bool HasForecast
+		{
+			get { return !this.IsBusy && !this.NoData; }
 		}
 
 		public int ArrivesInSeconds 
@@ -92,7 +111,30 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public async Task UpdateAsync()
+		public void Dispose()
+		{
+			if (_intervalSubscription != null)
+			{
+				_intervalSubscription.Dispose();
+			}
+		}
+
+		protected override void OnIsBusyChanged()
+		{
+			base.OnIsBusyChanged();
+			this.RaisePropertyChanged(() => this.HasForecast);
+			UpdateForecastCommand.RaiseCanExecuteChanged();
+		}
+
+		private void Update()
+		{
+			this.UpdateAsync()
+				.ConfigureAwait(false)
+				.GetAwaiter()
+				.GetResult();
+		}
+
+		private async Task UpdateAsync()
 		{
 			var provider = _liveDataProviderFactory.GetCurrentProvider();
 			if (provider == null)
@@ -100,7 +142,11 @@ namespace bstrkr.mvvm.viewmodels
 				return;
 			}
 
-			this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
+			this.Dispatcher.RequestMainThreadAction(() => 
+			{
+				this.IsBusy = true;
+				this.NoData = false;
+			});
 
 			try
 			{
@@ -109,15 +155,29 @@ namespace bstrkr.mvvm.viewmodels
 
 				this.Dispatcher.RequestMainThreadAction(() => 
 				{
-					if (forecast.Items.Any())
+					var forecastItem = forecast.Items.FirstOrDefault();
+					lock(_lockObject)
 					{
-						this.RouteStopId = forecast.Items.First().RouteStop.Id;
-						this.RouteStopName = forecast.Items.First().RouteStop.Name;
-						this.RouteStopDescription = forecast.Items.First().RouteStop.Description;
-					}
-					else
-					{
-						this.NoData = true;
+						if (forecastItem != null)
+						{
+							this.ArrivesInSeconds = forecastItem.ArrivesInSec;
+							if (forecastItem.RouteStop != null)
+							{
+								this.RouteStopId = forecastItem.RouteStop.Id;
+								this.RouteStopName = forecastItem.RouteStop.Name;
+								this.RouteStopDescription = forecastItem.RouteStop.Description;
+							}
+							else
+							{
+								this.RouteStopId = string.Empty;
+								this.RouteStopName = string.Empty;
+								this.RouteStopDescription = string.Empty;
+							}
+						}
+						else
+						{
+							this.NoData = true;
+						}
 					}
 				});
 			} 
@@ -129,6 +189,24 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 			}
+		}
+
+		private void OnNextInterval(long interval)
+		{
+			this.Dispatcher.RequestMainThreadAction(() =>
+			{
+				lock (_lockObject)
+				{
+					if (this.ArrivesInSeconds > 0)
+					{
+						this.ArrivesInSeconds--;
+					}
+					else
+					{
+						this.UpdateAsync();
+					}
+				}
+			});
 		}
 	}
 }

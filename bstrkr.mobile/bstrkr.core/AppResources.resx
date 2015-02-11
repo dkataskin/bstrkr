@@ -101,7 +101,7 @@
     <value>st. {0}</value>
   </data>
 	<data name="route_vehicle_arrives_arrives_format" xml:space="preserve">
-    <value>in {0}</value>
+    <value>in {0:D2}:{1:D2}s</value>
   </data>
 	<data name="no_vehicle_forecast" xml:space="preserve">
     <value> --- </value>

@@ -208,10 +208,7 @@ namespace bstrkr.mvvm.viewmodels
 				foreach (var vehicle in this.Vehicles) 
 				{
 					MvxTrace.Trace("Updating forecast for {0}", vehicle.Vehicle.CarPlate);
-					vehicle.UpdateAsync()
-						   .ConfigureAwait(false)
-						   .GetAwaiter()
-						   .GetResult();
+					vehicle.UpdateForecastCommand.Execute();
 					MvxTrace.Trace("Forecast for {0} updated", vehicle.Vehicle.CarPlate);
 				}
 			});
