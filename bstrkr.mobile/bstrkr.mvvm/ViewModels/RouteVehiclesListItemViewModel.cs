@@ -20,7 +20,9 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		Start,
 		Loading,
-		LoadComplete
+		ForecastReceived,
+		ForecastDuplicated,
+		NoForecast
 	}
 
 	public enum RouteVehicleVMTriggers
@@ -36,8 +38,10 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
-		private readonly IObservable<long> _intervalObservable;
-		private readonly IDisposable _intervalSubscription;
+		private IObservable<long> _intervalObservable;
+		private IDisposable _intervalSubscription;
+
+		private readonly StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers> _stateMachine;
 
 		private int _arrivesInSeconds;
 		private string _routeStopId;
@@ -48,48 +52,39 @@ namespace bstrkr.mvvm.viewmodels
 		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
 			_liveDataProviderFactory = liveDataProviderFactory;
-			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
-			_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
 
-			this.UpdateForecastCommand = new MvxCommand(this.Update, () => !this.IsBusy);
+			this.UpdateForecastCommand = new MvxCommand(
+												() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested), 
+												() => _stateMachine.CanFire(RouteVehicleVMTriggers.ForecastRequested));
 
-			var sm = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
-			sm.Configure(RouteVehicleVMStates.Start)
-			  .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
+			_stateMachine = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
+			_stateMachine.OnTransitioned(sm => this.Dispatcher.RequestMainThreadAction(() => this.RaisePropertyChanged(() => this.State)));
 
-			sm.Configure(RouteVehicleVMStates.Loading)
-			  .Permit(RouteVehicleVMTriggers.ForecastReturned, RouteVehicleVMStates.LoadComplete)
-			  .Permit(RouteVehicleVMTriggers.NoForecastDataReturned, RouteVehicleVMStates.LoadComplete)
-			  .Permit(RouteVehicleVMTriggers.DuplicateForecastReturned, RouteVehicleVMStates.LoadComplete)
-			  .Permit(RouteVehicleVMTriggers.RequestFailed, RouteVehicleVMStates.LoadComplete);
+			_stateMachine.Configure(RouteVehicleVMStates.Start)
+			  			 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
 
-			sm.Configure(RouteVehicleVMStates.LoadComplete)
-			  .OnEntryFrom(RouteVehicleVMTriggers.ForecastReturned, this.UpdateForecast)
-			  .OnEntryFrom(RouteVehicleVMTriggers.NoForecastDataReturned, this.ClearForecast)
-			  .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
+			_stateMachine.Configure(RouteVehicleVMStates.Loading)
+						 .OnEntry(this.RequestForecast)
+						 .Permit(RouteVehicleVMTriggers.ForecastReturned, RouteVehicleVMStates.ForecastReceived)
+						 .Permit(RouteVehicleVMTriggers.NoForecastDataReturned, RouteVehicleVMStates.NoForecast)
+						 .Permit(RouteVehicleVMTriggers.DuplicateForecastReturned, RouteVehicleVMStates.ForecastDuplicated)
+						 .Permit(RouteVehicleVMTriggers.RequestFailed, RouteVehicleVMStates.NoForecast);
+
+			_stateMachine.Configure(RouteVehicleVMStates.ForecastReceived)
+						 .OnEntryFrom(RouteVehicleVMTriggers.ForecastReturned, this.Countdown)
+						 .OnEntryFrom(RouteVehicleVMTriggers.DuplicateForecastReturned, this.PauseAndRequest)
+						 .OnEntryFrom(RouteVehicleVMTriggers.NoForecastDataReturned, this.PauseAndRequest)
+						 .OnEntryFrom(RouteVehicleVMTriggers.RequestFailed, this.PauseAndRequest)
+						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
 		}
 
 		public MvxCommand UpdateForecastCommand { get; private set; }
 
 		public Vehicle Vehicle { get; set; }
 
-		public bool NoData 
+		public RouteVehicleVMStates State
 		{
-			get { return _noData; }
-			private set
-			{
-				if (_noData != value)
-				{
-					_noData = value;
-					this.RaisePropertyChanged(() => this.NoData);
-					this.RaisePropertyChanged(() => this.HasForecast);
-				}
-			}
-		}
-
-		public bool HasForecast
-		{
-			get { return !this.IsBusy && !this.NoData; }
+			get { return _stateMachine.State; }
 		}
 
 		public int ArrivesInSeconds 
@@ -155,19 +150,18 @@ namespace bstrkr.mvvm.viewmodels
 		protected override void OnIsBusyChanged()
 		{
 			base.OnIsBusyChanged();
-			this.RaisePropertyChanged(() => this.HasForecast);
 			UpdateForecastCommand.RaiseCanExecuteChanged();
 		}
 
-		private void Update()
+		private void RequestForecast()
 		{
-			this.UpdateAsync()
+			this.RequestForecastAsync()
 				.ConfigureAwait(false)
 				.GetAwaiter()
 				.GetResult();
 		}
 
-		private async Task UpdateAsync()
+		private async Task RequestForecastAsync()
 		{
 			var provider = _liveDataProviderFactory.GetCurrentProvider();
 			if (provider == null)
@@ -178,7 +172,6 @@ namespace bstrkr.mvvm.viewmodels
 			this.Dispatcher.RequestMainThreadAction(() => 
 			{
 				this.IsBusy = true;
-				this.NoData = false;
 			});
 
 			try
@@ -205,11 +198,23 @@ namespace bstrkr.mvvm.viewmodels
 								this.RouteStopId = string.Empty;
 								this.RouteStopName = string.Empty;
 								this.RouteStopDescription = string.Empty;
+
+								_stateMachine.Fire(RouteVehicleVMTriggers.NoForecastDataReturned);
+								return;
+							}
+
+							if (this.ArrivesInSeconds == 0)
+							{
+								_stateMachine.Fire(RouteVehicleVMTriggers.DuplicateForecastReturned);
+							}
+							else
+							{
+								_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
 							}
 						}
 						else
 						{
-							this.NoData = true;
+							_stateMachine.Fire(RouteVehicleVMTriggers.NoForecastDataReturned);
 						}
 					}
 				});
@@ -217,11 +222,18 @@ namespace bstrkr.mvvm.viewmodels
 			catch (Exception e)
 			{
 				Insights.Report(e, ReportSeverity.Warning);
+				_stateMachine.Fire(RouteVehicleVMTriggers.RequestFailed);
 			}
 			finally
 			{
 				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 			}
+		}
+
+		private void Countdown()
+		{
+			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
+			_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
 		}
 
 		private void OnNextInterval(long interval)
@@ -233,22 +245,21 @@ namespace bstrkr.mvvm.viewmodels
 					if (this.ArrivesInSeconds > 0)
 					{
 						this.ArrivesInSeconds--;
-					}
 
-					if (this.ArrivesInSeconds == 0 && this.HasForecast)
-					{
-						this.UpdateAsync();
+						if (this.ArrivesInSeconds == 0)
+						{
+							_intervalSubscription.Dispose();
+							_stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested);
+						}
 					}
 				}
 			});
 		}
 
-		private void UpdateForecast()
+		private void PauseAndRequest()
 		{
-		}
-
-		private void ClearForecast()
-		{
+			Task.Delay(TimeSpan.FromSeconds(30))
+				.ContinueWith(task => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 		}
 	}
 }

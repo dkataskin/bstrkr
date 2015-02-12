@@ -9,11 +9,11 @@ using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
 
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using Cirrious.CrossCore;
-using Cirrious.CrossCore.Platform;
 
 namespace bstrkr.mvvm.viewmodels
 {
