@@ -45,9 +45,9 @@ namespace bstrkr.mvvm.viewmodels
 
 		private int _arrivesInSeconds;
 		private string _routeStopId;
+		private string _prevRouteStopId;
 		private string _routeStopName;
 		private string _routeStopDescription;
-		private bool _noData = true;
 
 		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
@@ -71,10 +71,15 @@ namespace bstrkr.mvvm.viewmodels
 						 .Permit(RouteVehicleVMTriggers.RequestFailed, RouteVehicleVMStates.NoForecast);
 
 			_stateMachine.Configure(RouteVehicleVMStates.ForecastReceived)
-						 .OnEntryFrom(RouteVehicleVMTriggers.ForecastReturned, this.Countdown)
-						 .OnEntryFrom(RouteVehicleVMTriggers.DuplicateForecastReturned, this.PauseAndRequest)
-						 .OnEntryFrom(RouteVehicleVMTriggers.NoForecastDataReturned, this.PauseAndRequest)
-						 .OnEntryFrom(RouteVehicleVMTriggers.RequestFailed, this.PauseAndRequest)
+						 .OnEntry(this.Countdown)
+						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
+
+			_stateMachine.Configure(RouteVehicleVMStates.ForecastDuplicated)
+						 .OnEntry(this.PauseAndRequest)
+						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
+
+			_stateMachine.Configure(RouteVehicleVMStates.NoForecast)
+						 .OnEntry(this.PauseAndRequest)
 						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
 		}
 
@@ -186,6 +191,7 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						if (forecastItem != null)
 						{
+							_prevRouteStopId = this.RouteStopId;
 							this.ArrivesInSeconds = forecastItem.ArrivesInSec;
 							if (forecastItem.RouteStop != null)
 							{
@@ -203,7 +209,8 @@ namespace bstrkr.mvvm.viewmodels
 								return;
 							}
 
-							if (this.ArrivesInSeconds == 0)
+							if (this.ArrivesInSeconds == 0 || 
+								(this.ArrivesInSeconds < 10 && string.Equals(_prevRouteStopId, this.RouteStopId)))
 							{
 								_stateMachine.Fire(RouteVehicleVMTriggers.DuplicateForecastReturned);
 							}
@@ -249,7 +256,7 @@ namespace bstrkr.mvvm.viewmodels
 						if (this.ArrivesInSeconds == 0)
 						{
 							_intervalSubscription.Dispose();
-							_stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested);
+							Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 						}
 					}
 				}

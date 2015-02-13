@@ -29,12 +29,12 @@ namespace bstrkr.android
 			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::bstrkr.android.Resource.String.library_name;
 			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
+			global::Xamarin.InsightsCore.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
+			global::Xamarin.InsightsCore.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 			global::RestSharp.Portable.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::RestSharp.Portable.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 			global::RestSharp.Portable.Encodings.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::RestSharp.Portable.Encodings.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
-			global::Xamarin.InsightsCore.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
-			global::Xamarin.InsightsCore.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 		}
 		
 		public partial class Animation
