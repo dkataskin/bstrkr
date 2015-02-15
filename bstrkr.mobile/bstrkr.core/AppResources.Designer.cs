@@ -53,9 +53,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string minibus_vehicle_type_title {
+        public static string refreshing {
             get {
-                return ResourceManager.GetString("minibus_vehicle_type_title", resourceCulture);
+                return ResourceManager.GetString("refreshing", resourceCulture);
             }
         }
         
@@ -173,9 +173,15 @@ namespace bstrkr.core {
             }
         }
         
-        public static string refreshing {
+        public static string route_stop_view_title_format {
             get {
-                return ResourceManager.GetString("refreshing", resourceCulture);
+                return ResourceManager.GetString("route_stop_view_title_format", resourceCulture);
+            }
+        }
+        
+        public static string minibus_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("minibus_vehicle_type_title", resourceCulture);
             }
         }
         
@@ -206,6 +212,12 @@ namespace bstrkr.core {
         public static string routes_view_title {
             get {
                 return ResourceManager.GetString("routes_view_title", resourceCulture);
+            }
+        }
+        
+        public static string stops_dialog_title {
+            get {
+                return ResourceManager.GetString("stops_dialog_title", resourceCulture);
             }
         }
         

@@ -60,7 +60,6 @@
     <Compile Include="ViewModels\LicensesViewModel.cs" />
     <Compile Include="ViewModels\RouteStopsViewModel.cs" />
     <Compile Include="ViewModels\RouteStopMapViewModel.cs" />
-    <Compile Include="ViewModels\RouteStopViewModel.cs" />
     <Compile Include="ViewModels\UmbrellaRouteViewModel.cs" />
     <Compile Include="Converters\VehicleTypeToImageConverter.cs" />
     <Compile Include="ViewModels\UmbrellaRoutesListItemViewModel.cs" />
@@ -75,6 +74,11 @@
     <Compile Include="Converters\ArriveTimeToStringConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\RouteVehicleVMStateToVisibilityConverter.cs" />
+    <Compile Include="ViewModels\SetRouteStopViewModel.cs" />
+    <Compile Include="Navigation\RouteStopListNavParam.cs" />
+    <Compile Include="Navigation\RouteStopListItem.cs" />
+    <Compile Include="ViewModels\RouteStopsListItemViewModel.cs" />
+    <Compile Include="ViewModels\RouteStopViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -133,11 +137,15 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.5.0\lib\portable-win+net45+wp8+win8+wpa81\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Maps\" />
     <Folder Include="Views\" />
     <Folder Include="Converters\" />
     <Folder Include="Messages\" />
+    <Folder Include="Navigation\" />
   </ItemGroup>
 </Project>

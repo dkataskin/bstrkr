@@ -173,6 +173,8 @@
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Bootstrap\UserInteractionPluginBootstrap.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
+    <Compile Include="Views\SetRouteStopView.cs" />
+    <Compile Include="Views\RouteStopView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -211,7 +213,6 @@
     <AndroidResource Include="Resources\Layout\fragment_routes_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_preferences_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
-    <AndroidResource Include="Resources\Layout\item_areas_list.axml" />
     <AndroidResource Include="Resources\Values\colors.xml" />
     <AndroidResource Include="Resources\Layout\item_licenses_list.axml" />
     <AndroidResource Include="Resources\Layout\item_stops_list.axml" />

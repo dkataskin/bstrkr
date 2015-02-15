@@ -1,20 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
+using bstrkr.core.services.location;
+using bstrkr.mvvm.navigation;
+using bstrkr.providers;
+
+using Chance.MvvmCross.Plugins.UserInteraction;
+
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 
-using Xamarin;
+using Newtonsoft.Json;
 
-using bstrkr.core.services.location;
-using bstrkr.providers;
+using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopsViewModel : BusTrackerViewModelBase
 	{
 		private readonly ILiveDataProviderFactory _providerFactory;
-		private readonly ObservableCollection<RouteStopViewModel> _stops = new ObservableCollection<RouteStopViewModel>();
+		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = new ObservableCollection<RouteStopsListItemViewModel>();
 
 		private bool _unknownArea;
 
@@ -22,10 +29,10 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_providerFactory = providerFactory;
 
-			this.Stops = new ReadOnlyObservableCollection<RouteStopViewModel>(_stops);
+			this.Stops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_stops);
 
 			this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
-			this.ShowStopDetailsCommand = new MvxCommand<RouteStopViewModel>(this.ShowStopDetails, vm => !this.IsBusy);
+			this.ShowStopDetailsCommand = new MvxCommand<RouteStopsListItemViewModel>(this.ShowStopDetails, vm => !this.IsBusy);
 		}
 
 		public bool UnknownArea
@@ -45,11 +52,11 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public ReadOnlyObservableCollection<RouteStopViewModel> Stops { get; private set; }
+		public ReadOnlyObservableCollection<RouteStopsListItemViewModel> Stops { get; private set; }
 
 		public MvxCommand RefreshCommand { get; private set; }
 
-		public MvxCommand<RouteStopViewModel> ShowStopDetailsCommand { get; private set; }
+		public MvxCommand<RouteStopsListItemViewModel> ShowStopDetailsCommand { get; private set; }
 
 		public override void Start()
 		{
@@ -86,7 +93,7 @@ namespace bstrkr.mvvm.viewmodels
 						{
 							foreach (var stopsGroup in task.Result.GroupBy(x => x.Name)) 
 							{
-								_stops.Add(new RouteStopViewModel(stopsGroup.Key, stopsGroup.ToList()));
+								_stops.Add(new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList()));
 							}
 						});
 					} 
@@ -102,10 +109,27 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void ShowStopDetails(RouteStopViewModel routeStopViewModel)
+		private void ShowStopDetails(RouteStopsListItemViewModel routeStopViewModel)
 		{
 			if (routeStopViewModel.Stops.Count > 1)
 			{
+				var routeStopListNavParam = new RouteStopListNavParam();
+				foreach (var routeStop in routeStopViewModel.Stops)
+				{
+					routeStopListNavParam.RouteStops.Add(new RouteStopListItem(routeStop.Id, routeStop.Name, routeStop.Description));
+				}
+
+				this.ShowViewModel<SetRouteStopViewModel>(new { stops = JsonConvert.SerializeObject(routeStopListNavParam) });
+			}
+			else
+			{
+				var routeStop = routeStopViewModel.Stops.First();
+				this.ShowViewModel<RouteStopViewModel>(new 
+				{ 
+					id = routeStop.Id,
+					name = routeStop.Name,
+					description = routeStop.Description
+				});
 			}
 		}
 	}
