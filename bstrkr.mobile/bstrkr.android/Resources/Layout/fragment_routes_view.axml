@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_holo_dark">
@@ -17,6 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:indeterminateOnly="true"
         android:keepScreenOn="false"
         android:indeterminate="true"
@@ -32,4 +32,4 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
         local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
-</RelativeLayout>
+</FrameLayout>

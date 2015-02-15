@@ -23,6 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
         android:indeterminateOnly="true"
         android:keepScreenOn="false"
         android:indeterminate="true"
