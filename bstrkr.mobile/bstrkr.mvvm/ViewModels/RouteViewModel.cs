@@ -28,6 +28,7 @@ namespace bstrkr.mvvm.viewmodels
 		private string _from;
 		private string _to;
 		private int _number;
+		private int _vehicleCount;
 		private VehicleTypes _vehicleType;
 
 		public RouteViewModel(ILiveDataProviderFactory providerFactory)
@@ -68,40 +69,19 @@ namespace bstrkr.mvvm.viewmodels
 		public string Name 
 		{ 
 			get { return _name; } 
-			private set
-			{
-				if (!string.Equals(_name, value))
-				{
-					_name = value;
-					this.RaisePropertyChanged(() => this.Name);
-				}
-			} 
+			private set { this.RaiseAndSetIfChanged(ref _name, value, () => this.Name); } 
 		}
 
 		public string From
 		{
 			get { return _from; }
-			set
-			{
-				if (_from != value)
-				{
-					_from = value;
-					this.RaisePropertyChanged(() => this.From);
-				}
-			}
+			private set { this.RaiseAndSetIfChanged(ref _from, value, () => this.From); }
 		}
 
 		public string To
 		{
 			get { return _to; }
-			set
-			{
-				if (_to != value)
-				{
-					_to = value;
-					this.RaisePropertyChanged(() => this.To);
-				}
-			}
+			private set { this.RaiseAndSetIfChanged(ref _to, value, () => this.To); }
 		}
 
 		public bool NoData
@@ -132,7 +112,14 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RouteStop> Stops { get; private set; }
 
-		public void Init(string routeId, string routeName, int routeNumber, string routeIds, VehicleTypes vehicleType)
+		public void Init(
+					string routeId, 
+					string routeName, 
+					int routeNumber, 
+					string routeIds,
+					string fromStop,
+					string toStop,
+					VehicleTypes vehicleType)
 		{
 			string[] ids = null;
 			if (!string.IsNullOrEmpty(routeIds))
@@ -144,6 +131,8 @@ namespace bstrkr.mvvm.viewmodels
 			this.Number = routeNumber;
 			this.Name = routeName;
 			this.VehicleType = vehicleType;
+			this.From = fromStop;
+			this.To = toStop;
 
 			this.Route = new Route(
 							routeId, 

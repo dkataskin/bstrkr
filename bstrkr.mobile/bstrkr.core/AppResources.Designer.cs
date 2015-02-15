@@ -215,6 +215,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string route_view_from_stop_label {
+            get {
+                return ResourceManager.GetString("route_view_from_stop_label", resourceCulture);
+            }
+        }
+        
         public static string unknown_location_dialog_text {
             get {
                 return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
@@ -230,6 +236,18 @@ namespace bstrkr.core {
         public static string route_stops_view_title {
             get {
                 return ResourceManager.GetString("route_stops_view_title", resourceCulture);
+            }
+        }
+        
+        public static string route_view_route_name_label {
+            get {
+                return ResourceManager.GetString("route_view_route_name_label", resourceCulture);
+            }
+        }
+        
+        public static string route_view_to_stop_label {
+            get {
+                return ResourceManager.GetString("route_view_to_stop_label", resourceCulture);
             }
         }
         

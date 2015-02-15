@@ -109,4 +109,13 @@
 	<data name="route_vehicles_no_data" xml:space="preserve">
     <value>Looks like there is no a single vehicle on this route right now.</value>
   </data>
+	<data name="route_view_route_name_label" xml:space="preserve">
+    <value>Route:</value>
+  </data>
+	<data name="route_view_from_stop_label" xml:space="preserve">
+    <value>From:</value>
+  </data>
+	<data name="route_view_to_stop_label" xml:space="preserve">
+    <value>To:</value>
+  </data>
 </root>

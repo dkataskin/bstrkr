@@ -137,6 +137,8 @@ namespace bstrkr.mvvm.viewmodels
 				routeName = selectedRoute.Name,
 				routeNumber = selectedRoute.Route.Number,
 				routeIds = ids,
+				fromStop = selectedRoute.Route.FirstStop.Name,
+				toStop = selectedRoute.Route.LastStop.Name,
 				vehicleType = selectedRoute.VehicleType
 			});
 		}
