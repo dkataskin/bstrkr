@@ -16,24 +16,6 @@ using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public enum RouteVehicleVMStates
-	{
-		Start,
-		Loading,
-		ForecastReceived,
-		ForecastDuplicated,
-		NoForecast
-	}
-
-	public enum RouteVehicleVMTriggers
-	{
-		ForecastRequested,
-		ForecastReturned,
-		NoForecastDataReturned,
-		DuplicateForecastReturned,
-		RequestFailed
-	}
-
 	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase, IDisposable
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;

@@ -8,14 +8,22 @@ using bstrkr.providers;
 
 using Cirrious.MvvmCross.ViewModels;
 using bstrkr.mvvm.converters;
+using System.Reactive.Linq;
+using System.Collections.Generic;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteStopViewModel : BusTrackerViewModelBase
+	public class RouteStopViewModel : BusTrackerViewModelBase, IDisposable
 	{
+		private const int _minTimeBetweenRequestsInSeconds = 30;
+		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly RouteNumberToTitleConverter _routeNumberToTileConverter = new RouteNumberToTitleConverter();
 		private readonly ObservableCollection<RouteStopForecastViewModel> _forecast = new ObservableCollection<RouteStopForecastViewModel>();
+		private readonly IObservable<long> _intervalObservable;
+
+		private DateTime _lastTimeRequested;
+		private IDisposable _intervalSubscription;
 
 		private string _routeStopId;
 		private string _name;
@@ -25,6 +33,7 @@ namespace bstrkr.mvvm.viewmodels
 		public RouteStopViewModel(ILiveDataProviderFactory liveDataProvider)
 		{
 			_liveDataProviderFactory = liveDataProvider;
+			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
 
 			this.Forecast = new ReadOnlyObservableCollection<RouteStopForecastViewModel>(_forecast);
 		}
@@ -64,6 +73,14 @@ namespace bstrkr.mvvm.viewmodels
 			this.Refresh();
 		}
 
+		public void Dispose()
+		{
+			if (_intervalSubscription != null)
+			{
+				_intervalSubscription.Dispose();
+			}
+		}
+
 		private void Refresh()
 		{
 			var provider = _liveDataProviderFactory.GetCurrentProvider();
@@ -85,15 +102,26 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					this.Dispatcher.RequestMainThreadAction(() =>
 					{
-						_forecast.Clear();
-
-						foreach(var forecastItem in forecast.Items)
+						if (_intervalSubscription != null)
 						{
-							_forecast.Add(this.CreateFromForecastItem(forecastItem));
+							_intervalSubscription.Dispose();
 						}
+
+						lock(_lockObject)
+						{
+							_forecast.Clear();
+							foreach(var forecastItem in forecast.Items)
+							{
+								_forecast.Add(this.CreateFromForecastItem(forecastItem));
+							}
+						}
+
+						_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
 
 						this.NoData = false;
 						this.IsBusy = false;
+
+						_lastTimeRequested = DateTime.UtcNow;
 					});
 				}
 				else
@@ -120,6 +148,40 @@ namespace bstrkr.mvvm.viewmodels
 				ParentRoute = item.ParentRoute,
 				LastStop = item.LastRouteStopName
 			};
+		}
+
+		private void OnNextInterval(long interval)
+		{
+			this.Dispatcher.RequestMainThreadAction(() =>
+			{
+				lock (_lockObject)
+				{
+					var vmsToRemove = new List<RouteStopForecastViewModel>();
+					foreach (var vm in this.Forecast) 
+					{
+						vm.CountdownCommand.Execute();
+
+						if (vm.ArrivesInSeconds == 0)
+						{
+							vmsToRemove.Add(vm);
+						}
+					}
+
+					foreach (var vmToRemove in vmsToRemove) 
+					{
+						_forecast.Remove(vmToRemove);
+					}
+
+					var now = DateTime.UtcNow;
+					if (vmsToRemove.Any() && 
+						!this.IsBusy && 
+						(now - _lastTimeRequested).TotalSeconds > _minTimeBetweenRequestsInSeconds)
+					{
+						Task.Factory.StartNew(this.Refresh)
+								 	.ConfigureAwait(false);
+					}
+				}
+			});
 		}
 	}
 }
