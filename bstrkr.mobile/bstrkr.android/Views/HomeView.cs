@@ -302,6 +302,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(SetRouteStopViewModel), this);
 			customPresenter.Register(typeof(UmbrellaRouteViewModel), this);
 			customPresenter.Register(typeof(RouteViewModel), this);
+			customPresenter.Register(typeof(RouteStopViewModel), this);
 		}
 
 		private Fragment FindFragment<TView>() where TView : Fragment
@@ -374,6 +375,20 @@ namespace bstrkr.android.views
 
 				this.FragmentManager.BeginTransaction()
 					.Replace(Resource.Id.content_frame, routeView, "route_view")
+					.AddToBackStack(null)
+					.Commit();
+
+				this.DisableDrawer();
+			}
+
+			if (request.ViewModelType == typeof(RouteStopViewModel))
+			{
+				MvxFragment routeStopView = new RouteStopView();
+				routeStopView.ViewModel = loaderService.LoadViewModel(request, null);
+				_frag2tag[typeof(RouteStopView)] = "route_stop_view";
+
+				this.FragmentManager.BeginTransaction()
+					.Replace(Resource.Id.content_frame, routeStopView, "route_stop_view")
 					.AddToBackStack(null)
 					.Commit();
 

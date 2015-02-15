@@ -104,6 +104,13 @@ namespace bstrkr.core.providers.bus13
 				foreach (var route in routes)
 				{
 					_routesCache[route.Id] = route;
+					if (route.Ids != null)
+					{
+						foreach (var routeId in route.Ids)
+						{
+							_routesCache[routeId] = route;
+						}
+					}
 				}
 			}
 
@@ -152,6 +159,23 @@ namespace bstrkr.core.providers.bus13
 		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
 		{
 			return await _dataService.GetVehicleForecastAsync(vehicle).ConfigureAwait(false);
+		}
+
+		public async Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId)
+		{
+			var forecast = await _dataService.GetRouteStopForecastAsync(routeStopId);
+			lock(_routesCache)
+			{
+				foreach(var forecastItem in forecast.Items)
+				{
+					if (_routesCache.ContainsKey(forecastItem.Route.Id))
+					{
+						forecastItem.ParentRoute = _routesCache[forecastItem.Route.Id];
+					}
+				}
+			}
+
+			return forecast;
 		}
 
 		private void UpdateInLoop(

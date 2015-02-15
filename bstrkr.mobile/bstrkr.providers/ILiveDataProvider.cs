@@ -20,6 +20,8 @@ namespace bstrkr.providers
 
 		Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle);
 
+		Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId);
+
 		void Start();
 
 		void Stop();

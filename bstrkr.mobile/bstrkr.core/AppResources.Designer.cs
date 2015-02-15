@@ -227,6 +227,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string route_stop_forecast_no_data {
+            get {
+                return ResourceManager.GetString("route_stop_forecast_no_data", resourceCulture);
+            }
+        }
+        
         public static string route_view_from_stop_label {
             get {
                 return ResourceManager.GetString("route_view_from_stop_label", resourceCulture);

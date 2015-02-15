@@ -21,5 +21,7 @@ namespace bstrkr.core.providers.bus13
 		Task<IEnumerable<RouteStop>> GetStopsAsync();
 
 		Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle);
+
+		Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId);
 	}
 }

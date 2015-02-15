@@ -7,6 +7,7 @@ using bstrkr.core;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.android.views
 {
@@ -22,9 +23,14 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			this.SetHasOptionsMenu(true);
-			this.Activity.ActionBar.Title = AppResources.route_stop_view_title_format;
 
-			return this.BindingInflate(Resource.Layout.fragment_stops_view, null);
+			var vm = this.DataContext as RouteStopViewModel;
+			this.Activity.ActionBar.Title = string.Format(
+													AppResources.route_stop_view_title_format,
+													vm.Name,
+													vm.Description);
+
+			return this.BindingInflate(Resource.Layout.fragment_routestop_view, null);
 		}
 	}
 }

@@ -23,6 +23,7 @@ namespace bstrkr.core.providers.bus13
 		private const string ZonesResource = "getZones.php";
 		private const string VehicleLocationResource = "getVehiclesMarkers.php";
 		private const string VehicleForecastResource = "getVehicleForecasts.php";
+		private const string RouteStopForecastResource = "getStationForecasts.php";
 		private const string RouteNodesResource = "getRouteNodes.php";
 		private const string RouteIdFormatStr = "{0}-0";
 		private const string LocationParam = "city";
@@ -161,6 +162,25 @@ namespace bstrkr.core.providers.bus13
 			return new VehicleForecast(vehicle, new List<VehicleForecastItem>());
 		}
 
+		public async Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId)
+		{
+			var request = this.GetRequestBase(RouteStopForecastResource);
+			request.AddParameter("sid", routeStopId, ParameterType.QueryString);
+			request.AddParameter("type", 0, ParameterType.QueryString);
+			request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
+
+			var client = this.GetRestClient();
+			var forecast = await this.ExecuteAsync<List<Bus13RouteStopForecastItem>>(client, request)
+									 .ConfigureAwait(false);
+
+			if (forecast != null && forecast.Any())
+			{
+				return new RouteStopForecast(routeStopId, forecast.Select(this.ParseRouteStopForecast).ToList());
+			}
+
+			return new RouteStopForecast(routeStopId, new List<RouteStopForecastItem>());
+		}
+
 		private RestClient GetRestClient()
 		{
 			var client = new RestClient(_endpoint);
@@ -295,6 +315,25 @@ namespace bstrkr.core.providers.bus13
 									this.ParsePoint(item.Lat0, item.Lng0));
 
 			return new VehicleForecastItem(routeStop, item.Arrt);
+		}
+
+		private RouteStopForecastItem ParseRouteStopForecast(Bus13RouteStopForecastItem item)
+		{
+			var forecastItem = new RouteStopForecastItem();
+			forecastItem.ArrivesInSeconds = item.Arrt;
+			forecastItem.CurrentRouteStopName = item.Where;
+			forecastItem.LastRouteStopName = item.LastSt;
+			forecastItem.VehicleId = item.VehId;
+			forecastItem.Route = new Route(
+										item.RId.ToString(), 
+										new[] { item.RId.ToString() },
+										item.RNum,
+										item.RNum,
+										new List<RouteStop>(),
+										new List<GeoPoint>(),
+										new List<VehicleTypes> { this.ParseVehicleType(item.RType) });
+
+			return forecastItem;
 		}
 
 		private int CoordToInt(double coord)
