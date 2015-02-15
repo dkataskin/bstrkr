@@ -161,6 +161,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string route_vehicles_no_data {
+            get {
+                return ResourceManager.GetString("route_vehicles_no_data", resourceCulture);
+            }
+        }
+        
         public static string yes {
             get {
                 return ResourceManager.GetString("yes", resourceCulture);

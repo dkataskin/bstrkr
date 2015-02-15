@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/background_holo_dark">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		     xmlns:local="http://schemas.android.com/apk/res-auto"
+		     android:layout_width="fill_parent"
+		     android:layout_height="fill_parent"
+		     android:background="@color/background_holo_dark">
     <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -23,4 +22,13 @@
         android:indeterminateBehavior="repeat"
         local:MvxBind="Visibility Visibility(IsBusy)"
         style="@android:style/Widget.Holo.ProgressBar.Large" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#fff"
+        local:MvxBind="Text [route_vehicles_no_data]; Visibility Visibility(NoData)" />
 </RelativeLayout>

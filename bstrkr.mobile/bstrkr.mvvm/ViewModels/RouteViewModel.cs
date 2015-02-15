@@ -22,6 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly ObservableCollection<RouteVehiclesListItemViewModel> _vehicles = new ObservableCollection<RouteVehiclesListItemViewModel>();
 
+		private bool _noData;
 		private string _routeId;
 		private string _name;
 		private string _from;
@@ -103,6 +104,15 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public bool NoData
+		{
+			get { return _noData; }
+			private set
+			{
+				this.RaiseAndSetIfChanged(ref _noData, value, () => this.NoData);
+			}
+		}
+
 		public VehicleTypes VehicleType
 		{
 			get { return _vehicleType; }
@@ -169,7 +179,7 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			var vehicles = task.Result;
-			if (vehicles != null)
+			if (vehicles != null && vehicles.Any())
 			{
 				var vms = vehicles.Select(this.CreateFromVehicle).ToList();
 				this.Dispatcher.RequestMainThreadAction(() =>
@@ -188,7 +198,11 @@ namespace bstrkr.mvvm.viewmodels
 			}
 			else
 			{
-				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
+				this.Dispatcher.RequestMainThreadAction(() => 
+				{
+					this.NoData = true;
+					this.IsBusy = false;
+				});
 			}
 		}
 
