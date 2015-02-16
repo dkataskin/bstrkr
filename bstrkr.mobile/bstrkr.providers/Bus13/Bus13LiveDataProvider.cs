@@ -31,6 +31,7 @@ namespace bstrkr.core.providers.bus13
 		private readonly IBus13RouteDataService _dataService;
 		private readonly IDictionary<string, Bus13VehicleLocationUpdate> _locationState = new Dictionary<string, Bus13VehicleLocationUpdate>();
 		private readonly IDictionary<string, Route> _routesCache = new Dictionary<string, Route>();
+		private readonly IDictionary<string, Route> _allRoutesCache = new Dictionary<string, Route>();
 
 		private Task _updateTask;
 		private CancellationTokenSource _cancellationTokenSource;
@@ -104,11 +105,12 @@ namespace bstrkr.core.providers.bus13
 				foreach (var route in routes)
 				{
 					_routesCache[route.Id] = route;
+					_allRoutesCache[route.Id] = route;
 					if (route.Ids != null)
 					{
 						foreach (var routeId in route.Ids)
 						{
-							_routesCache[routeId] = route;
+							_allRoutesCache[routeId] = route;
 						}
 					}
 				}
@@ -168,9 +170,9 @@ namespace bstrkr.core.providers.bus13
 			{
 				foreach(var forecastItem in forecast.Items)
 				{
-					if (_routesCache.ContainsKey(forecastItem.Route.Id))
+					if (_allRoutesCache.ContainsKey(forecastItem.Route.Id))
 					{
-						forecastItem.ParentRoute = _routesCache[forecastItem.Route.Id];
+						forecastItem.ParentRoute = _allRoutesCache[forecastItem.Route.Id];
 					}
 				}
 			}

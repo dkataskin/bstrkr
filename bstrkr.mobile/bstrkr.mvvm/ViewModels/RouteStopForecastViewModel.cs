@@ -12,12 +12,17 @@ namespace bstrkr.mvvm.viewmodels
 
 		public RouteStopForecastViewModel()
 		{
-			this.CountdownCommand = new MvxCommand(() => this.ArrivesInSeconds--, () => this.ArrivesInSeconds > 0);
+			this.CountdownCommand = new MvxCommand(this.Countdown, () => this.ArrivesInSeconds > 0);
 		}
 
 		public MvxCommand CountdownCommand { get; private set; }
 
 		public string VehicleId { get; set; }
+
+		public bool IsActive
+		{
+			get { return this.ArrivesInSeconds > 0; }
+		}
 
 		public int ArrivesInSeconds 
 		{ 
@@ -34,5 +39,17 @@ namespace bstrkr.mvvm.viewmodels
 		public Route Route { get; set; }
 
 		public Route ParentRoute { get; set; }
+
+		private void Countdown()
+		{
+			var isActive = this.IsActive;
+
+			this.ArrivesInSeconds--;
+
+			if (isActive != this.IsActive)
+			{
+				this.RaisePropertyChanged(() => this.IsActive);
+			}
+		}
 	}
 }

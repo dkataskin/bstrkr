@@ -10,11 +10,21 @@ using Cirrious.MvvmCross.ViewModels;
 using bstrkr.mvvm.converters;
 using System.Reactive.Linq;
 using System.Collections.Generic;
+using System.Reactive.Subjects;
+using System.Reactive;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopViewModel : BusTrackerViewModelBase, IDisposable
 	{
+		private class MyObservable : IObservable<int>
+		{
+			public IDisposable Subscribe(IObserver<int> observer)
+			{
+				throw new NotImplementedException();
+			}
+		}
+
 		private const int _minTimeBetweenRequestsInSeconds = 30;
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
