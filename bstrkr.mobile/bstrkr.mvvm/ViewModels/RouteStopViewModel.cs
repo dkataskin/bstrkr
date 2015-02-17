@@ -1,38 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
 using bstrkr.core;
+using bstrkr.core.collections;
+using bstrkr.mvvm.converters;
 using bstrkr.providers;
 
 using Cirrious.MvvmCross.ViewModels;
-using bstrkr.mvvm.converters;
-using System.Reactive.Linq;
-using System.Collections.Generic;
-using System.Reactive.Subjects;
-using System.Reactive;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopViewModel : BusTrackerViewModelBase, IDisposable
 	{
-		private class MyObservable : IObservable<int>
-		{
-			public IDisposable Subscribe(IObserver<int> observer)
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		private const int _minTimeBetweenRequestsInSeconds = 30;
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly RouteNumberToTitleConverter _routeNumberToTileConverter = new RouteNumberToTitleConverter();
 		private readonly ObservableCollection<RouteStopForecastViewModel> _forecast = new ObservableCollection<RouteStopForecastViewModel>();
 		private readonly IObservable<long> _intervalObservable;
 
-		private DateTime _lastTimeRequested;
 		private IDisposable _intervalSubscription;
 
 		private string _routeStopId;
@@ -79,7 +70,11 @@ namespace bstrkr.mvvm.viewmodels
 			this.RouteStopId = id;
 			this.Name = name;
 			this.Description = description;
+		}
 
+		public override void Start()
+		{
+			base.Start();
 			this.Refresh();
 		}
 
@@ -119,6 +114,14 @@ namespace bstrkr.mvvm.viewmodels
 
 						lock(_lockObject)
 						{
+							_forecast.Merge(
+										forecast.Items,
+										vm => vm.VehicleId,
+										forecastItem => forecastItem.VehicleId,
+										this.CreateFromForecastItem,
+										this.UpdateFromForecastItem,
+										MergeMode.Full);
+
 							_forecast.Clear();
 							foreach(var forecastItem in forecast.Items)
 							{
@@ -130,8 +133,6 @@ namespace bstrkr.mvvm.viewmodels
 
 						this.NoData = false;
 						this.IsBusy = false;
-
-						_lastTimeRequested = DateTime.UtcNow;
 					});
 				}
 				else
@@ -144,6 +145,9 @@ namespace bstrkr.mvvm.viewmodels
 					});
 				}
 			}
+
+			Task.Delay(TimeSpan.FromSeconds(20))
+				.ContinueWith(delayTask => this.Refresh());
 		}
 
 		private RouteStopForecastViewModel CreateFromForecastItem(RouteStopForecastItem item)
@@ -160,6 +164,12 @@ namespace bstrkr.mvvm.viewmodels
 			};
 		}
 
+		private void UpdateFromForecastItem(RouteStopForecastViewModel vm, RouteStopForecastItem item)
+		{
+			vm.ArrivesInSeconds = item.ArrivesInSeconds;
+			vm.CurrentlyAt = item.CurrentRouteStopName;
+		}
+
 		private void OnNextInterval(long interval)
 		{
 			this.Dispatcher.RequestMainThreadAction(() =>
@@ -170,7 +180,6 @@ namespace bstrkr.mvvm.viewmodels
 					foreach (var vm in this.Forecast) 
 					{
 						vm.CountdownCommand.Execute();
-
 						if (vm.ArrivesInSeconds == 0)
 						{
 							vmsToRemove.Add(vm);
@@ -180,15 +189,6 @@ namespace bstrkr.mvvm.viewmodels
 					foreach (var vmToRemove in vmsToRemove) 
 					{
 						_forecast.Remove(vmToRemove);
-					}
-
-					var now = DateTime.UtcNow;
-					if (vmsToRemove.Any() && 
-						!this.IsBusy && 
-						(now - _lastTimeRequested).TotalSeconds > _minTimeBetweenRequestsInSeconds)
-					{
-						Task.Factory.StartNew(this.Refresh)
-								 	.ConfigureAwait(false);
 					}
 				}
 			});

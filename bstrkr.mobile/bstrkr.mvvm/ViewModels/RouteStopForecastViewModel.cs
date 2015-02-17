@@ -9,6 +9,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class RouteStopForecastViewModel : BusTrackerViewModelBase
 	{
 		private int _arrivesInSeconds;
+		private string _currentlyAt;
 
 		public RouteStopForecastViewModel()
 		{
@@ -30,7 +31,11 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _arrivesInSeconds, value, () => this.ArrivesInSeconds); } 
 		}
 
-		public string CurrentlyAt { get; set; }
+		public string CurrentlyAt 
+		{ 
+			get { return _currentlyAt; }
+			set { this.RaiseAndSetIfChanged(ref _currentlyAt, value, () => this.CurrentlyAt); }
+		}
 
 		public string LastStop { get; set; }
 
