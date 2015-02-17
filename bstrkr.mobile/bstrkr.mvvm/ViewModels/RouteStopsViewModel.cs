@@ -24,6 +24,8 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = new ObservableCollection<RouteStopsListItemViewModel>();
 
 		private bool _unknownArea;
+		private string _filterString;
+		private IList<RouteStopsListItemViewModel> _allStops = new List<RouteStopsListItemViewModel>();
 
 		public RouteStopsViewModel(ILiveDataProviderFactory providerFactory)
 		{
@@ -48,6 +50,20 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_unknownArea = value;
 					this.RaisePropertyChanged(() => this.UnknownArea);
+				}
+			}
+		}
+
+		public string FilterSting
+		{
+			get { return _filterString; }
+			set 
+			{ 
+				if (!string.Equals(_filterString, value))
+				{
+					_filterString = value;
+					this.RaisePropertyChanged(() => this.FilterSting);
+					this.Filter(value);
 				}
 			}
 		}
@@ -95,6 +111,8 @@ namespace bstrkr.mvvm.viewmodels
 							{
 								_stops.Add(new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList()));
 							}
+
+							_allStops = _stops.OrderBy(x => x.Name).ToList();
 						});
 					} 
 					catch (Exception e) 
@@ -130,6 +148,26 @@ namespace bstrkr.mvvm.viewmodels
 					name = routeStop.Name,
 					description = routeStop.Description
 				});
+			}
+		}
+
+		private void Filter(string filter)
+		{
+			_stops.Clear();
+
+			if (string.IsNullOrEmpty(filter))
+			{
+				foreach (var vm in _allStops)
+				{
+					_stops.Add(vm);
+				}
+
+				return;
+			}
+
+			foreach (var vm in _allStops.Where(vm => vm.Name.Contains(filter)).ToList())
+			{
+				_stops.Add(vm);
 			}
 		}
 	}

@@ -240,7 +240,6 @@
     <AndroidResource Include="Resources\Layout\item_umbrellaroutes_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_umbrellaroute_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
-    <AndroidResource Include="Resources\Menu\refresh.xml" />
     <AndroidResource Include="Resources\Xml\preferences.xml" />
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolley_s.png">
       <Link>Resources\Drawable\trolley_s.png</Link>
@@ -273,6 +272,8 @@
     <AndroidResource Include="Resources\Layout\item_routevehicles_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_routestop_view.axml" />
     <AndroidResource Include="Resources\Layout\item_stop_forecast.axml" />
+    <AndroidResource Include="Resources\Menu\routes_view_menu.xml" />
+    <AndroidResource Include="Resources\Menu\route_stops_view_menu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

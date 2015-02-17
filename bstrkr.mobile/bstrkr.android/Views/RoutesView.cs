@@ -34,7 +34,7 @@ namespace bstrkr.android.views
 
 		public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
 		{
-			inflater.Inflate(Resource.Menu.refresh, menu);
+			inflater.Inflate(Resource.Menu.routes_view_menu, menu);
 			var refreshItem = menu.FindItem(Resource.Id.menu_refresh);
 			refreshItem.SetOnMenuItemClickListener(this);
 		}
