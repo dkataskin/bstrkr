@@ -203,6 +203,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string route_stops_view_search_hint {
+            get {
+                return ResourceManager.GetString("route_stops_view_search_hint", resourceCulture);
+            }
+        }
+        
         public static string select {
             get {
                 return ResourceManager.GetString("select", resourceCulture);

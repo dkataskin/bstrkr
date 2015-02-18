@@ -126,4 +126,7 @@
 	<data name="route_view_to_stop_label" xml:space="preserve">
     <value>To:</value>
   </data>
+	<data name="route_stops_view_search_hint" xml:space="preserve">
+    <value>Route stop name</value>
+  </data>
 </root>

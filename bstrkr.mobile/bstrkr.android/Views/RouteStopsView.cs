@@ -17,7 +17,7 @@ namespace bstrkr.android.views
 	public class RouteStopsView : MvxFragment, 
 								  IMenuItemOnMenuItemClickListener,
 								  Android.Widget.SearchView.IOnQueryTextListener,
-	Android.Views.View.IOnFocusChangeListener
+								  Android.Views.View.IOnFocusChangeListener
 	{
 		public RouteStopsView()
 		{
@@ -43,7 +43,7 @@ namespace bstrkr.android.views
 
 			var searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
 			searchView.Iconified = false;
-			searchView.SetQueryHint("Route stop name");
+			searchView.SetQueryHint(AppResources.route_stops_view_search_hint);
 			searchView.SubmitButtonEnabled = false;
 			searchView.SetOnQueryTextListener(this);
 			searchView.SetOnQueryTextFocusChangeListener(this);
