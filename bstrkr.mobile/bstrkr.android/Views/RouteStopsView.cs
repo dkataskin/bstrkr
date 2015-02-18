@@ -24,12 +24,35 @@ namespace bstrkr.android.views
 			this.RetainInstance = true;
 		}
 
+		public override void OnCreate(Bundle savedInstanceState)
+		{
+			base.OnCreate(savedInstanceState);
+
+			this.SetHasOptionsMenu(true);
+
+			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
+			this.Activity.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+
+			var closeStopsTab = this.Activity.ActionBar.NewTab();
+			closeStopsTab.SetText("Close to me");
+			closeStopsTab.TabSelected += (s, a) =>
+			{
+			};
+
+			this.Activity.ActionBar.AddTab(closeStopsTab);
+
+			var allStopsTab = this.Activity.ActionBar.NewTab();
+			allStopsTab.TabSelected += (s, a) =>
+			{
+			};
+
+			allStopsTab.SetText("All stops");
+			this.Activity.ActionBar.AddTab(allStopsTab);
+		}
+
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
-
-			this.SetHasOptionsMenu(true);
-			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
 
 			return this.BindingInflate(Resource.Layout.fragment_stops_view, null);
 		}
