@@ -76,6 +76,7 @@ namespace bstrkr.android.views
 				switch (section)
 				{
 					case MenuSection.Map:
+						_currentSection = MenuSection.Map;
 						_drawerList.SetItemChecked(0, true);
 
 						var map = this.FragmentManager.FindFragmentById<MapView>(Resource.Id.mapView);

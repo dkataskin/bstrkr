@@ -16,12 +16,10 @@ using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase, IDisposable
+	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
-		private IObservable<long> _intervalObservable;
-		private IDisposable _intervalSubscription;
 
 		private readonly StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers> _stateMachine;
 
@@ -39,6 +37,10 @@ namespace bstrkr.mvvm.viewmodels
 												() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested), 
 												() => _stateMachine.CanFire(RouteVehicleVMTriggers.ForecastRequested));
 
+			this.CountdownCommand = new MvxCommand(
+												this.Countdown,
+												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived));
+
 			_stateMachine = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
 			_stateMachine.OnTransitioned(sm => this.Dispatcher.RequestMainThreadAction(() => this.RaisePropertyChanged(() => this.State)));
 
@@ -53,7 +55,6 @@ namespace bstrkr.mvvm.viewmodels
 						 .Permit(RouteVehicleVMTriggers.RequestFailed, RouteVehicleVMStates.NoForecast);
 
 			_stateMachine.Configure(RouteVehicleVMStates.ForecastReceived)
-						 .OnEntry(this.Countdown)
 						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
 
 			_stateMachine.Configure(RouteVehicleVMStates.ForecastDuplicated)
@@ -66,6 +67,8 @@ namespace bstrkr.mvvm.viewmodels
 		}
 
 		public MvxCommand UpdateForecastCommand { get; private set; }
+
+		public MvxCommand CountdownCommand { get; private set; }
 
 		public Vehicle Vehicle { get; set; }
 
@@ -126,18 +129,10 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public void Dispose()
-		{
-			if (_intervalSubscription != null)
-			{
-				_intervalSubscription.Dispose();
-			}
-		}
-
 		protected override void OnIsBusyChanged()
 		{
 			base.OnIsBusyChanged();
-			UpdateForecastCommand.RaiseCanExecuteChanged();
+			this.UpdateForecastCommand.RaiseCanExecuteChanged();
 		}
 
 		private void RequestForecast()
@@ -221,12 +216,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void Countdown()
 		{
-			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
-			_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
-		}
-
-		private void OnNextInterval(long interval)
-		{
 			this.Dispatcher.RequestMainThreadAction(() =>
 			{
 				lock (_lockObject)
@@ -237,7 +226,6 @@ namespace bstrkr.mvvm.viewmodels
 
 						if (this.ArrivesInSeconds == 0)
 						{
-							_intervalSubscription.Dispose();
 							Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 						}
 					}

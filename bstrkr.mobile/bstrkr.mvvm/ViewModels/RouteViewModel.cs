@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using bstrkr.core;
@@ -17,10 +18,14 @@ using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteViewModel : BusTrackerViewModelBase
+	public class RouteViewModel : BusTrackerViewModelBase, IDisposable
 	{
+		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly ObservableCollection<RouteVehiclesListItemViewModel> _vehicles = new ObservableCollection<RouteVehiclesListItemViewModel>();
+
+		private readonly IObservable<long> _intervalObservable;
+		private readonly IDisposable _intervalSubscription;
 
 		private bool _noData;
 		private string _routeId;
@@ -36,6 +41,9 @@ namespace bstrkr.mvvm.viewmodels
 			_providerFactory = providerFactory;
 			this.Vehicles = new ReadOnlyObservableCollection<RouteVehiclesListItemViewModel>(_vehicles);
 			this.ShowRouteVehicleDetailsCommand = new MvxCommand(() => {});
+
+			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
+			_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
 		}
 
 		public MvxCommand ShowRouteVehicleDetailsCommand { get; private set; }
@@ -159,6 +167,14 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public void Dispose()
+		{
+			if (_intervalSubscription != null)
+			{
+				_intervalSubscription.Dispose();
+			}
+		}
+
 		private void ShowRouteVehicles(Task<IEnumerable<Vehicle>> task)
 		{
 			if (task.Status != TaskStatus.RanToCompletion)
@@ -173,9 +189,12 @@ namespace bstrkr.mvvm.viewmodels
 				var vms = vehicles.Select(this.CreateFromVehicle).ToList();
 				this.Dispatcher.RequestMainThreadAction(() =>
 				{
-					foreach(var vm in vms)
+					lock(_lockObject)
 					{
-						_vehicles.Add(vm);
+						foreach(var vm in vms)
+						{
+							_vehicles.Add(vm);
+						}
 					}
 
 					this.IsBusy = false;
@@ -201,6 +220,20 @@ namespace bstrkr.mvvm.viewmodels
 			vm.Vehicle = vehicle;
 
 			return vm;
+		}
+
+		private void OnNextInterval(long interval)
+		{
+			this.Dispatcher.RequestMainThreadAction(() =>
+			{
+				lock (_lockObject)
+				{
+					foreach (var vm in _vehicles) 
+					{
+						vm.CountdownCommand.Execute();
+					}
+				}
+			});
 		}
 
 		private async Task UpdateForecastAsync()
