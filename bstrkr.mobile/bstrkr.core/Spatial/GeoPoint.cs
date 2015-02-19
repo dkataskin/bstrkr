@@ -101,6 +101,5 @@ namespace bstrkr.core.spatial
 			return this.Latitude.Equals(geoPoint.Latitude) &&
 				   this.Longitude.Equals(geoPoint.Longitude);
 		}
-
 	}
 }

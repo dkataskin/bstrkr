@@ -51,27 +51,13 @@ namespace bstrkr.mvvm.viewmodels
 		public string RouteId
 		{
 			get { return _routeId; }
-			private set
-			{
-				if (_routeId != value)
-				{
-					_routeId = value;
-					this.RaisePropertyChanged(() => this.RouteId);
-				}
-			}
+			private set { this.RaiseAndSetIfChanged(ref _routeId, value, () => this.RouteId); }
 		}
 
 		public int Number
 		{
 			get { return _number; }
-			private set 
-			{
-				if (_number != value)
-				{
-					_number = value;
-					this.RaisePropertyChanged(() => this.Number);
-				}
-			}
+			private set { this.RaiseAndSetIfChanged(ref _number, value, () => this.Number); }
 		}
 
 		public string Name 
@@ -95,23 +81,13 @@ namespace bstrkr.mvvm.viewmodels
 		public bool NoData
 		{
 			get { return _noData; }
-			private set
-			{
-				this.RaiseAndSetIfChanged(ref _noData, value, () => this.NoData);
-			}
+			private set { this.RaiseAndSetIfChanged(ref _noData, value, () => this.NoData); }
 		}
 
 		public VehicleTypes VehicleType
 		{
 			get { return _vehicleType; }
-			private set
-			{
-				if (_vehicleType != value)
-				{
-					_vehicleType = value;
-					this.RaisePropertyChanged(() => this.VehicleType);
-				}
-			}
+			private set { this.RaiseAndSetIfChanged(ref _vehicleType, value, () => this.VehicleType); }
 		}
 
 		public Route Route { get; set; }

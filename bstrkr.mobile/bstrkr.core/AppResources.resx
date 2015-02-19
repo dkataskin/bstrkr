@@ -129,4 +129,10 @@
 	<data name="route_stops_view_search_hint" xml:space="preserve">
     <value>Route stop name</value>
   </data>
+	<data name="meters_short" xml:space="preserve">
+    <value>m</value>
+  </data>
+	<data name="kilometers_short" xml:space="preserve">
+    <value>km</value>
+  </data>
 </root>

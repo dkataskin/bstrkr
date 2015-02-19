@@ -20,16 +20,24 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopsViewModel : BusTrackerViewModelBase
 	{
+		private const int ProximityFilteredStopListMaxCount = 10;
+
 		private readonly ILiveDataProviderFactory _providerFactory;
+		private readonly IBusTrackerLocationService _locationService;
+
 		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = new ObservableCollection<RouteStopsListItemViewModel>();
 
 		private bool _unknownArea;
+		private bool _proximityFilter = true;
 		private string _filterString;
 		private IList<RouteStopsListItemViewModel> _allStops = new List<RouteStopsListItemViewModel>();
 
-		public RouteStopsViewModel(ILiveDataProviderFactory providerFactory)
+		public RouteStopsViewModel(
+						ILiveDataProviderFactory providerFactory,
+						IBusTrackerLocationService locationService)
 		{
 			_providerFactory = providerFactory;
+			_locationService = locationService;
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_stops);
 
@@ -54,6 +62,20 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public bool ProximityFilter
+		{
+			get { return _proximityFilter; }
+			set
+			{
+				if (_proximityFilter != value)
+				{
+					_proximityFilter = value;
+					this.RaisePropertyChanged(() => this.ProximityFilter);
+					this.Filter(this.FilterSting, value);
+				}
+			}
+		}
+
 		public string FilterSting
 		{
 			get { return _filterString; }
@@ -63,7 +85,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_filterString = value;
 					this.RaisePropertyChanged(() => this.FilterSting);
-					this.Filter(value);
+					this.Filter(value, this.ProximityFilter);
 				}
 			}
 		}
@@ -107,12 +129,17 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						this.Dispatcher.RequestMainThreadAction(() =>
 						{
+							var location = _locationService.Location;
 							foreach (var stopsGroup in task.Result.GroupBy(x => x.Name)) 
 							{
-								_stops.Add(new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList()));
+								var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
+								vm.CalculateDistanceCommand.Execute(location);
+
+								_stops.Add(vm);
 							}
 
 							_allStops = _stops.OrderBy(x => x.Name).ToList();
+							this.Filter(this.FilterSting, this.ProximityFilter);
 						});
 					} 
 					catch (Exception e) 
@@ -151,21 +178,33 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void Filter(string filter)
+		private void Filter(string filter, bool filterByProximity)
 		{
-			_stops.Clear();
-
+			var stopsFilteredByName = new List<RouteStopsListItemViewModel>();
 			if (string.IsNullOrEmpty(filter))
 			{
-				foreach (var vm in _allStops)
+				stopsFilteredByName = _allStops.ToList();
+			}
+			else
+			{
+				foreach (var vm in _allStops.Where(vm => vm.Name.Contains(filter)).ToList())
 				{
-					_stops.Add(vm);
+					stopsFilteredByName.Add(vm);
 				}
-
-				return;
 			}
 
-			foreach (var vm in _allStops.Where(vm => vm.Name.Contains(filter)).ToList())
+			var stopsFilteredByProximity = stopsFilteredByName;
+			if (filterByProximity)
+			{
+				var location = _locationService.Location;
+				stopsFilteredByProximity = stopsFilteredByName
+											.OrderBy(vm => vm.DistanceInMeters)
+											.Take(ProximityFilteredStopListMaxCount)
+											.ToList();
+			}
+
+			_stops.Clear();
+			foreach (var vm in stopsFilteredByProximity)
 			{
 				_stops.Add(vm);
 			}

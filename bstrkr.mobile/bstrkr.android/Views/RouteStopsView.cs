@@ -19,6 +19,8 @@ namespace bstrkr.android.views
 								  Android.Widget.SearchView.IOnQueryTextListener,
 								  Android.Views.View.IOnFocusChangeListener
 	{
+		private SearchView _searchView;
+
 		public RouteStopsView()
 		{
 			this.RetainInstance = true;
@@ -37,6 +39,7 @@ namespace bstrkr.android.views
 			closeStopsTab.SetText("Close to me");
 			closeStopsTab.TabSelected += (s, a) =>
 			{
+				(this.DataContext as RouteStopsViewModel).ProximityFilter = true;
 			};
 
 			this.Activity.ActionBar.AddTab(closeStopsTab);
@@ -44,6 +47,7 @@ namespace bstrkr.android.views
 			var allStopsTab = this.Activity.ActionBar.NewTab();
 			allStopsTab.TabSelected += (s, a) =>
 			{
+				(this.DataContext as RouteStopsViewModel).ProximityFilter = false;
 			};
 
 			allStopsTab.SetText("All stops");
@@ -64,12 +68,12 @@ namespace bstrkr.android.views
 			var refreshItem = menu.FindItem(Resource.Id.menu_refresh);
 			refreshItem.SetOnMenuItemClickListener(this);
 
-			var searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
-			searchView.Iconified = false;
-			searchView.SetQueryHint(AppResources.route_stops_view_search_hint);
-			searchView.SubmitButtonEnabled = false;
-			searchView.SetOnQueryTextListener(this);
-			searchView.SetOnQueryTextFocusChangeListener(this);
+			_searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
+			_searchView.SetQueryHint(AppResources.route_stops_view_search_hint);
+			_searchView.SubmitButtonEnabled = false;
+			_searchView.SetOnQueryTextListener(this);
+			_searchView.SetOnQueryTextFocusChangeListener(this);
+			_searchView.Iconified = false;
 		}
 
 		public bool OnQueryTextChange(string newText)

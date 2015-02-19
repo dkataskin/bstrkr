@@ -173,6 +173,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string kilometers_short {
+            get {
+                return ResourceManager.GetString("kilometers_short", resourceCulture);
+            }
+        }
+        
         public static string route_stop_view_title_format {
             get {
                 return ResourceManager.GetString("route_stop_view_title_format", resourceCulture);
@@ -236,6 +242,12 @@ namespace bstrkr.core {
         public static string route_stop_forecast_no_data {
             get {
                 return ResourceManager.GetString("route_stop_forecast_no_data", resourceCulture);
+            }
+        }
+        
+        public static string meters_short {
+            get {
+                return ResourceManager.GetString("meters_short", resourceCulture);
             }
         }
         
