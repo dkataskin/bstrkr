@@ -20,6 +20,9 @@ namespace bstrkr.android.views
 								  Android.Views.View.IOnFocusChangeListener
 	{
 		private SearchView _searchView;
+		private ActionBar.Tab _closeStopsTab;
+		private ActionBar.Tab _allStopsTab;
+		private ActionBarNavigationMode _actionBarNavigationMode;
 
 		public RouteStopsView()
 		{
@@ -32,30 +35,33 @@ namespace bstrkr.android.views
 
 			this.SetHasOptionsMenu(true);
 
-			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
-			this.Activity.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-
-			var closeStopsTab = this.Activity.ActionBar.NewTab();
-			closeStopsTab.SetText("Close to me");
-			closeStopsTab.TabSelected += (s, a) =>
+			_closeStopsTab = this.Activity.ActionBar.NewTab();
+			_closeStopsTab.SetText("Close to me");
+			_closeStopsTab.TabSelected += (s, a) =>
 			{
 				(this.DataContext as RouteStopsViewModel).ProximityFilter = true;
 			};
 
-			this.Activity.ActionBar.AddTab(closeStopsTab);
-
-			var allStopsTab = this.Activity.ActionBar.NewTab();
-			allStopsTab.TabSelected += (s, a) =>
+			_allStopsTab = this.Activity.ActionBar.NewTab();
+			_allStopsTab.TabSelected += (s, a) =>
 			{
 				(this.DataContext as RouteStopsViewModel).ProximityFilter = false;
 			};
 
-			allStopsTab.SetText("All stops");
-			this.Activity.ActionBar.AddTab(allStopsTab);
+			_allStopsTab.SetText("All stops");
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
+			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
+
+			_actionBarNavigationMode = this.Activity.ActionBar.NavigationMode;
+
+			this.Activity.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+
+			this.Activity.ActionBar.AddTab(_closeStopsTab);
+			this.Activity.ActionBar.AddTab(_allStopsTab);
+
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			return this.BindingInflate(Resource.Layout.fragment_stops_view, null);
@@ -74,6 +80,16 @@ namespace bstrkr.android.views
 			_searchView.SetOnQueryTextListener(this);
 			_searchView.SetOnQueryTextFocusChangeListener(this);
 			_searchView.Iconified = false;
+		}
+
+		public override void OnDestroyView()
+		{
+			base.OnDestroyView();
+
+			this.Activity.ActionBar.RemoveTab(_closeStopsTab);
+			this.Activity.ActionBar.RemoveTab(_allStopsTab);
+
+			this.Activity.ActionBar.NavigationMode = _actionBarNavigationMode;
 		}
 
 		public bool OnQueryTextChange(string newText)

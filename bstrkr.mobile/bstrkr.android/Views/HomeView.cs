@@ -77,6 +77,8 @@ namespace bstrkr.android.views
 				{
 					case MenuSection.Map:
 						_currentSection = MenuSection.Map;
+						this.ActionBar.Title = AppResources.map_view_title;
+
 						_drawerList.SetItemChecked(0, true);
 
 						var map = this.FragmentManager.FindFragmentById<MapView>(Resource.Id.mapView);

@@ -20,7 +20,7 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopsViewModel : BusTrackerViewModelBase
 	{
-		private const int ProximityFilteredStopListMaxCount = 10;
+		private const int RouteStopMaximumDistanceInMeters = 1200;
 
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IBusTrackerLocationService _locationService;
@@ -199,7 +199,7 @@ namespace bstrkr.mvvm.viewmodels
 				var location = _locationService.Location;
 				stopsFilteredByProximity = stopsFilteredByName
 											.OrderBy(vm => vm.DistanceInMeters)
-											.Take(ProximityFilteredStopListMaxCount)
+											.Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
 											.ToList();
 			}
 

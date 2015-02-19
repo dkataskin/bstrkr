@@ -154,8 +154,10 @@ namespace bstrkr.core.providers.bus13
 			}
 
 			var response = await _dataService.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, 0);
-
-			return response.Updates.Select(x => x.Vehicle);
+			return response.Updates
+						   .Select(x => x.Vehicle)
+						   .Where(v => v.RouteInfo != null && ids.Any(id => id.Equals(v.RouteInfo.RouteId)))
+						   .ToList();
 		}
 
 		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
