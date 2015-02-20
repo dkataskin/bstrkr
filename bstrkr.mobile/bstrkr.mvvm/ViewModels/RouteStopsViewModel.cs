@@ -25,12 +25,18 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IBusTrackerLocationService _locationService;
 
-		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = new ObservableCollection<RouteStopsListItemViewModel>();
+		private readonly ObservableCollection<RouteStopsListItemViewModel> _closeStops = 
+			new ObservableCollection<RouteStopsListItemViewModel>();
+
+		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = 
+			new ObservableCollection<RouteStopsListItemViewModel>();
+
+		private IList<RouteStopsListItemViewModel> _allStops = new List<RouteStopsListItemViewModel>();
+		private IList<RouteStopsListItemViewModel> _closeAllStops = new List<RouteStopsListItemViewModel>();
 
 		private bool _unknownArea;
-		private bool _proximityFilter = true;
 		private string _filterString;
-		private IList<RouteStopsListItemViewModel> _allStops = new List<RouteStopsListItemViewModel>();
+
 
 		public RouteStopsViewModel(
 						ILiveDataProviderFactory providerFactory,
@@ -62,20 +68,6 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public bool ProximityFilter
-		{
-			get { return _proximityFilter; }
-			set
-			{
-				if (_proximityFilter != value)
-				{
-					_proximityFilter = value;
-					this.RaisePropertyChanged(() => this.ProximityFilter);
-					this.Filter(this.FilterSting, value);
-				}
-			}
-		}
-
 		public string FilterSting
 		{
 			get { return _filterString; }
@@ -85,10 +77,12 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_filterString = value;
 					this.RaisePropertyChanged(() => this.FilterSting);
-					this.Filter(value, this.ProximityFilter);
+					this.Filter(value);
 				}
 			}
 		}
+
+		public ReadOnlyObservableCollection<RouteStopsListItemViewModel> CloseStops { get; private set; }
 
 		public ReadOnlyObservableCollection<RouteStopsListItemViewModel> Stops { get; private set; }
 
@@ -139,7 +133,11 @@ namespace bstrkr.mvvm.viewmodels
 							}
 
 							_allStops = _stops.OrderBy(x => x.Name).ToList();
-							this.Filter(this.FilterSting, this.ProximityFilter);
+							_closeAllStops = _allStops.OrderBy(vm => vm.DistanceInMeters)
+													  .Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
+													  .ToList();
+
+							this.Filter(this.FilterSting);
 						});
 					} 
 					catch (Exception e) 
@@ -178,35 +176,24 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void Filter(string filter, bool filterByProximity)
+		private void Filter(string filter)
 		{
-			var stopsFilteredByName = new List<RouteStopsListItemViewModel>();
-			if (string.IsNullOrEmpty(filter))
-			{
-				stopsFilteredByName = _allStops.ToList();
-			}
-			else
-			{
-				foreach (var vm in _allStops.Where(vm => vm.Name.Contains(filter)).ToList())
-				{
-					stopsFilteredByName.Add(vm);
-				}
-			}
+			Func<RouteStopsListItemViewModel, bool> nameFilterPredicate = 
+				(RouteStopsListItemViewModel vm) => vm.Name.Contains(filter);
 
-			var stopsFilteredByProximity = stopsFilteredByName;
-			if (filterByProximity)
-			{
-				var location = _locationService.Location;
-				stopsFilteredByProximity = stopsFilteredByName
-											.OrderBy(vm => vm.DistanceInMeters)
-											.Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
-											.ToList();
-			}
+			this.ClearAndFilter(_stops, _allStops, nameFilterPredicate);
+			this.ClearAndFilter(_closeStops, _closeAllStops, nameFilterPredicate);
+		}
 
-			_stops.Clear();
-			foreach (var vm in stopsFilteredByProximity)
+		private void ClearAndFilter(
+					ObservableCollection<RouteStopsListItemViewModel> observable,
+					IEnumerable<RouteStopsListItemViewModel> source,
+					Func<RouteStopsListItemViewModel, bool> filter)
+		{
+			observable.Clear();
+			foreach (var vm in source.Where(filter))
 			{
-				_stops.Add(vm);
+				observable.Add(vm);
 			}
 		}
 	}
