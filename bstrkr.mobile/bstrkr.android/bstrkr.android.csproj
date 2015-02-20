@@ -176,6 +176,8 @@
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Views\SetRouteStopView.cs" />
     <Compile Include="Views\RouteStopView.cs" />
+    <Compile Include="Views\CloseRouteStopsView.cs" />
+    <Compile Include="Views\AllRouteStopsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -274,6 +276,9 @@
     <AndroidResource Include="Resources\Layout\item_stop_forecast.axml" />
     <AndroidResource Include="Resources\Menu\routes_view_menu.xml" />
     <AndroidResource Include="Resources\Menu\route_stops_view_menu.xml" />
+    <AndroidResource Include="Resources\Layout\fragment_closeroutestops_view.axml" />
+    <AndroidResource Include="Resources\Layout\item_closestops_list.axml" />
+    <AndroidResource Include="Resources\Layout\fragment_allstops_view.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -16,12 +16,14 @@ namespace bstrkr.android.views
 {
 	public class RouteStopsView : MvxFragment, 
 								  IMenuItemOnMenuItemClickListener,
-								  Android.Widget.SearchView.IOnQueryTextListener,
-								  Android.Views.View.IOnFocusChangeListener
+								  SearchView.IOnQueryTextListener,
+								  View.IOnFocusChangeListener
 	{
 		private SearchView _searchView;
 		private ActionBar.Tab _closeStopsTab;
 		private ActionBar.Tab _allStopsTab;
+		private TabListener<CloseRouteStopsView> _closeStopsListener;
+		private TabListener<AllRouteStopsView> _allStopsListener;
 		private ActionBarNavigationMode _actionBarNavigationMode;
 
 		public RouteStopsView()
@@ -35,20 +37,15 @@ namespace bstrkr.android.views
 
 			this.SetHasOptionsMenu(true);
 
+			_closeStopsListener = new TabListener<CloseRouteStopsView>(this.DataContext);
 			_closeStopsTab = this.Activity.ActionBar.NewTab();
 			_closeStopsTab.SetText("Close to me");
-			_closeStopsTab.TabSelected += (s, a) =>
-			{
-				(this.DataContext as RouteStopsViewModel).ProximityFilter = true;
-			};
+			_closeStopsTab.SetTabListener(_closeStopsListener);
 
+			_allStopsListener = new TabListener<AllRouteStopsView>(this.DataContext);
 			_allStopsTab = this.Activity.ActionBar.NewTab();
-			_allStopsTab.TabSelected += (s, a) =>
-			{
-				(this.DataContext as RouteStopsViewModel).ProximityFilter = false;
-			};
-
 			_allStopsTab.SetText("All stops");
+			_allStopsTab.SetTabListener(_allStopsListener);
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -92,6 +89,15 @@ namespace bstrkr.android.views
 			this.Activity.ActionBar.NavigationMode = _actionBarNavigationMode;
 		}
 
+		public override void OnDestroy()
+		{
+			base.OnDestroy();
+
+			_closeStopsTab.Dispose();
+			_allStopsTab.Dispose();
+			_closeStopsListener.Dispose();
+		}
+
 		public bool OnQueryTextChange(string newText)
 		{
 			(this.DataContext as RouteStopsViewModel).FilterSting = newText;
@@ -120,6 +126,55 @@ namespace bstrkr.android.views
 			}
 
 			return false;
+		}
+	}
+
+	public class TabListener<T> : Java.Lang.Object, ActionBar.ITabListener where T : MvxFragment, new()
+	{
+		private readonly object _dataContext;
+
+		private T _fragment;
+
+		public TabListener(object dataContext)
+		{
+			_dataContext = dataContext;
+		}
+
+		public void OnTabReselected(ActionBar.Tab tab, FragmentTransaction ft)
+		{
+		}
+
+		public void OnTabSelected(ActionBar.Tab tab, FragmentTransaction ft)
+		{
+			if (_fragment == null)
+			{
+				_fragment = new T();
+				_fragment.DataContext = _dataContext;
+
+				ft.Add(global::Android.Resource.Id.Content, _fragment, Guid.NewGuid().ToString());
+			}
+			else
+			{
+				ft.Attach(_fragment);
+			}
+		}
+
+		public void OnTabUnselected(ActionBar.Tab tab, FragmentTransaction ft)
+		{
+			if (_fragment != null)
+			{
+				ft.Detach(_fragment);
+			}
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			if (disposing && _fragment != null)
+			{
+				_fragment.Dispose();
+			}
 		}
 	}
 }

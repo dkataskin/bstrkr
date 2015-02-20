@@ -1552,8 +1552,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0c0027
 			public const int book_now = 2131492903;
 			
-			// aapt resource value: 0x7f0c0050
-			public const int busyIndicator = 2131492944;
+			// aapt resource value: 0x7f0c004f
+			public const int busyIndicator = 2131492943;
 			
 			// aapt resource value: 0x7f0c0023
 			public const int buyButton = 2131492899;
@@ -1642,8 +1642,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0c003c
 			public const int list_item = 2131492924;
 			
-			// aapt resource value: 0x7f0c004f
-			public const int mapView = 2131492943;
+			// aapt resource value: 0x7f0c0050
+			public const int mapView = 2131492944;
 			
 			// aapt resource value: 0x7f0c0025
 			public const int match_parent = 2131492901;
@@ -1900,70 +1900,79 @@ namespace bstrkr.android
 			public const int abc_simple_decor = 2130903063;
 			
 			// aapt resource value: 0x7f030018
-			public const int fragment_licenses_view = 2130903064;
+			public const int fragment_allstops_view = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int fragment_map_view = 2130903065;
+			public const int fragment_closeroutestops_view = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int fragment_preferences_view = 2130903066;
+			public const int fragment_licenses_view = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int fragment_route_view = 2130903067;
+			public const int fragment_map_view = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int fragment_routes_view = 2130903068;
+			public const int fragment_preferences_view = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int fragment_routestop_view = 2130903069;
+			public const int fragment_route_view = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int fragment_stops_view = 2130903070;
+			public const int fragment_routes_view = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int fragment_umbrellaroute_view = 2130903071;
+			public const int fragment_routestop_view = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int item_licenses_list = 2130903072;
+			public const int fragment_stops_view = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int item_menu = 2130903073;
+			public const int fragment_umbrellaroute_view = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int item_routes_list = 2130903074;
+			public const int item_closestops_list = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int item_routevehicles_list = 2130903075;
+			public const int item_licenses_list = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int item_stop_forecast = 2130903076;
+			public const int item_menu = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int item_stops_list = 2130903077;
+			public const int item_routes_list = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int item_umbrellaroutes_list = 2130903078;
+			public const int item_routevehicles_list = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int item_vehicletypes_list = 2130903079;
+			public const int item_stop_forecast = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int mr_media_route_chooser_dialog = 2130903080;
+			public const int item_stops_list = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int mr_media_route_controller_dialog = 2130903081;
+			public const int item_umbrellaroutes_list = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int mr_media_route_list_item = 2130903082;
+			public const int item_vehicletypes_list = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int page_home_view = 2130903083;
+			public const int mr_media_route_chooser_dialog = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int page_splash_screen = 2130903084;
+			public const int mr_media_route_controller_dialog = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int support_simple_spinner_dropdown_item = 2130903085;
+			public const int mr_media_route_list_item = 2130903085;
+			
+			// aapt resource value: 0x7f03002e
+			public const int page_home_view = 2130903086;
+			
+			// aapt resource value: 0x7f03002f
+			public const int page_splash_screen = 2130903087;
+			
+			// aapt resource value: 0x7f030030
+			public const int support_simple_spinner_dropdown_item = 2130903088;
 			
 			static Layout()
 			{
