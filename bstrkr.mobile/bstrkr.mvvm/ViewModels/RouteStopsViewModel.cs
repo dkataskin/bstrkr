@@ -22,6 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private const int RouteStopMaximumDistanceInMeters = 1200;
 
+		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IBusTrackerLocationService _locationService;
 
@@ -46,6 +47,7 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService = locationService;
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_stops);
+			this.CloseStops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_closeStops);
 
 			this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
 			this.ShowStopDetailsCommand = new MvxCommand<RouteStopsListItemViewModel>(this.ShowStopDetails, vm => !this.IsBusy);
@@ -123,19 +125,22 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						this.Dispatcher.RequestMainThreadAction(() =>
 						{
-							var location = _locationService.Location;
-							foreach (var stopsGroup in task.Result.GroupBy(x => x.Name)) 
+							lock(_lockObject)
 							{
-								var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
-								vm.CalculateDistanceCommand.Execute(location);
+								var location = _locationService.Location;
+								foreach (var stopsGroup in task.Result.GroupBy(x => x.Name)) 
+								{
+									var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
+									vm.CalculateDistanceCommand.Execute(location);
 
-								_stops.Add(vm);
+									_stops.Add(vm);
+								}
+
+								_allStops = _stops.OrderBy(x => x.Name).ToList();
+								_closeAllStops = _allStops.OrderBy(vm => vm.DistanceInMeters)
+														  .Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
+														  .ToList();
 							}
-
-							_allStops = _stops.OrderBy(x => x.Name).ToList();
-							_closeAllStops = _allStops.OrderBy(vm => vm.DistanceInMeters)
-													  .Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
-													  .ToList();
 
 							this.Filter(this.FilterSting);
 						});
@@ -178,11 +183,19 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void Filter(string filter)
 		{
-			Func<RouteStopsListItemViewModel, bool> nameFilterPredicate = 
-				(RouteStopsListItemViewModel vm) => vm.Name.Contains(filter);
+			lock (_lockObject)
+			{
+				Func<RouteStopsListItemViewModel, bool> nameFilterPredicate = 
+					(RouteStopsListItemViewModel vm) => vm.Name.Contains(filter);
 
-			this.ClearAndFilter(_stops, _allStops, nameFilterPredicate);
-			this.ClearAndFilter(_closeStops, _closeAllStops, nameFilterPredicate);
+				if (string.IsNullOrEmpty(filter))
+				{
+					nameFilterPredicate = (RouteStopsListItemViewModel vm) => true;
+				}
+
+				this.ClearAndFilter(_stops, _allStops, nameFilterPredicate);
+				this.ClearAndFilter(_closeStops, _closeAllStops, nameFilterPredicate);
+			}
 		}
 
 		private void ClearAndFilter(
