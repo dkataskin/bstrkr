@@ -37,12 +37,12 @@ namespace bstrkr.android.views
 
 			this.SetHasOptionsMenu(true);
 
-			_closeStopsListener = new TabListener<CloseRouteStopsView>(this.DataContext);
+			_closeStopsListener = new TabListener<CloseRouteStopsView>(this.DataContext, () => _searchView.ClearFocus());
 			_closeStopsTab = this.Activity.ActionBar.NewTab();
 			_closeStopsTab.SetText("Close to me");
 			_closeStopsTab.SetTabListener(_closeStopsListener);
 
-			_allStopsListener = new TabListener<AllRouteStopsView>(this.DataContext);
+			_allStopsListener = new TabListener<AllRouteStopsView>(this.DataContext, () => _searchView.ClearFocus());
 			_allStopsTab = this.Activity.ActionBar.NewTab();
 			_allStopsTab.SetText("All stops");
 			_allStopsTab.SetTabListener(_allStopsListener);
@@ -126,55 +126,6 @@ namespace bstrkr.android.views
 			}
 
 			return false;
-		}
-	}
-
-	public class TabListener<T> : Java.Lang.Object, ActionBar.ITabListener where T : MvxFragment, new()
-	{
-		private readonly object _dataContext;
-
-		private T _fragment;
-
-		public TabListener(object dataContext)
-		{
-			_dataContext = dataContext;
-		}
-
-		public void OnTabReselected(ActionBar.Tab tab, FragmentTransaction ft)
-		{
-		}
-
-		public void OnTabSelected(ActionBar.Tab tab, FragmentTransaction ft)
-		{
-			if (_fragment == null)
-			{
-				_fragment = new T();
-				_fragment.DataContext = _dataContext;
-
-				ft.Add(global::Android.Resource.Id.Content, _fragment, Guid.NewGuid().ToString());
-			}
-			else
-			{
-				ft.Attach(_fragment);
-			}
-		}
-
-		public void OnTabUnselected(ActionBar.Tab tab, FragmentTransaction ft)
-		{
-			if (_fragment != null)
-			{
-				ft.Detach(_fragment);
-			}
-		}
-
-		protected override void Dispose(bool disposing)
-		{
-			base.Dispose(disposing);
-
-			if (disposing && _fragment != null)
-			{
-				_fragment.Dispose();
-			}
 		}
 	}
 }

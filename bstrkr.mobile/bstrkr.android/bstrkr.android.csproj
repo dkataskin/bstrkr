@@ -178,6 +178,7 @@
     <Compile Include="Views\RouteStopView.cs" />
     <Compile Include="Views\CloseRouteStopsView.cs" />
     <Compile Include="Views\AllRouteStopsView.cs" />
+    <Compile Include="Views\TabListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
