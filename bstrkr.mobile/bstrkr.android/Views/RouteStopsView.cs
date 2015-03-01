@@ -19,6 +19,7 @@ namespace bstrkr.android.views
 								  SearchView.IOnQueryTextListener,
 								  View.IOnFocusChangeListener
 	{
+		private IMenuItem _searchViewItem;
 		private SearchView _searchView;
 		private ActionBar.Tab _closeStopsTab;
 		private ActionBar.Tab _allStopsTab;
@@ -37,12 +38,16 @@ namespace bstrkr.android.views
 
 			this.SetHasOptionsMenu(true);
 
-			_closeStopsListener = new TabListener<CloseRouteStopsView>(this.DataContext, () => _searchView.ClearFocus());
+			_closeStopsListener = new TabListener<CloseRouteStopsView>(
+															this.DataContext, 
+															() => _searchViewItem.CollapseActionView());
 			_closeStopsTab = this.Activity.ActionBar.NewTab();
 			_closeStopsTab.SetText("Close to me");
 			_closeStopsTab.SetTabListener(_closeStopsListener);
 
-			_allStopsListener = new TabListener<AllRouteStopsView>(this.DataContext, () => _searchView.ClearFocus());
+			_allStopsListener = new TabListener<AllRouteStopsView>(
+															this.DataContext,
+															() => _searchViewItem.CollapseActionView());
 			_allStopsTab = this.Activity.ActionBar.NewTab();
 			_allStopsTab.SetText("All stops");
 			_allStopsTab.SetTabListener(_allStopsListener);
@@ -71,12 +76,13 @@ namespace bstrkr.android.views
 			var refreshItem = menu.FindItem(Resource.Id.menu_refresh);
 			refreshItem.SetOnMenuItemClickListener(this);
 
+			_searchViewItem = menu.FindItem(Resource.Id.action_search);
 			_searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
 			_searchView.SetQueryHint(AppResources.route_stops_view_search_hint);
 			_searchView.SubmitButtonEnabled = false;
 			_searchView.SetOnQueryTextListener(this);
 			_searchView.SetOnQueryTextFocusChangeListener(this);
-			_searchView.Iconified = false;
+			_searchView.Iconified = true;
 		}
 
 		public override void OnDestroyView()

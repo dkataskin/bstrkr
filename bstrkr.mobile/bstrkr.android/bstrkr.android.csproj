@@ -280,6 +280,9 @@
     <AndroidResource Include="Resources\Layout\fragment_closeroutestops_view.axml" />
     <AndroidResource Include="Resources\Layout\item_closestops_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_allstops_view.axml" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_search.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_search.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ic_search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
