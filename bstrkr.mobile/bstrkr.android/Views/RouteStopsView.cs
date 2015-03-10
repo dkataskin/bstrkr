@@ -26,8 +26,6 @@ namespace bstrkr.android.views
 		private SearchView _searchView;
 		private ActionBar.Tab _closeStopsTab;
 		private ActionBar.Tab _allStopsTab;
-		//private TabListener<CloseRouteStopsView> _closeStopsListener;
-		//private TabListener<AllRouteStopsView> _allStopsListener;
 		private ActionBarNavigationMode _actionBarNavigationMode;
 
 		public RouteStopsView()
@@ -40,50 +38,6 @@ namespace bstrkr.android.views
 			base.OnCreate(savedInstanceState);
 
 			this.SetHasOptionsMenu(true);
-
-//			var pager = this.View.FindViewById<ViewPager>(Resource.Id.pager);
-//			var adaptor = new GenericFragmentPagerAdaptor(this.FragmentManager);
-//			adaptor.AddFragment(new CloseRouteStopsView { DataContext = this.DataContext });
-//			adaptor.AddFragment(new AllRouteStopsView { DataContext = this.DataContext });
-//
-//			pager.Adapter = adaptor;
-//			pager.SetOnPageChangeListener(new ViewPageListenerForActionBar(this.Activity.ActionBar));
-//
-//			_closeStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "Close to me");
-//			_allStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "All stops");
-
-//			_closeStopsListener = new TabListener<CloseRouteStopsView>(
-//															this.DataContext, 
-//															() => _searchViewItem.CollapseActionView());
-//			_closeStopsTab = this.Activity.ActionBar.NewTab();
-//			_closeStopsTab.SetText("Close to me");
-//			_closeStopsTab.SetTabListener(_closeStopsListener);
-//
-//			_allStopsListener = new TabListener<AllRouteStopsView>(
-//															this.DataContext,
-//															() => _searchViewItem.CollapseActionView());
-//			_allStopsTab = this.Activity.ActionBar.NewTab();
-//			_allStopsTab.SetText("All stops");
-//			_allStopsTab.SetTabListener(_allStopsListener);
-		}
-
-		public override void OnViewCreated(View view, Bundle savedInstanceState)
-		{
-			base.OnViewCreated(view, savedInstanceState);
-
-			var pager = this.View.FindViewById<ViewPager>(Resource.Id.pager);
-			var adaptor = new GenericFragmentPagerAdaptor(this.FragmentManager);
-			adaptor.AddFragment(new CloseRouteStopsView { DataContext = this.DataContext });
-			adaptor.AddFragment(new AllRouteStopsView { DataContext = this.DataContext });
-
-			pager.Adapter = adaptor;
-			pager.SetOnPageChangeListener(new ViewPageListenerForActionBar(this.Activity.ActionBar));
-
-			_closeStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "Close to me");
-			_allStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "All stops");
-
-			this.Activity.ActionBar.AddTab(_closeStopsTab);
-			this.Activity.ActionBar.AddTab(_allStopsTab);
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -91,15 +45,28 @@ namespace bstrkr.android.views
 			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
 
 			_actionBarNavigationMode = this.Activity.ActionBar.NavigationMode;
-
 			this.Activity.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-
-//			this.Activity.ActionBar.AddTab(_closeStopsTab);
-//			this.Activity.ActionBar.AddTab(_allStopsTab);
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			return this.BindingInflate(Resource.Layout.fragment_stops_view, null);
+			var view = this.BindingInflate(Resource.Layout.fragment_stops_view, null);
+
+			var pager = view.FindViewById<ViewPager>(Resource.Id.pager);
+			var adaptor = new GenericFragmentPagerAdaptor(this.FragmentManager);
+			adaptor.AddFragment(new CloseRouteStopsView { DataContext = this.DataContext });
+			adaptor.AddFragment(new AllRouteStopsView { DataContext = this.DataContext });
+
+			pager.Adapter = adaptor;
+			pager.SetOnPageChangeListener(
+				new ViewPageListenerForActionBar(this.Activity.ActionBar, position => _searchViewItem.CollapseActionView()));
+
+			_closeStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "Close to me");
+			_allStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "All stops");
+
+			this.Activity.ActionBar.AddTab(_closeStopsTab);
+			this.Activity.ActionBar.AddTab(_allStopsTab);
+
+			return view;
 		}
 
 		public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
@@ -126,15 +93,9 @@ namespace bstrkr.android.views
 			this.Activity.ActionBar.RemoveTab(_allStopsTab);
 
 			this.Activity.ActionBar.NavigationMode = _actionBarNavigationMode;
-		}
-
-		public override void OnDestroy()
-		{
-			base.OnDestroy();
 
 			_closeStopsTab.Dispose();
 			_allStopsTab.Dispose();
-			//_closeStopsListener.Dispose();
 		}
 
 		public bool OnQueryTextChange(string newText)
@@ -168,7 +129,7 @@ namespace bstrkr.android.views
 		}
 	}
 
-	public class GenericFragmentPagerAdaptor : FragmentPagerAdapter
+	public class GenericFragmentPagerAdaptor : FragmentPagerAdapter, IDisposable
 	{
 		private List<Fragment> _fragmentList = new List<Fragment>();
 
@@ -191,20 +152,42 @@ namespace bstrkr.android.views
 		{
 			_fragmentList.Add(fragment);
 		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			foreach (var item in _fragmentList)
+			{
+				item.Dispose();
+			}
+
+			_fragmentList.Clear();
+		}
 	}
 
 	public class ViewPageListenerForActionBar : ViewPager.SimpleOnPageChangeListener
 	{
 		private ActionBar _bar;
+		private Action<int> _onPageSelectedCallback;
 
 		public ViewPageListenerForActionBar(ActionBar bar)
 		{
 			_bar = bar;
 		}
 
+		public ViewPageListenerForActionBar(ActionBar bar, Action<int> onPageSelectedCallback) : this(bar)
+		{
+			_onPageSelectedCallback = onPageSelectedCallback;
+		}
+
 		public override void OnPageSelected(int position)
 		{
 			_bar.SetSelectedNavigationItem(position);
+			if (_onPageSelectedCallback != null)
+			{
+				_onPageSelectedCallback(position);
+			}
 		}
 	}
 
