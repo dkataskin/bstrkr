@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.V13.App;
 using Android.Support.V4.View;
+
 using Android.Views;
 using Android.Widget;
 
@@ -12,8 +15,8 @@ using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
-using Android.Support.V13.App;
-using System.Collections.Generic;
+using DK.Ostebaronen.Droid.ViewPagerIndicator;
+using System.Linq;
 
 namespace bstrkr.android.views
 {
@@ -24,8 +27,12 @@ namespace bstrkr.android.views
 	{
 		private IMenuItem _searchViewItem;
 		private SearchView _searchView;
-		private ActionBar.Tab _closeStopsTab;
-		private ActionBar.Tab _allStopsTab;
+//		private ActionBar.Tab _closeStopsTab;
+//		private ActionBar.Tab _allStopsTab;
+
+		private Fragment _fr1;
+		private Fragment _fr2;
+
 		private ActionBarNavigationMode _actionBarNavigationMode;
 
 		public RouteStopsView()
@@ -45,7 +52,7 @@ namespace bstrkr.android.views
 			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
 
 			_actionBarNavigationMode = this.Activity.ActionBar.NavigationMode;
-			this.Activity.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+//			this.Activity.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
@@ -53,18 +60,22 @@ namespace bstrkr.android.views
 
 			var pager = view.FindViewById<ViewPager>(Resource.Id.pager);
 			var adaptor = new GenericFragmentPagerAdaptor(this.FragmentManager);
-			adaptor.AddFragment(new CloseRouteStopsView { DataContext = this.DataContext });
-			adaptor.AddFragment(new AllRouteStopsView { DataContext = this.DataContext });
+
+			adaptor.AddFragment("Close stops", _fr1 = new CloseRouteStopsView { DataContext = this.DataContext });
+			adaptor.AddFragment("All stops", _fr2 = new AllRouteStopsView { DataContext = this.DataContext });
 
 			pager.Adapter = adaptor;
-			pager.SetOnPageChangeListener(
-				new ViewPageListenerForActionBar(this.Activity.ActionBar, position => _searchViewItem.CollapseActionView()));
+//			pager.SetOnPageChangeListener(
+//				new ViewPageListenerForActionBar(this.Activity.ActionBar, position => _searchViewItem.CollapseActionView()));
 
-			_closeStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "Close to me");
-			_allStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "All stops");
+			var indicator = view.FindViewById<TabPageIndicator>(Resource.Id.indicator);
+			indicator.SetViewPager(pager);
 
-			this.Activity.ActionBar.AddTab(_closeStopsTab);
-			this.Activity.ActionBar.AddTab(_allStopsTab);
+//			_closeStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "Close to me");
+//			_allStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "All stops");
+
+//			this.Activity.ActionBar.AddTab(_closeStopsTab);
+//			this.Activity.ActionBar.AddTab(_allStopsTab);
 
 			return view;
 		}
@@ -89,13 +100,16 @@ namespace bstrkr.android.views
 		{
 			base.OnDestroyView();
 
-			this.Activity.ActionBar.RemoveTab(_closeStopsTab);
-			this.Activity.ActionBar.RemoveTab(_allStopsTab);
+//			this.FragmentManager.PopBackStack();
+//			this.FragmentManager.PopBackStack();
 
-			this.Activity.ActionBar.NavigationMode = _actionBarNavigationMode;
+//			this.Activity.ActionBar.RemoveTab(_closeStopsTab);
+//			this.Activity.ActionBar.RemoveTab(_allStopsTab);
 
-			_closeStopsTab.Dispose();
-			_allStopsTab.Dispose();
+//			this.Activity.ActionBar.NavigationMode = _actionBarNavigationMode;
+
+//			_closeStopsTab.Dispose();
+//			_allStopsTab.Dispose();
 		}
 
 		public bool OnQueryTextChange(string newText)
@@ -131,7 +145,8 @@ namespace bstrkr.android.views
 
 	public class GenericFragmentPagerAdaptor : FragmentPagerAdapter, IDisposable
 	{
-		private List<Fragment> _fragmentList = new List<Fragment>();
+		private IDictionary<string, Fragment> _fragments = new Dictionary<string, Fragment>();
+
 
 		public GenericFragmentPagerAdaptor(FragmentManager fragmentManager)
 			: base(fragmentManager)
@@ -140,69 +155,75 @@ namespace bstrkr.android.views
 
 		public override int Count
 		{
-			get { return _fragmentList.Count; }
+			get { return _fragments.Keys.Count; }
 		}
 
 		public override Fragment GetItem(int position)
 		{
-			return _fragmentList[position];
+			return _fragments.Values.ElementAt(position);
 		}
 
-		public void AddFragment(Fragment fragment)
+		public void AddFragment(string title, Fragment fragment)
 		{
-			_fragmentList.Add(fragment);
+			_fragments.Add(title, fragment);
+			NotifyDataSetChanged();
+		}
+
+		public override Java.Lang.ICharSequence GetPageTitleFormatted(int position)
+		{
+			return new Java.Lang.String(_fragments.Keys.ElementAt(position));
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			base.Dispose(disposing);
+//			base.Dispose(disposing);
 
-			foreach (var item in _fragmentList)
+			foreach (var item in _fragments)
 			{
-				item.Dispose();
+//				item.Dispose();
 			}
 
-			_fragmentList.Clear();
+//			_fragments.Clear();
 		}
 	}
 
-	public class ViewPageListenerForActionBar : ViewPager.SimpleOnPageChangeListener
-	{
-		private ActionBar _bar;
-		private Action<int> _onPageSelectedCallback;
-
-		public ViewPageListenerForActionBar(ActionBar bar)
-		{
-			_bar = bar;
-		}
-
-		public ViewPageListenerForActionBar(ActionBar bar, Action<int> onPageSelectedCallback) : this(bar)
-		{
-			_onPageSelectedCallback = onPageSelectedCallback;
-		}
-
-		public override void OnPageSelected(int position)
-		{
-			_bar.SetSelectedNavigationItem(position);
-			if (_onPageSelectedCallback != null)
-			{
-				_onPageSelectedCallback(position);
-			}
-		}
-	}
-
-	public static class ViewPagerExtensions
-	{
-		public static ActionBar.Tab GetViewPageTab(this ViewPager viewPager, ActionBar actionBar, string name)
-		{
-			var tab = actionBar.NewTab();
-			tab.SetText(name);
-			tab.TabSelected += (o, e) =>
-			{
-				viewPager.SetCurrentItem(actionBar.SelectedNavigationIndex, false);
-			};
-
-			return tab;
-		}
-	}
+//	public class ViewPageListenerForActionBar : ViewPager.SimpleOnPageChangeListener
+//	{
+//		private ActionBar _bar;
+//		private Action<int> _onPageSelectedCallback;
+//
+//		public ViewPageListenerForActionBar(ActionBar bar)
+//		{
+//			_bar = bar;
+//		}
+//
+//		public ViewPageListenerForActionBar(ActionBar bar, Action<int> onPageSelectedCallback) : this(bar)
+//		{
+//			_onPageSelectedCallback = onPageSelectedCallback;
+//		}
+//
+//		public override void OnPageSelected(int position)
+//		{
+//			_bar.SetSelectedNavigationItem(position);
+//			if (_onPageSelectedCallback != null)
+//			{
+//				_onPageSelectedCallback(position);
+//			}
+//		}
+//	}
+//
+//	public static class ViewPagerExtensions
+//	{
+//		public static ActionBar.Tab GetViewPageTab(this ViewPager viewPager, ActionBar actionBar, string name)
+//		{
+//			var tab = actionBar.NewTab();
+//			tab.SetText(name);
+//			tab.TabSelected += (o, e) =>
+//			{
+//				viewPager.SetCurrentItem(actionBar.SelectedNavigationIndex, false);
+//			};
+//
+//			return tab;
+//		}
+//	}
 }

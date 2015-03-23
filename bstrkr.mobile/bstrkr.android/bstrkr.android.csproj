@@ -146,6 +146,10 @@
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monoandroid\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="DK.Ostebaronen.Droid.ViewPagerIndicator">
+      <HintPath>..\bstrkr.android.library\DK.Ostebaronen.Droid.ViewPagerIndicator.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android.Export" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
