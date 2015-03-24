@@ -33,20 +33,21 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
+using Cirrious.MvvmCross.Droid.Fragging;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
-using Cirrious.MvvmCross.Droid.Fragging;
 
 namespace bstrkr.android.views
 {
 	[Activity(Label = "Home", 
 			  LaunchMode = LaunchMode.SingleTop, 
 			  Icon = "@drawable/ic_launcher",
-			  ScreenOrientation = ScreenOrientation.Portrait)]
+			  ScreenOrientation = ScreenOrientation.Portrait,
+			  Theme = "@style/Theme.PageIndicatorDefaults")]
 	public class HomeView : MvxFragmentActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;

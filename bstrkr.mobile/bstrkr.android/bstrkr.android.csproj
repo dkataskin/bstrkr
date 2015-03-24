@@ -287,6 +287,28 @@
     <AndroidResource Include="Resources\Drawable-mdpi\ic_search.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_search.png" />
     <AndroidResource Include="Resources\Values-v11\Styles.xml" />
+    <AndroidResource Include="Resources\Drawable\custom_tab_indicator.xml" />
+    <AndroidResource Include="Resources\Drawable-hdpi\custom_tab_indicator_divider.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\custom_tab_indicator_focused.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\custom_tab_indicator_selected_pressed.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\custom_tab_indicator_selected.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\custom_tab_indicator_unselected_focused.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\custom_tab_indicator_unselected_pressed.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\custom_tab_indicator_unselected.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\custom_tab_indicator_divider.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\custom_tab_indicator_selected_focused.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\custom_tab_indicator_selected_pressed.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\custom_tab_indicator_selected.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\custom_tab_indicator_unselected_focused.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\custom_tab_indicator_unselected_pressed.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\custom_tab_indicator_unselected.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_divider.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_selected_focused.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_selected_pressed.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_selected.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected_focused.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected_pressed.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected.9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
