@@ -15,7 +15,7 @@ using bstrkr.mvvm.views;
 
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 using Xamarin;
 using bstrkr.core.map;

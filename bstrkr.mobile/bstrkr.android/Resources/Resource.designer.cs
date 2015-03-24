@@ -27,8 +27,6 @@ namespace bstrkr.android
 		public static void UpdateIdValues()
 		{
 			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::bstrkr.android.Resource.String.library_name;
-			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
-			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 			global::Xamarin.InsightsCore.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::Xamarin.InsightsCore.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 			global::RestSharp.Portable.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
@@ -3512,7 +3510,7 @@ namespace bstrkr.android
 					16843055,
 					16843056,
 					16843057,
-					16843788};
+					16843754};
 			
 			// aapt resource value: 4
 			public const int MenuView_android_headerBackground = 4;

@@ -33,13 +33,13 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Droid.FullFragging;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.Fragging;
 
 namespace bstrkr.android.views
 {
@@ -47,7 +47,7 @@ namespace bstrkr.android.views
 			  LaunchMode = LaunchMode.SingleTop, 
 			  Icon = "@drawable/ic_launcher",
 			  ScreenOrientation = ScreenOrientation.Portrait)]
-	public class HomeView : MvxActivity, IFragmentHost
+	public class HomeView : MvxFragmentActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
 		private MyActionBarDrawerToggle _drawerToggle;
@@ -64,7 +64,7 @@ namespace bstrkr.android.views
 			{
 				var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
 				var homeViewModel = this.ViewModel as HomeViewModel;
-				Fragment fragment = null;
+				MvxFragment fragment = null;
 
 				var section = homeViewModel.GetSectionForViewModelType(request.ViewModelType);
 				if (section == MenuSection.Unknown)
@@ -81,7 +81,7 @@ namespace bstrkr.android.views
 
 						_drawerList.SetItemChecked(0, true);
 
-						var map = this.FragmentManager.FindFragmentById<MapView>(Resource.Id.mapView);
+						var map = this.SupportFragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
 						if (map.ViewModel == null)
 						{
 							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
@@ -156,7 +156,7 @@ namespace bstrkr.android.views
 					_frag2tag[fragment.GetType()] = Guid.NewGuid().ToString();
 				}
 
-				this.FragmentManager.BeginTransaction()
+				this.SupportFragmentManager.BeginTransaction()
 									.Replace(Resource.Id.content_frame, fragment, _frag2tag[fragment.GetType()])
 								   	.AddToBackStack(null)
 								   	.Commit();
@@ -308,11 +308,11 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(RouteStopViewModel), this);
 		}
 
-		private Fragment FindFragment<TView>() where TView : Fragment
+		private MvxFragment FindFragment<TView>() where TView : MvxFragment
 		{
 			if (_frag2tag.ContainsKey(typeof(TView)))
 			{
-				return this.FragmentManager.FindFragmentByTag(_frag2tag[typeof(TView)]) as TView;
+				return this.SupportFragmentManager.FindFragmentByTag(_frag2tag[typeof(TView)]) as TView;
 			}
 
 			return null;
@@ -346,14 +346,14 @@ namespace bstrkr.android.views
 			{
 				var dialog = new SetAreaView();
 				dialog.ViewModel = loaderService.LoadViewModel(request, null);
-				dialog.Show(this.FragmentManager, null);
+				dialog.Show(this.SupportFragmentManager, null);
 			}
 
 			if (request.ViewModelType == typeof(SetRouteStopViewModel))
 			{
 				var dialog = new SetRouteStopView();
 				dialog.ViewModel = loaderService.LoadViewModel(request, null);
-				dialog.Show(this.FragmentManager, null);
+				dialog.Show(this.SupportFragmentManager, null);
 			}
 
 			if (request.ViewModelType == typeof(UmbrellaRouteViewModel))
@@ -362,7 +362,7 @@ namespace bstrkr.android.views
 				umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
 				_frag2tag[typeof(UmbrellaRouteView)] = "umbrella_route_view";
 
-				this.FragmentManager.BeginTransaction()
+				this.SupportFragmentManager.BeginTransaction()
 									.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
 									.AddToBackStack(null)
 									.Commit();
@@ -376,7 +376,7 @@ namespace bstrkr.android.views
 				routeView.ViewModel = loaderService.LoadViewModel(request, null);
 				_frag2tag[typeof(RouteView)] = "route_view";
 
-				this.FragmentManager.BeginTransaction()
+				this.SupportFragmentManager.BeginTransaction()
 					.Replace(Resource.Id.content_frame, routeView, "route_view")
 					.AddToBackStack(null)
 					.Commit();
@@ -390,7 +390,7 @@ namespace bstrkr.android.views
 				routeStopView.ViewModel = loaderService.LoadViewModel(request, null);
 				_frag2tag[typeof(RouteStopView)] = "route_stop_view";
 
-				this.FragmentManager.BeginTransaction()
+				this.SupportFragmentManager.BeginTransaction()
 					.Replace(Resource.Id.content_frame, routeStopView, "route_stop_view")
 					.AddToBackStack(null)
 					.Commit();

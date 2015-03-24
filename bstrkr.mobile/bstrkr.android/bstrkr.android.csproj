@@ -59,17 +59,8 @@
     <Reference Include="System.Net.Http">
       <Private>True</Private>
     </Reference>
-    <Reference Include="GooglePlayServicesLib">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\GooglePlayServicesLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v4.dll</HintPath>
+      <HintPath>..\Components\xamandroidsupportv4-18-20.0.0.3\lib\android\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v13">
       <HintPath>..\packages\Xamarin.Android.Support.v13.21.0.3.0\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
@@ -116,9 +107,6 @@
     <Reference Include="Cirrious.MvvmCross">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Droid.FullFragging">
-      <HintPath>..\packages\MvvmCross.HotTuna.Droid.FullFragging.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Droid.FullFragging.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.dll</HintPath>
     </Reference>
@@ -150,6 +138,18 @@
       <HintPath>..\bstrkr.android.library\DK.Ostebaronen.Droid.ViewPagerIndicator.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android.Export" />
+    <Reference Include="Cirrious.MvvmCross.Droid.Fragging">
+      <HintPath>..\packages\MvvmCross.HotTuna.Droid.Fragging.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Droid.Fragging.dll</HintPath>
+    </Reference>
+    <Reference Include="GooglePlayServicesLib">
+      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\GooglePlayServicesLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
+      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -182,7 +182,6 @@
     <Compile Include="Views\RouteStopView.cs" />
     <Compile Include="Views\CloseRouteStopsView.cs" />
     <Compile Include="Views\AllRouteStopsView.cs" />
-    <Compile Include="Views\TabListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -287,6 +286,7 @@
     <AndroidResource Include="Resources\Drawable-hdpi\ic_search.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\ic_search.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_search.png" />
+    <AndroidResource Include="Resources\Values-v11\Styles.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -309,6 +309,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <XamarinComponentReference Include="xamandroidsupportv4-18">
+      <Version>20.0.0.3</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
     <XamarinComponentReference Include="googleplayservices">
       <Version>19.0.0</Version>
       <Visible>False</Visible>
@@ -333,5 +337,6 @@
     <Folder Include="Assets\Licenses\" />
     <Folder Include="Resources\Menu\" />
     <Folder Include="Resources\Xml\" />
+    <Folder Include="Resources\Values-v11\" />
   </ItemGroup>
 </Project>

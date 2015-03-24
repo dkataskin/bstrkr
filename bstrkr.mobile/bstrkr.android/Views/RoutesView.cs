@@ -7,7 +7,7 @@ using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 namespace bstrkr.android.views
 {
@@ -23,7 +23,7 @@ namespace bstrkr.android.views
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			this.SetHasOptionsMenu(true);
+			this.HasOptionsMenu = true;
 
 			this.Activity.ActionBar.Title = AppResources.routes_view_title;
 

@@ -5,19 +5,19 @@ using Android.Preferences;
 using Android.Views;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using bstrkr.core;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 namespace bstrkr.android.views
 {
-	public class PreferencesView : PreferenceFragment
+	public class PreferencesView : MvxFragment
 	{
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
 
-			this.AddPreferencesFromResource(Resource.Xml.preferences);
+			//this.AddPreferencesFromResource(Resource.Xml.preferences);
 
 			this.Activity.ActionBar.Title = AppResources.preferences_view_title;
 		}

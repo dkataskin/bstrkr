@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V13.App;
 using Android.Support.V4.View;
-
 using Android.Views;
 using Android.Widget;
 
@@ -14,9 +14,9 @@ using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+
 using DK.Ostebaronen.Droid.ViewPagerIndicator;
-using System.Linq;
 
 namespace bstrkr.android.views
 {
@@ -27,13 +27,6 @@ namespace bstrkr.android.views
 	{
 		private IMenuItem _searchViewItem;
 		private SearchView _searchView;
-//		private ActionBar.Tab _closeStopsTab;
-//		private ActionBar.Tab _allStopsTab;
-
-		private Fragment _fr1;
-		private Fragment _fr2;
-
-		private ActionBarNavigationMode _actionBarNavigationMode;
 
 		public RouteStopsView()
 		{
@@ -43,39 +36,27 @@ namespace bstrkr.android.views
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-
-			this.SetHasOptionsMenu(true);
+			this.HasOptionsMenu = true;
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
 
-			_actionBarNavigationMode = this.Activity.ActionBar.NavigationMode;
-//			this.Activity.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
-
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			var view = this.BindingInflate(Resource.Layout.fragment_stops_view, null);
 
 			var pager = view.FindViewById<ViewPager>(Resource.Id.pager);
-			var adaptor = new GenericFragmentPagerAdaptor(this.FragmentManager);
+			var adaptor = new GenericFragmentPagerAdaptor(this.ChildFragmentManager);
 
-			adaptor.AddFragment("Close stops", _fr1 = new CloseRouteStopsView { DataContext = this.DataContext });
-			adaptor.AddFragment("All stops", _fr2 = new AllRouteStopsView { DataContext = this.DataContext });
+			adaptor.AddFragment("Close stops", new CloseRouteStopsView { DataContext = this.DataContext });
+			adaptor.AddFragment("All stops", new AllRouteStopsView { DataContext = this.DataContext });
 
 			pager.Adapter = adaptor;
-//			pager.SetOnPageChangeListener(
-//				new ViewPageListenerForActionBar(this.Activity.ActionBar, position => _searchViewItem.CollapseActionView()));
 
 			var indicator = view.FindViewById<TabPageIndicator>(Resource.Id.indicator);
 			indicator.SetViewPager(pager);
-
-//			_closeStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "Close to me");
-//			_allStopsTab = pager.GetViewPageTab(this.Activity.ActionBar, "All stops");
-
-//			this.Activity.ActionBar.AddTab(_closeStopsTab);
-//			this.Activity.ActionBar.AddTab(_allStopsTab);
 
 			return view;
 		}
@@ -99,17 +80,6 @@ namespace bstrkr.android.views
 		public override void OnDestroyView()
 		{
 			base.OnDestroyView();
-
-//			this.FragmentManager.PopBackStack();
-//			this.FragmentManager.PopBackStack();
-
-//			this.Activity.ActionBar.RemoveTab(_closeStopsTab);
-//			this.Activity.ActionBar.RemoveTab(_allStopsTab);
-
-//			this.Activity.ActionBar.NavigationMode = _actionBarNavigationMode;
-
-//			_closeStopsTab.Dispose();
-//			_allStopsTab.Dispose();
 		}
 
 		public bool OnQueryTextChange(string newText)
@@ -143,12 +113,11 @@ namespace bstrkr.android.views
 		}
 	}
 
-	public class GenericFragmentPagerAdaptor : FragmentPagerAdapter, IDisposable
+	public class GenericFragmentPagerAdaptor : Android.Support.V4.App.FragmentPagerAdapter
 	{
-		private IDictionary<string, Fragment> _fragments = new Dictionary<string, Fragment>();
+		private IDictionary<string, MvxFragment> _fragments = new Dictionary<string, MvxFragment>();
 
-
-		public GenericFragmentPagerAdaptor(FragmentManager fragmentManager)
+		public GenericFragmentPagerAdaptor(Android.Support.V4.App.FragmentManager fragmentManager)
 			: base(fragmentManager)
 		{
 		}
@@ -158,12 +127,12 @@ namespace bstrkr.android.views
 			get { return _fragments.Keys.Count; }
 		}
 
-		public override Fragment GetItem(int position)
+		public override Android.Support.V4.App.Fragment GetItem(int position)
 		{
 			return _fragments.Values.ElementAt(position);
 		}
 
-		public void AddFragment(string title, Fragment fragment)
+		public void AddFragment(string title, MvxFragment fragment)
 		{
 			_fragments.Add(title, fragment);
 			NotifyDataSetChanged();
@@ -173,57 +142,5 @@ namespace bstrkr.android.views
 		{
 			return new Java.Lang.String(_fragments.Keys.ElementAt(position));
 		}
-
-		protected override void Dispose(bool disposing)
-		{
-//			base.Dispose(disposing);
-
-			foreach (var item in _fragments)
-			{
-//				item.Dispose();
-			}
-
-//			_fragments.Clear();
-		}
 	}
-
-//	public class ViewPageListenerForActionBar : ViewPager.SimpleOnPageChangeListener
-//	{
-//		private ActionBar _bar;
-//		private Action<int> _onPageSelectedCallback;
-//
-//		public ViewPageListenerForActionBar(ActionBar bar)
-//		{
-//			_bar = bar;
-//		}
-//
-//		public ViewPageListenerForActionBar(ActionBar bar, Action<int> onPageSelectedCallback) : this(bar)
-//		{
-//			_onPageSelectedCallback = onPageSelectedCallback;
-//		}
-//
-//		public override void OnPageSelected(int position)
-//		{
-//			_bar.SetSelectedNavigationItem(position);
-//			if (_onPageSelectedCallback != null)
-//			{
-//				_onPageSelectedCallback(position);
-//			}
-//		}
-//	}
-//
-//	public static class ViewPagerExtensions
-//	{
-//		public static ActionBar.Tab GetViewPageTab(this ViewPager viewPager, ActionBar actionBar, string name)
-//		{
-//			var tab = actionBar.NewTab();
-//			tab.SetText(name);
-//			tab.TabSelected += (o, e) =>
-//			{
-//				viewPager.SetCurrentItem(actionBar.SelectedNavigationIndex, false);
-//			};
-//
-//			return tab;
-//		}
-//	}
 }

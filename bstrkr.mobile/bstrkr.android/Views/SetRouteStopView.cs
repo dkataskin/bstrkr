@@ -6,7 +6,7 @@ using Android.OS;
 using Android.Views;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 using bstrkr.mvvm.viewmodels;
 using bstrkr.core;
