@@ -4,9 +4,9 @@ using Android.OS;
 using Android.Preferences;
 using Android.Views;
 
-using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-
 using bstrkr.core;
+
+using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 namespace bstrkr.android.views

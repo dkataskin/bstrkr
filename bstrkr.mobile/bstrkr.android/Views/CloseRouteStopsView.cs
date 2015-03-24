@@ -1,12 +1,13 @@
-﻿using Android.App;
+﻿using System;
+
+using Android.App;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 
 using bstrkr.android;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using System;
-using Android.Runtime;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
 namespace bstrkr.android.views

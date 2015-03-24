@@ -3,10 +3,10 @@
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 
+using bstrkr.android.views;
 using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.views;
-using bstrkr.android.views;
 
 namespace bstrkr.android.views
 {
