@@ -9,6 +9,7 @@ using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using bstrkr.mvvm;
 
 namespace bstrkr.android.views
 {
@@ -29,6 +30,16 @@ namespace bstrkr.android.views
 			this.Activity.ActionBar.Title = routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
 
 			return this.BindingInflate(Resource.Layout.fragment_route_view, null);
+		}
+
+		public override void OnDestroyView()
+		{
+			base.OnDestroyView();
+
+			if (this.DataContext != null && this.DataContext is ICleanable)
+			{
+				(this.DataContext as ICleanable).CleanUp();
+			}
 		}
 	}
 }

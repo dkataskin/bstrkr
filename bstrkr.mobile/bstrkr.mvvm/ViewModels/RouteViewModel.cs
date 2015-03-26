@@ -18,7 +18,7 @@ using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteViewModel : BusTrackerViewModelBase, IDisposable
+	public class RouteViewModel : BusTrackerViewModelBase, ICleanable
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
@@ -143,7 +143,7 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public void Dispose()
+		public void CleanUp()
 		{
 			if (_intervalSubscription != null)
 			{

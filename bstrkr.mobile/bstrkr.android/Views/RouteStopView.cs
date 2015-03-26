@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Views;
 
 using bstrkr.core;
+using bstrkr.mvvm;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
@@ -31,6 +32,16 @@ namespace bstrkr.android.views
 													vm.Description);
 
 			return this.BindingInflate(Resource.Layout.fragment_routestop_view, null);
+		}
+
+		public override void OnDestroyView()
+		{
+			base.OnDestroyView();
+
+			if (this.DataContext != null && this.DataContext is ICleanable)
+			{
+				(this.DataContext as ICleanable).CleanUp();
+			}
 		}
 	}
 }

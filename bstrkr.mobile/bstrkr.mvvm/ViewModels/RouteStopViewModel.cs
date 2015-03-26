@@ -16,7 +16,7 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteStopViewModel : BusTrackerViewModelBase, IDisposable
+	public class RouteStopViewModel : BusTrackerViewModelBase, ICleanable
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
@@ -78,7 +78,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.Refresh();
 		}
 
-		public void Dispose()
+		public void CleanUp()
 		{
 			if (_intervalSubscription != null)
 			{

@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\RouteVehicleVMStates.cs" />
     <Compile Include="ViewModels\RouteVehicleVMTriggers.cs" />
     <Compile Include="Converters\DistanceToStrConverter.cs" />
+    <Compile Include="ICleanable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
