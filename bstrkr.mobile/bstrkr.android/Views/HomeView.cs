@@ -88,12 +88,12 @@ namespace bstrkr.android.views
 							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
 						}
 
-						var transaction = this.FragmentManager.BeginTransaction();
+						var transaction = this.SupportFragmentManager.BeginTransaction();
 						foreach (var viewType in _frag2tag.Keys) 
 						{
 							if (viewType != typeof(MapView))
 							{
-								var fragmentToRemove = this.FragmentManager.FindFragmentByTag(_frag2tag[viewType]);
+								var fragmentToRemove = this.SupportFragmentManager.FindFragmentByTag(_frag2tag[viewType]);
 								if (fragmentToRemove != null)
 								{
 									transaction.Remove(fragmentToRemove);
@@ -101,7 +101,7 @@ namespace bstrkr.android.views
 							}
 						}
 
-						this.FragmentManager.PopBackStackImmediate(null, PopBackStackFlags.None | PopBackStackFlags.Inclusive);
+						this.SupportFragmentManager.PopBackStackImmediate(null, PopBackStackFlags.None | PopBackStackFlags.Inclusive);
 						transaction.Commit();
 						return true;
 
@@ -321,19 +321,19 @@ namespace bstrkr.android.views
 
 		private bool NavigateBack()
 		{
-			if (this.FragmentManager.BackStackEntryCount == 0)
+			if (this.SupportFragmentManager.BackStackEntryCount == 0)
 			{
 				return false;
 			}
 
-			if (this.FragmentManager.BackStackEntryCount == 1)
+			if (this.SupportFragmentManager.BackStackEntryCount == 1)
 			{
 				this.ShowMap();
 				return true;
 			}
 
-			this.FragmentManager.PopBackStackImmediate();
-			if (this.FragmentManager.BackStackEntryCount == 1)
+			this.SupportFragmentManager.PopBackStackImmediate();
+			if (this.SupportFragmentManager.BackStackEntryCount == 1)
 			{
 				this.EnableDrawer();
 			}

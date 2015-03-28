@@ -4,12 +4,12 @@ using Android.OS;
 using Android.Views;
 
 using bstrkr.core;
+using bstrkr.mvvm;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
-using bstrkr.mvvm;
 
 namespace bstrkr.android.views
 {
