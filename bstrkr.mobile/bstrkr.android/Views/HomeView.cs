@@ -101,7 +101,7 @@ namespace bstrkr.android.views
 							}
 						}
 
-						this.SupportFragmentManager.PopBackStackImmediate(null, PopBackStackFlags.None | PopBackStackFlags.Inclusive);
+						this.SupportFragmentManager.PopBackStackImmediate(null, (int)(PopBackStackFlags.None | PopBackStackFlags.Inclusive));
 						transaction.Commit();
 						return true;
 
