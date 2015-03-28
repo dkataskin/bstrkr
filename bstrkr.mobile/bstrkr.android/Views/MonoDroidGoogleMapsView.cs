@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
@@ -12,6 +13,8 @@ namespace bstrkr.android.views
 {
 	public class MonoDroidGoogleMapsView : IMapView
 	{
+		private readonly IDictionary<Marker, IMapMarker> _markers = new Dictionary<Marker, IMapMarker>();
+
 		private GoogleMap _map;
 		private float _previousZoomValue;
 
@@ -19,6 +22,7 @@ namespace bstrkr.android.views
 		{
 			_map = googleMap;
 			_map.CameraChange += this.OnCameraChange;
+			_map.MarkerClick += this.OnMarkerClick;
 
 			_previousZoomValue = _map.CameraPosition.Zoom;
 		}
@@ -26,6 +30,8 @@ namespace bstrkr.android.views
 		public event EventHandler<EventArgs> ZoomChanged;
 
 		public event EventHandler<EventArgs> CameraLocationChanged;
+
+		public event EventHandler<MapMarkerClickEventArgs> MarkerClicked;
 
 		public GeoPoint CameraLocation 
 		{
@@ -54,12 +60,18 @@ namespace bstrkr.android.views
 			marker.MapView = this;
 
 			markerBase.Marker = _map.AddMarker(markerBase.GetOptions());
+			_markers[markerBase.Marker] = marker;
 		}
 
 		public void RemoveMarker(IMapMarker marker)
 		{
 			marker.MapView = null;
 			var markerBase = marker as GoogleMapsMarkerBase;
+			if (_markers.ContainsKey(markerBase.Marker))
+			{
+				_markers.Remove(markerBase.Marker);
+			}
+
 			markerBase.Marker.Remove();
 		}
 
@@ -72,11 +84,28 @@ namespace bstrkr.android.views
 			}
 		}
 
+		private void OnMarkerClick(object sender, GoogleMap.MarkerClickEventArgs args)
+		{
+			args.Handled = true;
+			if (_markers.Contains(args.Marker))
+			{
+				this.RaiseMapMakerClickedEvent(_markers[args.Marker]);
+			}
+		}
+
 		private void RaiseZoomChangedEvent()
 		{
 			if (this.ZoomChanged != null)
 			{
 				this.ZoomChanged(this, EventArgs.Empty);
+			}
+		}
+
+		private void RaiseMapMakerClickedEvent(IMapMarker marker)
+		{
+			if (this.MarkerClicked != null)
+			{
+				this.MarkerClicked(this, new MapMarkerClickEventArgs(marker));
 			}
 		}
 	}

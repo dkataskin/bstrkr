@@ -29,6 +29,22 @@ namespace bstrkr.mvvm.maps
 			set { this.SetItemsSource(value); }
 		}
 
+		public T GetDataForMarker<T>(IMapMarker marker)
+		{
+			lock(_markers)
+			{
+				foreach (var keyValuePair in _markers)
+				{
+					if (keyValuePair.Value == marker)
+					{
+						return (T)keyValuePair.Key;
+					}
+				}
+
+				return default(T);
+			}
+		}
+
 		protected virtual void SetItemsSource(IEnumerable value)
 		{
 			if (_itemsSource == value)
@@ -81,23 +97,26 @@ namespace bstrkr.mvvm.maps
 			switch (args.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
-					this.AddMarkers(args.NewItems);
+					this.LockMarkers(() => this.AddMarkers(args.NewItems));
 					break;
 
 				case NotifyCollectionChangedAction.Remove:
-					this.RemoveMarkers(args.OldItems);
+					this.LockMarkers(() => this.RemoveMarkers(args.OldItems));
 					break;
 
 				case NotifyCollectionChangedAction.Replace:
-					this.RemoveMarkers(args.OldItems);
-					this.AddMarkers(args.NewItems);
+					this.LockMarkers(() =>
+					{
+						this.RemoveMarkers(args.OldItems);
+						this.AddMarkers(args.NewItems);
+					});
 					break;
 
 				case NotifyCollectionChangedAction.Move:
 					break;
 
 				case NotifyCollectionChangedAction.Reset:
-					this.ReloadAllMarkers();
+					this.LockMarkers(() => this.ReloadAllMarkers());
 					break;
 
 				default:
@@ -119,6 +138,8 @@ namespace bstrkr.mvvm.maps
 		{
 			var marker = _markers[item];
 			_mapView.RemoveMarker(marker);
+
+			_markers.Remove(item);
 		}
 
 		protected virtual void AddMarkers(IEnumerable newItems)
@@ -135,6 +156,14 @@ namespace bstrkr.mvvm.maps
 			_markers[item] = marker;
 
 			_mapView.AddMarker(marker);
+		}
+
+		private void LockMarkers(Action action)
+		{
+			lock(_markers)
+			{
+				action.Invoke();
+			}
 		}
 	}
 }

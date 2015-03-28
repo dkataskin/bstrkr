@@ -36,6 +36,8 @@ namespace bstrkr.android.views
 			this.RetainInstance = true;
 		}
 
+		public MapViewModel MapViewModel { get { return this.DataContext as MapViewModel; } }
+
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
@@ -108,6 +110,15 @@ namespace bstrkr.android.views
 			if (map != null) 
 			{
 				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
+				_mapViewWrapper.MarkerClicked += (s, a) => 
+				{
+					if (this.MapViewModel != null)
+					{
+						var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopViewModel>(a.Marker);
+						this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
+					}
+				}
+
 				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
 				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
 				_mapLocationManager = new MapLocationManager(_mapViewWrapper);

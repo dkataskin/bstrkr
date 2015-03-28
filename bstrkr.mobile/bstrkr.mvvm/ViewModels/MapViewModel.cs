@@ -60,11 +60,10 @@ namespace bstrkr.mvvm.viewmodels
 
 			//this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
-
-			// android requires location watcher to be started on the UI thread
-			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
-			this.IsBusy = true;
+			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
 		}
+
+		public MvxCommand ShowRouteStopInfoCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 
@@ -129,6 +128,15 @@ namespace bstrkr.mvvm.viewmodels
 					this.OnZoomChanged(value);
 				}
 			}
+		}
+
+		public override void Start()
+		{
+			base.Start();
+
+			// android requires location watcher to be started on the UI thread
+			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
+			this.IsBusy = true;
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
@@ -254,6 +262,11 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			vehicleVM.UpdateLocation(locationUpdate.Vehicle.Location, locationUpdate.Waypoints);
 			vehicleVM.VehicleHeading = locationUpdate.Vehicle.Heading;
+		}
+
+		private void ShowRouteStopInfo(RouteStopMapViewModel routeStopVM)
+		{
+			
 		}
 
 		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)

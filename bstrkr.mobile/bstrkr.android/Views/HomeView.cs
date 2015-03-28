@@ -158,6 +158,8 @@ namespace bstrkr.android.views
 				}
 
 				this.SupportFragmentManager.BeginTransaction()
+											.SetCustomAnimations(Resource.Animation.abc_fade_in,
+													Resource.Animation.abc_fade_out)
 									.Replace(Resource.Id.content_frame, fragment, _frag2tag[fragment.GetType()])
 								   	.AddToBackStack(null)
 								   	.Commit();
