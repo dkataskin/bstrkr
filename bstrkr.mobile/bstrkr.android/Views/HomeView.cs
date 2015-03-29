@@ -389,6 +389,14 @@ namespace bstrkr.android.views
 
 			if (request.ViewModelType == typeof(RouteStopViewModel))
 			{
+				if (request.RequestedBy != null)
+				{
+					if (request.RequestedBy.AdditionalInfo == "map_tap")
+					{
+						
+					}
+				}
+
 				MvxFragment routeStopView = new RouteStopView();
 				routeStopView.ViewModel = loaderService.LoadViewModel(request, null);
 				_frag2tag[typeof(RouteStopView)] = "route_stop_view";

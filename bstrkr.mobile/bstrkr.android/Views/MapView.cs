@@ -110,14 +110,14 @@ namespace bstrkr.android.views
 			if (map != null) 
 			{
 				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
-				_mapViewWrapper.MarkerClicked += (s, a) => 
+				_mapViewWrapper.MarkerClicked += (s, a) =>
 				{
 					if (this.MapViewModel != null)
 					{
-						var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopViewModel>(a.Marker);
+						var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopMapViewModel>(a.Marker);
 						this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
 					}
-				}
+				};
 
 				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
 				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);

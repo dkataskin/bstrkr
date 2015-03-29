@@ -13,7 +13,7 @@ namespace bstrkr.android.views
 {
 	public class MonoDroidGoogleMapsView : IMapView
 	{
-		private readonly IDictionary<Marker, IMapMarker> _markers = new Dictionary<Marker, IMapMarker>();
+		private readonly IDictionary<string, IMapMarker> _markers = new Dictionary<string, IMapMarker>();
 
 		private GoogleMap _map;
 		private float _previousZoomValue;
@@ -60,16 +60,16 @@ namespace bstrkr.android.views
 			marker.MapView = this;
 
 			markerBase.Marker = _map.AddMarker(markerBase.GetOptions());
-			_markers[markerBase.Marker] = marker;
+			_markers[markerBase.Marker.Id] = marker;
 		}
 
 		public void RemoveMarker(IMapMarker marker)
 		{
 			marker.MapView = null;
 			var markerBase = marker as GoogleMapsMarkerBase;
-			if (_markers.ContainsKey(markerBase.Marker))
+			if (_markers.ContainsKey(markerBase.Marker.Id))
 			{
-				_markers.Remove(markerBase.Marker);
+				_markers.Remove(markerBase.Marker.Id);
 			}
 
 			markerBase.Marker.Remove();
@@ -87,9 +87,9 @@ namespace bstrkr.android.views
 		private void OnMarkerClick(object sender, GoogleMap.MarkerClickEventArgs args)
 		{
 			args.Handled = true;
-			if (_markers.Contains(args.Marker))
+			if (_markers.ContainsKey(args.Marker.Id))
 			{
-				this.RaiseMapMakerClickedEvent(_markers[args.Marker]);
+				this.RaiseMapMakerClickedEvent(_markers[args.Marker.Id]);
 			}
 		}
 

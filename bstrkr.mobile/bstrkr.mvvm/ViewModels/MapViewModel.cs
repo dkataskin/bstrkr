@@ -58,12 +58,11 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService.LocationChanged += OnLocationChanged;
 			_locationService.LocationError += OnLocationError;
 
-			//this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
 		}
 
-		public MvxCommand ShowRouteStopInfoCommand { get; private set; }
+		public MvxCommand<RouteStopMapViewModel> ShowRouteStopInfoCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 
@@ -266,7 +265,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ShowRouteStopInfo(RouteStopMapViewModel routeStopVM)
 		{
-			
+			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
+			this.ShowViewModel<RouteStopViewModel>(routeStopVM.Model.Id, null, requestedBy);
 		}
 
 		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)

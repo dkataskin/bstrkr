@@ -8,11 +8,18 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <fragment
+    <!-- Map view -->
+        <Fragment
             android:name="bstrkr.android.views.MapView"
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+    <!-- Map sub views -->
+        <FrameLayout
+            android:id="@+id/map_content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    <!-- Other views -->
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
