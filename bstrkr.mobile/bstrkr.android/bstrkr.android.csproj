@@ -122,12 +122,6 @@
     <Reference Include="Xamarin.Insights">
       <HintPath>..\packages\Xamarin.Insights.1.9.1.107\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.4.0\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp.Portable.Encodings">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.4.0\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monoandroid\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
@@ -152,6 +146,12 @@
     </Reference>
     <Reference Include="Cheesebaron.SlidingUpPanel">
       <HintPath>..\Components\slidinguppanel-1.0.1\lib\android\Cheesebaron.SlidingUpPanel.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.4.1\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable.Encodings">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.4.1\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

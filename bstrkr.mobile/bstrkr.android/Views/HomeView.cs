@@ -40,6 +40,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using Cheesebaron.SlidingUpPanel;
 
 namespace bstrkr.android.views
 {
@@ -323,6 +324,12 @@ namespace bstrkr.android.views
 
 		private bool NavigateBack()
 		{
+			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
+			if (panel.PaneVisible)
+			{
+				panel.HidePane();
+			}
+
 			if (this.SupportFragmentManager.BackStackEntryCount == 0)
 			{
 				return false;
@@ -393,20 +400,30 @@ namespace bstrkr.android.views
 				{
 					if (request.RequestedBy.AdditionalInfo == "map_tap")
 					{
-						
+						var routeStopView1 = new RouteStopView();
+						routeStopView1.ViewModel = loaderService.LoadViewModel(request, null);
+
+						var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
+						panel.ShowPane();
+
+						this.SupportFragmentManager.BeginTransaction()
+							.Add(Resource.Id.panel_content_frame, routeStopView1, null)
+							.Commit();
 					}
 				}
+				else
+				{
+					MvxFragment routeStopView = new RouteStopView();
+					routeStopView.ViewModel = loaderService.LoadViewModel(request, null);
+					_frag2tag[typeof(RouteStopView)] = "route_stop_view";
 
-				MvxFragment routeStopView = new RouteStopView();
-				routeStopView.ViewModel = loaderService.LoadViewModel(request, null);
-				_frag2tag[typeof(RouteStopView)] = "route_stop_view";
+					this.SupportFragmentManager.BeginTransaction()
+						.Replace(Resource.Id.content_frame, routeStopView, "route_stop_view")
+						.AddToBackStack(null)
+						.Commit();
 
-				this.SupportFragmentManager.BeginTransaction()
-					.Replace(Resource.Id.content_frame, routeStopView, "route_stop_view")
-					.AddToBackStack(null)
-					.Commit();
-
-				this.DisableDrawer();
+					this.DisableDrawer();
+				}
 			}
 		}
 

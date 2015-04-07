@@ -29,10 +29,6 @@ namespace bstrkr.android
 			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::bstrkr.android.Resource.String.library_name;
 			global::Xamarin.InsightsCore.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::Xamarin.InsightsCore.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
-			global::RestSharp.Portable.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
-			global::RestSharp.Portable.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
-			global::RestSharp.Portable.Encodings.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
-			global::RestSharp.Portable.Encodings.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 			global::DK.Ostebaronen.Droid.ViewPagerIndicator.Resource.Attribute.centered = global::bstrkr.android.Resource.Attribute.centered;
 			global::DK.Ostebaronen.Droid.ViewPagerIndicator.Resource.Attribute.clipPadding = global::bstrkr.android.Resource.Attribute.clipPadding;
 			global::DK.Ostebaronen.Droid.ViewPagerIndicator.Resource.Attribute.fadeDelay = global::bstrkr.android.Resource.Attribute.fadeDelay;
