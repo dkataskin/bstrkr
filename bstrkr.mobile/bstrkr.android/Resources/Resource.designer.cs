@@ -1957,8 +1957,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0c003b
 			public const int action_mode_close_button = 2131492923;
 			
-			// aapt resource value: 0x7f0c0067
-			public const int action_search = 2131492967;
+			// aapt resource value: 0x7f0c0069
+			public const int action_search = 2131492969;
 			
 			// aapt resource value: 0x7f0c003c
 			public const int activity_chooser_view_content = 2131492924;
@@ -1996,8 +1996,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0c0011
 			public const int collapseActionView = 2131492881;
 			
-			// aapt resource value: 0x7f0c0065
-			public const int content_frame = 2131492965;
+			// aapt resource value: 0x7f0c0066
+			public const int content_frame = 2131492966;
 			
 			// aapt resource value: 0x7f0c003f
 			public const int default_activity_button = 2131492927;
@@ -2056,8 +2056,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0c005b
 			public const int indicator = 2131492955;
 			
-			// aapt resource value: 0x7f0c0066
-			public const int left_drawer = 2131492966;
+			// aapt resource value: 0x7f0c0068
+			public const int left_drawer = 2131492968;
 			
 			// aapt resource value: 0x7f0c005d
 			public const int licensesView = 2131492957;
@@ -2071,8 +2071,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0c0054
 			public const int mapView = 2131492948;
 			
-			// aapt resource value: 0x7f0c0064
-			public const int map_content_frame = 2131492964;
+			// aapt resource value: 0x7f0c0065
+			public const int map_content_frame = 2131492965;
 			
 			// aapt resource value: 0x7f0c0025
 			public const int match_parent = 2131492901;
@@ -2092,8 +2092,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0c0060
 			public const int media_route_volume_slider = 2131492960;
 			
-			// aapt resource value: 0x7f0c0068
-			public const int menu_refresh = 2131492968;
+			// aapt resource value: 0x7f0c006a
+			public const int menu_refresh = 2131492970;
 			
 			// aapt resource value: 0x7f0c0019
 			public const int middle = 2131492889;
@@ -2112,6 +2112,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f0c005c
 			public const int pager = 2131492956;
+			
+			// aapt resource value: 0x7f0c0067
+			public const int panel_content_frame = 2131492967;
 			
 			// aapt resource value: 0x7f0c0020
 			public const int production = 2131492896;
@@ -2175,6 +2178,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f0c000e
 			public const int showTitle = 2131492878;
+			
+			// aapt resource value: 0x7f0c0064
+			public const int sliding_layout = 2131492964;
 			
 			// aapt resource value: 0x7f0c0035
 			public const int split_action_bar = 2131492917;

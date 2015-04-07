@@ -4,27 +4,39 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!-- The main content view -->
-    <FrameLayout
+    <cheesebaron.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <!-- Map view -->
-        <Fragment
-            android:name="bstrkr.android.views.MapView"
-            android:id="@+id/mapView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    <!-- Map sub views -->
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+    <!-- The main content view -->
         <FrameLayout
-            android:id="@+id/map_content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    <!-- Other views -->
+            android:layout_height="match_parent">
+        <!-- Map view -->
+            <fragment
+                android:name="bstrkr.android.views.MapView"
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        <!-- Map sub views -->
+            <FrameLayout
+                android:id="@+id/map_content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        <!-- Other views -->
+            <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
         <FrameLayout
-            android:id="@+id/content_frame"
+            android:id="@+id/panel_content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+            android:layout_height="match_parent">
+        <!-- Your main sliding panel inside here -->
+        </FrameLayout>
+    </cheesebaron.slidinguppanel.SlidingUpPanelLayout>
 <!-- The navigation drawer -->
     <Mvx.MvxListView
         local:MvxBind="ItemsSource MenuItems; ItemClick SelectMenuItemCommand"
