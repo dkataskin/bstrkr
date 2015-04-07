@@ -58,6 +58,8 @@ namespace bstrkr.android.views
 
 		private IMvxMessenger _messenger;
 
+		private Android.Support.V4.App.Fragment _slidingPanelFragment;
+
 		private static IDictionary<Type, string> _frag2tag = new Dictionary<Type, string>();
 
 		public bool Show(MvxViewModelRequest request)
@@ -324,10 +326,9 @@ namespace bstrkr.android.views
 
 		private bool NavigateBack()
 		{
-			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
-			if (panel.PaneVisible)
+			if (this.ClearSlidingPanel())
 			{
-				panel.HidePane();
+				return true;
 			}
 
 			if (this.SupportFragmentManager.BackStackEntryCount == 0)
@@ -403,12 +404,7 @@ namespace bstrkr.android.views
 						var routeStopView1 = new RouteStopView();
 						routeStopView1.ViewModel = loaderService.LoadViewModel(request, null);
 
-						var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
-						panel.ShowPane();
-
-						this.SupportFragmentManager.BeginTransaction()
-							.Add(Resource.Id.panel_content_frame, routeStopView1, null)
-							.Commit();
+						this.ShowInSlidingPanel(routeStopView1);
 					}
 				}
 				else
@@ -446,6 +442,43 @@ namespace bstrkr.android.views
 		{
 			var homeViewModel = this.ViewModel as HomeViewModel;
 			homeViewModel.SelectMenuItemCommand.Execute(homeViewModel.MenuItems[0]);
+		}
+
+		private bool ClearSlidingPanel()
+		{
+			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
+			if (panel.PaneVisible)
+			{
+				this.SupportFragmentManager.BeginTransaction()
+					.Remove(_slidingPanelFragment)
+					.Commit();
+
+				_slidingPanelFragment = null;
+
+				return true;
+			}
+
+			return false;
+		}
+
+		private void ShowInSlidingPanel(Android.Support.V4.App.Fragment fragment)
+		{
+			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
+			if (!panel.PaneVisible)
+			{
+				panel.ShowPane();
+			}
+				
+			var transaction = this.SupportFragmentManager.BeginTransaction();
+			if (_slidingPanelFragment != null)
+			{
+				transaction.Remove(_slidingPanelFragment);
+			}
+
+			transaction.Add(Resource.Id.panel_content_frame, fragment)
+					   .Commit();
+
+			_slidingPanelFragment = fragment;
 		}
     }
 }
