@@ -185,6 +185,8 @@
     <Compile Include="Views\RouteStopView.cs" />
     <Compile Include="Views\CloseRouteStopsView.cs" />
     <Compile Include="Views\AllRouteStopsView.cs" />
+    <Compile Include="Views\MapRouteStopView.cs" />
+    <Compile Include="Views\GenericFragmentPagerAdaptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -312,6 +314,7 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected_focused.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected_pressed.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected.9.png" />
+    <AndroidResource Include="Resources\Layout\fragment_map_routestop_view.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

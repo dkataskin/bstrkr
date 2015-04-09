@@ -85,6 +85,7 @@
     <Compile Include="Converters\DistanceToStrConverter.cs" />
     <Compile Include="ICleanable.cs" />
     <Compile Include="Views\MapMarkerClickEventArgs.cs" />
+    <Compile Include="Views\MapClickEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

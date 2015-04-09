@@ -9,6 +9,7 @@ namespace bstrkr.mvvm.views
 		event EventHandler<EventArgs> ZoomChanged;
 		event EventHandler<EventArgs> CameraLocationChanged;
 		event EventHandler<MapMarkerClickEventArgs> MarkerClicked;
+		event EventHandler<MapClickEventArgs> MapClicked;
 
 		object MapObject { get; }
 

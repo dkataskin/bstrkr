@@ -266,7 +266,15 @@ namespace bstrkr.mvvm.viewmodels
 		private void ShowRouteStopInfo(RouteStopMapViewModel routeStopVM)
 		{
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
-			this.ShowViewModel<RouteStopViewModel>(routeStopVM.Model.Id, null, requestedBy);
+			this.ShowViewModel<RouteStopViewModel>(
+											new 
+											{
+												id = routeStopVM.Model.Id,
+												name = routeStopVM.Model.Name,
+												description = routeStopVM.Model.Description
+											}, 
+											null, 
+											requestedBy);
 		}
 
 		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)

@@ -23,6 +23,7 @@ namespace bstrkr.android.views
 			_map = googleMap;
 			_map.CameraChange += this.OnCameraChange;
 			_map.MarkerClick += this.OnMarkerClick;
+			_map.MapClick += this.OnMapClick;
 
 			_previousZoomValue = _map.CameraPosition.Zoom;
 		}
@@ -32,6 +33,8 @@ namespace bstrkr.android.views
 		public event EventHandler<EventArgs> CameraLocationChanged;
 
 		public event EventHandler<MapMarkerClickEventArgs> MarkerClicked;
+
+		public event EventHandler<MapClickEventArgs> MapClicked;
 
 		public GeoPoint CameraLocation 
 		{
@@ -93,6 +96,11 @@ namespace bstrkr.android.views
 			}
 		}
 
+		private void OnMapClick(object sender, GoogleMap.MapClickEventArgs args)
+		{
+			this.RaiseMapClickedEvent(args.Point.ToGeoPoint());
+		}
+
 		private void RaiseZoomChangedEvent()
 		{
 			if (this.ZoomChanged != null)
@@ -106,6 +114,14 @@ namespace bstrkr.android.views
 			if (this.MarkerClicked != null)
 			{
 				this.MarkerClicked(this, new MapMarkerClickEventArgs(marker));
+			}
+		}
+
+		private void RaiseMapClickedEvent(GeoPoint point)
+		{
+			if (this.MapClicked != null)
+			{
+				this.MapClicked(this, new MapClickEventArgs(point));
 			}
 		}
 	}
