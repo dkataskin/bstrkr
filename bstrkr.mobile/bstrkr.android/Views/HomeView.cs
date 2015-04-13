@@ -454,6 +454,7 @@ namespace bstrkr.android.views
 					.Commit();
 
 				_slidingPanelFragment = null;
+				panel.HidePane();
 
 				return true;
 			}
