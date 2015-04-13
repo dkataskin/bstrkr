@@ -77,6 +77,8 @@ namespace bstrkr.android.views
 					return true;
 				}
 
+				this.ClearSlidingPanel();
+
 				switch (section)
 				{
 					case MenuSection.Map:
@@ -449,9 +451,12 @@ namespace bstrkr.android.views
 			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
 			if (panel.PaneVisible)
 			{
-				this.SupportFragmentManager.BeginTransaction()
-					.Remove(_slidingPanelFragment)
-					.Commit();
+				if (_slidingPanelFragment != null)
+				{
+					this.SupportFragmentManager.BeginTransaction()
+											   .Remove(_slidingPanelFragment)
+											   .Commit();
+				}
 
 				_slidingPanelFragment = null;
 				panel.HidePane();

@@ -2409,31 +2409,34 @@ namespace bstrkr.android
 			public const int item_stop_forecast = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int item_stops_list = 2130903081;
+			public const int item_stop_forecast_map = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int item_umbrellaroutes_list = 2130903082;
+			public const int item_stops_list = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int item_vehicletypes_list = 2130903083;
+			public const int item_umbrellaroutes_list = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int mr_media_route_chooser_dialog = 2130903084;
+			public const int item_vehicletypes_list = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int mr_media_route_controller_dialog = 2130903085;
+			public const int mr_media_route_chooser_dialog = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int mr_media_route_list_item = 2130903086;
+			public const int mr_media_route_controller_dialog = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int page_home_view = 2130903087;
+			public const int mr_media_route_list_item = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int page_splash_screen = 2130903088;
+			public const int page_home_view = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int support_simple_spinner_dropdown_item = 2130903089;
+			public const int page_splash_screen = 2130903089;
+			
+			// aapt resource value: 0x7f030032
+			public const int support_simple_spinner_dropdown_item = 2130903090;
 			
 			static Layout()
 			{

@@ -315,6 +315,7 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected_pressed.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\custom_tab_indicator_unselected.9.png" />
     <AndroidResource Include="Resources\Layout\fragment_map_routestop_view.axml" />
+    <AndroidResource Include="Resources\Layout\item_stop_forecast_map.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
