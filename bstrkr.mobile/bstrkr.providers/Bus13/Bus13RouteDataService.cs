@@ -33,7 +33,7 @@ namespace bstrkr.core.providers.bus13
 		private const string RouteTypeParam = "type";
 		private const string RandomParam = "_";
 		private const string InfoParam = "info";
-		private const string InfoParamValue = "01234";
+		private const string InfoParamValue = "0123";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
 
@@ -110,18 +110,23 @@ namespace bstrkr.core.providers.bus13
 			request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
 
 			var client = this.GetRestClient();
-			var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request).ConfigureAwait(false);
+			var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request)
+									 .ConfigureAwait(false);
 
 			var updates = new List<Bus13VehicleLocationUpdate>();
-			foreach (var rawUpdate in response.Anims)
+
+			if (response.Anims != null)
 			{
-				try
+				foreach (var rawUpdate in response.Anims)
 				{
-					updates.Add(this.ParseVehicleLocationUpdate(rawUpdate));
-				} 
-				catch (Exception e)
-				{
-					Insights.Report(e, ReportSeverity.Warning);
+					try
+					{
+						updates.Add(this.ParseVehicleLocationUpdate(rawUpdate));
+					} 
+					catch (Exception e)
+					{
+						Insights.Report(e, ReportSeverity.Warning);
+					}
 				}
 			}
 
@@ -376,7 +381,10 @@ namespace bstrkr.core.providers.bus13
 
 		private async Task<T> ExecuteAsync<T>(IRestClient client, IRestRequest request)
 		{
-			return await Task.Factory.StartNew(() => client.Execute<T>(request).Result.Data).ConfigureAwait(false);
+			return await Task.Factory.StartNew(() => 
+			{
+				return client.Execute<T>(request).Result.Data;
+			}).ConfigureAwait(false);
 		}
 	}
 }

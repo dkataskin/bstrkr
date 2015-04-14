@@ -30,6 +30,8 @@ using bstrkr.mvvm.views;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
 
+using Cheesebaron.SlidingUpPanel;
+
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
@@ -40,7 +42,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using Cheesebaron.SlidingUpPanel;
 
 namespace bstrkr.android.views
 {
@@ -77,8 +78,6 @@ namespace bstrkr.android.views
 					return true;
 				}
 
-				this.ClearSlidingPanel();
-
 				switch (section)
 				{
 					case MenuSection.Map:
@@ -105,6 +104,8 @@ namespace bstrkr.android.views
 								}
 							}
 						}
+
+						this.ClearSlidingPanel();
 
 						this.SupportFragmentManager.PopBackStackImmediate(null, (int)(PopBackStackFlags.None | PopBackStackFlags.Inclusive));
 						transaction.Commit();
