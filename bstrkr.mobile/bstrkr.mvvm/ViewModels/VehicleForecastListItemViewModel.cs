@@ -78,6 +78,7 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.RouteStopId = forecastItem.RouteStop.Id;
 				this.RouteStopName = forecastItem.RouteStop.Name;
+				this.RouteStopDescription = forecastItem.RouteStop.Description;
 			}
 		}
 

@@ -32,7 +32,7 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			return this.BindingInflate(Resource.Layout.fragment_map_routestop_view, null);
+			return this.BindingInflate(Resource.Layout.fragment_routestop_map_view, null);
 		}
 
 		public override void OnDestroyView()

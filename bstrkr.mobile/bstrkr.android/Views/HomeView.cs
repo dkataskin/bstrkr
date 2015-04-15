@@ -315,6 +315,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(UmbrellaRouteViewModel), this);
 			customPresenter.Register(typeof(RouteViewModel), this);
 			customPresenter.Register(typeof(RouteStopViewModel), this);
+			customPresenter.Register(typeof(RouteVehiclesListItemViewModel), this);
 		}
 
 		private MvxFragment FindFragment<TView>() where TView : MvxFragment
@@ -396,6 +397,20 @@ namespace bstrkr.android.views
 					.Commit();
 
 				this.DisableDrawer();
+			}
+
+			if (request.ViewModelType == typeof(RouteVehiclesListItemViewModel))
+			{
+				if (request.RequestedBy != null)
+				{
+					if (request.RequestedBy.AdditionalInfo == "map_tap")
+					{
+						var routeStopView1 = new MapRouteStopView();
+						routeStopView1.ViewModel = loaderService.LoadViewModel(request, null);
+
+						this.ShowInSlidingPanel(routeStopView1);
+					}
+				}
 			}
 
 			if (request.ViewModelType == typeof(RouteStopViewModel))

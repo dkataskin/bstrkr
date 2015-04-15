@@ -29,6 +29,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private VehicleForecastListItemViewModel _nextStopForecast;
 		private string _prevRouteStopId;
+		private Vehicle _vehicle;
 
 		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
@@ -73,7 +74,18 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand CountdownCommand { get; private set; }
 
-		public Vehicle Vehicle { get; set; }
+		public Vehicle Vehicle 
+		{ 
+			get { return _vehicle; } 
+			private set
+			{
+				if (_vehicle != value)
+				{
+					_vehicle = value;
+					this.RaisePropertyChanged();
+				}
+			}
+		}
 
 		public RouteVehicleVMStates State
 		{
@@ -108,6 +120,11 @@ namespace bstrkr.mvvm.viewmodels
 					DisplayName = routeDisplayName
 				}
 			};
+		}
+
+		public void Init(Vehicle vehicle)
+		{
+			this.Vehicle = vehicle;
 		}
 
 		public override void Start()
@@ -212,7 +229,7 @@ namespace bstrkr.mvvm.viewmodels
 						forecastVM.CountdownCommand.Execute();
 					}
 
-					var toRemove = this.Forecast.Where(x => x.ArrivesInSeconds == 0);
+					var toRemove = this.Forecast.Where(x => x.ArrivesInSeconds == 0).ToList();
 					foreach (var forecastVMToRemove in toRemove) 
 					{
 						_forecast.Remove(forecastVMToRemove);
