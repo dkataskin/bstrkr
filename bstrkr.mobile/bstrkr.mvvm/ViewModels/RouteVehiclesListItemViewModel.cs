@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -8,6 +9,7 @@ using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
 
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 
 using Stateless;
@@ -21,13 +23,12 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
 
+		private readonly ObservableCollection<VehicleForecastListItemViewModel> _forecast = 
+			new ObservableCollection<VehicleForecastListItemViewModel>();
 		private readonly StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers> _stateMachine;
 
-		private int _arrivesInSeconds;
-		private string _routeStopId;
+		private VehicleForecastListItemViewModel _nextStopForecast;
 		private string _prevRouteStopId;
-		private string _routeStopName;
-		private string _routeStopDescription;
 
 		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
@@ -64,6 +65,8 @@ namespace bstrkr.mvvm.viewmodels
 			_stateMachine.Configure(RouteVehicleVMStates.NoForecast)
 						 .OnEntry(this.PauseAndRequest)
 						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
+
+			this.Forecast = new ReadOnlyObservableCollection<VehicleForecastListItemViewModel>(_forecast);
 		}
 
 		public MvxCommand UpdateForecastCommand { get; private set; }
@@ -77,56 +80,40 @@ namespace bstrkr.mvvm.viewmodels
 			get { return _stateMachine.State; }
 		}
 
-		public int ArrivesInSeconds 
+		public VehicleForecastListItemViewModel NextStopForecast 
 		{ 
-			get { return _arrivesInSeconds; } 
+			get { return _nextStopForecast; } 
 			private set
 			{
-				if (_arrivesInSeconds != value)
+				if (_nextStopForecast != value)
 				{
-					_arrivesInSeconds = value;
-					this.RaisePropertyChanged(() => this.ArrivesInSeconds);
+					_nextStopForecast = value;
+					this.RaisePropertyChanged(() => this.NextStopForecast);
 				}
 			}
 		}
 
-		public string RouteStopId 
-		{ 
-			get { return _routeStopId; } 
-			private set
+		public ReadOnlyObservableCollection<VehicleForecastListItemViewModel> Forecast { get; private set; }
+
+		public void Init(string id, string carPlate, VehicleTypes vehicleType, string routeId, string routeDisplayName)
+		{
+			this.Vehicle = new Vehicle 
 			{
-				if (_routeStopId != value)
+				Id = id,
+				CarPlate = carPlate,
+				Type = vehicleType,
+				RouteInfo = new VehicleRouteInfo 
 				{
-					_routeStopId = value;
-					this.RaisePropertyChanged(() => this.RouteStopId);
+					RouteId = routeId,
+					DisplayName = routeDisplayName
 				}
-			}
+			};
 		}
 
-		public string RouteStopName 
-		{ 
-			get { return _routeStopName; }
-			private set
-			{
-				if (_routeStopName != value)
-				{
-					_routeStopName = value;
-					this.RaisePropertyChanged(() => this.RouteStopName);
-				}
-			}
-		}
-
-		public string RouteStopDescription 
-		{ 
-			get { return _routeStopDescription; } 
-			private set
-			{
-				if (_routeStopDescription != value)
-				{
-					_routeStopDescription = value;
-					this.RaisePropertyChanged(() => this.RouteStopDescription);
-				}
-			}
+		public override void Start()
+		{
+			base.Start();
+			this.CountdownCommand.Execute();
 		}
 
 		protected override void OnIsBusyChanged()
@@ -163,42 +150,42 @@ namespace bstrkr.mvvm.viewmodels
 
 				this.Dispatcher.RequestMainThreadAction(() => 
 				{
-					var forecastItem = forecast.Items.FirstOrDefault();
+					if (forecast.Items == null || !forecast.Items.Any())
+					{
+						this.NextStopForecast = null;
+						_stateMachine.Fire(RouteVehicleVMTriggers.NoForecastDataReturned);
+						return;
+					}
+
 					lock(_lockObject)
 					{
-						if (forecastItem != null)
+						this.NextStopForecast = null;
+						_prevRouteStopId = string.Empty;
+						_forecast.Clear();
+
+						foreach (var forecastItem in forecast.Items) 
 						{
-							_prevRouteStopId = this.RouteStopId;
-							this.ArrivesInSeconds = forecastItem.ArrivesInSec;
-							if (forecastItem.RouteStop != null)
+							var vm = this.CreateFromForecastItem(forecastItem);
+							if (vm != null)
 							{
-								this.RouteStopId = forecastItem.RouteStop.Id;
-								this.RouteStopName = forecastItem.RouteStop.Name;
-								this.RouteStopDescription = forecastItem.RouteStop.Description;
+								_forecast.Add(vm);
 							}
-							else
-							{
-								this.RouteStopId = string.Empty;
-								this.RouteStopName = string.Empty;
-								this.RouteStopDescription = string.Empty;
+						}
 
-								_stateMachine.Fire(RouteVehicleVMTriggers.NoForecastDataReturned);
-								return;
-							}
+						this.NextStopForecast = _forecast.FirstOrDefault();
+						if (this.NextStopForecast != null)
+						{
+							_prevRouteStopId = this.NextStopForecast.RouteStopId;
+						}
 
-							if (this.ArrivesInSeconds == 0 || 
-								(this.ArrivesInSeconds < 10 && string.Equals(_prevRouteStopId, this.RouteStopId)))
-							{
-								_stateMachine.Fire(RouteVehicleVMTriggers.DuplicateForecastReturned);
-							}
-							else
-							{
-								_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
-							}
+						if (this.NextStopForecast != null && (this.NextStopForecast.ArrivesInSeconds == 0 ||
+							(this.NextStopForecast.ArrivesInSeconds < 10 && string.Equals(_prevRouteStopId, this.NextStopForecast.RouteStopId))))
+						{
+							_stateMachine.Fire(RouteVehicleVMTriggers.DuplicateForecastReturned);
 						}
 						else
 						{
-							_stateMachine.Fire(RouteVehicleVMTriggers.NoForecastDataReturned);
+							_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
 						}
 					}
 				});
@@ -220,11 +207,20 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				lock (_lockObject)
 				{
-					if (this.ArrivesInSeconds > 0)
+					foreach (var forecastVM in this.Forecast) 
 					{
-						this.ArrivesInSeconds--;
+						forecastVM.CountdownCommand.Execute();
+					}
 
-						if (this.ArrivesInSeconds == 0)
+					var toRemove = this.Forecast.Where(x => x.ArrivesInSeconds == 0);
+					foreach (var forecastVMToRemove in toRemove) 
+					{
+						_forecast.Remove(forecastVMToRemove);
+					}
+
+					if (this.NextStopForecast != null)
+					{
+						if (this.NextStopForecast.ArrivesInSeconds == 0)
 						{
 							Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 						}
@@ -237,6 +233,19 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			Task.Delay(TimeSpan.FromSeconds(30))
 				.ContinueWith(task => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
+		}
+
+		private VehicleForecastListItemViewModel CreateFromForecastItem(VehicleForecastItem forecastItem)
+		{
+			if (forecastItem == null || forecastItem.RouteStop == null)
+			{
+				return null;
+			}
+
+			var vm = Mvx.IocConstruct<VehicleForecastListItemViewModel>();
+			vm.UpdateFromForecastItem(forecastItem);
+
+			return vm;
 		}
 	}
 }

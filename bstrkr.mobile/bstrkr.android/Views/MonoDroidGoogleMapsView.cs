@@ -89,9 +89,9 @@ namespace bstrkr.android.views
 
 		private void OnMarkerClick(object sender, GoogleMap.MarkerClickEventArgs args)
 		{
-			args.Handled = true;
 			if (_markers.ContainsKey(args.Marker.Id))
 			{
+				args.Handled = true;
 				this.RaiseMapMakerClickedEvent(_markers[args.Marker.Id]);
 			}
 		}

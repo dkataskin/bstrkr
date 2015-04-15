@@ -115,7 +115,18 @@ namespace bstrkr.android.views
 					if (this.MapViewModel != null)
 					{
 						var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopMapViewModel>(a.Marker);
-						this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
+						if (routeStopVM != null)
+						{
+							this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
+						}
+						else
+						{
+							var vehicleVM = _vehicleMarkerManager.GetDataForMarker<VehicleViewModel>(a.Marker);
+							if (vehicleVM != null)
+							{
+								this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM);
+							}
+						}
 					}
 				};
 

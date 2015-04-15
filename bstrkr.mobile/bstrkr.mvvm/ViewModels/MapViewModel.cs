@@ -60,9 +60,12 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
+			this.ShowVehicleInfoCommand = new MvxCommand<VehicleViewModel>(this.ShowVehicleInfo, vm => vm != null);
 		}
 
 		public MvxCommand<RouteStopMapViewModel> ShowRouteStopInfoCommand { get; private set; }
+
+		public MvxCommand<VehicleViewModel> ShowVehicleInfoCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 
@@ -275,6 +278,22 @@ namespace bstrkr.mvvm.viewmodels
 											}, 
 											null, 
 											requestedBy);
+		}
+
+		private void ShowVehicleInfo(VehicleViewModel vehicleVM)
+		{
+			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
+
+			var navParams = new 
+			{
+				id = vehicleVM.Model.Id,
+				carPlate = vehicleVM.Model.CarPlate,
+				type = vehicleVM.VehicleType,
+				routeId = vehicleVM.Model.RouteInfo.RouteId,
+				routeDisplayName = vehicleVM.Model.RouteInfo.DisplayName
+			};
+
+			this.ShowViewModel<RouteVehiclesListItemViewModel>(navParams, null, requestedBy);
 		}
 
 		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)

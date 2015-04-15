@@ -57,7 +57,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:textColor="#fff"
-                local:MvxBind="Text StringFormat(RouteStopName, [route_vehicle_arrives_st_format]); Visibility RouteVehicleVMStateToVisibility(State, 'Station')"
+                local:MvxBind="Text StringFormat(NextStopForecast.RouteStopName, [route_vehicle_arrives_st_format]); Visibility RouteVehicleVMStateToVisibility(State, 'Station')"
                 android:singleLine="true" />
             <TextView
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
                 android:textColor="#fff"
-                local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility RouteVehicleVMStateToVisibility(State, 'Time')"
+                local:MvxBind="Text ArriveTimeToString(NextStopForecast.ArrivesInSeconds); Visibility RouteVehicleVMStateToVisibility(State, 'Time')"
                 android:singleLine="true" />
         </LinearLayout>
         <TextView
@@ -77,7 +77,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="0dp"
             android:textColor="#fff"
-            local:MvxBind="Text RouteStopDescription; Visibility RouteVehicleVMStateToVisibility(State, 'Station')"
+            local:MvxBind="Text NextStopForecast.RouteStopDescription; Visibility RouteVehicleVMStateToVisibility(State, 'Station')"
             android:singleLine="true" />
     </LinearLayout>
 </LinearLayout>
