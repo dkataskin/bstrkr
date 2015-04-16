@@ -3,6 +3,8 @@
 using Android.OS;
 using Android.Views;
 
+using bstrkr.mvvm;
+
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.Fragging.Fragments;
 
@@ -20,6 +22,15 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			return this.BindingInflate(Resource.Layout.fragment_vehicle_forecast_map_view, null);
+		}
+
+		public override void OnDestroyView()
+		{
+			base.OnDestroyView();
+			if (this.DataContext is ICleanable)
+			{
+				(this.DataContext as ICleanable).CleanUp();
+			}
 		}
 	}
 }

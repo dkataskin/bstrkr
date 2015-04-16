@@ -15,10 +15,11 @@ using Cirrious.MvvmCross.ViewModels;
 using Stateless;
 
 using Xamarin;
+using System.Threading;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase
+	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase, ICleanable
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
@@ -26,6 +27,11 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ObservableCollection<VehicleForecastListItemViewModel> _forecast = 
 			new ObservableCollection<VehicleForecastListItemViewModel>();
 		private readonly StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers> _stateMachine;
+
+		private bool _runUpdates;
+		private Task _runUpdatesTask;
+		private CancellationTokenSource _tokenSource;
+		private CancellationToken _cancellationToken;
 
 		private VehicleForecastListItemViewModel _nextStopForecast;
 		private string _prevRouteStopId;
@@ -107,8 +113,16 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<VehicleForecastListItemViewModel> Forecast { get; private set; }
 
-		public void Init(string id, string carPlate, VehicleTypes vehicleType, string routeId, string routeDisplayName)
+		public void Init(
+					string id, 
+					string carPlate, 
+					VehicleTypes vehicleType, 
+					string routeId, 
+					string routeDisplayName,
+					bool runUpdates)
 		{
+			_runUpdates = runUpdates;
+
 			this.Vehicle = new Vehicle 
 			{
 				Id = id,
@@ -122,15 +136,30 @@ namespace bstrkr.mvvm.viewmodels
 			};
 		}
 
-		public void Init(Vehicle vehicle)
+		public void InitWithVehicle(Vehicle vehicle, bool runUpdates)
 		{
+			_runUpdates = runUpdates;
 			this.Vehicle = vehicle;
 		}
 
 		public override void Start()
 		{
 			base.Start();
-			this.CountdownCommand.Execute();
+			this.UpdateForecastCommand.Execute();
+			if (_runUpdates)
+			{
+				_tokenSource = new CancellationTokenSource();
+				_cancellationToken = _tokenSource.Token;
+				_runUpdatesTask = Task.Factory.StartNew(() => this.RunUpdates(_cancellationToken), _cancellationToken);
+			}
+		}
+
+		public void CleanUp()
+		{
+			if (_tokenSource != null)
+			{
+				_tokenSource.Cancel();
+			}
 		}
 
 		protected override void OnIsBusyChanged()
@@ -263,6 +292,21 @@ namespace bstrkr.mvvm.viewmodels
 			vm.UpdateFromForecastItem(forecastItem);
 
 			return vm;
+		}
+
+		private void RunUpdates(CancellationToken cancellationToken)
+		{
+			while(!cancellationToken.IsCancellationRequested)
+			{
+				try
+				{
+					Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).Wait();
+					this.Dispatcher.RequestMainThreadAction(() => this.CountdownCommand.Execute());
+				} 
+				catch (Exception ex)
+				{
+				}
+			}
 		}
 	}
 }

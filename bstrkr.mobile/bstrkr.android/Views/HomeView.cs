@@ -78,6 +78,8 @@ namespace bstrkr.android.views
 					return true;
 				}
 
+				this.ClearSlidingPanel();
+
 				switch (section)
 				{
 					case MenuSection.Map:
@@ -187,6 +189,7 @@ namespace bstrkr.android.views
 		{
 			base.OnPostCreate(savedInstanceState);
 			_drawerToggle.SyncState();
+			this.ClearSlidingPanel();
 		}
 
 		public override void OnConfigurationChanged(Configuration newConfig)
@@ -405,10 +408,10 @@ namespace bstrkr.android.views
 				{
 					if (request.RequestedBy.AdditionalInfo == "map_tap")
 					{
-						var routeStopView1 = new MapRouteStopView();
-						routeStopView1.ViewModel = loaderService.LoadViewModel(request, null);
+						var vehicleForecastView = new RouteVehicleForecastView();
+						vehicleForecastView.ViewModel = loaderService.LoadViewModel(request, null);
 
-						this.ShowInSlidingPanel(routeStopView1);
+						this.ShowInSlidingPanel(vehicleForecastView);
 					}
 				}
 			}

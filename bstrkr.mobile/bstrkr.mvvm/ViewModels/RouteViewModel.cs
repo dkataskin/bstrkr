@@ -193,7 +193,7 @@ namespace bstrkr.mvvm.viewmodels
 		private RouteVehiclesListItemViewModel CreateFromVehicle(Vehicle vehicle)
 		{
 			var vm = Mvx.IocConstruct<RouteVehiclesListItemViewModel>();
-			vm.Init(vehicle);
+			vm.InitWithVehicle(vehicle, false);
 
 			return vm;
 		}

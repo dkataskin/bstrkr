@@ -288,9 +288,10 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				id = vehicleVM.Model.Id,
 				carPlate = vehicleVM.Model.CarPlate,
-				type = vehicleVM.VehicleType,
+				vehicleType = vehicleVM.VehicleType,
 				routeId = vehicleVM.Model.RouteInfo.RouteId,
-				routeDisplayName = vehicleVM.Model.RouteInfo.DisplayName
+				routeDisplayName = vehicleVM.Model.RouteInfo.DisplayName,
+				runUpdates = true
 			};
 
 			this.ShowViewModel<RouteVehiclesListItemViewModel>(navParams, null, requestedBy);
