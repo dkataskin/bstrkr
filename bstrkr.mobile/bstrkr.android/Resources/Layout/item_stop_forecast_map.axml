@@ -4,25 +4,27 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        local:MvxBind="DrawableName VehicleType, Converter=VehicleTypeToImage" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="0dp"
         android:textColor="#ff000000"
         local:MvxBind="Text RouteDisplayName"
         android:singleLine="true"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:minHeight="?android:attr/listPreferredItemHeight" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="0dp"
+        android:gravity="right|center_vertical"
+        android:paddingRight="10dp"
         android:textColor="#ff000000"
         local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)"
         android:singleLine="true"

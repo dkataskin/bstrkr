@@ -155,6 +155,7 @@ namespace bstrkr.mvvm.viewmodels
 			return new RouteStopForecastViewModel 
 			{
 				VehicleId = item.VehicleId,
+				VehicleType = item.Route.VehicleTypes.First(),
 				ArrivesInSeconds = item.ArrivesInSeconds,
 				CurrentlyAt = item.CurrentRouteStopName,
 				RouteDisplayName = _routeNumberToTileConverter.Convert(item.Route.Number, item.Route.VehicleTypes.First()),

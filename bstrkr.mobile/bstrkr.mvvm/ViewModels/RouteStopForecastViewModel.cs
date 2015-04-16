@@ -20,6 +20,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		public string VehicleId { get; set; }
 
+		public VehicleTypes VehicleType { get; set; }
+
 		public bool IsActive
 		{
 			get { return this.ArrivesInSeconds > 0; }
