@@ -353,6 +353,10 @@
       <Version>1.0.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+    <XamarinComponentReference Include="xamandroidsupportv7appcompat">
+      <Version>20.0.0.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="..\bstrkr.core\Resources\config.json">

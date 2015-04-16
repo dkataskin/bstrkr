@@ -8,26 +8,37 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:orientation="vertical">
-        <TextView
+        android:orientation="horizontal">
+        <ImageView
+            android:src="@drawable/busstop_b"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerInside" />
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ff000000"
-            local:MvxBind="Text Name" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ff000000"
-            local:MvxBind="Text Description" />
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff000000"
+                local:MvxBind="Text Name" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ff000000"
+                local:MvxBind="Text Description" />
+        </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#c0c0c0" />
     <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
