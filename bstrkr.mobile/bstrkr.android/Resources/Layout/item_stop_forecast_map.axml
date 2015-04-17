@@ -27,7 +27,5 @@
         android:paddingRight="10dp"
         android:textColor="#ff000000"
         local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)"
-        android:singleLine="true"
-        android:background="?android:attr/activatedBackgroundIndicator"
-        android:minHeight="?android:attr/listPreferredItemHeight" />
+        android:singleLine="true" />
 </LinearLayout>
