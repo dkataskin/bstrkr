@@ -318,7 +318,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(UmbrellaRouteViewModel), this);
 			customPresenter.Register(typeof(RouteViewModel), this);
 			customPresenter.Register(typeof(RouteStopViewModel), this);
-			customPresenter.Register(typeof(RouteVehiclesListItemViewModel), this);
+			customPresenter.Register(typeof(RouteVehicleForecastViewModel), this);
 		}
 
 		private MvxFragment FindFragment<TView>() where TView : MvxFragment
@@ -402,7 +402,7 @@ namespace bstrkr.android.views
 				this.DisableDrawer();
 			}
 
-			if (request.ViewModelType == typeof(RouteVehiclesListItemViewModel))
+			if (request.ViewModelType == typeof(RouteVehicleForecastViewModel))
 			{
 				if (request.RequestedBy != null)
 				{

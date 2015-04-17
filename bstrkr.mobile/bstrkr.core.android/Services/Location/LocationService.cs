@@ -26,26 +26,22 @@ namespace bstrkr.core.android.services.location
 								   Android.Gms.Location.ILocationListener,
 								   Android.Locations.ILocationListener
 	{
-		private readonly float _desiredAccuracy = 1000.0f;
-		private readonly long _interval = 10000;
 		private readonly float _displacement = 30;
-		private readonly object _lockObject = new object();
 
 		private readonly IMvxAndroidGlobals _androidGlobals;
 
-		private LocationRequest _coarseLocationRequest;
+		private LocationRequest _locationRequest;
 		private IGoogleApiClient _googleAPIClient;
 		private LocationManager _locationManager;
-
-		private bool _located;
 
 		public LocationService(IMvxAndroidGlobals androidGlobals)
 		{
 			_androidGlobals = androidGlobals;
 
-			_coarseLocationRequest = LocationRequest.Create();
-			_coarseLocationRequest.SetSmallestDisplacement(_displacement);
-			_coarseLocationRequest.SetPriority(LocationRequest.PriorityBalancedPowerAccuracy);
+			_locationRequest = LocationRequest.Create();
+			_locationRequest.SetSmallestDisplacement(_displacement);
+			_locationRequest.SetPriority(LocationRequest.PriorityLowPower);
+			_locationRequest.SetNumUpdates(1);
 
 			this.InitializeGoogleAPI();
 		}
@@ -77,10 +73,10 @@ namespace bstrkr.core.android.services.location
 
 		public void OnConnected(Bundle connectionHint)
 		{
-			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _coarseLocationRequest, this);
+			var lastLocation = LocationServices.FusedLocationApi.GetLastLocation(_googleAPIClient);
+			this.OnLocationChanged(lastLocation);
 
-			Task.Delay(TimeSpan.FromSeconds(20))
-				.ContinueWith(task => this.UseDifferentProviderIfNotLocated());
+			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _locationRequest, this);
 		}
 
 		public void OnConnectionSuspended(int cause)
@@ -93,11 +89,6 @@ namespace bstrkr.core.android.services.location
 
 		public void OnLocationChanged(Location location)
 		{
-			lock(_lockObject)
-			{
-				_located = true;
-			}
-
 			if (location != null)
 			{
 				this.RaiseLocationUpdatedEvent(location);
@@ -141,15 +132,8 @@ namespace bstrkr.core.android.services.location
 
 		private void ConnectGoogleAPI()
 		{
-			if (!_googleAPIClient.IsConnectionCallbacksRegistered(this))
-			{
-				_googleAPIClient.RegisterConnectionCallbacks(this);
-			}
-
-			if (!_googleAPIClient.IsConnectionFailedListenerRegistered(this))
-			{
-				_googleAPIClient.RegisterConnectionFailedListener(this);
-			}
+			_googleAPIClient.RegisterConnectionCallbacks(this);
+			_googleAPIClient.RegisterConnectionFailedListener(this);
 
 			if (!_googleAPIClient.IsConnected || !_googleAPIClient.IsConnecting)
 			{
@@ -161,15 +145,8 @@ namespace bstrkr.core.android.services.location
 		{
 			if (_googleAPIClient != null && _googleAPIClient.IsConnected)
 			{
-				if (_googleAPIClient.IsConnectionCallbacksRegistered(this))
-				{
-					_googleAPIClient.UnregisterConnectionCallbacks(this);
-				}
-
-				if (_googleAPIClient.IsConnectionFailedListenerRegistered(this))
-				{
-					_googleAPIClient.UnregisterConnectionFailedListener(this);
-				}
+				_googleAPIClient.UnregisterConnectionCallbacks(this);
+				_googleAPIClient.UnregisterConnectionFailedListener(this);
 
 				_googleAPIClient.Disconnect();
 			}
@@ -183,29 +160,11 @@ namespace bstrkr.core.android.services.location
 			}
 		}
 
-		private void UseDifferentProviderIfNotLocated()
+		private void RaiseLocationUpdatedEvent(double lat, double lon)
 		{
-			lock(_lockObject)
+			if (this.LocationUpdated != null)
 			{
-				if (!_located)
-				{
-					this.StopUpdating();
-
-					var criteria = new Criteria();
-					criteria.Accuracy = Accuracy.Coarse;
-					criteria.PowerRequirement = Power.Low;
-					criteria.AltitudeRequired = false;
-					criteria.BearingRequired = false;
-					criteria.SpeedRequired = false;
-
-					_locationManager = _androidGlobals.ApplicationContext.GetSystemService(Context.LocationService) as LocationManager;
-					var provider = _locationManager.GetBestProvider(criteria, true);
-
-					if (!string.IsNullOrEmpty(provider))
-					{
-						_locationManager.RequestLocationUpdates(provider, 15000, 30.0f, this);
-					}
-				}
+				this.LocationUpdated(this, new LocationUpdatedEventArgs(lat, lon));
 			}
 		}
 	}

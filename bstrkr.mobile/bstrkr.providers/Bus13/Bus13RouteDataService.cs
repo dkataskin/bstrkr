@@ -287,7 +287,8 @@ namespace bstrkr.core.providers.bus13
 				RouteInfo = new VehicleRouteInfo
 				{
 					RouteId = bus13Vehicle.RId.ToString(),
-					DisplayName = bus13Vehicle.RNum
+					RouteNumber = bus13Vehicle.RNum,
+					DisplayName = this.GetRouteDisplayName(bus13Vehicle.RNum, this.ParseVehicleType(bus13Vehicle.RType))
 				}
 			};
 
@@ -385,6 +386,27 @@ namespace bstrkr.core.providers.bus13
 			{
 				return client.Execute<T>(request).Result.Data;
 			}).ConfigureAwait(false);
+		}
+
+		private string GetRouteDisplayName(string routeNumber, VehicleTypes vehicleType)
+		{
+			switch (vehicleType)
+			{
+				case VehicleTypes.Bus:
+					return string.Format(AppResources.bus_route_title_format, routeNumber);
+
+				case VehicleTypes.MiniBus:
+					return string.Format(AppResources.minibus_route_title_format, routeNumber);
+
+				case VehicleTypes.Trolley:
+					return string.Format(AppResources.troll_route_title_format, routeNumber);
+
+				case VehicleTypes.Tram:
+					return string.Format(AppResources.tramway_route_title_format, routeNumber);
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 	}
 }

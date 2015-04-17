@@ -22,7 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
-		private readonly ObservableCollection<RouteVehiclesListItemViewModel> _vehicles = new ObservableCollection<RouteVehiclesListItemViewModel>();
+		private readonly ObservableCollection<RouteVehicleForecastViewModel> _vehicles = new ObservableCollection<RouteVehicleForecastViewModel>();
 
 		private readonly IObservable<long> _intervalObservable;
 		private readonly IDisposable _intervalSubscription;
@@ -39,7 +39,7 @@ namespace bstrkr.mvvm.viewmodels
 		public RouteViewModel(ILiveDataProviderFactory providerFactory)
 		{
 			_providerFactory = providerFactory;
-			this.Vehicles = new ReadOnlyObservableCollection<RouteVehiclesListItemViewModel>(_vehicles);
+			this.Vehicles = new ReadOnlyObservableCollection<RouteVehicleForecastViewModel>(_vehicles);
 			this.ShowRouteVehicleDetailsCommand = new MvxCommand(() => {});
 
 			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
@@ -92,7 +92,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public Route Route { get; set; }
 
-		public ReadOnlyObservableCollection<RouteVehiclesListItemViewModel> Vehicles { get; private set; }
+		public ReadOnlyObservableCollection<RouteVehicleForecastViewModel> Vehicles { get; private set; }
 
 		public ReadOnlyObservableCollection<RouteStop> Stops { get; private set; }
 
@@ -190,9 +190,9 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private RouteVehiclesListItemViewModel CreateFromVehicle(Vehicle vehicle)
+		private RouteVehicleForecastViewModel CreateFromVehicle(Vehicle vehicle)
 		{
-			var vm = Mvx.IocConstruct<RouteVehiclesListItemViewModel>();
+			var vm = Mvx.IocConstruct<RouteVehicleForecastViewModel>();
 			vm.InitWithVehicle(vehicle, false);
 
 			return vm;

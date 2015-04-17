@@ -8,22 +8,30 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:paddingLeft="10dp"
-            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerInside"
             local:MvxBind="DrawableName Vehicle.Type, Converter=VehicleTypeToImage" />
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingLeft="5dp"
-            android:paddingRight="0dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ff000000"
-            local:MvxBind="Text Vehicle.CarPlate" />
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff000000"
+                local:MvxBind="Text Vehicle.RouteInfo.RouteDisplayName" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#ff000000"
+                local:MvxBind="Text Vehicle.CarPlate" />
+        </LinearLayout>
     </LinearLayout>
     <View
         android:layout_width="fill_parent"

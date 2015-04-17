@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteVehiclesListItemViewModel : BusTrackerViewModelBase, ICleanable
+	public class RouteVehicleForecastViewModel : BusTrackerViewModelBase, ICleanable
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
@@ -37,7 +37,7 @@ namespace bstrkr.mvvm.viewmodels
 		private string _prevRouteStopId;
 		private Vehicle _vehicle;
 
-		public RouteVehiclesListItemViewModel(ILiveDataProviderFactory liveDataProviderFactory)
+		public RouteVehicleForecastViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
 			_liveDataProviderFactory = liveDataProviderFactory;
 

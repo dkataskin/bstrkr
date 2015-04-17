@@ -294,7 +294,7 @@ namespace bstrkr.mvvm.viewmodels
 				runUpdates = true
 			};
 
-			this.ShowViewModel<RouteVehiclesListItemViewModel>(navParams, null, requestedBy);
+			this.ShowViewModel<RouteVehicleForecastViewModel>(navParams, null, requestedBy);
 		}
 
 		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)

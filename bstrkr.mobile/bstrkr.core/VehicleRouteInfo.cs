@@ -6,6 +6,8 @@ namespace bstrkr.core
 	{
 		public string RouteId { get; set; }
 
+		public string RouteNumber { get; set; }
+
 		public string DisplayName { get; set; }
 	}
 }
