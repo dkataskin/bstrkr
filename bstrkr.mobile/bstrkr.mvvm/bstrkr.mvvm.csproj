@@ -67,8 +67,6 @@
     <Compile Include="ViewModels\RouteViewModel.cs" />
     <Compile Include="ViewModels\RoutesListItemViewModel.cs" />
     <Compile Include="Messages\LocationUpdateMessage.cs" />
-    <Compile Include="ViewModels\FirstViewModel.cs" />
-    <Compile Include="App.cs" />
     <Compile Include="ViewModels\RouteVehiclesListItemViewModel.cs" />
     <Compile Include="Converters\RouteNumberToTitleConverter.cs" />
     <Compile Include="Converters\ArriveTimeToStringConverter.cs" />
