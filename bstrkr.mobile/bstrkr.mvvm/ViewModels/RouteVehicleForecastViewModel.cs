@@ -1,4 +1,4 @@
-﻿using System;
+﻿		using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
@@ -118,6 +118,7 @@ namespace bstrkr.mvvm.viewmodels
 					string carPlate, 
 					VehicleTypes vehicleType, 
 					string routeId, 
+					string routeNumber,
 					string routeDisplayName,
 					bool runUpdates)
 		{
@@ -131,6 +132,7 @@ namespace bstrkr.mvvm.viewmodels
 				RouteInfo = new VehicleRouteInfo 
 				{
 					RouteId = routeId,
+					RouteNumber = routeNumber,
 					DisplayName = routeDisplayName
 				}
 			};

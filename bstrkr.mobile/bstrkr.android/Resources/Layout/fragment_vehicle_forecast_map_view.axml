@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#ff000000"
-                local:MvxBind="Text Vehicle.RouteInfo.RouteDisplayName" />
+                local:MvxBind="Text Vehicle.RouteInfo.DisplayName" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -290,6 +290,7 @@ namespace bstrkr.mvvm.viewmodels
 				carPlate = vehicleVM.Model.CarPlate,
 				vehicleType = vehicleVM.VehicleType,
 				routeId = vehicleVM.Model.RouteInfo.RouteId,
+				routeNumber = vehicleVM.Model.RouteInfo.RouteNumber,
 				routeDisplayName = vehicleVM.Model.RouteInfo.DisplayName,
 				runUpdates = true
 			};
