@@ -36,6 +36,8 @@ namespace bstrkr.android.views
 			this.RetainInstance = true;
 		}
 
+		public event EventHandler<EventArgs> MapClicked;
+
 		public MapViewModel MapViewModel { get { return this.DataContext as MapViewModel; } }
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -130,6 +132,8 @@ namespace bstrkr.android.views
 					}
 				};
 
+				_mapViewWrapper.MapClicked += (s, a) => this.RaiseMapClickedEvent();
+
 				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
 				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
 				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
@@ -143,6 +147,14 @@ namespace bstrkr.android.views
 				set.Apply();
 
 				(this.ViewModel as MapViewModel).Zoom = map.CameraPosition.Zoom;
+			}
+		}
+
+		private void RaiseMapClickedEvent()
+		{
+			if (this.MapClicked != null)
+			{
+				this.MapClicked(this, EventArgs.Empty);
 			}
 		}
 	}

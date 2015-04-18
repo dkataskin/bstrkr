@@ -91,6 +91,7 @@ namespace bstrkr.android.views
 						var map = this.SupportFragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
 						if (map.ViewModel == null)
 						{
+							map.MapClicked += (s, a) => this.ClearSlidingPanel();
 							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
 						}
 
