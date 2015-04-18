@@ -41,7 +41,6 @@ namespace bstrkr.core.android.services.location
 			_locationRequest = LocationRequest.Create();
 			_locationRequest.SetSmallestDisplacement(_displacement);
 			_locationRequest.SetPriority(LocationRequest.PriorityLowPower);
-			_locationRequest.SetNumUpdates(1);
 
 			this.InitializeGoogleAPI();
 		}
@@ -74,7 +73,15 @@ namespace bstrkr.core.android.services.location
 		public void OnConnected(Bundle connectionHint)
 		{
 			var lastLocation = LocationServices.FusedLocationApi.GetLastLocation(_googleAPIClient);
-			this.OnLocationChanged(lastLocation);
+			if (lastLocation == null)
+			{
+				_locationRequest.SetPriority(LocationRequest.PriorityHighAccuracy);
+				_locationRequest.SetNumUpdates(1);
+			}
+			else
+			{
+				this.OnLocationChanged(lastLocation);
+			}
 
 			LocationServices.FusedLocationApi.RequestLocationUpdates(_googleAPIClient, _locationRequest, this);
 		}

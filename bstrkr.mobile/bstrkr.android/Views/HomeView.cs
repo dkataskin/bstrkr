@@ -78,7 +78,7 @@ namespace bstrkr.android.views
 					return true;
 				}
 
-				this.ClearSlidingPanel();
+				this.CloseSlidingPanel();
 
 				switch (section)
 				{
@@ -91,7 +91,7 @@ namespace bstrkr.android.views
 						var map = this.SupportFragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
 						if (map.ViewModel == null)
 						{
-							map.MapClicked += (s, a) => this.ClearSlidingPanel();
+							map.MapClicked += (s, a) => this.CloseSlidingPanel();
 							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
 						}
 
@@ -108,7 +108,7 @@ namespace bstrkr.android.views
 							}
 						}
 
-						this.ClearSlidingPanel();
+						this.CloseSlidingPanel();
 
 						this.SupportFragmentManager.PopBackStackImmediate(null, (int)(PopBackStackFlags.None | PopBackStackFlags.Inclusive));
 						transaction.Commit();
@@ -190,7 +190,7 @@ namespace bstrkr.android.views
 		{
 			base.OnPostCreate(savedInstanceState);
 			_drawerToggle.SyncState();
-			this.ClearSlidingPanel();
+			this.CloseSlidingPanel();
 		}
 
 		public override void OnConfigurationChanged(Configuration newConfig)
@@ -334,7 +334,7 @@ namespace bstrkr.android.views
 
 		private bool NavigateBack()
 		{
-			if (this.ClearSlidingPanel())
+			if (this.CloseSlidingPanel())
 			{
 				return true;
 			}
@@ -466,7 +466,7 @@ namespace bstrkr.android.views
 			homeViewModel.SelectMenuItemCommand.Execute(homeViewModel.MenuItems[0]);
 		}
 
-		private bool ClearSlidingPanel()
+		private bool CloseSlidingPanel()
 		{
 			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
 			if (panel.PaneVisible)
@@ -489,6 +489,12 @@ namespace bstrkr.android.views
 
 		private void ShowInSlidingPanel(Android.Support.V4.App.Fragment fragment)
 		{
+			var panelFrame = this.FindViewById<FrameLayout>(Resource.Id.panel_content_frame);
+			if (panelFrame.Visibility != ViewStates.Visible)
+			{
+				panelFrame.Visibility = ViewStates.Visible;
+			}
+
 			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
 			if (!panel.PaneVisible)
 			{

@@ -29,6 +29,8 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class MapViewModel : BusTrackerViewModelBase
 	{
+		private const double MaxDistanceFromBusStop = 500.0;
+
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IMvxMessenger _messenger;
@@ -206,15 +208,20 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void SelectClosestRouteStop(GeoPoint location)
 		{
-//			var closestStop = _stops.Select(x => x.Model)
-//				.Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location), x))
-//				.OrderBy(x => x.Item1)
-//				.First();
-//
-//			if (closestStop.Item1 <= AppConsts.MaxDistanceFromBusStop)
-//			{
-//				this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestStop.Item2);
-//			}
+			var closestStop = _stops.Select(x => x.Model)
+				.Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location), x))
+				.OrderBy(x => x.Item1)
+				.First();
+
+			if (closestStop.Item1 <= MaxDistanceFromBusStop)
+			{
+				var closestRouteStop = closestStop.Item2;
+				this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestRouteStop);
+				this.Dispatcher.RequestMainThreadAction(() => this.ShowRouteStopInfo(
+																			closestRouteStop.Id,
+																			closestRouteStop.Name,
+																			closestRouteStop.Description));
+			}
 		}
 
 		private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)
@@ -278,6 +285,20 @@ namespace bstrkr.mvvm.viewmodels
 											}, 
 											null, 
 											requestedBy);
+		}
+
+		private void ShowRouteStopInfo(string id, string name, string description)
+		{
+			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
+			this.ShowViewModel<RouteStopViewModel>(
+												new 
+												{
+													id = id,
+													name = name,
+													description = description
+												},
+												null, 
+												requestedBy);
 		}
 
 		private void ShowVehicleInfo(VehicleViewModel vehicleVM)
