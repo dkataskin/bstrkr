@@ -6,7 +6,7 @@ using Cirrious.MvvmCross.Droid.Views;
 namespace bstrkr.android
 {
     [Activity(
-		Label = "bstrkr.android",
+		Label = "BusTracker",
 		MainLauncher = true,
 		Icon = "@drawable/icon",
 		Theme = "@style/Theme.Splash",

@@ -201,10 +201,8 @@
     <AndroidResource Include="Resources\Layout\fragment_map_view.axml" />
     <AndroidResource Include="Resources\Layout\page_splash_screen.axml" />
     <AndroidResource Include="Resources\Drawable\splash.png" />
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable-hdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_menu_refresh.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_dark.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_dark.9.png" />
@@ -319,6 +317,8 @@
     <AndroidResource Include="Resources\Layout\item_vehicle_forecast_map.axml" />
     <AndroidResource Include="Resources\Layout\fragment_vehicle_forecast_map_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_routestop_map_view.axml" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

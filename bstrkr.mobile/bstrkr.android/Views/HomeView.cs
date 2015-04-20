@@ -479,6 +479,7 @@ namespace bstrkr.android.views
 				}
 
 				_slidingPanelFragment = null;
+				panel.CollapsePane();
 				panel.HidePane();
 
 				return true;
