@@ -1,8 +1,9 @@
-﻿		using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 using bstrkr.core;
@@ -15,7 +16,6 @@ using Cirrious.MvvmCross.ViewModels;
 using Stateless;
 
 using Xamarin;
-using System.Threading;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -47,7 +47,9 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.CountdownCommand = new MvxCommand(
 												this.Countdown,
-												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived));
+												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) ||
+													  _stateMachine.IsInState(RouteVehicleVMStates.Loading) ||
+													  _stateMachine.IsInState(RouteVehicleVMStates.ForecastDuplicated));
 
 			_stateMachine = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
 			_stateMachine.OnTransitioned(sm => this.Dispatcher.RequestMainThreadAction(() => this.RaisePropertyChanged(() => this.State)));
@@ -268,7 +270,8 @@ namespace bstrkr.mvvm.viewmodels
 
 					if (this.NextStopForecast != null)
 					{
-						if (this.NextStopForecast.ArrivesInSeconds == 0)
+						if (_stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) && 
+							this.NextStopForecast.ArrivesInSeconds == 0)
 						{
 							Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 						}

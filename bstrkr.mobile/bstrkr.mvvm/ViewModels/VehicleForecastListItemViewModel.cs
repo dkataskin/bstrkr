@@ -84,7 +84,10 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void Countdown()
 		{
-			this.ArrivesInSeconds--;
+			if (this.ArrivesInSeconds > 0)
+			{
+				this.ArrivesInSeconds--;
+			}
 		}
 	}
 }

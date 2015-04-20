@@ -479,7 +479,6 @@ namespace bstrkr.android.views
 				}
 
 				_slidingPanelFragment = null;
-				panel.CollapsePane();
 				panel.HidePane();
 
 				return true;
@@ -512,6 +511,11 @@ namespace bstrkr.android.views
 					   .Commit();
 
 			_slidingPanelFragment = fragment;
+
+			if (panel.IsExpanded)
+			{
+				panel.CollapsePane();
+			}
 		}
     }
 }
