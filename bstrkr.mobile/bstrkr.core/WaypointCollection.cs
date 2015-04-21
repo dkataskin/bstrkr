@@ -11,8 +11,21 @@ namespace bstrkr.core
 	{
 		private readonly IList<Waypoint> _waypoints = new List<Waypoint>();
 
-		public WaypointCollection()
+		public WaypointCollection() : this(new List<Waypoint>())
 		{
+		}
+
+		public WaypointCollection(IEnumerable<Waypoint> waypoints)
+		{
+			if (waypoints == null || !waypoints.Any())
+			{
+				_waypoints = new List<Waypoint>();
+			}
+			else
+			{
+				_waypoints = waypoints.ToList();
+			}
+
 			this.Waypoints = new ReadOnlyCollection<Waypoint>(_waypoints);
 		}
 
