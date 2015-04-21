@@ -1,6 +1,8 @@
 ﻿using System;
-using bstrkr.core.config;
 using System.IO;
+using System.Reflection;
+
+using bstrkr.core.config;
 
 namespace bstrkr.grabber
 {
@@ -8,7 +10,9 @@ namespace bstrkr.grabber
 	{
 		protected override string ReadConfigFile()
 		{
-			return File.ReadAllText("config.json");
+			var location = new DirectoryInfo(Assembly.GetExecutingAssembly().Location);
+			var directoryPath = Path.GetDirectoryName(location.FullName);
+			return File.ReadAllText(Path.Combine(directoryPath, "config.json"));
 		}
 	}
 }
