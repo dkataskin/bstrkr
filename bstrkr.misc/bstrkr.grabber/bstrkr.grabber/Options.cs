@@ -2,7 +2,7 @@
 
 using CommandLine;
 
-namespace bstrkr.grabber
+namespace bustracker.cli
 {
 	public class Options
 	{

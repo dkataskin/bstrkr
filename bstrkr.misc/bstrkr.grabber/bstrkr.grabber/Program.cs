@@ -19,7 +19,7 @@ using SharpKml.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
 
-namespace bstrkr.grabber
+namespace bustracker.cli
 {
 	class MainClass
 	{
@@ -109,8 +109,6 @@ namespace bstrkr.grabber
 								update.Vehicle.Location.Longitude,
 								update.LastUpdate.ToString("u"),
 								lastUpdate.ToString("u"));
-
-						kmlWriter.AddPoint(update.Vehicle.Location);
 						
 						if (update.Waypoints != null && update.Waypoints.Any())
 						{
@@ -127,6 +125,8 @@ namespace bstrkr.grabber
 								kmlWriter.AddPoint(waypoint.Location);
 							}
 						}
+
+						kmlWriter.AddPoint(update.Vehicle.Location);
 					}
 
 					kmlWriter.Save();

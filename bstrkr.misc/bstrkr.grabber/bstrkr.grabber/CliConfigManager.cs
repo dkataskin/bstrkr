@@ -4,7 +4,7 @@ using System.Reflection;
 
 using bstrkr.core.config;
 
-namespace bstrkr.grabber
+namespace bustracker.cli
 {
 	public class CliConfigManager : ConfigManagerBase
 	{
