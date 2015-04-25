@@ -12,6 +12,9 @@ namespace bustracker.cli
 		[Option('v', "vehicleid", Required = false, HelpText = "Vehicle id")]
 		public string VehicleId { get; set; }
 
+		[Option('o', "outputdir", Required = false, HelpText = "Vehicle trace output directory")]
+		public string OutputDir { get; set; }
+
 		[Option('t', "trace", Required = false, HelpText = "Trace vehicle's path")]
 		public bool Trace { get; set; }
 

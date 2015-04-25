@@ -55,13 +55,17 @@ namespace bustracker.cli
 						return;
 					}
 
-					Trace(service, options.VehicleId);
+					if (!string.IsNullOrEmpty(options.OutputDir) && !Directory.Exists(options.OutputDir))
+					{
+
+						Console.WriteLine("Directory {0} doesn't exist!", options.OutputDir);
+						return;
+					}
+
+					Trace(service, options.VehicleId, options.OutputDir);
 					Console.ReadKey();
 				}
 			}
-
-
-//			KmlFile kml = KmlFile.Create("test.kml", false);
 		}
 
 		private static void ListVehicles(IBus13RouteDataService service)
@@ -79,11 +83,13 @@ namespace bustracker.cli
 			}
 		}
 
-		private static void Trace(IBus13RouteDataService service, string vehicleId)
+		private static void Trace(IBus13RouteDataService service, string vehicleId, string outputDir)
 		{
-			var kmlWriter = GetKmlWriter(vehicleId);
+			var kmlWriter = GetKmlWriter(vehicleId, outputDir);
 
+			Console.WriteLine("Retrieving routes...");
 			var routes = service.GetRoutesAsync().Result;
+			Console.WriteLine("{0} routes found...", routes.Count());
 
 			Console.WriteLine("Tracing {0}...", vehicleId);
 			Task.Factory.StartNew(() =>
@@ -153,7 +159,7 @@ namespace bustracker.cli
 			return Path.GetDirectoryName(location.FullName);
 		}
 
-		private static KmlOutputWriter GetKmlWriter(string vehicleId)
+		private static KmlOutputWriter GetKmlWriter(string vehicleId, string outputDir)
 		{
 			var document = new Document();
 			document.Name = string.Format("Vehicle {0} trace", vehicleId);
@@ -193,11 +199,14 @@ namespace bustracker.cli
 			placeMark.Geometry = lineString;
 			document.AddFeature(placeMark);
 
+			var kmlOutputDirectory = string.IsNullOrEmpty(outputDir) ? 
+												GetCurrentDirectory() :
+												new DirectoryInfo(outputDir).FullName;
 			return new KmlOutputWriter 
 			{
 				KmlFile = KmlFile.Create(document, false),
 				Path = lineString,
-				OutputFile = Path.Combine(GetCurrentDirectory(), string.Format("trace-{0}.kml", vehicleId))
+				OutputFile = Path.Combine(kmlOutputDirectory, string.Format("trace-{0}.kml", vehicleId))
 			};
 		}
 
