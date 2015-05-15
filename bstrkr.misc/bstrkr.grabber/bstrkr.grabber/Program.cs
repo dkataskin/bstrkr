@@ -115,11 +115,11 @@ namespace bustracker.cli
 								update.Vehicle.Location.Longitude,
 								update.LastUpdate.ToString("u"),
 								lastUpdate.ToString("u"));
-						
+
 						if (update.Waypoints != null && update.Waypoints.Any())
 						{
-							var sortedWaypoints = update.Waypoints.OrderBy(x => x.Fraction).ToList();
-							foreach (var waypoint in sortedWaypoints)
+//							var sortedWaypoints = update.Waypoints.OrderBy(x => x.Fraction).ToList();
+							foreach (var waypoint in update.Waypoints)
 							{
 								Console.WriteLine(
 									"id:{0}, fr:{1:F2}, lat:{2}, lng:{3}",

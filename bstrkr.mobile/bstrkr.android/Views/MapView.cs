@@ -61,7 +61,7 @@ namespace bstrkr.android.views
 			} 
 			catch (GooglePlayServicesNotAvailableException e) 
 			{
-				Insights.Report(e, ReportSeverity.Error);
+				Insights.Report(e, Xamarin.Insights.Severity.Error);
 			}
 		}
 

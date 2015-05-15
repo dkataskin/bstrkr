@@ -11,6 +11,8 @@ using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.views;
 using bstrkr.mvvm.maps;
+using bstrkr.core.utils;
+using System.Threading.Tasks;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -101,17 +103,50 @@ namespace bstrkr.mvvm.viewmodels
 
 		public void UpdateLocation(GeoPoint currentLocation, WaypointCollection waypoints)
 		{
-			this.SetLocation(currentLocation);
-//			if (this.Location.Equals(GeoPoint.Empty) || waypoints == null)
-//			{
-//				this.SetLocation(currentLocation);
-//				_waypoints.Clear();
-//			}
-//
-//			if (waypoints != null)
-//			{
-//				var sortedWaypoints = waypoints.Waypoints.OrderBy(x => x.Fraction);
-//			}
+			var animList = new List<Tuple<GeoPoint, GeoPoint, int>>();
+			var totalTime = TimeSpan.FromSeconds(10).TotalMilliseconds;
+			if (waypoints != null && waypoints.Waypoints.Any())
+			{
+				
+				for (int i = 0; i < waypoints.Waypoints.Count - 1; i++)
+				{
+					animList.Add(
+						new Tuple<GeoPoint, GeoPoint, int>(
+										waypoints.Waypoints[i].Location,
+										waypoints.Waypoints[i+1].Location,
+										Convert.ToInt32(waypoints.Waypoints[i + 1].Fraction  * totalTime)));
+				}
+			}
+
+			animList.Add(
+				new Tuple<GeoPoint, GeoPoint, int>(
+					waypoints.Waypoints.Last().Location,
+					waypoints.Waypoints.Last().Location,
+					Convert.ToInt32(waypoints.Waypoints.Last().Fraction  * totalTime)));
+
+			if (!animList.Any())
+			{
+				this.SetLocation(currentLocation);
+			}
+			else
+			{
+				Task.Factory.StartNew(() =>
+				{
+					var step = 16;
+					var interpolator = new SphericalGeoPointInterpolator();
+					foreach (var animItem in animList)
+					{
+						var animTime = 0;
+						while (animTime < animItem.Item3)
+						{
+							Task.Delay(step).Wait();
+
+							var value = interpolator.Interpolate(animTime / animItem.Item3, animItem.Item1, animItem.Item2);
+							this.ViewDispatcher.RequestMainThreadAction(() => this.SetLocation(value));
+						}
+					}
+				});
+			}
 		}
 
 		protected override object GetIcon()

@@ -125,7 +125,7 @@ namespace bstrkr.core.providers.bus13
 					} 
 					catch (Exception e)
 					{
-						Insights.Report(e, ReportSeverity.Warning);
+						Insights.Report(e, Xamarin.Insights.Severity.Warning);
 					}
 				}
 			}

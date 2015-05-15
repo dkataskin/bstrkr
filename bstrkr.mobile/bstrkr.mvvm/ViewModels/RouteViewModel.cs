@@ -155,7 +155,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			if (task.Status != TaskStatus.RanToCompletion)
 			{
-				Insights.Report(task.Exception, ReportSeverity.Error);
+				Insights.Report(task.Exception, Xamarin.Insights.Severity.Error);
 				return;
 			}
 

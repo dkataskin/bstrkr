@@ -64,7 +64,7 @@ namespace bstrkr.core.providers.bus13
 			catch (Exception e)
 			{
 				MvxTrace.Trace("an exception occured while retrieving routes: {0}", e);
-				Insights.Report(e, ReportSeverity.Warning);
+				Insights.Report(e, Xamarin.Insights.Severity.Warning);
 			}
 
 			if (routes.Any())
@@ -206,7 +206,7 @@ namespace bstrkr.core.providers.bus13
 				} 
 				catch (Exception e)
 				{
-					Insights.Report(e, ReportSeverity.Warning);
+					Insights.Report(e, Xamarin.Insights.Severity.Warning);
 				}
 				finally
 				{

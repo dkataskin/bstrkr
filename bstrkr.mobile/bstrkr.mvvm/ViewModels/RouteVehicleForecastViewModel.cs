@@ -242,7 +242,7 @@ namespace bstrkr.mvvm.viewmodels
 			} 
 			catch (Exception e)
 			{
-				Insights.Report(e, ReportSeverity.Warning);
+				Insights.Report(e, Xamarin.Insights.Severity.Warning);
 				_stateMachine.Fire(RouteVehicleVMTriggers.RequestFailed);
 			}
 			finally
