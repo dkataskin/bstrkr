@@ -176,6 +176,8 @@ namespace bstrkr.android
 			global::Cheesebaron.SlidingUpPanel.Resource.Styleable.SlidingUpPanelLayout_fadeColor = global::bstrkr.android.Resource.Styleable.SlidingUpPanelLayout_fadeColor;
 			global::Cheesebaron.SlidingUpPanel.Resource.Styleable.SlidingUpPanelLayout_flingVelocity = global::bstrkr.android.Resource.Styleable.SlidingUpPanelLayout_flingVelocity;
 			global::Cheesebaron.SlidingUpPanel.Resource.Styleable.SlidingUpPanelLayout_shadowHeight = global::bstrkr.android.Resource.Styleable.SlidingUpPanelLayout_shadowHeight;
+			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
+			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 		}
 		
 		public partial class Animation
@@ -2820,6 +2822,12 @@ namespace bstrkr.android
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f09003d
+			public const int ApplicationName = 2131296317;
+			
+			// aapt resource value: 0x7f09003c
+			public const int Hello = 2131296316;
+			
 			// aapt resource value: 0x7f09002c
 			public const int abc_action_bar_home_description = 2131296300;
 			
@@ -2973,8 +2981,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090001
 			public const int drawer_open = 2131296257;
 			
-			// aapt resource value: 0x7f09003c
-			public const int library_name = 2131296316;
+			// aapt resource value: 0x7f09003e
+			public const int library_name = 2131296318;
 			
 			// aapt resource value: 0x7f090026
 			public const int mr_media_route_button_content_description = 2131296294;

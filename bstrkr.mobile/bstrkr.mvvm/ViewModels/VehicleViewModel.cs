@@ -18,14 +18,14 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
 	{
-		private readonly ObservableCollection<WaySegment> _waypoints = new ObservableCollection<WaySegment>();
-
 		private long _lastUpdate = 0;
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
-			this.WaySegments = new ReadOnlyObservableCollection<WaySegment>(_waypoints);
+//			this.WaySegments = new ReadOnlyObservableCollection<WaySegment>(_waypoints);
 		}
+
+		public event EventHandler<VehiclePathUpdatedEventArgs> PathUpdated;
 
 		public override Vehicle Model
 		{
@@ -99,54 +99,61 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public ReadOnlyObservableCollection<WaySegment> WaySegments { get; private set; }
-
 		public void UpdateLocation(GeoPoint currentLocation, WaypointCollection waypoints)
 		{
-			var animList = new List<Tuple<GeoPoint, GeoPoint, int>>();
-			var totalTime = TimeSpan.FromSeconds(10).TotalMilliseconds;
+			var animList = new List<WaySegment>();
+			var totalTime = 10.0d;
+			if (_lastUpdate > 0)
+			{
+				totalTime = TimeSpan.FromTicks(DateTime.Now.Ticks - _lastUpdate).TotalSeconds;
+			}
+
+			_lastUpdate = DateTime.Now.Ticks;
+
 			if (waypoints != null && waypoints.Waypoints.Any())
 			{
+				animList.Add(new WaySegment {
+					Duration = TimeSpan.FromSeconds(waypoints.Waypoints[0].Fraction * totalTime),
+					StartPosition = this.Location,
+					FinalPosition = waypoints.Waypoints[0].Location
+				});
 				
 				for (int i = 0; i < waypoints.Waypoints.Count - 1; i++)
 				{
 					animList.Add(
-						new Tuple<GeoPoint, GeoPoint, int>(
-										waypoints.Waypoints[i].Location,
-										waypoints.Waypoints[i+1].Location,
-										Convert.ToInt32(waypoints.Waypoints[i + 1].Fraction  * totalTime)));
-				}
-			}
+						new WaySegment {
+							Duration = TimeSpan.FromSeconds(waypoints.Waypoints[i + 1].Fraction * totalTime),
+							StartPosition = waypoints.Waypoints[i].Location,
+							FinalPosition = waypoints.Waypoints[i + 1].Location
+						});
+				};
 
-			animList.Add(
-				new Tuple<GeoPoint, GeoPoint, int>(
-					waypoints.Waypoints.Last().Location,
-					waypoints.Waypoints.Last().Location,
-					Convert.ToInt32(waypoints.Waypoints.Last().Fraction  * totalTime)));
-
-			if (!animList.Any())
-			{
-				this.SetLocation(currentLocation);
+//				animList.Add(
+//					new WaySegment {
+//					Duration = TimeSpan.FromSeconds(waypoints.Waypoints.Last().Fraction * totalTime),
+//					StartPosition = waypoints.Waypoints.Last().Location,
+//					FinalPosition = currentLocation
+//				});
 			}
 			else
 			{
-				Task.Factory.StartNew(() =>
+				if (this.Location.Latitude != 0 && this.Location.Longitude != 0)
 				{
-					var step = 16;
-					var interpolator = new SphericalGeoPointInterpolator();
-					foreach (var animItem in animList)
-					{
-						var animTime = 0;
-						while (animTime < animItem.Item3)
-						{
-							Task.Delay(step).Wait();
-
-							var value = interpolator.Interpolate(animTime / animItem.Item3, animItem.Item1, animItem.Item2);
-							this.ViewDispatcher.RequestMainThreadAction(() => this.SetLocation(value));
-						}
-					}
-				});
+					animList.Add(
+						new WaySegment {
+							Duration = TimeSpan.FromSeconds(10),
+						StartPosition = this.Location,
+						FinalPosition = currentLocation
+					});
+				}
 			}
+
+			if (animList.Any())
+			{
+				this.RaisePathUpdatedEvent(animList);
+			}
+
+			this.SetLocation(currentLocation);
 		}
 
 		protected override object GetIcon()
@@ -162,5 +169,18 @@ namespace bstrkr.mvvm.viewmodels
 				this.RaisePropertyChanged(() => this.Location);
 			}
 		}
+
+		private void RaisePathUpdatedEvent(IList<WaySegment> pathSegments)
+		{
+			if (this.PathUpdated != null)
+			{
+				this.PathUpdated(this, new VehiclePathUpdatedEventArgs { PathSegments = pathSegments });
+			}
+		}
+	}
+
+	public class VehiclePathUpdatedEventArgs : EventArgs
+	{
+		public IList<WaySegment> PathSegments { get; set; }
 	}
 }

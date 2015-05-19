@@ -14,7 +14,7 @@ using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using DK.Ostebaronen.Droid.ViewPagerIndicator;
 
@@ -36,7 +36,7 @@ namespace bstrkr.android.views
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-			this.HasOptionsMenu = true;
+			this.SetHasOptionsMenu(true);
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -48,7 +48,7 @@ namespace bstrkr.android.views
 			var view = this.BindingInflate(Resource.Layout.fragment_stops_view, null);
 
 			var pager = view.FindViewById<ViewPager>(Resource.Id.pager);
-			var adaptor = new GenericFragmentPagerAdaptor(this.ChildFragmentManager);
+			var adaptor = new GenericFragmentPagerAdaptor(this.FragmentManager);
 
 			adaptor.AddFragment("Close stops", new CloseRouteStopsView { DataContext = this.DataContext });
 			adaptor.AddFragment("All stops", new AllRouteStopsView { DataContext = this.DataContext });

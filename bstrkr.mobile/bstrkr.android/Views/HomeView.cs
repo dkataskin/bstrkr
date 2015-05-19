@@ -35,13 +35,15 @@ using Cheesebaron.SlidingUpPanel;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.Droid.Fragging;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.FullFragging;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+
+using Android.Runtime;
 
 namespace bstrkr.android.views
 {
@@ -50,7 +52,8 @@ namespace bstrkr.android.views
 			  Icon = "@drawable/ic_launcher",
 			  ScreenOrientation = ScreenOrientation.Portrait,
 			  Theme = "@style/Theme.PageIndicatorDefaults")]
-	public class HomeView : MvxFragmentActivity, IFragmentHost
+	[Register("bstrkr.android.views.HomeView")]
+	public class HomeView : MvxActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
 		private MyActionBarDrawerToggle _drawerToggle;
@@ -59,7 +62,7 @@ namespace bstrkr.android.views
 
 		private IMvxMessenger _messenger;
 
-		private Android.Support.V4.App.Fragment _slidingPanelFragment;
+		private Fragment _slidingPanelFragment;
 
 		private static IDictionary<Type, string> _frag2tag = new Dictionary<Type, string>();
 
@@ -88,19 +91,19 @@ namespace bstrkr.android.views
 
 						_drawerList.SetItemChecked(0, true);
 
-						var map = this.SupportFragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
+						var map = this.FragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
 						if (map.ViewModel == null)
 						{
 							map.MapClicked += (s, a) => this.CloseSlidingPanel();
 							map.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
 						}
 
-						var transaction = this.SupportFragmentManager.BeginTransaction();
+						var transaction = this.FragmentManager.BeginTransaction();
 						foreach (var viewType in _frag2tag.Keys) 
 						{
 							if (viewType != typeof(MapView))
 							{
-								var fragmentToRemove = this.SupportFragmentManager.FindFragmentByTag(_frag2tag[viewType]);
+								var fragmentToRemove = this.FragmentManager.FindFragmentByTag(_frag2tag[viewType]);
 								if (fragmentToRemove != null)
 								{
 									transaction.Remove(fragmentToRemove);
@@ -110,7 +113,7 @@ namespace bstrkr.android.views
 
 						this.CloseSlidingPanel();
 
-						this.SupportFragmentManager.PopBackStackImmediate(null, (int)(PopBackStackFlags.None | PopBackStackFlags.Inclusive));
+						this.FragmentManager.PopBackStackImmediate(null, PopBackStackFlags.None | PopBackStackFlags.Inclusive);
 						transaction.Commit();
 						return true;
 
@@ -166,9 +169,9 @@ namespace bstrkr.android.views
 					_frag2tag[fragment.GetType()] = Guid.NewGuid().ToString();
 				}
 
-				this.SupportFragmentManager.BeginTransaction()
-											.SetCustomAnimations(Resource.Animation.abc_fade_in,
-													Resource.Animation.abc_fade_out)
+				this.FragmentManager.BeginTransaction()
+									.SetCustomAnimations(Resource.Animation.abc_fade_in,
+														 Resource.Animation.abc_fade_out)
 									.Replace(Resource.Id.content_frame, fragment, _frag2tag[fragment.GetType()])
 								   	.AddToBackStack(null)
 								   	.Commit();
@@ -326,7 +329,7 @@ namespace bstrkr.android.views
 		{
 			if (_frag2tag.ContainsKey(typeof(TView)))
 			{
-				return this.SupportFragmentManager.FindFragmentByTag(_frag2tag[typeof(TView)]) as TView;
+				return this.FragmentManager.FindFragmentByTag(_frag2tag[typeof(TView)]) as TView;
 			}
 
 			return null;
@@ -339,19 +342,19 @@ namespace bstrkr.android.views
 				return true;
 			}
 
-			if (this.SupportFragmentManager.BackStackEntryCount == 0)
+			if (this.FragmentManager.BackStackEntryCount == 0)
 			{
 				return false;
 			}
 
-			if (this.SupportFragmentManager.BackStackEntryCount == 1)
+			if (this.FragmentManager.BackStackEntryCount == 1)
 			{
 				this.ShowMap();
 				return true;
 			}
 
-			this.SupportFragmentManager.PopBackStackImmediate();
-			if (this.SupportFragmentManager.BackStackEntryCount == 1)
+			this.FragmentManager.PopBackStackImmediate();
+			if (this.FragmentManager.BackStackEntryCount == 1)
 			{
 				this.EnableDrawer();
 			}
@@ -365,14 +368,14 @@ namespace bstrkr.android.views
 			{
 				var dialog = new SetAreaView();
 				dialog.ViewModel = loaderService.LoadViewModel(request, null);
-				dialog.Show(this.SupportFragmentManager, null);
+				dialog.Show(this.FragmentManager, null);
 			}
 
 			if (request.ViewModelType == typeof(SetRouteStopViewModel))
 			{
 				var dialog = new SetRouteStopView();
 				dialog.ViewModel = loaderService.LoadViewModel(request, null);
-				dialog.Show(this.SupportFragmentManager, null);
+				dialog.Show(this.FragmentManager, null);
 			}
 
 			if (request.ViewModelType == typeof(UmbrellaRouteViewModel))
@@ -381,7 +384,7 @@ namespace bstrkr.android.views
 				umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
 				_frag2tag[typeof(UmbrellaRouteView)] = "umbrella_route_view";
 
-				this.SupportFragmentManager.BeginTransaction()
+				this.FragmentManager.BeginTransaction()
 									.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
 									.AddToBackStack(null)
 									.Commit();
@@ -395,7 +398,7 @@ namespace bstrkr.android.views
 				routeView.ViewModel = loaderService.LoadViewModel(request, null);
 				_frag2tag[typeof(RouteView)] = "route_view";
 
-				this.SupportFragmentManager.BeginTransaction()
+				this.FragmentManager.BeginTransaction()
 					.Replace(Resource.Id.content_frame, routeView, "route_view")
 					.AddToBackStack(null)
 					.Commit();
@@ -435,7 +438,7 @@ namespace bstrkr.android.views
 					routeStopView.ViewModel = loaderService.LoadViewModel(request, null);
 					_frag2tag[typeof(RouteStopView)] = "route_stop_view";
 
-					this.SupportFragmentManager.BeginTransaction()
+					this.FragmentManager.BeginTransaction()
 						.Replace(Resource.Id.content_frame, routeStopView, "route_stop_view")
 						.AddToBackStack(null)
 						.Commit();
@@ -473,7 +476,7 @@ namespace bstrkr.android.views
 			{
 				if (_slidingPanelFragment != null)
 				{
-					this.SupportFragmentManager.BeginTransaction()
+					this.FragmentManager.BeginTransaction()
 											   .Remove(_slidingPanelFragment)
 											   .Commit();
 				}
@@ -487,7 +490,7 @@ namespace bstrkr.android.views
 			return false;
 		}
 
-		private void ShowInSlidingPanel(Android.Support.V4.App.Fragment fragment)
+		private void ShowInSlidingPanel(Fragment fragment)
 		{
 			var panelFrame = this.FindViewById<FrameLayout>(Resource.Id.panel_content_frame);
 			if (panelFrame.Visibility != ViewStates.Visible)
@@ -501,7 +504,7 @@ namespace bstrkr.android.views
 				panel.ShowPane();
 			}
 				
-			var transaction = this.SupportFragmentManager.BeginTransaction();
+			var transaction = this.FragmentManager.BeginTransaction();
 			if (_slidingPanelFragment != null)
 			{
 				transaction.Remove(_slidingPanelFragment);

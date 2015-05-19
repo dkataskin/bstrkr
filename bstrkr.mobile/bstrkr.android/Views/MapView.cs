@@ -3,6 +3,7 @@
 using Android.Gms.Common;
 using Android.Gms.Maps;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
@@ -16,12 +17,13 @@ using bstrkr.mvvm.views;
 
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
 
 namespace bstrkr.android.views
 {
+	[Register("bstrkr.android.views.MapView")]
 	public class MapView : MvxFragment
 	{
 		private Android.Gms.Maps.MapView _googleMapView;

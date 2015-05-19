@@ -6,7 +6,7 @@ using Android.Views;
 using bstrkr.core;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 namespace bstrkr.android.views
 {

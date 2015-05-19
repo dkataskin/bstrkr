@@ -75,8 +75,15 @@ namespace bstrkr.core.android.services.location
 			var lastLocation = LocationServices.FusedLocationApi.GetLastLocation(_googleAPIClient);
 			if (lastLocation == null)
 			{
+#if DEBUG
+				var location = new Location("test");
+				location.Latitude = 54.1889647;
+				location.Longitude = 45.1690041;
+				this.OnLocationChanged(location);
+#else
 				_locationRequest.SetPriority(LocationRequest.PriorityHighAccuracy);
 				_locationRequest.SetNumUpdates(1);
+#endif
 			}
 			else
 			{

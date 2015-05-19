@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Cirrious.MvvmCross.Droid.Fragging.Fragments;
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Android.Support.V13.App;
+using Android.App;
 
 namespace bstrkr.android.views
 {
-	public class GenericFragmentPagerAdaptor : Android.Support.V4.App.FragmentPagerAdapter
+	public class GenericFragmentPagerAdaptor : FragmentPagerAdapter
 	{
 		private IDictionary<string, MvxFragment> _fragments = new Dictionary<string, MvxFragment>();
 
-		public GenericFragmentPagerAdaptor(Android.Support.V4.App.FragmentManager fragmentManager)
+		public GenericFragmentPagerAdaptor(FragmentManager fragmentManager)
 			: base(fragmentManager)
 		{
 		}
@@ -20,7 +22,7 @@ namespace bstrkr.android.views
 			get { return _fragments.Keys.Count; }
 		}
 
-		public override Android.Support.V4.App.Fragment GetItem(int position)
+		public override Fragment GetItem(int position)
 		{
 			return _fragments.Values.ElementAt(position);
 		}

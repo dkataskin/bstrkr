@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 
 using bstrkr.core;
+using bstrkr.core.spatial;
 
 namespace bstrkr.mvvm.maps
 {
 	public class WaySegment
 	{
-		public DateTime Timestamp { get; set; }
+		public TimeSpan Duration { get; set; }
 
-		public long Duration { get; set; }
+		public GeoPoint StartPosition { get; set; }
 
-		public IList<Waypoint> Waypoints { get; set; }
+		public GeoPoint FinalPosition { get; set; }
 	}
 }
