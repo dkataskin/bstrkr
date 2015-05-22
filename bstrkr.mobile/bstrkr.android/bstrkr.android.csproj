@@ -68,12 +68,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">
-      <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.3\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.dll</HintPath>
-    </Reference>
-    <Reference Include="Chance.MvvmCross.Plugins.UserInteraction.Droid">
-      <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.3\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.Droid.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monoandroid\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
@@ -92,9 +86,6 @@
     </Reference>
     <Reference Include="RestSharp.Portable.Encodings">
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.4.3\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Insights">
-      <HintPath>..\packages\Xamarin.Insights.1.10.1.109\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.CrossCore.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\MonoAndroid\Cirrious.CrossCore.Droid.dll</HintPath>
@@ -132,23 +123,32 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.21.0.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
-      <HintPath>..\packages\Xamarin.Android.Support.v7.MediaRouter.21.0.3.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v13">
       <HintPath>..\packages\Xamarin.Android.Support.v13.22.1.1.1\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
     </Reference>
-    <Reference Include="GooglePlayServicesLib">
-      <HintPath>..\packages\Xamarin.GooglePlayServices.22.0.0.0\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Droid.FullFragging">
       <HintPath>..\packages\MvvmCross.HotTuna.Droid.FullFragging.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Droid.FullFragging.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\packages\Xamarin.Insights.1.10.2.110\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
+    </Reference>
+    <Reference Include="GooglePlayServicesLib">
+      <HintPath>..\packages\Xamarin.GooglePlayServices.22.0.0.2\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.MediaRouter.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
+    </Reference>
+    <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">
+      <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.4\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.dll</HintPath>
+    </Reference>
+    <Reference Include="Chance.MvvmCross.Plugins.UserInteraction.Droid">
+      <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.4\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +174,6 @@
     <Compile Include="Views\RouteStopsView.cs" />
     <Compile Include="Views\UmbrellaRouteView.cs" />
     <Compile Include="Views\RouteView.cs" />
-    <Compile Include="Bootstrap\UserInteractionPluginBootstrap.cs" />
     <Compile Include="Views\SetRouteStopView.cs" />
     <Compile Include="Views\RouteStopView.cs" />
     <Compile Include="Views\CloseRouteStopsView.cs" />
@@ -185,6 +184,7 @@
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\UserInteractionPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

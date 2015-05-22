@@ -50,30 +50,37 @@ namespace bstrkr.core.providers.bus13
 		public void Start()
 		{
 			MvxTrace.Trace(() => "started retrieving routes");
-			var routes = new List<Route>();
-			try
-			{
-				routes = _dataService.GetRoutesAsync()
-								     .ConfigureAwait(false)
-									 .GetAwaiter()
-									 .GetResult()
-									 .ToList();
 
-				MvxTrace.Trace("{0} routes retrieved", routes.Count);
-			} 
-			catch (Exception e)
-			{
-				MvxTrace.Trace("an exception occured while retrieving routes: {0}", e);
-				Insights.Report(e, Xamarin.Insights.Severity.Warning);
-			}
+			this.CreateStartTask();
 
-			if (routes.Any())
-			{
-				_cancellationTokenSource = new CancellationTokenSource();
-				_updateTask = Task.Factory.StartNew(
-						() => this.UpdateInLoop(_dataService, routes, _updateInterval, _cancellationTokenSource.Token), 
-						_cancellationTokenSource.Token);
-			}
+//			try
+//			{
+//				_dataService.GetRoutesAsync().ContinueWith(task => 
+//				{
+//					if (task.Status == TaskStatus.RanToCompletion)
+//					{
+//						var routes = task.Result.ToList();
+//						if (routes.Any())
+//						{
+//							MvxTrace.Trace("{0} routes retrieved", routes.Count);
+//
+//							_cancellationTokenSource = new CancellationTokenSource();
+//							_updateTask = Task.Factory.StartNew(
+//								() => this.UpdateInLoop(_dataService, routes, _updateInterval, _cancellationTokenSource.Token), 
+//								_cancellationTokenSource.Token);
+//						}
+//					}
+//					else
+//					{
+//						MvxTrace.Trace("an exception occured while retrieving routes: {0}", e);
+//					}
+//				}).ConfigureAwait(false);
+//			} 
+//			catch (Exception e)
+//			{
+//				MvxTrace.Trace("an exception occured while retrieving routes: {0}", e);
+//				Insights.Report(e, Xamarin.Insights.Severity.Warning);
+//			}
 		}
 
 		public void Stop()
@@ -121,7 +128,7 @@ namespace bstrkr.core.providers.bus13
 
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync()
 		{
-			return await _dataService.GetStopsAsync();
+			return await _dataService.GetStopsAsync().ConfigureAwait(false);
 		}
 
 		public async Task<IEnumerable<Vehicle>> GetVehiclesAsync()
@@ -180,6 +187,38 @@ namespace bstrkr.core.providers.bus13
 			}
 
 			return forecast;
+		}
+
+		private void CreateStartTask()
+		{
+			this.GetRoutesAsync()
+				.ContinueWith(this.OnGetRoutesTaskCompleted)
+				.ConfigureAwait(false);
+		}
+
+		private void OnGetRoutesTaskCompleted(Task<IEnumerable<Route>> task)
+		{
+			if (task.Status == TaskStatus.RanToCompletion)
+			{
+				var routes = task.Result.ToList();
+				if (routes.Any())
+				{
+					MvxTrace.Trace("{0} routes retrieved", routes.Count);
+
+					_cancellationTokenSource = new CancellationTokenSource();
+					_updateTask = Task.Factory.StartNew(
+						() => this.UpdateInLoop(_dataService, routes, _updateInterval, _cancellationTokenSource.Token), 
+						_cancellationTokenSource.Token);
+				}
+			}
+			else
+			{
+				MvxTrace.Trace("an exception occured while retrieving routes: {0}", task.Exception);
+				Insights.Report(task.Exception, Xamarin.Insights.Severity.Warning);
+
+				Task.Delay(TimeSpan.FromSeconds(5)).Wait();
+				this.CreateStartTask();
+			}
 		}
 
 		private void UpdateInLoop(

@@ -22,7 +22,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
-//			this.WaySegments = new ReadOnlyObservableCollection<WaySegment>(_waypoints);
 		}
 
 		public event EventHandler<VehiclePathUpdatedEventArgs> PathUpdated;
