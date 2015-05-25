@@ -5,19 +5,20 @@ using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.V13.App;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
 
 using bstrkr.core;
+using bstrkr.core.android;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using DK.Ostebaronen.Droid.ViewPagerIndicator;
-using Android.Runtime;
 
 namespace bstrkr.android.views
 {
@@ -43,7 +44,7 @@ namespace bstrkr.android.views
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			this.Activity.ActionBar.Title = AppResources.route_stops_view_title;
+			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.route_stops_view_title;
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 

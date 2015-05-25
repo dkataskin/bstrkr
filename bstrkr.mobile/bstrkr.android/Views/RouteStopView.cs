@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
+using bstrkr.core.android;
 using bstrkr.mvvm;
 using bstrkr.mvvm.viewmodels;
 
@@ -28,7 +29,7 @@ namespace bstrkr.android.views
 			this.SetHasOptionsMenu(true);
 
 			var vm = this.DataContext as RouteStopViewModel;
-			this.Activity.ActionBar.Title = string.Format(
+			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = string.Format(
 													AppResources.route_stop_view_title_format,
 													vm.Name,
 													vm.Description);

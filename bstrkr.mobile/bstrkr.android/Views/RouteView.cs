@@ -11,6 +11,7 @@ using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using bstrkr.core.android;
 
 namespace bstrkr.android.views
 {
@@ -29,7 +30,8 @@ namespace bstrkr.android.views
 			var routeNumberConverter = new RouteNumberToTitleConverter();
 			var dataContext = this.DataContext as RouteViewModel;
 		
-			this.Activity.ActionBar.Title = routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
+			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = 
+				routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
 
 			return this.BindingInflate(Resource.Layout.fragment_route_view, null);
 		}

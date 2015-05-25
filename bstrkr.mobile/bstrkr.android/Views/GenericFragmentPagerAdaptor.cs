@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
-using Android.Support.V13.App;
 using Android.App;
+using Android.Support.V13.App;
+
+using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 namespace bstrkr.android.views
 {

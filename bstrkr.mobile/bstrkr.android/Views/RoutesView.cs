@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
+using bstrkr.core.android;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
@@ -27,7 +28,7 @@ namespace bstrkr.android.views
 		{
 			this.SetHasOptionsMenu(true);
 
-			this.Activity.ActionBar.Title = AppResources.routes_view_title;
+			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.routes_view_title;
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 

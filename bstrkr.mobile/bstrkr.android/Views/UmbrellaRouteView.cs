@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 
+using bstrkr.core.android;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
@@ -24,7 +25,7 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			var dataContext = this.DataContext as UmbrellaRouteViewModel;
-			this.Activity.ActionBar.Title = dataContext.Title;
+			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = dataContext.Title;
 
 			return this.BindingInflate(Resource.Layout.fragment_umbrellaroute_view, null);
 		}

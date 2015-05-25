@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
+using bstrkr.core.android;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
@@ -19,7 +20,7 @@ namespace bstrkr.android.views
 		{
 			base.OnCreate(savedInstanceState);
 
-			this.Activity.ActionBar.Title = AppResources.preferences_view_title;
+			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.preferences_view_title;
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
