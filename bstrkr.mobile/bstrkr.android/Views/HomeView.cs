@@ -10,11 +10,13 @@ using Android.Gms.Common;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 
 using bstrkr.core;
+using bstrkr.core.android;
 using bstrkr.core.android.extensions;
 using bstrkr.core.android.presenters;
 using bstrkr.core.android.services;
@@ -42,8 +44,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-
-using Android.Runtime;
+using Android.Support.V4.View;
 
 namespace bstrkr.android.views
 {
@@ -51,9 +52,9 @@ namespace bstrkr.android.views
 			  LaunchMode = LaunchMode.SingleTop, 
 			  Icon = "@drawable/ic_launcher",
 			  ScreenOrientation = ScreenOrientation.Portrait,
-			  Theme = "@style/Theme.PageIndicatorDefaults")]
+			  Theme = "@style/Theme.AppCompat")]
 	[Register("bstrkr.android.views.HomeView")]
-	public class HomeView : MvxActivity, IFragmentHost
+	public class HomeView : MvxActionBarActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
 		private MyActionBarDrawerToggle _drawerToggle;
@@ -87,7 +88,7 @@ namespace bstrkr.android.views
 				{
 					case MenuSection.Map:
 						_currentSection = MenuSection.Map;
-						this.ActionBar.Title = AppResources.map_view_title;
+						this.SupportActionBar.Title = AppResources.map_view_title;
 
 						_drawerList.SetItemChecked(0, true);
 
@@ -202,12 +203,6 @@ namespace bstrkr.android.views
 			_drawerToggle.OnConfigurationChanged(newConfig);
 		}
 
-		public override bool OnCreateOptionsMenu(IMenu menu)
-		{
-			//MenuInflater.Inflate(Resource.Menu.main, menu);
-			return base.OnCreateOptionsMenu(menu);
-		}
-
 		public override bool OnPrepareOptionsMenu(IMenu menu)
 		{
 			var drawerOpen = _drawer.IsDrawerOpen(_drawerList);
@@ -247,6 +242,8 @@ namespace bstrkr.android.views
 												  .VersionName;
 
             base.OnCreate(savedInstanceState);
+			SupportRequestWindowFeature(WindowCompat.FeatureActionBar);
+
 			this.SetContentView(Resource.Layout.page_home_view);
 
 			_messenger = Mvx.Resolve<IMvxMessenger>();
@@ -281,17 +278,17 @@ namespace bstrkr.android.views
 
 			this.DisableDrawer();
 
-			this.ActionBar.SetDisplayHomeAsUpEnabled(false);
-			this.ActionBar.SetHomeButtonEnabled(false);
-			this.ActionBar.Title = AppResources.refreshing;
+			this.SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+			this.SupportActionBar.SetHomeButtonEnabled(false);
+			this.SupportActionBar.Title = AppResources.refreshing;
 
 			_messenger.SubscribeOnMainThread<LocationUpdateMessage>(msg => 
 			{
 				this.EnableDrawer();
 
-				this.ActionBar.SetDisplayHomeAsUpEnabled(true);
-				this.ActionBar.SetHomeButtonEnabled(true);
-				this.ActionBar.Title = AppResources.map_view_title;
+				this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+				this.SupportActionBar.SetHomeButtonEnabled(true);
+				this.SupportActionBar.Title = AppResources.map_view_title;
 			});
 
 			if (null == savedInstanceState)

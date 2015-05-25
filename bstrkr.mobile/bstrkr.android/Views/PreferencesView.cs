@@ -8,9 +8,11 @@ using bstrkr.core;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Android.Runtime;
 
 namespace bstrkr.android.views
 {
+	[Register("bstrkr.android.views.PreferencesView")]
 	public class PreferencesView : MvxFragment
 	{
 		public override void OnCreate(Bundle savedInstanceState)

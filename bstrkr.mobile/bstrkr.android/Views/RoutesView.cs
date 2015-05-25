@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
@@ -14,6 +15,7 @@ namespace bstrkr.android.views
 	/// <summary>
 	/// List of all existing routes for current location.
 	/// </summary>
+	[Register("bstrkr.android.views.RoutesView")]
 	public class RoutesView : MvxFragment, IMenuItemOnMenuItemClickListener
 	{
 		public RoutesView()

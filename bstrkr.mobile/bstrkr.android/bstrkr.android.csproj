@@ -217,7 +217,6 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\Values\Styles.xml" />
-    <AndroidResource Include="Resources\Values-Ru\Strings.xml" />
     <AndroidResource Include="Resources\Layout\fragment_routes_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_preferences_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
@@ -366,7 +365,6 @@
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Values-Ru\" />
     <Folder Include="Assets\Licenses\" />
     <Folder Include="Resources\Menu\" />
     <Folder Include="Resources\Xml\" />

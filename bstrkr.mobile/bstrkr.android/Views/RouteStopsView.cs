@@ -17,9 +17,11 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using DK.Ostebaronen.Droid.ViewPagerIndicator;
+using Android.Runtime;
 
 namespace bstrkr.android.views
 {
+	[Register("bstrkr.android.views.RouteStopsView")]
 	public class RouteStopsView : MvxFragment, 
 								  IMenuItemOnMenuItemClickListener,
 								  SearchView.IOnQueryTextListener,

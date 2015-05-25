@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
@@ -13,6 +14,7 @@ using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 namespace bstrkr.android.views
 {
+	[Register("bstrkr.android.views.RouteView")]
 	public class RouteView : MvxFragment
 	{
 		public RouteView()

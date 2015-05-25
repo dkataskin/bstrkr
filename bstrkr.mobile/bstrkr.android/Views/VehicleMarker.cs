@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Concurrent;
+
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 using Android.Animation;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 
+using bstrkr.core.android.extensions;
+using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using System.Collections.Generic;
-using bstrkr.mvvm.maps;
-using System.Linq;
-using bstrkr.core.android.extensions;
-using System.Collections.Concurrent;
 
 namespace bstrkr.android.views
 {
