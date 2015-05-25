@@ -70,7 +70,12 @@ namespace bstrkr.android.views
 			var refreshItem = menu.FindItem(Resource.Id.menu_refresh);
 			refreshItem.SetOnMenuItemClickListener(this);
 
-			_searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
+//			var menuItem = menu.FindItem(Resource.Id.action_search) as MenuItemCompat;
+//			_searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
+			var menuItem = menu.FindItem(Resource.Id.action_search);
+			var view = MenuItemCompat.GetActionView(menuItem);
+
+			_searchView = MenuItemCompat.GetActionView(menuItem) as SearchView;
 			_searchView.QueryHint = AppResources.route_stops_view_search_hint;
 			_searchView.SubmitButtonEnabled = false;
 			_searchView.SetOnQueryTextListener(this);
