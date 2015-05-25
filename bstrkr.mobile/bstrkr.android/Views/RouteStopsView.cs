@@ -28,7 +28,6 @@ namespace bstrkr.android.views
 								  SearchView.IOnQueryTextListener,
 								  View.IOnFocusChangeListener
 	{
-		private IMenuItem _searchViewItem;
 		private SearchView _searchView;
 
 		public RouteStopsView()
@@ -71,7 +70,6 @@ namespace bstrkr.android.views
 			var refreshItem = menu.FindItem(Resource.Id.menu_refresh);
 			refreshItem.SetOnMenuItemClickListener(this);
 
-			_searchViewItem = menu.FindItem(Resource.Id.action_search);
 			_searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
 			_searchView.QueryHint = AppResources.route_stops_view_search_hint;
 			_searchView.SubmitButtonEnabled = false;

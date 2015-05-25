@@ -25,7 +25,7 @@ namespace bstrkr.android.views
 
 			var viewModel = this.ViewModel as SetRouteStopViewModel;
 
-			var dialog = new AlertDialog.Builder(Activity);
+			var dialog = new Android.Support.V7.App.AlertDialog.Builder(Activity);
 			dialog.SetTitle(AppResources.stops_dialog_title);
 			dialog.SetPositiveButton(AppResources.select, (s, a) => viewModel.SelectRouteStopCommand.Execute(_selectedIndex));
 			dialog.SetNegativeButton(AppResources.cancel, (s, a) => { });

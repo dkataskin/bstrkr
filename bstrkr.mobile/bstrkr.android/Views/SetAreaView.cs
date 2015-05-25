@@ -4,7 +4,6 @@ using System.Linq;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
-using Android.Views;
 
 using bstrkr.core;
 using bstrkr.mvvm.viewmodels;
@@ -25,7 +24,7 @@ namespace bstrkr.android.views
 
 			var viewModel = this.ViewModel as SetAreaViewModel;
 
-			var dialog = new AlertDialog.Builder(Activity);
+			var dialog = new Android.Support.V7.App.AlertDialog.Builder(Activity);
 			dialog.SetTitle(AppResources.locations_dialog_title);
 			dialog.SetPositiveButton(AppResources.select, (s, a) => viewModel.SelectAreaCommand.Execute(_selectedIndex));
 			dialog.SetNegativeButton(AppResources.cancel, (s, a) => viewModel.CancelCommand.Execute());
