@@ -8,8 +8,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.V13.App;
 using Android.Support.V4.View;
+using Android.Support.V7.Widget;
 using Android.Views;
-using Android.Widget;
 
 using bstrkr.core;
 using bstrkr.core.android;
@@ -73,7 +73,7 @@ namespace bstrkr.android.views
 
 			_searchViewItem = menu.FindItem(Resource.Id.action_search);
 			_searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
-			_searchView.SetQueryHint(AppResources.route_stops_view_search_hint);
+			_searchView.QueryHint = AppResources.route_stops_view_search_hint;
 			_searchView.SubmitButtonEnabled = false;
 			_searchView.SetOnQueryTextListener(this);
 			_searchView.SetOnQueryTextFocusChangeListener(this);
