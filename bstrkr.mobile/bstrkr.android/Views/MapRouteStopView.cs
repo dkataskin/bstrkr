@@ -18,8 +18,6 @@ using bstrkr.mvvm.viewmodels;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
-using DK.Ostebaronen.Droid.ViewPagerIndicator;
-
 namespace bstrkr.android.views
 {
 	[Register("bstrkr.android.views.MapRouteStopView")]

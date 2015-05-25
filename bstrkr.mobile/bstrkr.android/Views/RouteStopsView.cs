@@ -18,7 +18,7 @@ using bstrkr.mvvm.viewmodels;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
-using DK.Ostebaronen.Droid.ViewPagerIndicator;
+using com.refractored;
 
 namespace bstrkr.android.views
 {
@@ -52,13 +52,18 @@ namespace bstrkr.android.views
 			var pager = view.FindViewById<ViewPager>(Resource.Id.pager);
 			var adaptor = new GenericFragmentPagerAdaptor(this.FragmentManager);
 
-			adaptor.AddFragment("Close stops", new CloseRouteStopsView { DataContext = this.DataContext });
-			adaptor.AddFragment("All stops", new AllRouteStopsView { DataContext = this.DataContext });
+			adaptor.AddFragment(
+						AppResources.close_route_stops_view_title, 
+						new CloseRouteStopsView { DataContext = this.DataContext });
+			
+			adaptor.AddFragment(
+						AppResources.all_route_stops_view_title, 
+						new AllRouteStopsView { DataContext = this.DataContext });
 
 			pager.Adapter = adaptor;
 
-			var indicator = view.FindViewById<TabPageIndicator>(Resource.Id.indicator);
-			indicator.SetViewPager(pager);
+			var tabs = view.FindViewById<PagerSlidingTabStrip>(Resource.Id.tabs);
+			tabs.SetViewPager(pager);
 
 			return view;
 		}
@@ -70,12 +75,10 @@ namespace bstrkr.android.views
 			var refreshItem = menu.FindItem(Resource.Id.menu_refresh);
 			refreshItem.SetOnMenuItemClickListener(this);
 
-//			var menuItem = menu.FindItem(Resource.Id.action_search) as MenuItemCompat;
-//			_searchView = menu.FindItem(Resource.Id.action_search).ActionView as SearchView;
-			var menuItem = menu.FindItem(Resource.Id.action_search);
-			var view = MenuItemCompat.GetActionView(menuItem);
+			var searchMenuItem = menu.FindItem(Resource.Id.action_search);
+			var searchView = MenuItemCompat.GetActionView(searchMenuItem);
 
-			_searchView = MenuItemCompat.GetActionView(menuItem) as SearchView;
+			_searchView = searchView.JavaCast<SearchView>();
 			_searchView.QueryHint = AppResources.route_stops_view_search_hint;
 			_searchView.SubmitButtonEnabled = false;
 			_searchView.SetOnQueryTextListener(this);

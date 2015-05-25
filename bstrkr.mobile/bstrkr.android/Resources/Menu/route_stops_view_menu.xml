@@ -3,7 +3,10 @@
 	  xmlns:local="http://schemas.android.com/apk/res-auto">
   <item android:id="@+id/action_search"
         android:icon="@drawable/ic_search"
+        android:actionProviderClass="android.support.v7.widget.SearchActionProvider"
+        android:actionViewClass="android.support.v7.widget.SearchView"
         local:showAsAction="ifRoom|collapseActionView"
+        local:actionProviderClass="android.support.v7.widget.SearchActionProvider"
         local:actionViewClass="android.support.v7.widget.SearchView" />
 
   <item android:id="@+id/menu_refresh"
