@@ -246,7 +246,6 @@
     <AndroidResource Include="Resources\Layout\item_umbrellaroutes_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_umbrellaroute_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
-    <AndroidResource Include="Resources\Xml\preferences.xml" />
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolley_s.png">
       <Link>Resources\Drawable\trolley_s.png</Link>
     </AndroidResource>

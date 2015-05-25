@@ -11,6 +11,7 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
@@ -44,7 +45,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using Android.Support.V4.View;
 
 namespace bstrkr.android.views
 {
@@ -171,8 +171,8 @@ namespace bstrkr.android.views
 				}
 
 				this.FragmentManager.BeginTransaction()
-									.SetCustomAnimations(Resource.Animation.abc_fade_in,
-														 Resource.Animation.abc_fade_out)
+//									.SetCustomAnimations(Resource.Animation.abc_fade_in,
+//														 Resource.Animation.abc_fade_out)
 									.Replace(Resource.Id.content_frame, fragment, _frag2tag[fragment.GetType()])
 								   	.AddToBackStack(null)
 								   	.Commit();
