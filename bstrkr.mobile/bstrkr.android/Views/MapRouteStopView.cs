@@ -5,6 +5,7 @@ using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Support.V13.App;
 using Android.Support.V4.View;
 using Android.Views;
@@ -18,7 +19,6 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using DK.Ostebaronen.Droid.ViewPagerIndicator;
-using Android.Runtime;
 
 namespace bstrkr.android.views
 {
