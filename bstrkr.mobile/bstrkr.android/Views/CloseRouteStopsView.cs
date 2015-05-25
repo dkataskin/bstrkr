@@ -12,6 +12,7 @@ using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 namespace bstrkr.android.views
 {
+	[Register("bstrkr.android.views.CloseRouteStopsView")]
 	public class CloseRouteStopsView : MvxFragment
 	{
 		public CloseRouteStopsView()

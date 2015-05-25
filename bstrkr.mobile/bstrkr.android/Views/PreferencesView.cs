@@ -2,13 +2,13 @@
 
 using Android.OS;
 using Android.Preferences;
+using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
-using Android.Runtime;
 
 namespace bstrkr.android.views
 {
@@ -18,8 +18,6 @@ namespace bstrkr.android.views
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-
-			//this.AddPreferencesFromResource(Resource.Xml.preferences);
 
 			this.Activity.ActionBar.Title = AppResources.preferences_view_title;
 		}
