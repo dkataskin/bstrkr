@@ -42,6 +42,15 @@
         android:layout_height="fill_parent"
         local:MvxBind="ItemsSource Forecast"
         local:MvxItemTemplate="@layout/item_vehicle_forecast_map" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ff000000"
+        local:MvxBind="Text [route_vehicles_no_data]; Visibility RouteVehicleVMStateToVisibility(State, 'NoDataText')" />
     <ProgressBar
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -54,15 +63,5 @@
         android:keepScreenOn="false"
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
-        local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')"
-        style="@style/Widget.AppCompat.ProgressBar" />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#ff000000"
-        local:MvxBind="Text [route_vehicles_no_data]; Visibility RouteVehicleVMStateToVisibility(State, 'NoDataText')" />
+        local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')" />
 </LinearLayout>

@@ -52,7 +52,7 @@ namespace bstrkr.android.views
 			  LaunchMode = LaunchMode.SingleTop, 
 			  Icon = "@drawable/ic_launcher",
 			  ScreenOrientation = ScreenOrientation.Portrait,
-			  Theme = "@style/Theme.AppCompat")]
+			  Theme = "@style/Theme.AppCompat.Light")]
 	[Register("bstrkr.android.views.HomeView")]
 	public class HomeView : MvxActionBarActivity, IFragmentHost
     {

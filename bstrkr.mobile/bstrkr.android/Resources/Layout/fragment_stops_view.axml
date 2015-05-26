@@ -40,8 +40,7 @@
             android:keepScreenOn="false"
             android:indeterminate="true"
             android:indeterminateBehavior="repeat"
-            local:MvxBind="Visibility Visibility(IsBusy)"
-            style="@style/Widget.AppCompat.ProgressBar" />
+            local:MvxBind="Visibility Visibility(IsBusy)" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
