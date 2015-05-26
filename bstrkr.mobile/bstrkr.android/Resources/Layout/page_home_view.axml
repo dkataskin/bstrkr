@@ -42,5 +42,5 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#111" />
+        android:background="#EAEAEA" />
 </android.support.v4.widget.DrawerLayout>

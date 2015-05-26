@@ -52,12 +52,12 @@ namespace bstrkr.android.views
 			  LaunchMode = LaunchMode.SingleTop, 
 			  Icon = "@drawable/ic_launcher",
 			  ScreenOrientation = ScreenOrientation.Portrait,
-			  Theme = "@style/Theme.AppCompat.Light")]
+			  Theme = "@style/BusTrackerTheme")]
 	[Register("bstrkr.android.views.HomeView")]
 	public class HomeView : MvxActionBarActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
-		private MyActionBarDrawerToggle _drawerToggle;
+		private BusTrackerActionBarDrawerToggle _drawerToggle;
 		private MvxListView _drawerList;
 		private MenuSection _currentSection;
 
@@ -255,7 +255,7 @@ namespace bstrkr.android.views
 
 			//DrawerToggle is the animation that happens with the indicator next to the
 			//ActionBar icon.
-			_drawerToggle = new MyActionBarDrawerToggle(
+			_drawerToggle = new BusTrackerActionBarDrawerToggle(
 													this,
 													_drawer,
 													Resource.Drawable.ic_drawer_light,

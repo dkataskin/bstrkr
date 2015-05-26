@@ -13,7 +13,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
     <AssemblyName>bstrkr.core.android</AssemblyName>
-    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,18 +40,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="GooglePlayServicesLib">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\GooglePlayServicesLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
-      <HintPath>..\Components\googleplayservices-19.0.0\lib\android\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.CrossCore.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\MonoAndroid\Cirrious.CrossCore.Droid.dll</HintPath>
     </Reference>
@@ -91,6 +79,18 @@
     <Reference Include="Xamarin.Insights">
       <HintPath>..\packages\Xamarin.Insights.1.10.2.110\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\packages\Xamarin.Android.Support.v4.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="GooglePlayServicesLib">
+      <HintPath>..\packages\Xamarin.GooglePlayServices.22.0.0.2\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.MediaRouter.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\Location\LocationService.cs" />
@@ -99,7 +99,6 @@
     <Compile Include="Extensions\LatLngExtensions.cs" />
     <Compile Include="Views\ActionBarDrawerEventArgs.cs" />
     <Compile Include="Views\ActionBarDrawerChangedEventHandler.cs" />
-    <Compile Include="Views\MyActionBarDrawerToggle.cs" />
     <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
     <Compile Include="Presenters\CustomPresenter.cs" />
     <Compile Include="Presenters\ICustomPresenter.cs" />
@@ -107,7 +106,9 @@
     <Compile Include="Services\Resources\AndroidAppResourceManager.cs" />
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
-    <Compile Include="MvxActionBarCompatAcitivity.cs" />
+    <Compile Include="Views\BusTrackerActionBarDrawerToggle.cs" />
+    <Compile Include="Views\MvxActionBarCompatAcitivity.cs" />
+    <Compile Include="Views\MvxActionBarEventSourceActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -122,8 +123,12 @@
     <Folder Include="Presenters\" />
   </ItemGroup>
   <ItemGroup>
+    <XamarinComponentReference Include="xamandroidsupportv7appcompat">
+      <Version>21.0.3.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
     <XamarinComponentReference Include="googleplayservices">
-      <Version>19.0.0</Version>
+      <Version>22.0.0.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

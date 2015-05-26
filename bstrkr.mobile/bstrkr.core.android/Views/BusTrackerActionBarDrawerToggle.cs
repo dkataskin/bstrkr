@@ -1,15 +1,14 @@
 ﻿using System;
 
 using Android.App;
-using Android.Support.V4.App;
 using Android.Support.V4.Widget;
 using Android.Views;
 
 namespace bstrkr.core.android.views
 {
-	public class MyActionBarDrawerToggle : ActionBarDrawerToggle
+	public class BusTrackerActionBarDrawerToggle : Android.Support.V7.App.ActionBarDrawerToggle
 	{
-		public MyActionBarDrawerToggle(
+		public BusTrackerActionBarDrawerToggle(
 						Activity activity, 
 						DrawerLayout drawerLayout, 
 						int drawerImageRes, 

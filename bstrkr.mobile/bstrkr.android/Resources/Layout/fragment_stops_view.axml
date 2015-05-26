@@ -21,8 +21,7 @@
         android:layout_weight="1" />-->
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/background_holo_dark">
+        android:layout_height="fill_parent">
         <Mvx.MvxListView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -48,7 +47,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
     </FrameLayout>
 </LinearLayout>

@@ -3488,7 +3488,7 @@ namespace bstrkr.android
 			public const int Base_Widget_AppCompat_Toolbar_Button_Navigation = 2131296387;
 			
 			// aapt resource value: 0x7f090000
-			public const int BusTrackerBaseTheme = 2131296256;
+			public const int BusTrackerTheme = 2131296256;
 			
 			// aapt resource value: 0x7f090084
 			public const int Platform_AppCompat = 2131296388;
