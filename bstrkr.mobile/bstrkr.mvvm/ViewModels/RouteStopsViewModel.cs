@@ -15,6 +15,8 @@ using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 
 using Xamarin;
+using System.Threading.Tasks;
+using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -119,41 +121,9 @@ namespace bstrkr.mvvm.viewmodels
 				this.UnknownArea = false;
 				this.IsBusy = true;
 
-				provider.GetRouteStopsAsync().ContinueWith(task =>
-				{
-					try 
-					{
-						this.Dispatcher.RequestMainThreadAction(() =>
-						{
-							lock(_lockObject)
-							{
-								var location = _locationService.Location;
-								foreach (var stopsGroup in task.Result.GroupBy(x => x.Name)) 
-								{
-									var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
-									vm.CalculateDistanceCommand.Execute(location);
-
-									_stops.Add(vm);
-								}
-
-								_allStops = _stops.OrderBy(x => x.Name).ToList();
-								_closeAllStops = _allStops.OrderBy(vm => vm.DistanceInMeters)
-														  .Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
-														  .ToList();
-							}
-
-							this.Filter(this.FilterSting);
-						});
-					} 
-					catch (Exception e) 
-					{
-						Insights.Report(e, Xamarin.Insights.Severity.Warning);
-					}
-					finally
-					{
-						this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
-					}
-				});
+				provider.GetRouteStopsAsync()
+						.ContinueWith(this.OnRouteStopListReceived)
+						.ConfigureAwait(false);
 			}
 		}
 
@@ -207,6 +177,42 @@ namespace bstrkr.mvvm.viewmodels
 			foreach (var vm in source.Where(filter))
 			{
 				observable.Add(vm);
+			}
+		}
+
+		private void OnRouteStopListReceived(Task<IEnumerable<RouteStop>> getRouteStopsTask)
+		{
+			try 
+			{
+				this.Dispatcher.RequestMainThreadAction(() =>
+				{
+					lock(_lockObject)
+					{
+						var location = _locationService.Location;
+						foreach (var stopsGroup in getRouteStopsTask.Result.GroupBy(x => x.Name)) 
+						{
+							var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
+							vm.CalculateDistanceCommand.Execute(location);
+
+							_stops.Add(vm);
+						}
+
+						_allStops = _stops.OrderBy(x => x.Name).ToList();
+						_closeAllStops = _allStops.OrderBy(vm => vm.DistanceInMeters)
+							.Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
+							.ToList();
+					}
+
+					this.Filter(this.FilterSting);
+				});
+			} 
+			catch (Exception e) 
+			{
+				Insights.Report(e, Xamarin.Insights.Severity.Warning);
+			}
+			finally
+			{
+				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 			}
 		}
 	}

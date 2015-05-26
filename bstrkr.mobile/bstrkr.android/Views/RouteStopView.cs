@@ -26,7 +26,7 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			this.SetHasOptionsMenu(true);
+			//this.SetHasOptionsMenu(true);
 
 			var vm = this.DataContext as RouteStopViewModel;
 			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = string.Format(

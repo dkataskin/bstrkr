@@ -175,9 +175,7 @@ namespace bstrkr.mvvm.viewmodels
 		private void RequestForecast()
 		{
 			this.RequestForecastAsync()
-				.ConfigureAwait(false)
-				.GetAwaiter()
-				.GetResult();
+				.ConfigureAwait(false);
 		}
 
 		private async Task RequestForecastAsync()

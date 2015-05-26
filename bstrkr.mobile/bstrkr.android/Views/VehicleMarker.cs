@@ -48,12 +48,12 @@ namespace bstrkr.android.views
 				return;
 			}
 
-			if (args.PropertyName.Equals("Location") && !_locationInitialized)
+			if (args.PropertyName.Equals("Location")/* && !_locationInitialized */)
 			{
 				this.Marker.Position = new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude);
 				this.Marker.Rotation = Convert.ToSingle(this.ViewModel.VehicleHeading);
 
-				_locationInitialized = true;
+//				_locationInitialized = true;
 			}
 
 			if (args.PropertyName.Equals("Icon"))
@@ -64,15 +64,15 @@ namespace bstrkr.android.views
 
 		private void OnPathUpdated(object sender, VehiclePathUpdatedEventArgs args)
 		{
-			if (_animatorRunner == null)
-			{
-				_animatorRunner = new AnimatorRunner(this.Marker);
-			}
-
-			foreach (var item in args.PathSegments)
-			{
-				_animatorRunner.Animate(item);
-			}
+//			if (_animatorRunner == null)
+//			{
+//				_animatorRunner = new AnimatorRunner(this.Marker);
+//			}
+//
+//			foreach (var item in args.PathSegments)
+//			{
+//				_animatorRunner.Animate(item);
+//			}
 		}
 
 		private class TpEvaluator : Java.Lang.Object, ITypeEvaluator

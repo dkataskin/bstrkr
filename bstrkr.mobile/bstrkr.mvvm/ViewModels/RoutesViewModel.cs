@@ -104,7 +104,7 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 					}
-				});
+				}).ConfigureAwait(false);
 			}
 		}
 

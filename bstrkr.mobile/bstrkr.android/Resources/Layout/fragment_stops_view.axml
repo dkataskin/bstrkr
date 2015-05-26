@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_holo_dark">
-    <com.refractored.PagerSlidingTabStrip
+<!--    <com.refractored.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -18,5 +18,38 @@
         android:id="@+id/pager"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1" />-->
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/background_holo_dark">
+        <Mvx.MvxListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            local:MvxBind="ItemsSource Stops; ItemClick ShowStopDetailsCommand"
+            local:MvxItemTemplate="@layout/item_stops_list" />
+        <ProgressBar
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/busyIndicator"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:indeterminateOnly="true"
+            android:keepScreenOn="false"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            local:MvxBind="Visibility Visibility(IsBusy)"
+            style="@style/Widget.AppCompat.ProgressBar" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#fff"
+            local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
+    </FrameLayout>
 </LinearLayout>
