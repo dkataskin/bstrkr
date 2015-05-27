@@ -1,11 +1,12 @@
 ﻿using System;
 
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
 
-using Cirrious.CrossCore.Droid.Views;
 using Cirrious.CrossCore.Core;
+using Cirrious.CrossCore.Droid.Views;
 
 namespace bstrkr.core.android.views
 {
