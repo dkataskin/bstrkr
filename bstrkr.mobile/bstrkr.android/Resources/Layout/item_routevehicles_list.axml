@@ -28,7 +28,7 @@
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
         local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')"
-        style="@style/Widget.AppCompat.ProgressBar.Small" />
+        style="?android:attr/progressBarStyleSmall" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
