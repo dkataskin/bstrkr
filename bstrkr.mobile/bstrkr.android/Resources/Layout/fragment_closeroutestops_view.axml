@@ -3,7 +3,7 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background_holo_dark">
+    android:background="?android:attr/windowBackground">
     <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -21,8 +21,7 @@
         android:keepScreenOn="false"
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
-        local:MvxBind="Visibility Visibility(IsBusy)"
-        style="@style/Widget.AppCompat.ProgressBar" />
+        local:MvxBind="Visibility Visibility(IsBusy)" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -30,6 +29,5 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff"
         local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
 </FrameLayout>

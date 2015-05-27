@@ -24,7 +24,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:gravity="center_vertical"
-                android:textColor="#ff000000"
                 local:MvxBind="Text RouteStopName"
                 android:singleLine="true" />
             <TextView
@@ -33,7 +32,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:gravity="right|center_vertical"
                 android:paddingRight="10dp"
-                android:textColor="#ff000000"
                 local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds)"
                 android:singleLine="true" />
         </LinearLayout>
@@ -42,7 +40,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:gravity="center_vertical"
-            android:textColor="#ff000000"
             local:MvxBind="Text RouteStopDescription"
             android:singleLine="true" />
     </LinearLayout>

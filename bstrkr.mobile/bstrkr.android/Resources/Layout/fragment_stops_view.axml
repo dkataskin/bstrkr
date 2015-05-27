@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background_holo_dark">
+    android:background="?android:attr/windowBackground">
 <!--    <com.refractored.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:id="@+id/pager"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />-->
+        android:layout_weight="1" /> -->
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -47,7 +47,6 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black"
             local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
     </FrameLayout>
 </LinearLayout>

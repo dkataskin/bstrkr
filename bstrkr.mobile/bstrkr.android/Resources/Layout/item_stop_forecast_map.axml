@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:gravity="center_vertical"
-        android:textColor="#ff000000"
         local:MvxBind="Text RouteDisplayName"
         android:singleLine="true"
         android:background="?android:attr/activatedBackgroundIndicator"
@@ -25,7 +24,6 @@
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:gravity="right|center_vertical"
         android:paddingRight="10dp"
-        android:textColor="#ff000000"
         local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)"
         android:singleLine="true" />
 </LinearLayout>

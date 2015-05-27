@@ -11,7 +11,6 @@
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="0dp"
-        android:textColor="#fff"
         local:MvxBind="Text StringFormat(Vehicle.CarPlate, [route_vehicle_format])"
         android:singleLine="true"
         android:background="?android:attr/activatedBackgroundIndicator"
@@ -29,7 +28,7 @@
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
         local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')"
-        style="@android:style/Widget.Holo.ProgressBar.Small" />
+        style="@style/Widget.AppCompat.ProgressBar.Small" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +36,6 @@
         android:gravity="top"
         android:paddingLeft="10dp"
         android:paddingRight="0dp"
-        android:textColor="#fff"
         local:MvxBind="Text [no_vehicle_forecast]; Visibility RouteVehicleVMStateToVisibility(State, 'NoDataText')"
         android:singleLine="true" />
     <LinearLayout
@@ -56,7 +54,6 @@
                 android:gravity="top"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
-                android:textColor="#fff"
                 local:MvxBind="Text StringFormat(NextStopForecast.RouteStopName, [route_vehicle_arrives_st_format]); Visibility RouteVehicleVMStateToVisibility(State, 'Station')"
                 android:singleLine="true" />
             <TextView
@@ -66,7 +63,6 @@
                 android:gravity="top"
                 android:paddingLeft="10dp"
                 android:paddingRight="0dp"
-                android:textColor="#fff"
                 local:MvxBind="Text ArriveTimeToString(NextStopForecast.ArrivesInSeconds); Visibility RouteVehicleVMStateToVisibility(State, 'Time')"
                 android:singleLine="true" />
         </LinearLayout>
@@ -76,7 +72,6 @@
             android:gravity="bottom"
             android:paddingLeft="10dp"
             android:paddingRight="0dp"
-            android:textColor="#fff"
             local:MvxBind="Text NextStopForecast.RouteStopDescription; Visibility RouteVehicleVMStateToVisibility(State, 'Station')"
             android:singleLine="true" />
     </LinearLayout>

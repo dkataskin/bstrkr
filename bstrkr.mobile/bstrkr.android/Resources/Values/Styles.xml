@@ -1,7 +1,18 @@
 ﻿<resources>
-  <style name="BusTrackerTheme" parent="Theme.AppCompat.Light">
+  <style name="BusTrackerTheme.Base" parent="Theme.AppCompat.Light">
 	<item name="android:windowBackground">@color/background_light</item>
+	<!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
+	<!-- colorPrimary is used for the default action bar background -->
+	<item name="colorPrimary">#FFFFFF</item>
+	<!-- colorPrimaryDark is used for the status bar -->
+	<item name="colorPrimaryDark">#1976D2</item>
+	<!-- colorAccent is used as the default value for colorControlActivated
+     	 which is used to tint widgets -->
+	<item name="colorAccent">#FF4081</item>
   </style>
+
+	<style name="BusTrackerTheme" parent="BusTrackerTheme.Base">
+	</style>
 
   <style name="Theme.Splash" parent="BusTrackerTheme">
     <item name="android:windowBackground">@drawable/splash</item>

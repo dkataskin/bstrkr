@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/background_holo_dark"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/windowBackground">
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -12,7 +12,6 @@
         <TextView
             android:id="@+id/tv_vehicleType_label"
             local:MvxBind="Text [route_view_route_name_label]"
-            android:textColor="#fff"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
         <TextView
             android:id="@+id/tv_vehicleType_value"
             local:MvxBind="Text Name"
-            android:textColor="#fff"
             android:paddingTop="10dp"
             android:paddingLeft="10dp"
             android:layout_width="wrap_content"
@@ -32,7 +30,6 @@
         <TextView
             android:id="@+id/tv_from_label"
             local:MvxBind="Text [route_view_from_stop_label]"
-            android:textColor="#fff"
             android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +38,6 @@
         <TextView
             android:id="@+id/tv_from_value"
             local:MvxBind="Text From"
-            android:textColor="#fff"
             android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +46,6 @@
         <TextView
             android:id="@+id/tv_to_label"
             local:MvxBind="Text [route_view_to_stop_label]"
-            android:textColor="#fff"
             android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,7 +54,6 @@
         <TextView
             android:id="@+id/tv_to_value"
             local:MvxBind="Text To"
-            android:textColor="#fff"
             android:paddingLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,8 +81,7 @@
             android:keepScreenOn="false"
             android:indeterminate="true"
             android:indeterminateBehavior="repeat"
-            local:MvxBind="Visibility Visibility(IsBusy)"
-            style="@style/Widget.AppCompat.ProgressBar" />
+            local:MvxBind="Visibility Visibility(IsBusy)" />
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -96,7 +89,6 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#fff"
             local:MvxBind="Text [route_vehicles_no_data]; Visibility Visibility(NoData)" />
     </FrameLayout>
 </LinearLayout>

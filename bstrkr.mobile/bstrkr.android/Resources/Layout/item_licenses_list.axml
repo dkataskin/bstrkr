@@ -13,7 +13,6 @@
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textColor="#fff"
         android:singleLine="true"
         style="?android:attr/listSeparatorTextViewStyle"
         local:MvxBind="Text Name" />
@@ -23,7 +22,6 @@
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textColor="#fff"
         local:MvxBind="Text License"
         android:singleLine="false" />
 </LinearLayout>
