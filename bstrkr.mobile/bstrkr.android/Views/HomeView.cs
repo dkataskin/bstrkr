@@ -258,7 +258,6 @@ namespace bstrkr.android.views
 			_drawerToggle = new BusTrackerActionBarDrawerToggle(
 													this,
 													_drawer,
-													Resource.Drawable.ic_drawer_light,
 													Resource.String.drawer_open,
 													Resource.String.drawer_close);
 

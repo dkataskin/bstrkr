@@ -6,6 +6,7 @@ using Android.Views;
 
 using bstrkr.core;
 using bstrkr.core.android;
+using bstrkr.core.android.views;
 using bstrkr.mvvm;
 using bstrkr.mvvm.viewmodels;
 

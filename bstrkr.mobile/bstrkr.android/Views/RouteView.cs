@@ -5,13 +5,14 @@ using Android.Runtime;
 using Android.Views;
 
 using bstrkr.core;
+using bstrkr.core.android;
+using bstrkr.core.android.views;
 using bstrkr.mvvm;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
-using bstrkr.core.android;
 
 namespace bstrkr.android.views
 {

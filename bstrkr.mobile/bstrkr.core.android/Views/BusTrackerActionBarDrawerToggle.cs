@@ -2,6 +2,7 @@
 
 using Android.App;
 using Android.Support.V4.Widget;
+using Android.Support.V7.Widget;
 using Android.Views;
 
 namespace bstrkr.core.android.views
@@ -11,10 +12,19 @@ namespace bstrkr.core.android.views
 		public BusTrackerActionBarDrawerToggle(
 						Activity activity, 
 						DrawerLayout drawerLayout, 
-						int drawerImageRes, 
 						int openDrawerContentDescRes, 
 						int closeDrawerContentDescRes)
-			: base(activity, drawerLayout, drawerImageRes, openDrawerContentDescRes, closeDrawerContentDescRes)
+			: base(activity, drawerLayout, openDrawerContentDescRes, closeDrawerContentDescRes)
+		{
+		}
+
+		public BusTrackerActionBarDrawerToggle(
+									Activity activity,
+									DrawerLayout drawerLayout,
+									Toolbar toolbar,
+									int openDrawerContentDescRes,
+									int closeDrawerContentDescRes)
+			: base(activity, drawerLayout, toolbar, openDrawerContentDescRes, closeDrawerContentDescRes)
 		{
 		}
 
