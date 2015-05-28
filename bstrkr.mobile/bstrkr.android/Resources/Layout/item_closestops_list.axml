@@ -10,18 +10,16 @@
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
-        android:paddingRight="0dp"
         local:MvxBind="Text Name"
         android:singleLine="true"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:minHeight="?android:attr/listPreferredItemHeight" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="0dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:gravity="right|center_vertical"
+        android:paddingRight="10dp"
         android:singleLine="true"
         local:MvxBind="Text DistanceToStr(DistanceInMeters)" />
 </LinearLayout>

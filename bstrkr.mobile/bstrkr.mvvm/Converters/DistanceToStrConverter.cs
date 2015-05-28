@@ -17,10 +17,10 @@ namespace Converters
 
 			if (value < 1000)
 			{
-				return string.Format("~{0}{1}", value, AppResources.meters_short);
+				return string.Format("{0}{1}", value, AppResources.meters_short);
 			}
 
-			return string.Format("~{0:F2}{1}", value / 1000.0d, AppResources.kilometers_short);
+			return string.Format("{0:F2}{1}", value / 1000.0d, AppResources.kilometers_short);
 		}
 	}
 }

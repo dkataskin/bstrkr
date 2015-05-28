@@ -176,8 +176,6 @@
     <Compile Include="Views\RouteView.cs" />
     <Compile Include="Views\SetRouteStopView.cs" />
     <Compile Include="Views\RouteStopView.cs" />
-    <Compile Include="Views\CloseRouteStopsView.cs" />
-    <Compile Include="Views\AllRouteStopsView.cs" />
     <Compile Include="Views\MapRouteStopView.cs" />
     <Compile Include="Views\GenericFragmentPagerAdaptor.cs" />
     <Compile Include="Views\RouteVehicleForecastView.cs" />
@@ -279,9 +277,7 @@
     <AndroidResource Include="Resources\Layout\item_stop_forecast.axml" />
     <AndroidResource Include="Resources\Menu\routes_view_menu.xml" />
     <AndroidResource Include="Resources\Menu\route_stops_view_menu.xml" />
-    <AndroidResource Include="Resources\Layout\fragment_closeroutestops_view.axml" />
     <AndroidResource Include="Resources\Layout\item_closestops_list.axml" />
-    <AndroidResource Include="Resources\Layout\fragment_allstops_view.axml" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_search.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\ic_search.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_search.png" />

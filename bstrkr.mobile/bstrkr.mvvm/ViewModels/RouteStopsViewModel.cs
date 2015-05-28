@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
+using bstrkr.core;
 using bstrkr.core.services.location;
 using bstrkr.mvvm.navigation;
 using bstrkr.providers;
@@ -15,31 +17,22 @@ using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 
 using Xamarin;
-using System.Threading.Tasks;
-using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class RouteStopsViewModel : BusTrackerViewModelBase
 	{
-		private const int RouteStopMaximumDistanceInMeters = 1200;
-
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IBusTrackerLocationService _locationService;
-
-		private readonly ObservableCollection<RouteStopsListItemViewModel> _closeStops = 
-			new ObservableCollection<RouteStopsListItemViewModel>();
 
 		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = 
 			new ObservableCollection<RouteStopsListItemViewModel>();
 
 		private IList<RouteStopsListItemViewModel> _allStops = new List<RouteStopsListItemViewModel>();
-		private IList<RouteStopsListItemViewModel> _closeAllStops = new List<RouteStopsListItemViewModel>();
 
 		private bool _unknownArea;
 		private string _filterString;
-
 
 		public RouteStopsViewModel(
 						ILiveDataProviderFactory providerFactory,
@@ -49,7 +42,6 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService = locationService;
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_stops);
-			this.CloseStops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_closeStops);
 
 			this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
 			this.ShowStopDetailsCommand = new MvxCommand<RouteStopsListItemViewModel>(this.ShowStopDetails, vm => !this.IsBusy);
@@ -85,8 +77,6 @@ namespace bstrkr.mvvm.viewmodels
 				}
 			}
 		}
-
-		public ReadOnlyObservableCollection<RouteStopsListItemViewModel> CloseStops { get; private set; }
 
 		public ReadOnlyObservableCollection<RouteStopsListItemViewModel> Stops { get; private set; }
 
@@ -164,7 +154,6 @@ namespace bstrkr.mvvm.viewmodels
 				}
 
 				this.ClearAndFilter(_stops, _allStops, nameFilterPredicate);
-				this.ClearAndFilter(_closeStops, _closeAllStops, nameFilterPredicate);
 			}
 		}
 
@@ -194,13 +183,10 @@ namespace bstrkr.mvvm.viewmodels
 							var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
 							vm.CalculateDistanceCommand.Execute(location);
 
-							_stops.Add(vm);
+							_allStops.Add(vm);
 						}
 
-						_allStops = _stops.OrderBy(x => x.Name).ToList();
-						_closeAllStops = _allStops.OrderBy(vm => vm.DistanceInMeters)
-							.Where(vm => vm.DistanceInMeters <= RouteStopMaximumDistanceInMeters)
-							.ToList();
+						_allStops = _allStops.OrderBy(vm => vm.DistanceInMeters).ToList();
 					}
 
 					this.Filter(this.FilterSting);

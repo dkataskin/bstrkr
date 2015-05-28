@@ -1,52 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="?android:attr/windowBackground">
-<!--    <com.refractored.PagerSlidingTabStrip
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        local:pstsPaddingMiddle="true"
-        local:pstsDividerWidth="1dp"
-        local:pstsDividerPadding="12dp"
-        local:pstsDividerColor="#50FFFFFF" />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <Mvx.MvxListView
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" /> -->
-    <FrameLayout
+        android:layout_height="fill_parent"
+        local:MvxBind="ItemsSource Stops; ItemClick ShowStopDetailsCommand"
+        local:MvxItemTemplate="@layout/item_closestops_list" />
+    <ProgressBar
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/busyIndicator"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:indeterminateOnly="true"
+        android:keepScreenOn="false"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        local:MvxBind="Visibility Visibility(IsBusy)" />
+    <TextView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <Mvx.MvxListView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            local:MvxBind="ItemsSource Stops; ItemClick ShowStopDetailsCommand"
-            local:MvxItemTemplate="@layout/item_stops_list" />
-        <ProgressBar
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/busyIndicator"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:indeterminateOnly="true"
-            android:keepScreenOn="false"
-            android:indeterminate="true"
-            android:indeterminateBehavior="repeat"
-            local:MvxBind="Visibility Visibility(IsBusy)" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
-    </FrameLayout>
-</LinearLayout>
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        local:MvxBind="Text [unknown_location_no_data]; Visibility Visibility(UnknownArea)" />
+</FrameLayout>
