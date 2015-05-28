@@ -147,9 +147,6 @@
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction.Droid">
       <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.4\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Refractored.PagerSlidingTabStrip">
-      <HintPath>..\packages\Refractored.PagerSlidingTabStrip.1.0.9.2\lib\MonoAndroid10\Refractored.PagerSlidingTabStrip.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
