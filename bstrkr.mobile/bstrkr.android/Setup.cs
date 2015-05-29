@@ -1,7 +1,22 @@
 using System.Reflection;
 using System.Resources;
+using System.Threading;
 
 using Android.Content;
+
+using bstrkr.android.views;
+using bstrkr.core;
+using bstrkr.core.android.config;
+using bstrkr.core.android.presenters;
+using bstrkr.core.android.services;
+using bstrkr.core.android.services.location;
+using bstrkr.core.android.services.resources;
+using bstrkr.core.config;
+using bstrkr.core.services.location;
+using bstrkr.core.services.resources;
+using bstrkr.mvvm;
+using bstrkr.mvvm.views;
+using bstrkr.providers;
 
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Converters;
@@ -14,36 +29,28 @@ using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
 
-using bstrkr.core;
-using bstrkr.core.android.config;
-using bstrkr.core.android.presenters;
-using bstrkr.core.android.services;
-using bstrkr.core.android.services.location;
-using bstrkr.core.android.services.resources;
-using bstrkr.core.config;
-using bstrkr.core.services.location;
-using bstrkr.core.services.resources;
-using bstrkr.mvvm;
-using bstrkr.mvvm.localization;
-using bstrkr.mvvm.views;
-using bstrkr.providers;
-using bstrkr.android.views;
-
 namespace bstrkr.android
 {
     public class Setup : MvxAndroidSetup
     {
         public Setup(Context applicationContext) : base(applicationContext)
         {
-			Insights.Initialize("<xamarin_insights_key>", applicationContext);
+			Insights.Initialize("<your key here>", applicationContext);
+
+			// Get thread pool information
+			int workerThreadsMin, completionPortThreadsMin;
+			ThreadPool.GetMinThreads(out workerThreadsMin, out completionPortThreadsMin);
+			int workerThreadsMax, completionPortThreadsMax;
+			ThreadPool.GetMaxThreads(out workerThreadsMax, out completionPortThreadsMax);
+
+			// Adjust min threads
+			ThreadPool.SetMinThreads(workerThreadsMax, completionPortThreadsMin);
         }
 
 		protected override void InitializeFirstChance()
 		{
-			Mvx.RegisterSingleton(new ResxTextProvider(AppResources.ResourceManager));
-
 			Mvx.LazyConstructAndRegisterSingleton<IConfigManager, ConfigManager>();
-			Mvx.LazyConstructAndRegisterSingleton<ILocationService, SuperLocationService>();
+			Mvx.LazyConstructAndRegisterSingleton<ILocationService, LocationService>();
 			Mvx.LazyConstructAndRegisterSingleton<IAppResourceManager, AndroidAppResourceManager>();
 			Mvx.LazyConstructAndRegisterSingleton<IBusTrackerLocationService, BusTrackerLocationService>();
 			Mvx.LazyConstructAndRegisterSingleton<ILiveDataProviderFactory, DefaultLiveDataProviderFactory>();
@@ -60,10 +67,6 @@ namespace bstrkr.android
         protected override IMvxTrace CreateDebugTrace()
         {
             return new DebugTrace();
-
-//			var assembly = typeof(Resources.Strings.Strings).Assembly;
-//			foreach (var res in assembly.GetManifestResourceNames()) 
-//				System.Diagnostics.Debug.WriteLine("found resource: " + res);
         }
 
 		protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
@@ -83,7 +86,6 @@ namespace bstrkr.android
 		protected override void FillValueConverters(IMvxValueConverterRegistry registry)
 		{
 			base.FillValueConverters(registry);
-			registry.AddOrOverwrite("Language", new MvxLanguageConverter());
 		}
     }
 }

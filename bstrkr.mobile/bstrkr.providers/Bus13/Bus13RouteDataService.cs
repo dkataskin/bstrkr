@@ -4,15 +4,15 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
+using bstrkr.core;
+using bstrkr.core.spatial;
+using bstrkr.providers;
+using bstrkr.providers.bus13.data;
+
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
 using Xamarin;
-
-using bstrkr.core;
-using bstrkr.core.spatial;
-using bstrkr.providers.bus13.data;
-using bstrkr.providers;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -382,10 +382,8 @@ namespace bstrkr.core.providers.bus13
 
 		private async Task<T> ExecuteAsync<T>(IRestClient client, IRestRequest request)
 		{
-			return await Task.Factory.StartNew(() => 
-			{
-				return client.Execute<T>(request).Result.Data;
-			}).ConfigureAwait(false);
+			var response = await client.Execute<T>(request);
+			return response.Data;
 		}
 
 		private string GetRouteDisplayName(string routeNumber, VehicleTypes vehicleType)
