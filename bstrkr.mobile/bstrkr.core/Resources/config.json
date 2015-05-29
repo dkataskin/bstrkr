@@ -8,8 +8,8 @@
       "endpoint": "http://bus13.ru/php/"
     },
     {
-      "name": "Рязань",
 	  "id": "ryazan",
+      "name": "Рязань",
       "latitude": 54.6137424,
       "longitude": 39.7211313,
       "endpoint": "http://bus62.ru/php/"

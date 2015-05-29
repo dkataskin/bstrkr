@@ -38,8 +38,7 @@ namespace bstrkr.providers
 			}
 
 			return new Bus13LiveDataProvider(
-										area.Endpoint, 
-										area.Id,
+										area,
 										TimeSpan.FromMilliseconds(10000));
 		}
 

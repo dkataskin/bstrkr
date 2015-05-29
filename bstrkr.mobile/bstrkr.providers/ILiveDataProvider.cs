@@ -8,6 +8,8 @@ namespace bstrkr.providers
 {
 	public interface ILiveDataProvider
 	{
+		Area Area { get; }
+
 		event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
 		Task<IEnumerable<Route>> GetRoutesAsync();

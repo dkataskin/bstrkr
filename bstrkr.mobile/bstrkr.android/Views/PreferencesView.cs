@@ -17,19 +17,13 @@ namespace bstrkr.android.views
 	[Register("bstrkr.android.views.PreferencesView")]
 	public class PreferencesView : MvxFragment
 	{
-		public override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
-
-			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.preferences_view_title;
-		}
-
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			var view = base.OnCreateView(inflater, container, savedInstanceState);
-			view.SetBackgroundResource(Resource.Color.background_holo_dark);
+			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			return view;
+			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.preferences_view_title;
+
+			return this.BindingInflate(Resource.Layout.fragment_preferences_view, null);
 		}
 	}
 }

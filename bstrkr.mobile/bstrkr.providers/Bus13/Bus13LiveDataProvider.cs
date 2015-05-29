@@ -36,14 +36,17 @@ namespace bstrkr.core.providers.bus13
 		private Task _updateTask;
 		private CancellationTokenSource _cancellationTokenSource;
 
-		public Bus13LiveDataProvider(string endpoint, string location, TimeSpan updateInterval)
+		public Bus13LiveDataProvider(Area area, TimeSpan updateInterval)
 		{
-			_endpoint = endpoint;
-			_location = location;
+			this.Area = area;
+			_endpoint = area.Endpoint;
+			_location = area.Id;
 			_updateInterval = updateInterval;
 
 			_dataService = new Bus13RouteDataService(_endpoint, _location);
 		}
+
+		public Area Area { get; private set; }
 
 		public event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
