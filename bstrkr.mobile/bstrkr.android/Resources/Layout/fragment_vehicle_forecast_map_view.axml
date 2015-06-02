@@ -15,21 +15,35 @@
             android:layout_height="60dp"
             android:scaleType="centerInside"
             local:MvxBind="DrawableName Vehicle.Type, Converter=VehicleTypeToImage" />
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_vertical">
             <TextView
+                android:id="@+id/tv_routename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 local:MvxBind="Text Vehicle.RouteInfo.DisplayName" />
             <TextView
+                android:id="@+id/tv_carplate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                local:MvxBind="Text Vehicle.CarPlate" />
-        </LinearLayout>
+                local:MvxBind="Text Vehicle.CarPlate"
+                android:layout_below="@id/tv_routename" />
+            <ProgressBar
+                android:id="@+id/busyIndicator"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:indeterminateOnly="true"
+                android:keepScreenOn="false"
+                android:indeterminate="true"
+                android:indeterminateBehavior="repeat"
+                local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')" />
+        </RelativeLayout>
     </LinearLayout>
     <View
         android:layout_width="fill_parent"
@@ -49,18 +63,5 @@
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
             local:MvxBind="Text [route_vehicles_no_data]; Visibility RouteVehicleVMStateToVisibility(State, 'NoDataText')" />
-        <ProgressBar
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/busyIndicator"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:indeterminateOnly="true"
-            android:keepScreenOn="false"
-            android:indeterminate="true"
-            android:indeterminateBehavior="repeat"
-            local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')" />
     </FrameLayout>
 </LinearLayout>
