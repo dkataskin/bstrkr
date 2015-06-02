@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         local:MvxBind="ItemsSource Stops; ItemClick ShowStopDetailsCommand"
-        local:MvxItemTemplate="@layout/item_closestops_list" />
+        local:MvxItemTemplate="@layout/item_stops_list" />
     <ProgressBar
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"

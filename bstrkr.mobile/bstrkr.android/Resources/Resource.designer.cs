@@ -2662,64 +2662,61 @@ namespace bstrkr.android
 			public const int item_area_spinnerdropdown = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int item_closestops_list = 2130903077;
+			public const int item_licenses_list = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int item_licenses_list = 2130903078;
+			public const int item_menu = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int item_menu = 2130903079;
+			public const int item_routes_list = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int item_routes_list = 2130903080;
+			public const int item_routevehicles_list = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int item_routevehicles_list = 2130903081;
+			public const int item_stop_forecast = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int item_stop_forecast = 2130903082;
+			public const int item_stop_forecast_map = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int item_stop_forecast_map = 2130903083;
+			public const int item_stops_list = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int item_stops_list = 2130903084;
+			public const int item_umbrellaroutes_list = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int item_umbrellaroutes_list = 2130903085;
+			public const int item_vehicle_forecast_map = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int item_vehicle_forecast_map = 2130903086;
+			public const int item_vehicletypes_list = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int item_vehicletypes_list = 2130903087;
+			public const int mr_media_route_chooser_dialog = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int mr_media_route_chooser_dialog = 2130903088;
+			public const int mr_media_route_controller_material_dialog_b = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int mr_media_route_controller_material_dialog_b = 2130903089;
+			public const int mr_media_route_list_item = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int mr_media_route_list_item = 2130903090;
+			public const int page_home_view = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int page_home_view = 2130903091;
+			public const int page_splash_screen = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int page_splash_screen = 2130903092;
+			public const int select_dialog_item_material = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int select_dialog_item_material = 2130903093;
+			public const int select_dialog_multichoice_material = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int select_dialog_multichoice_material = 2130903094;
+			public const int select_dialog_singlechoice_material = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int select_dialog_singlechoice_material = 2130903095;
-			
-			// aapt resource value: 0x7f030038
-			public const int support_simple_spinner_dropdown_item = 2130903096;
+			public const int support_simple_spinner_dropdown_item = 2130903095;
 			
 			static Layout()
 			{
