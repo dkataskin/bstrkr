@@ -150,16 +150,13 @@ namespace bstrkr.android.views
 
 						return true;
 				}
-//
-//				if (fragment.Tag == _tag && _tag != null)
-//				{
-//					return true;
-//				}
+
 				IMvxFragmentView mvxFragmentView = null;
 				if (fragment is IMvxFragmentView)
 				{
 					mvxFragmentView = fragment as IMvxFragmentView;
 				}
+
 				if (mvxFragmentView != null && mvxFragmentView.ViewModel == null)
 				{
 					mvxFragmentView.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
@@ -171,8 +168,6 @@ namespace bstrkr.android.views
 				}
 
 				this.FragmentManager.BeginTransaction()
-//									.SetCustomAnimations(Resource.Animation.abc_fade_in,
-//														 Resource.Animation.abc_fade_out)
 									.Replace(Resource.Id.content_frame, fragment, _frag2tag[fragment.GetType()])
 								   	.AddToBackStack(null)
 								   	.Commit();
@@ -488,6 +483,11 @@ namespace bstrkr.android.views
 
 		private void ShowInSlidingPanel(Fragment fragment)
 		{
+			if (_currentSection != MenuSection.Map)
+			{
+				return;
+			}
+
 			var panelFrame = this.FindViewById<FrameLayout>(Resource.Id.panel_content_frame);
 			if (panelFrame.Visibility != ViewStates.Visible)
 			{
