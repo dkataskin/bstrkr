@@ -5,4 +5,5 @@
     android:layout_height="fill_parent"
     local:MvxBind="ItemsSource Routes; ItemClick ShowRouteVehiclesCommand"
     local:MvxItemTemplate="@layout/item_routes_list"
-    android:background="?android:attr/windowBackground" />
+    android:background="?android:attr/windowBackground"
+    android:clickable="true" />

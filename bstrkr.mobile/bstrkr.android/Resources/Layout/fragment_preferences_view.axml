@@ -4,25 +4,42 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="?android:attr/windowBackground">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    android:background="?android:attr/windowBackground"
+    android:clickable="true">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:orientation="vertical">
         <TextView
+            android:id="@+id/tv_area_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:text="Current area:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <MvxSpinner
+            android:id="@+id/sp_area_value"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textSize="40dp"
+            android:paddingRight="20dp"
+            android:textSize="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tv_area_label"
             local:MvxItemTemplate="@layout/item_area_spinner"
             local:MvxDropDownItemTemplate="@layout/item_area_spinnerdropdown"
             local:MvxBind="ItemsSource Areas;SelectedItem SelectedArea" />
-    </LinearLayout>
+        <CheckedTextView
+            style="?android:attr/spinnerDropDownItemStyle"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/sp_area_value"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:ellipsize="marquee"
+            local:MvxBind="Text [route_view_to_stop_label]" />
+    </RelativeLayout>
 </LinearLayout>
