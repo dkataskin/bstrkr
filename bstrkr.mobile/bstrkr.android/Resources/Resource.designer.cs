@@ -2161,8 +2161,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07003a
 			public const int action_mode_close_button = 2131165242;
 			
-			// aapt resource value: 0x7f070081
-			public const int action_search = 2131165313;
+			// aapt resource value: 0x7f070083
+			public const int action_search = 2131165315;
 			
 			// aapt resource value: 0x7f07003b
 			public const int activity_chooser_view_content = 2131165243;
@@ -2179,8 +2179,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070017
 			public const int always = 2131165207;
 			
-			// aapt resource value: 0x7f070075
-			public const int art = 2131165301;
+			// aapt resource value: 0x7f070077
+			public const int art = 2131165303;
 			
 			// aapt resource value: 0x7f070014
 			public const int beginning = 2131165204;
@@ -2194,8 +2194,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07004b
 			public const int buttonPanel = 2131165259;
 			
-			// aapt resource value: 0x7f070079
-			public const int buttons = 2131165305;
+			// aapt resource value: 0x7f07007b
+			public const int buttons = 2131165307;
 			
 			// aapt resource value: 0x7f07002e
 			public const int buyButton = 2131165230;
@@ -2218,8 +2218,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070046
 			public const int contentPanel = 2131165254;
 			
-			// aapt resource value: 0x7f07007e
-			public const int content_frame = 2131165310;
+			// aapt resource value: 0x7f070080
+			public const int content_frame = 2131165312;
 			
 			// aapt resource value: 0x7f07004a
 			public const int custom = 2131165258;
@@ -2233,8 +2233,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07003e
 			public const int default_activity_button = 2131165246;
 			
-			// aapt resource value: 0x7f070074
-			public const int default_control_frame = 2131165300;
+			// aapt resource value: 0x7f070076
+			public const int default_control_frame = 2131165302;
 			
 			// aapt resource value: 0x7f07001c
 			public const int dialog = 2131165212;
@@ -2242,14 +2242,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07000d
 			public const int disableHome = 2131165197;
 			
-			// aapt resource value: 0x7f07007a
-			public const int disconnect = 2131165306;
+			// aapt resource value: 0x7f07007c
+			public const int disconnect = 2131165308;
 			
 			// aapt resource value: 0x7f070034
 			public const int donate_with_google = 2131165236;
 			
-			// aapt resource value: 0x7f07007c
-			public const int drawer_layout = 2131165308;
+			// aapt resource value: 0x7f07007e
+			public const int drawer_layout = 2131165310;
 			
 			// aapt resource value: 0x7f07001d
 			public const int dropdown = 2131165213;
@@ -2293,11 +2293,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07003d
 			public const int image = 2131165245;
 			
-			// aapt resource value: 0x7f070080
-			public const int left_drawer = 2131165312;
+			// aapt resource value: 0x7f070082
+			public const int left_drawer = 2131165314;
 			
-			// aapt resource value: 0x7f07006e
-			public const int licensesView = 2131165294;
+			// aapt resource value: 0x7f070070
+			public const int licensesView = 2131165296;
 			
 			// aapt resource value: 0x7f07000a
 			public const int listMode = 2131165194;
@@ -2311,14 +2311,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070030
 			public const int match_parent = 2131165232;
 			
-			// aapt resource value: 0x7f070073
-			public const int media_route_control_frame = 2131165299;
+			// aapt resource value: 0x7f070075
+			public const int media_route_control_frame = 2131165301;
 			
-			// aapt resource value: 0x7f07006f
-			public const int media_route_list = 2131165295;
+			// aapt resource value: 0x7f070071
+			public const int media_route_list = 2131165297;
 			
-			// aapt resource value: 0x7f070082
-			public const int menu_refresh = 2131165314;
+			// aapt resource value: 0x7f070084
+			public const int menu_refresh = 2131165316;
 			
 			// aapt resource value: 0x7f070016
 			public const int middle = 2131165206;
@@ -2338,14 +2338,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07000b
 			public const int normal = 2131165195;
 			
-			// aapt resource value: 0x7f07007f
-			public const int panel_content_frame = 2131165311;
+			// aapt resource value: 0x7f070081
+			public const int panel_content_frame = 2131165313;
 			
 			// aapt resource value: 0x7f070042
 			public const int parentPanel = 2131165250;
 			
-			// aapt resource value: 0x7f070076
-			public const int play_pause = 2131165302;
+			// aapt resource value: 0x7f070078
+			public const int play_pause = 2131165304;
 			
 			// aapt resource value: 0x7f07002b
 			public const int production = 2131165227;
@@ -2359,8 +2359,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07004f
 			public const int radio = 2131165263;
 			
-			// aapt resource value: 0x7f070071
-			public const int route_name = 2131165297;
+			// aapt resource value: 0x7f070073
+			public const int route_name = 2131165299;
 			
 			// aapt resource value: 0x7f07002c
 			public const int sandbox = 2131165228;
@@ -2410,8 +2410,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07002f
 			public const int selectionDetails = 2131165231;
 			
-			// aapt resource value: 0x7f070072
-			public const int settings = 2131165298;
+			// aapt resource value: 0x7f070074
+			public const int settings = 2131165300;
 			
 			// aapt resource value: 0x7f07004e
 			public const int shortcut = 2131165262;
@@ -2425,8 +2425,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070012
 			public const int showTitle = 2131165202;
 			
-			// aapt resource value: 0x7f07007d
-			public const int sliding_layout = 2131165309;
+			// aapt resource value: 0x7f07007f
+			public const int sliding_layout = 2131165311;
 			
 			// aapt resource value: 0x7f070067
 			public const int sp_area_value = 2131165287;
@@ -2443,8 +2443,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070023
 			public const int src_over = 2131165219;
 			
-			// aapt resource value: 0x7f07007b
-			public const int stop = 2131165307;
+			// aapt resource value: 0x7f07007d
+			public const int stop = 2131165309;
 			
 			// aapt resource value: 0x7f07002d
 			public const int strict_sandbox = 2131165229;
@@ -2452,8 +2452,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070060
 			public const int submit_area = 2131165280;
 			
-			// aapt resource value: 0x7f070078
-			public const int subtitle = 2131165304;
+			// aapt resource value: 0x7f07007a
+			public const int subtitle = 2131165306;
 			
 			// aapt resource value: 0x7f07000c
 			public const int tabMode = 2131165196;
@@ -2464,14 +2464,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070048
 			public const int textSpacerNoButtons = 2131165256;
 			
-			// aapt resource value: 0x7f070077
-			public const int text_wrapper = 2131165303;
+			// aapt resource value: 0x7f070079
+			public const int text_wrapper = 2131165305;
 			
 			// aapt resource value: 0x7f070041
 			public const int title = 2131165249;
 			
-			// aapt resource value: 0x7f070070
-			public const int title_bar = 2131165296;
+			// aapt resource value: 0x7f070072
+			public const int title_bar = 2131165298;
 			
 			// aapt resource value: 0x7f070044
 			public const int title_template = 2131165252;
@@ -2487,6 +2487,12 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f07006b
 			public const int tv_from_value = 2131165291;
+			
+			// aapt resource value: 0x7f07006f
+			public const int tv_routestop_description = 2131165295;
+			
+			// aapt resource value: 0x7f07006e
+			public const int tv_routestop_name = 2131165294;
 			
 			// aapt resource value: 0x7f07006c
 			public const int tv_to_label = 2131165292;
