@@ -8,6 +8,13 @@
       "endpoint": "http://bus13.ru/php/"
     },
     {
+	  "id": "barnaul",
+      "name": "Барнаул",
+      "latitude": 53.3544413,
+      "longitude": 83.7725069,
+      "endpoint": "http://www.traffic22.ru/php/"
+    },
+    {
 	  "id": "ryazan",
       "name": "Рязань",
       "latitude": 54.6137424,

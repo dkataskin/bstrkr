@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
-            android:src="@drawable/busstop_b"
+            android:src="@drawable/busstop_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:scaleType="centerInside" />

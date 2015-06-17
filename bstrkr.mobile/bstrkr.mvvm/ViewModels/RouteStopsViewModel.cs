@@ -146,7 +146,7 @@ namespace bstrkr.mvvm.viewmodels
 			lock (_lockObject)
 			{
 				Func<RouteStopsListItemViewModel, bool> nameFilterPredicate = 
-					(RouteStopsListItemViewModel vm) => vm.Name.Contains(filter);
+					(RouteStopsListItemViewModel vm) => vm.Name.ToLowerInvariant().Contains(filter.ToLowerInvariant());
 
 				if (string.IsNullOrEmpty(filter))
 				{

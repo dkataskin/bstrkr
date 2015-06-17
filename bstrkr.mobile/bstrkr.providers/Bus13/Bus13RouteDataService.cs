@@ -368,6 +368,9 @@ namespace bstrkr.core.providers.bus13
 			{
 				case "Т":
 					return VehicleTypes.Trolley;
+				
+				case "Тр":
+					return VehicleTypes.Tram;
 
 				case "М":
 					return VehicleTypes.MiniBus;
