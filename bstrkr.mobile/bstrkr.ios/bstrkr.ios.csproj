@@ -89,17 +89,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="GoogleMaps">
-      <HintPath>..\Components\googlemapsios-1.8.1\lib\ios\GoogleMaps.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Touch">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.2.1\lib\MonoTouch\Cirrious.MvvmCross.Touch.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.2.1\lib\MonoTouch\Cirrious.MvvmCross.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin-Sidebar">
-      <HintPath>..\Components\SidebarNavigation-1.4\lib\ios\Xamarin-Sidebar.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.CrossCore.Touch">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.2.2\lib\MonoTouch\Cirrious.CrossCore.Touch.dll</HintPath>
@@ -121,6 +115,12 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Touch">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.2.2\lib\MonoTouch\Cirrious.MvvmCross.Plugins.Visibility.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMaps">
+      <HintPath>..\Components\googlemapsios-1.8.1\lib\ios\GoogleMaps.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin-Sidebar">
+      <HintPath>..\Components\SidebarNavigation-1.4\lib\ios\Xamarin-Sidebar.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

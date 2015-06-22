@@ -120,32 +120,32 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.ResourceLoader.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\packages\Xamarin.Android.Support.v4.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v13">
-      <HintPath>..\packages\Xamarin.Android.Support.v13.22.1.1.1\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Droid.FullFragging">
       <HintPath>..\packages\MvvmCross.HotTuna.Droid.FullFragging.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Droid.FullFragging.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Insights">
-      <HintPath>..\packages\Xamarin.Insights.1.10.2.110\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
-    </Reference>
     <Reference Include="GooglePlayServicesLib">
       <HintPath>..\packages\Xamarin.GooglePlayServices.22.0.0.2\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
-      <HintPath>..\packages\Xamarin.Android.Support.v7.MediaRouter.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
     </Reference>
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">
       <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.4\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.dll</HintPath>
     </Reference>
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction.Droid">
       <HintPath>..\packages\Chance.MvvmCross.Plugins.UserInteraction.1.1.4\lib\MonoAndroid\Chance.MvvmCross.Plugins.UserInteraction.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\packages\Xamarin.Android.Support.v4.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.MediaRouter.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v13">
+      <HintPath>..\packages\Xamarin.Android.Support.v13.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v13.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\packages\Xamarin.Insights.1.10.4.112\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -259,15 +259,6 @@
     <AndroidResource Include="..\bstrkr.core\Resources\Images\minibus_b.png">
       <Link>Resources\Drawable\minibus_b.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\vehicletypes_bus.png">
-      <Link>Resources\Drawable\vehicletypes_bus.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\vehicletypes_minibus.png">
-      <Link>Resources\Drawable\vehicletypes_minibus.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\vehicletypes_trolley.png">
-      <Link>Resources\Drawable\vehicletypes_trolley.png</Link>
-    </AndroidResource>
     <AndroidResource Include="Resources\Layout\fragment_route_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routevehicles_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_routestop_view.axml" />
@@ -286,6 +277,41 @@
     <AndroidResource Include="Resources\Values-v21\Styles.xml" />
     <AndroidResource Include="Resources\Layout\item_area_spinner.axml" />
     <AndroidResource Include="Resources\Layout\item_area_spinnerdropdown.axml" />
+    <AndroidResource Include="Resources\Drawable\vehicletypes_bus.png" />
+    <AndroidResource Include="Resources\Drawable\track.png" />
+    <AndroidResource Include="Resources\Drawable\vehicletypes_minibus.png" />
+    <AndroidResource Include="Resources\Drawable\vehicletypes_tram.png" />
+    <AndroidResource Include="Resources\Drawable\vehicletypes_trolley.png" />
+    <AndroidResource Include="Resources\Drawable\busstop_icon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_icon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\track.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_bus.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_minibus.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_tram.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_trolley.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\busstop_icon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\track.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\vehicletypes_bus.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\vehicletypes_minibus.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\vehicletypes_tram.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\vehicletypes_trolley.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\busstop_icon.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\track.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\vehicletypes_bus.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\vehicletypes_minibus.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\vehicletypes_tram.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\vehicletypes_trolley.png" />
+    <AndroidResource Include="Resources\Drawable\track_current.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\track_current.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\busstop_icon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\track_current.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\track.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\vehicletypes_bus.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\vehicletypes_minibus.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\vehicletypes_tram.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\vehicletypes_trolley.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\track_current.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\track_current.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
