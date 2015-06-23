@@ -12,8 +12,8 @@
         android:gravity="center_vertical">
         <ImageView
             android:src="@drawable/busstop_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:scaleType="centerInside" />
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -23,12 +23,14 @@
                 android:id="@+id/tv_routestop_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_main_title"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 local:MvxBind="Text Name" />
-            <TextView
+            <TextViews
                 android:id="@+id/tv_routestop_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary_title"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 local:MvxBind="Text Description"
                 android:layout_below="@id/tv_routestop_name" />
