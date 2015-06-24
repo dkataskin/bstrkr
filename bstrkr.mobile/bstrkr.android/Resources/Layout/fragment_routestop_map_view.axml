@@ -7,20 +7,24 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-        <ImageView
-            android:src="@drawable/busstop_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:scaleType="centerInside" />
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:src="@drawable/busstop_icon"
+                style="@style/ListHeaderIcon" />
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
             <TextView
-                style="@style/ListItemTitle"
+                style="@style/ListPrimaryTitle"
                 android:id="@+id/tv_routestop_name"
                 local:MvxBind="Text Name" />
             <TextView

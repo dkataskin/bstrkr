@@ -6,6 +6,6 @@
 	<color name="background_dark">#ff000000</color>
 	<color name="background_light">#ffffffff</color>
 
-	<color name="text_main_title">#ff494949</color>
+	<color name="text_primary_title">#ff494949</color>
 	<color name="text_secondary_title">#ffbababa</color>
 </resources>
