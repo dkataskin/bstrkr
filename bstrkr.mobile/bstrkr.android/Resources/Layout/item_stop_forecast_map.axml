@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="70dp">
-    <LinearLayout
+    android:layout_height="70dp"
+    android:gravity="center_vertical">
+    <ImageView
+        android:id="@+id/icon"
+        local:MvxBind="DrawableName VehicleType, Converter=VehicleTypeToImage"
+        style="@style/ListHeaderIcon"
         android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <ImageView
-            local:MvxBind="DrawableName VehicleType, Converter=VehicleTypeToImage"
-            style="@style/ListHeaderIcon" />
-    </LinearLayout>
-    <RelativeLayout
+        android:layout_height="fill_parent" />
+    <TextView
+        android:id="@+id/tv_arrive_time"
+        style="@style/ListItemRegular"
+        local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)"
+        android:layout_toRightOf="@id/icon" />
+    <View
+        android:id="@+id/dl_divider"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@id/tv_arrive_time" />
+    <TextView
+        android:id="@+id/tv_route_display_name"
+        style="@style/ListItemBold"
+        local:MvxBind="Text RouteNumberToString(RouteNumber)"
+        android:layout_toRightOf="@id/dl_divider" />
+    <TextView
+        style="@style/ListItemSubtle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-        <TextView
-            android:id="@+id/tv_arrive_time"
-            style="@style/ListItemRegular"
-            local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)" />
-        <View
-            android:id="@+id/dl_divider"
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_toRightOf="@id/tv_arrive_time" />
-        <TextView
-            android:id="@+id/tv_route_display_name"
-            style="@style/ListItemBold"
-            local:MvxBind="Text RouteNumberToString(RouteNumber)"
-            android:layout_toRightOf="@id/dl_divider" />
-        <TextView
-            style="@style/ListItemSubtle"
-            android:layout_width="fill_parent"
-            android:text="From one station, to another station"
-            android:layout_below="@id/tv_arrive_time" />
-    </RelativeLayout>
-</LinearLayout>
+        android:text="From one station, to another station"
+        android:layout_below="@id/tv_arrive_time"
+        android:layout_toRightOf="@id/icon" />
+</RelativeLayout>
