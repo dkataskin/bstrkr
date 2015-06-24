@@ -4,26 +4,32 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:scaleType="center"
-        local:MvxBind="DrawableName VehicleType, Converter=VehicleTypeToImage" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:gravity="center_vertical"
-        local:MvxBind="Text RouteDisplayName"
-        android:singleLine="true"
-        android:background="?android:attr/activatedBackgroundIndicator"
-        android:minHeight="?android:attr/listPreferredItemHeight" />
-    <TextView
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            local:MvxBind="DrawableName VehicleType, Converter=VehicleTypeToImage"
+            style="@style/ListHeaderIcon" />
+    </LinearLayout>
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:gravity="right|center_vertical"
-        android:paddingRight="10dp"
-        local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)"
-        android:singleLine="true" />
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_arrive_time"
+            style="@style/ListItemRegular"
+            local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)" />
+        <TextView
+            android:id="@+id/tv_route_display_name"
+            style="@style/ListItemBold"
+            local:MvxBind="Text RouteDisplayName"
+            android:layout_toRightOf="@id/tv_arrive_time" />
+        <TextView
+            style="@style/ListItemSubtle"
+            android:layout_width="fill_parent"
+            android:text="From one station, to another station"
+            android:layout_below="@id/tv_arrive_time" />
+    </RelativeLayout>
 </LinearLayout>
