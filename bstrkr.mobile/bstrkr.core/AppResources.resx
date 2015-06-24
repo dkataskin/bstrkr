@@ -58,16 +58,16 @@
     <value>Sorry, but we don't have data for your area. Please select one of the available regions in the settings.</value>
   </data>
 	<data name="troll_vehicle_type_title" xml:space="preserve">
-    <value>Trolleybus</value>
+    <value>trolleybus</value>
   </data>
 	<data name="bus_vehicle_type_title" xml:space="preserve">
-    <value>Bus</value>
+    <value>bus</value>
   </data>
 	<data name="minibus_vehicle_type_title" xml:space="preserve">
-    <value>Minibus</value>
+    <value>minibus</value>
   </data>
 	<data name="tramway_vehicle_type_title" xml:space="preserve">
-    <value>Tramway</value>
+    <value>tramway</value>
   </data>
 	<data name="troll_route_title_format" xml:space="preserve">
     <value>№{0} trolleybus</value>

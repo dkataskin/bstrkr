@@ -60,11 +60,14 @@
   	<item name="android:layout_gravity">center_vertical</item>
   	<item name="android:layout_width">32dp</item>
   	<item name="android:layout_height">32dp</item>
-  	<item name="android:scaleType">center</item>
+  	<item name="android:scaleType">centerInside</item>
   </style>
 
+  <!-- ListItemIcon -->
   <style name="ListItemIcon">
   	<item name="android:layout_gravity">center_vertical</item>
-  	<item name="android:scaleType">center</item>
+  	<item name="android:layout_width">32dp</item>
+  	<item name="android:layout_height">32dp</item>
+  	<item name="android:scaleType">centerInside</item>
   </style>
 </resources>
