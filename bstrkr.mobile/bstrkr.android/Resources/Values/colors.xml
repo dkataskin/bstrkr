@@ -8,4 +8,7 @@
 
 	<color name="text_primary_title">#ff494949</color>
 	<color name="text_secondary_title">#ffbababa</color>
+	<color name="list_item_h_divider">#ffe3e3e1</color>
+	<color name="list_header_background">#bfffffff</color>
+	<color name="list_background">#ffffffff</color>
 </resources>

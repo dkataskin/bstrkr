@@ -1,6 +1,6 @@
 ﻿<resources>
   <style name="BusTrackerTheme.Base" parent="Theme.AppCompat.Light">
-	<item name="android:windowBackground">@color/background_light</item>
+  	<item name="android:windowBackground">@color/background_light</item>
 	<!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
 	<!-- colorPrimary is used for the default action bar background -->
 	<item name="colorPrimary">#FFFFFF</item>
@@ -22,18 +22,17 @@
   <style name="ListPrimaryTitle" parent="@android:style/TextAppearance.Medium">
 	<item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
+    <item name="android:textStyle">bold</item>
     <item name="android:textColor">@color/text_primary_title</item>
-<!--    <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>-->
   </style>
 
   <style name="ListSecondaryTitle" parent="@android:style/TextAppearance.Small">
 	<item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/text_secondary_title</item>
-<!--    <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>-->
   </style>
 
-  <style name="ListHeaderIcon" parent="@android:style/">
+  <style name="ListHeaderIcon">
   	<item name="android:layout_gravity">center_vertical</item>
   	<item name="android:layout_width">32dp</item>
   	<item name="android:layout_height">32dp</item>
