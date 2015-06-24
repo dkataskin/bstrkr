@@ -20,7 +20,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
-		private readonly RouteNumberToTitleConverter _routeNumberToTileConverter = new RouteNumberToTitleConverter();
+		private readonly RouteInfoToTitleConverter _routeInfoToTitleConverter = new RouteInfoToTitleConverter();
 		private readonly ObservableCollection<RouteStopForecastViewModel> _forecast = new ObservableCollection<RouteStopForecastViewModel>();
 		private readonly IObservable<long> _intervalObservable;
 
@@ -158,7 +158,8 @@ namespace bstrkr.mvvm.viewmodels
 				VehicleType = item.Route.VehicleTypes.First(),
 				ArrivesInSeconds = item.ArrivesInSeconds,
 				CurrentlyAt = item.CurrentRouteStopName,
-				RouteDisplayName = _routeNumberToTileConverter.Convert(item.Route.Number, item.Route.VehicleTypes.First()),
+				RouteNumber = item.Route.Number,
+				RouteDisplayName = _routeInfoToTitleConverter.Convert(item.Route.Number, item.Route.VehicleTypes.First()),
 				Route = item.Route,
 				ParentRoute = item.ParentRoute,
 				LastStop = item.LastRouteStopName

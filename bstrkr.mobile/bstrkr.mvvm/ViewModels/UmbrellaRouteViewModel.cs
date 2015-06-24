@@ -17,7 +17,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class UmbrellaRouteViewModel : BusTrackerViewModelBase
 	{
 		private readonly ILiveDataProviderFactory _providerFactory;
-		private readonly RouteNumberToTitleConverter _routeNumberConverter = new RouteNumberToTitleConverter();
+		private readonly RouteInfoToTitleConverter _routeNumberConverter = new RouteInfoToTitleConverter();
 		private readonly ObservableCollection<RoutesListItemViewModel> _routes = new ObservableCollection<RoutesListItemViewModel>();
 
 		private string _title;

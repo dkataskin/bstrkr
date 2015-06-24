@@ -41,6 +41,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		public string LastStop { get; set; }
 
+		public string RouteNumber { get; set; }
+
 		public string RouteDisplayName { get; set; }
 
 		public Route Route { get; set; }

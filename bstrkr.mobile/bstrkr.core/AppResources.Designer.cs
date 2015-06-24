@@ -59,15 +59,15 @@ namespace bstrkr.core {
             }
         }
         
-        public static string ok {
+        public static string bus_route_title_format {
             get {
-                return ResourceManager.GetString("ok", resourceCulture);
+                return ResourceManager.GetString("bus_route_title_format", resourceCulture);
             }
         }
         
-        public static string tramway_vehicle_type {
+        public static string ok {
             get {
-                return ResourceManager.GetString("tramway_vehicle_type", resourceCulture);
+                return ResourceManager.GetString("ok", resourceCulture);
             }
         }
         
@@ -83,9 +83,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string unknown_location_dialog_text {
+        public static string tramway_route_title_format {
             get {
-                return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
+                return ResourceManager.GetString("tramway_route_title_format", resourceCulture);
             }
         }
         
@@ -113,6 +113,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string tramway_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("tramway_vehicle_type_title", resourceCulture);
+            }
+        }
+        
         public static string cancel {
             get {
                 return ResourceManager.GetString("cancel", resourceCulture);
@@ -131,9 +137,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string bus_route_title_format {
+        public static string unknown_location_dialog_text {
             get {
-                return ResourceManager.GetString("bus_route_title_format", resourceCulture);
+                return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
             }
         }
         
@@ -236,12 +242,6 @@ namespace bstrkr.core {
         public static string locations_dialog_title {
             get {
                 return ResourceManager.GetString("locations_dialog_title", resourceCulture);
-            }
-        }
-        
-        public static string tramway_route_title_format {
-            get {
-                return ResourceManager.GetString("tramway_route_title_format", resourceCulture);
             }
         }
         

@@ -6,7 +6,7 @@ using Cirrious.CrossCore.Converters;
 
 namespace bstrkr.mvvm.converters
 {
-	public class RouteNumberToTitleConverter
+	public class RouteInfoToTitleConverter
 	{
 		public string Convert(string routeNumber, VehicleTypes vehicleType)
 		{
@@ -30,4 +30,3 @@ namespace bstrkr.mvvm.converters
 		}
 	}
 }
-

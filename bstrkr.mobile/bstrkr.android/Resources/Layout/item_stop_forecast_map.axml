@@ -3,7 +3,7 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="70dp">
     <LinearLayout
         android:layout_width="70dp"
         android:layout_height="match_parent"
@@ -21,11 +21,19 @@
             android:id="@+id/tv_arrive_time"
             style="@style/ListItemRegular"
             local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)" />
+        <View
+            android:id="@+id/dl_divider"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/tv_arrive_time" />
         <TextView
             android:id="@+id/tv_route_display_name"
             style="@style/ListItemBold"
-            local:MvxBind="Text RouteDisplayName"
-            android:layout_toRightOf="@id/tv_arrive_time" />
+            local:MvxBind="Text RouteNumberToString(RouteNumber)"
+            android:layout_toRightOf="@id/dl_divider" />
         <TextView
             style="@style/ListItemSubtle"
             android:layout_width="fill_parent"

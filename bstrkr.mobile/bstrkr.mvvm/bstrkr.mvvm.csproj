@@ -67,7 +67,6 @@
     <Compile Include="ViewModels\RouteViewModel.cs" />
     <Compile Include="ViewModels\RoutesListItemViewModel.cs" />
     <Compile Include="Messages\LocationUpdateMessage.cs" />
-    <Compile Include="Converters\RouteNumberToTitleConverter.cs" />
     <Compile Include="Converters\ArriveTimeToStringConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\RouteVehicleVMStateToVisibilityConverter.cs" />
@@ -85,6 +84,9 @@
     <Compile Include="Views\MapClickEventArgs.cs" />
     <Compile Include="ViewModels\VehicleForecastListItemViewModel.cs" />
     <Compile Include="ViewModels\RouteVehicleForecastViewModel.cs" />
+    <Compile Include="Converters\VehicleTypeToStringConverter.cs" />
+    <Compile Include="Converters\RouteInfoToTitleConverter.cs" />
+    <Compile Include="Converters\RouteNumberToStringConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

@@ -66,7 +66,7 @@
 	<data name="minibus_vehicle_type_title" xml:space="preserve">
     <value>Minibus</value>
   </data>
-	<data name="tramway_vehicle_type" xml:space="preserve">
+	<data name="tramway_vehicle_type_title" xml:space="preserve">
     <value>Tramway</value>
   </data>
 	<data name="troll_route_title_format" xml:space="preserve">
@@ -112,7 +112,7 @@
     <value>st. {0}</value>
   </data>
 	<data name="route_vehicle_arrives_arrives_format" xml:space="preserve">
-    <value>{0:D2}:{1:D2}s</value>
+    <value>{0:D2}:{1:D2}</value>
   </data>
 	<data name="no_vehicle_forecast" xml:space="preserve">
     <value> --- </value>

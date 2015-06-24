@@ -28,7 +28,7 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			var routeNumberConverter = new RouteNumberToTitleConverter();
+			var routeNumberConverter = new RouteInfoToTitleConverter();
 			var dataContext = this.DataContext as RouteViewModel;
 		
 			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = 
