@@ -88,6 +88,7 @@
     <Compile Include="Converters\RouteInfoToTitleConverter.cs" />
     <Compile Include="Converters\RouteNumberToStringConverter.cs" />
     <Compile Include="Converters\VehicleTypeToColorConverter.cs" />
+    <Compile Include="Converters\RouteToFirstLastStopsConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

@@ -158,7 +158,6 @@ namespace bstrkr.mvvm.viewmodels
 				VehicleType = item.Route.VehicleTypes.First(),
 				ArrivesInSeconds = item.ArrivesInSeconds,
 				CurrentlyAt = item.CurrentRouteStopName,
-				RouteNumber = item.Route.Number,
 				RouteDisplayName = _routeInfoToTitleConverter.Convert(item.Route.Number, item.Route.VehicleTypes.First()),
 				Route = item.Route,
 				ParentRoute = item.ParentRoute,

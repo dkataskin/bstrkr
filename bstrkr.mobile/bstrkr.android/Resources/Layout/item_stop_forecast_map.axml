@@ -30,12 +30,12 @@
             android:background="@color/text_secondary"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="-5dp"
+            android:layout_marginBottom="-20dp"
             android:layout_toRightOf="@id/tv_arrive_time" />
         <TextView
             android:id="@+id/tv_route_display_name"
             style="@style/ListItemBold"
-            local:MvxBind="Text RouteNumberToString(RouteNumber)"
+            local:MvxBind="Text RouteNumberToString(Route.Number)"
             android:layout_toRightOf="@id/dl_divider" />
         <TextView
             android:id="@+id/tv_vehicle_type"
@@ -44,11 +44,14 @@
             local:MvxBind="Text VehicleTypeToString(VehicleType); TextColor VehicleTypeToColor(VehicleType)"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="10dp" />
         <TextView
             style="@style/ListItemSubtle"
             android:layout_width="fill_parent"
-            android:text="From one station, to another station"
+            android:layout_marginRight="10dp"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            local:MvxBind="Text RouteToFirstLastStops(ParentRoute)"
             android:layout_below="@id/tv_arrive_time" />
     </RelativeLayout>
 </LinearLayout>
