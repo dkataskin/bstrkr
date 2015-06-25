@@ -42,6 +42,14 @@
     <item name="android:textColor">@color/text_primary</item>
   </style>
 
+  <!-- ListItemRegularSmall -->
+  <style name="ListItemRegularSmall" parent="@android:style/TextAppearance.Small">
+	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textColor">@color/text_primary</item>
+  </style>
+
   <!-- ListItemBold -->
   <style name="ListItemBold" parent="ListItemRegular">
 	<item name="android:layout_width">wrap_content</item>
@@ -52,6 +60,11 @@
 
   <!-- ListItemSubtle -->
   <style name="ListItemSubtle" parent="ListItemRegular">
+    <item name="android:textColor">@color/text_secondary</item>
+  </style>
+
+  <!-- ListItemSubtleSmall -->
+  <style name="ListItemSubtleSmall" parent="ListItemRegularSmall">
     <item name="android:textColor">@color/text_secondary</item>
   </style>
 
