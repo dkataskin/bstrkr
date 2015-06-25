@@ -34,6 +34,7 @@ namespace bstrkr.mvvm.converters
 
 				default:
 					color = new MvxColor(0xFFFFFFFF);
+					break;
 			}
 
 			var nativeColorConv = Mvx.Resolve<IMvxNativeColor>();

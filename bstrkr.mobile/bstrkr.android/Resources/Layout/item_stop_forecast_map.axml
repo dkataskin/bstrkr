@@ -41,7 +41,7 @@
             android:id="@+id/tv_vehicle_type"
             style="@style/ListItemRegular"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            local:MvxBind="Text VehicleTypeToString(VehicleType)"
+            local:MvxBind="Text VehicleTypeToString(VehicleType); TextColor VehicleTypeToColor(VehicleType)"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="5dp" />
