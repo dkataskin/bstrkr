@@ -60,6 +60,11 @@ namespace bstrkr.android.views
 			{
 				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
 			}
+
+			if (args.PropertyName.Equals("VehicleHeading"))
+			{
+				this.Marker.Rotation = this.ViewModel.VehicleHeading;
+			}
 		}
 
 		private void OnPathUpdated(object sender, VehiclePathUpdatedEventArgs args)
