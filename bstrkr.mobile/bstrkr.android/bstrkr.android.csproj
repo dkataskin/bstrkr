@@ -229,20 +229,8 @@
     <AndroidResource Include="..\bstrkr.core\Resources\Images\busstop_s.png">
       <Link>Resources\Drawable\busstop_s.png</Link>
     </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\busstop_m.png">
-      <Link>Resources\Drawable\busstop_m.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\busstop_b.png">
-      <Link>Resources\Drawable\busstop_b.png</Link>
-    </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_s.png">
-      <Link>Resources\Drawable\bus_s.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_m.png">
-      <Link>Resources\Drawable\bus_m.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_b.png">
-      <Link>Resources\Drawable\bus_b.png</Link>
+      <Link>Resources\Drawable-xxhdpi\bus_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\item_vehicletypes_list.axml" />
     <AndroidResource Include="Resources\Layout\item_umbrellaroutes_list.axml" />
@@ -319,6 +307,27 @@
     <AndroidResource Include="Resources\Drawable-hdpi\vehicletypes_trolley.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\track_current.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\track_current.png" />
+    <AndroidResource Include="Resources\Drawable\busstop_b.png" />
+    <AndroidResource Include="Resources\Drawable\busstop_m.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\busstop_b.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\busstop_m.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_b.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_m.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\busstop_b.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\busstop_m.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\busstop_b.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\busstop_m.png" />
+    <AndroidResource Include="Resources\Drawable\bus_b.png" />
+    <AndroidResource Include="Resources\Drawable\bus_m.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\bus_b.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\bus_m.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_b.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_m.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\bus_b.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\bus_m.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\bus_s.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\bus_b.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\bus_m.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

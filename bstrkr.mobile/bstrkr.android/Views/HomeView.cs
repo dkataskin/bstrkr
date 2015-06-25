@@ -189,6 +189,12 @@ namespace bstrkr.android.views
 		{
 			base.OnPostCreate(savedInstanceState);
 			_drawerToggle.SyncState();
+
+			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
+
+			panel.AnchorPoint = 0.4f;
+			//panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
+
 			this.CloseSlidingPanel();
 		}
 
