@@ -112,7 +112,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			this.ShowViewModel<UmbrellaRouteViewModel>(new 
 			{ 
-				name = route.Name, 
+				name = route.RouteNumber, 
 				routes = string.Join(",", route.Routes.Select(x => x.Id))
 			});
 		}

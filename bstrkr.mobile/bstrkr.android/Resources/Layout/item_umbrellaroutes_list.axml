@@ -10,16 +10,15 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        local:MvxBind="Text Name"
+        android:layout_marginLeft="16dp"
+        local:MvxBind="Text RouteNumberToString(RouteNumber)"
         android:singleLine="true"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:minHeight="?android:attr/listPreferredItemHeight" />
-    <Mvx.MvxLinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        local:MvxBind="ItemsSource VehicleTypes"
+    <Mvx.MvxListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="10dp"
+        local:MvxBind="ItemsSource Routes"
         local:MvxItemTemplate="@layout/item_vehicletypes_list" />
 </LinearLayout>

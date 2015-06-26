@@ -11,11 +11,11 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class UmbrellaRoutesListItemViewModel : BusTrackerViewModelBase
 	{
-		private string _name;
+		private string _routeNumber;
 
 		public UmbrellaRoutesListItemViewModel(string name, IEnumerable<Route> routes)
 		{
-			this.Name = name;
+			this.RouteNumber = name;
 
 			var vehicleTypes = routes.SelectMany(x => x.VehicleTypes)
 									 .Distinct()
@@ -28,19 +28,19 @@ namespace bstrkr.mvvm.viewmodels
 			this.Routes = new ReadOnlyCollection<Route>(routes.ToList());
 		}
 
-		public string Name 
+		public string RouteNumber 
 		{ 
 			get
 			{
-				return _name;
+				return _routeNumber;
 			} 
 
 			private set
 			{
-				if (!string.Equals(_name, value))
+				if (!string.Equals(_routeNumber, value))
 				{
-					_name = value;
-					this.RaisePropertyChanged(() => this.Name);
+					_routeNumber = value;
+					this.RaisePropertyChanged(() => this.RouteNumber);
 				}
 			} 
 		}
