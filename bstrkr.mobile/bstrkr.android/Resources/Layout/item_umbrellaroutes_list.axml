@@ -15,10 +15,12 @@
         android:singleLine="true"
         android:background="?android:attr/activatedBackgroundIndicator"
         android:minHeight="?android:attr/listPreferredItemHeight" />
-    <Mvx.MvxListView
+    <Mvx.MvxLinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
         local:MvxBind="ItemsSource Routes"
         local:MvxItemTemplate="@layout/item_vehicletypes_list" />
 </LinearLayout>

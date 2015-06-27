@@ -16,8 +16,9 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class UmbrellaRouteViewModel : BusTrackerViewModelBase
 	{
+		private static RouteInfoToTitleConverter RouteNumberConverter = new RouteInfoToTitleConverter();
+
 		private readonly ILiveDataProviderFactory _providerFactory;
-		private readonly RouteInfoToTitleConverter _routeNumberConverter = new RouteInfoToTitleConverter();
 		private readonly ObservableCollection<RoutesListItemViewModel> _routes = new ObservableCollection<RoutesListItemViewModel>();
 
 		private string _title;
@@ -69,7 +70,7 @@ namespace bstrkr.mvvm.viewmodels
 							{
 								if (routeIds.Contains(route.Id))
 								{
-									foreach (var routeVM in this.CreateRouteViewModels(route)) 
+									foreach (var routeVM in CreateRouteViewModels(route)) 
 									{
 										_routes.Add(routeVM);
 									}
@@ -89,7 +90,7 @@ namespace bstrkr.mvvm.viewmodels
 			});
 		}
 
-		private IEnumerable<RoutesListItemViewModel> CreateRouteViewModels(Route route)
+		public static IEnumerable<RoutesListItemViewModel> CreateRouteViewModels(Route route)
 		{
 			var vms = new List<RoutesListItemViewModel>();
 			foreach (var vehicleType in route.VehicleTypes)
@@ -97,7 +98,7 @@ namespace bstrkr.mvvm.viewmodels
 				var vm = new RoutesListItemViewModel 
 				{
 					Id = route.Id,
-					Name = this.GetRouteTitle(route.Number, vehicleType),
+					Name = GetRouteTitle(route.Number, vehicleType),
 					VehicleType = vehicleType,
 					Route = route
 				};
@@ -118,9 +119,9 @@ namespace bstrkr.mvvm.viewmodels
 			return vms;
 		}
 
-		private string GetRouteTitle(string number, VehicleTypes vehicleType)
+		public static string GetRouteTitle(string number, VehicleTypes vehicleType)
 		{
-			return _routeNumberConverter.Convert(number, vehicleType);
+			return RouteNumberConverter.Convert(number, vehicleType);
 		}
 
 		private void ShowRouteVehicles(RoutesListItemViewModel selectedRoute)

@@ -12,20 +12,21 @@ namespace bstrkr.mvvm.viewmodels
 	public class UmbrellaRoutesListItemViewModel : BusTrackerViewModelBase
 	{
 		private string _routeNumber;
+		private ObservableCollection<RoutesListItemViewModel> _routes = new ObservableCollection<RoutesListItemViewModel>();
 
 		public UmbrellaRoutesListItemViewModel(string name, IEnumerable<Route> routes)
 		{
 			this.RouteNumber = name;
 
-			var vehicleTypes = routes.SelectMany(x => x.VehicleTypes)
-									 .Distinct()
-									 .OrderBy(x => x)
-									 .ToList();
+			this.Routes = new ReadOnlyObservableCollection<RoutesListItemViewModel>(_routes);
 
-			var observableVehicleTypes = new ObservableCollection<VehicleTypes>(vehicleTypes);
-			this.VehicleTypes = new ReadOnlyObservableCollection<VehicleTypes>(observableVehicleTypes);
-
-			this.Routes = new ReadOnlyCollection<Route>(routes.ToList());
+			foreach (var route in routes)
+			{
+				foreach(var vm in UmbrellaRouteViewModel.CreateRouteViewModels(route))
+				{
+					_routes.Add(vm);
+				}
+			}
 		}
 
 		public string RouteNumber 
@@ -45,8 +46,6 @@ namespace bstrkr.mvvm.viewmodels
 			} 
 		}
 
-		public ReadOnlyObservableCollection<VehicleTypes> VehicleTypes { get; private set; }
-
-		public IReadOnlyCollection<Route> Routes { get; private set; }
+		public ReadOnlyObservableCollection<RoutesListItemViewModel> Routes { get; private set; }
 	}
 }

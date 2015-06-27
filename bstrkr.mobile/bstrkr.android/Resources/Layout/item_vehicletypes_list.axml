@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    style="@style/ListItemRegular"
-    local:MvxBind="Text VehicleTypeToString(VehicleType); TextColor VehicleTypeToColor(VehicleType)" />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        local:MvxBind="DrawableName VehicleType, Converter=VehicleTypeToImage"
+        android:gravity="center_vertical" />
+    <TextView
+        style="@style/ListItemSubtleSmall"
+        android:singleLine="true"
+        local:MvxBind="Text RouteToFirstLastStops(Route)"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp" />
+</LinearLayout>
