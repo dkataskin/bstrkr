@@ -70,16 +70,16 @@
     <value>tramway</value>
   </data>
 	<data name="troll_route_title_format" xml:space="preserve">
-    <value>№{0} trolleybus</value>
+    <value>trolleybus №{0}</value>
   </data>
 	<data name="bus_route_title_format" xml:space="preserve">
-    <value>№{0} bus</value>
+    <value>bus №{0}</value>
   </data>
 	<data name="minibus_route_title_format" xml:space="preserve">
-    <value>№{0} minibus</value>
+    <value>minibus №{0}</value>
   </data>
 	<data name="tramway_route_title_format" xml:space="preserve">
-    <value>№{0} tramway</value>
+    <value>tramway №{0}</value>
   </data>
 	<data name="umbrella_route_title_format" xml:space="preserve">
     <value>Route {0}</value>
