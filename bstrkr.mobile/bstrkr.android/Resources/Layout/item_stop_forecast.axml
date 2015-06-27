@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:gravity="center">
         <ImageView
-            local:MvxBind="DrawableName VehicleType, Converter=VehicleTypeToImage"
+            local:MvxBind="DrawableName VehicleTypeToImage(VehicleType)"
             style="@style/ListItemIcon" />
     </LinearLayout>
     <LinearLayout

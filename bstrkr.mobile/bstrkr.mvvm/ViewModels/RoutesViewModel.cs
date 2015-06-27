@@ -108,13 +108,36 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void ShowRouteDetails(UmbrellaRoutesListItemViewModel route)
+		private void ShowRouteDetails(UmbrellaRoutesListItemViewModel routeVM)
 		{
-			this.ShowViewModel<UmbrellaRouteViewModel>(new 
-			{ 
-				name = route.RouteNumber, 
-				routes = string.Join(",", route.Routes.Select(x => x.Id))
-			});
+			if (routeVM.Routes.Count() == 1)
+			{
+				var selectedRoute = routeVM.Routes.First().Route;
+				var ids = string.Empty;
+				if (selectedRoute != null && selectedRoute.Ids != null)
+				{
+					ids = string.Join(",", selectedRoute.Ids);
+				}
+
+				this.ShowViewModel<RouteViewModel>(new 
+				{ 
+					routeId = selectedRoute.Id, 
+					routeName = selectedRoute.Name,
+					routeNumber = selectedRoute.Number,
+					routeIds = ids,
+					fromStop = selectedRoute.FirstStop.Name,
+					toStop = selectedRoute.LastStop.Name,
+					vehicleType = routeVM.Routes.First().VehicleType
+				});
+			}
+			else
+			{
+				this.ShowViewModel<UmbrellaRouteViewModel>(new 
+				{ 
+					name = routeVM.RouteNumber, 
+					routes = string.Join(",", routeVM.Routes.Select(x => x.Id))
+				});
+			}
 		}
 	}
 }

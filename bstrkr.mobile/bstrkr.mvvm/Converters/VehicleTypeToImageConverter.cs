@@ -9,16 +9,16 @@ using Cirrious.CrossCore.Converters;
 
 namespace bstrkr.mvvm.converters
 {
-	public class VehicleTypeToImageConverter : IMvxValueConverter
+	public class VehicleTypeToImageConverter : MvxValueConverter<VehicleTypes, string>
 	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		protected override string Convert(VehicleTypes value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return string.Format("vehicletypes_{0}", value.ToString().ToLower());
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		protected override VehicleTypes ConvertBack(string value, Type targetType, object parameter, CultureInfo culture)
 		{
-			throw new NotImplementedException();
+			return base.ConvertBack(value, targetType, parameter, culture);
 		}
 	}
 }

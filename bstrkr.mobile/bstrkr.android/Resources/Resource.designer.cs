@@ -2062,8 +2062,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070084
 			public const int disconnect = 2131165316;
 			
-			// aapt resource value: 0x7f070074
-			public const int dl_divider = 2131165300;
+			// aapt resource value: 0x7f070076
+			public const int dl_divider = 2131165302;
 			
 			// aapt resource value: 0x7f070034
 			public const int donate_with_google = 2131165236;
@@ -2335,8 +2335,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070066
 			public const int tv_area_label = 2131165286;
 			
-			// aapt resource value: 0x7f070073
-			public const int tv_arrive_time = 2131165299;
+			// aapt resource value: 0x7f070075
+			public const int tv_arrive_time = 2131165301;
 			
 			// aapt resource value: 0x7f070071
 			public const int tv_carplate = 2131165297;
@@ -2347,8 +2347,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07006b
 			public const int tv_from_value = 2131165291;
 			
-			// aapt resource value: 0x7f070075
-			public const int tv_route_display_name = 2131165301;
+			// aapt resource value: 0x7f070073
+			public const int tv_route_display_name = 2131165299;
 			
 			// aapt resource value: 0x7f070070
 			public const int tv_routename = 2131165296;
@@ -2371,8 +2371,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070069
 			public const int tv_vehicleType_value = 2131165289;
 			
-			// aapt resource value: 0x7f070076
-			public const int tv_vehicle_type = 2131165302;
+			// aapt resource value: 0x7f070074
+			public const int tv_vehicle_type = 2131165300;
 			
 			// aapt resource value: 0x7f070009
 			public const int up = 2131165193;
