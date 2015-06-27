@@ -1866,8 +1866,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f02008c
 			public const int mr_ic_settings_light = 2130837644;
 			
-			// aapt resource value: 0x7f02009b
-			public const int notification_template_icon_bg = 2130837659;
+			// aapt resource value: 0x7f02009c
+			public const int notification_template_icon_bg = 2130837660;
 			
 			// aapt resource value: 0x7f02008d
 			public const int powered_by_google_dark = 2130837645;
@@ -1891,25 +1891,28 @@ namespace bstrkr.android
 			public const int tram_m = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int trolley_b = 2130837652;
+			public const int tram_s = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int trolley_m = 2130837653;
+			public const int trolley_b = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int trolley_s = 2130837654;
+			public const int trolley_m = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int vehicletypes_bus = 2130837655;
+			public const int trolley_s = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int vehicletypes_minibus = 2130837656;
+			public const int vehicletypes_bus = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public const int vehicletypes_tram = 2130837657;
+			public const int vehicletypes_minibus = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public const int vehicletypes_trolley = 2130837658;
+			public const int vehicletypes_tram = 2130837658;
+			
+			// aapt resource value: 0x7f02009b
+			public const int vehicletypes_trolley = 2130837659;
 			
 			static Drawable()
 			{

@@ -24,14 +24,12 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
             <TextView
-                style="@style/ListPrimaryTitle"
                 android:id="@+id/tv_routestop_name"
+                style="@style/ListPrimaryTitle"
                 local:MvxBind="Text Name" />
             <TextView
                 android:id="@+id/tv_routestop_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/ListSecondaryTitle"
                 local:MvxBind="Text Description"
                 android:layout_below="@id/tv_routestop_name" />
             <ProgressBar

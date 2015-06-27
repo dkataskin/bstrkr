@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="?android:attr/windowBackground"
     android:orientation="vertical">
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="centerInside"
-            local:MvxBind="DrawableName Vehicle.Type, Converter=VehicleTypeToImage" />
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                style="@style/ListHeaderIcon"
+                local:MvxBind="DrawableName Vehicle.Type, Converter=VehicleTypeToImage" />
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
             <TextView
                 android:id="@+id/tv_routename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                style="@style/ListPrimaryTitle"
                 local:MvxBind="Text Vehicle.RouteInfo.DisplayName" />
             <TextView
                 android:id="@+id/tv_carplate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/ListSecondaryTitle"
                 local:MvxBind="Text Vehicle.CarPlate"
                 android:layout_below="@id/tv_routename" />
             <ProgressBar
@@ -47,8 +47,8 @@
     </LinearLayout>
     <View
         android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#c0c0c0" />
+        android:layout_height="1dp"
+        android:background="@color/list_item_h_divider" />
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
