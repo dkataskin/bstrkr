@@ -34,6 +34,7 @@ namespace bstrkr.android.views
 		{
 			var vehicleType = this.ViewModel.VehicleType.ToString()[0];
 			return new MarkerOptions()
+				.Anchor(0.5f, 0.5f)
 				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
 				.SetTitle(this.ViewModel.RouteNumber)
 				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)

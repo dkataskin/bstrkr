@@ -21,6 +21,7 @@ namespace bstrkr.android.views
 		public override MarkerOptions GetOptions()
 		{
 			return new MarkerOptions()
+				.Anchor(0.5f, 0.5f)
 				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
 				.SetTitle(this.ViewModel.Model.Name)
 				.SetSnippet(this.ViewModel.Model.Description)
