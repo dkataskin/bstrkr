@@ -70,7 +70,7 @@
     <value>tramway</value>
   </data>
 	<data name="troll_route_title_format" xml:space="preserve">
-    <value>trolleybus №{0}</value>
+    <value>trolleysbus №{0}</value>
   </data>
 	<data name="bus_route_title_format" xml:space="preserve">
     <value>bus №{0}</value>
