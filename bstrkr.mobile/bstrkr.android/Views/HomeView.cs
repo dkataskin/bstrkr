@@ -193,7 +193,8 @@ namespace bstrkr.android.views
 			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
 
 			panel.AnchorPoint = 0.4f;
-			//panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
+			panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
+			panel.SlidingEnabled = true;
 
 			this.CloseSlidingPanel();
 		}

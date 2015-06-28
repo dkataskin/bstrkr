@@ -28,14 +28,13 @@
                 android:id="@+id/tv_arrive_time"
                 style="@style/ListItemRegular"
                 local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility Visibility(IsActive)" />
-            <View
+            <TextView
                 android:id="@+id/dl_divider"
-                android:layout_width="1dp"
-                android:layout_height="20dp"
-                android:background="@color/text_secondary"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="-20dp"
+                style="@style/ListItemSubtle"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text="|"
                 android:layout_toRightOf="@id/tv_arrive_time" />
             <TextView
                 android:id="@+id/tv_route_display_name"

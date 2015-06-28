@@ -3,44 +3,55 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="70dp"
     android:gravity="center_vertical">
+<!-- icon -->
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/busstop_icon" />
+        android:src="@drawable/track"
+        android:layout_gravity="center_vertical"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:gravity="center_vertical">
-        <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:gravity="center_vertical"
-                local:MvxBind="Text RouteStopName"
-                android:singleLine="true" />
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:gravity="right|center_vertical"
-                android:paddingRight="10dp"
+                android:id="@+id/tv_arrive_time"
+                style="@style/ListItemRegular"
                 local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds)"
                 android:singleLine="true" />
-        </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:gravity="center_vertical"
-            local:MvxBind="Text RouteStopDescription"
-            android:singleLine="true" />
+            <TextView
+                android:id="@+id/dl_divider"
+                style="@style/ListItemSubtle"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text="|"
+                android:layout_toRightOf="@id/tv_arrive_time" />
+            <TextView
+                android:id="@+id/tv_routestop_name"
+                style="@style/ListItemBold"
+                android:gravity="center_vertical"
+                local:MvxBind="Text RouteStopName"
+                android:singleLine="true"
+                android:layout_toRightOf="@id/dl_divider" />
+            <TextView
+                style="@style/ListItemSubtleSmall"
+                local:MvxBind="Text RouteStopDescription"
+                android:singleLine="true"
+                android:layout_below="@id/tv_arrive_time" />
+        </RelativeLayout>
+    <!-- divider -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_item_h_divider" />
     </LinearLayout>
 </LinearLayout>
