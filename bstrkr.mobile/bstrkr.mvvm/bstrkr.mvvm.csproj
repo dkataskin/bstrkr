@@ -83,12 +83,12 @@
     <Compile Include="Views\MapMarkerClickEventArgs.cs" />
     <Compile Include="Views\MapClickEventArgs.cs" />
     <Compile Include="ViewModels\VehicleForecastListItemViewModel.cs" />
-    <Compile Include="ViewModels\RouteVehicleForecastViewModel.cs" />
     <Compile Include="Converters\VehicleTypeToStringConverter.cs" />
     <Compile Include="Converters\RouteInfoToTitleConverter.cs" />
     <Compile Include="Converters\RouteNumberToStringConverter.cs" />
     <Compile Include="Converters\VehicleTypeToColorConverter.cs" />
     <Compile Include="Converters\RouteToFirstLastStopsConverter.cs" />
+    <Compile Include="ViewModels\VehicleForecastViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

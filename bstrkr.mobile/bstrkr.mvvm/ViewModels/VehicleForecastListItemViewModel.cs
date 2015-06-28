@@ -1,7 +1,8 @@
 ﻿using System;
 
-using Cirrious.MvvmCross.ViewModels;
 using bstrkr.core;
+
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {

@@ -129,6 +129,19 @@ namespace bstrkr.core.providers.bus13
 			return routes;
 		}
 
+		public async Task<Route> GetRouteAsync(string routeId)
+		{
+			try
+			{
+				var routes = await this.GetRoutesAsync();
+				return routes.FirstOrDefault(x => x.Ids.Contains(routeId));
+			} 
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+
 		public async Task<IEnumerable<RouteStop>> GetRouteStopsAsync()
 		{
 			return await _dataService.GetStopsAsync().ConfigureAwait(false);

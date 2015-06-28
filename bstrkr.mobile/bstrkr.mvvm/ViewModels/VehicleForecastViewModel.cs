@@ -19,7 +19,7 @@ using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteVehicleForecastViewModel : BusTrackerViewModelBase, ICleanable
+	public class VehicleForecastViewModel : BusTrackerViewModelBase, ICleanable
 	{
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
@@ -36,8 +36,9 @@ namespace bstrkr.mvvm.viewmodels
 		private VehicleForecastListItemViewModel _nextStopForecast;
 		private string _prevRouteStopId;
 		private Vehicle _vehicle;
+		private Route _route;
 
-		public RouteVehicleForecastViewModel(ILiveDataProviderFactory liveDataProviderFactory)
+		public VehicleForecastViewModel(ILiveDataProviderFactory liveDataProviderFactory)
 		{
 			_liveDataProviderFactory = liveDataProviderFactory;
 
@@ -87,11 +88,16 @@ namespace bstrkr.mvvm.viewmodels
 			get { return _vehicle; } 
 			private set
 			{
-				if (_vehicle != value)
-				{
-					_vehicle = value;
-					this.RaisePropertyChanged();
-				}
+				this.RaiseAndSetIfChanged(ref _vehicle, value, () => Vehicle);
+			}
+		}
+
+		public Route Route
+		{
+			get { return _route; }
+			private set 
+			{
+				this.RaiseAndSetIfChanged(ref _route, value, () => Route);
 			}
 		}
 
@@ -150,6 +156,20 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			base.Start();
 			this.UpdateForecastCommand.Execute();
+			var provider = _liveDataProviderFactory.GetCurrentProvider();
+			if (provider != null && this.Vehicle.RouteInfo != null && 
+				!string.IsNullOrEmpty(this.Vehicle.RouteInfo.RouteId))
+			{
+				provider.GetRouteAsync(this.Vehicle.RouteInfo.RouteId)
+						.ContinueWith(task =>
+				{
+					if (task.Status == TaskStatus.RanToCompletion)
+					{
+						this.Dispatcher.RequestMainThreadAction(() => this.Route = task.Result);
+					}
+				}).ConfigureAwait(false);
+			}
+
 			if (_runUpdates)
 			{
 				_tokenSource = new CancellationTokenSource();

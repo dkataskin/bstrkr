@@ -28,9 +28,11 @@
                 style="@style/ListPrimaryTitle"
                 local:MvxBind="Text Vehicle.RouteInfo.DisplayName" />
             <TextView
-                android:id="@+id/tv_carplate"
-                style="@style/ListSecondaryTitle"
-                local:MvxBind="Text Vehicle.CarPlate"
+                style="@style/ListItemSubtleSmall"
+                android:layout_width="fill_parent"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                local:MvxBind="Text RouteToFirstLastStops(Route)"
                 android:layout_below="@id/tv_routename" />
             <ProgressBar
                 android:id="@+id/busyIndicator"
