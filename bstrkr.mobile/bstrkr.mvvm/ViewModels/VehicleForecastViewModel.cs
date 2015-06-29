@@ -51,8 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.CountdownCommand = new MvxCommand(
 												this.Countdown,
 												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) ||
-													  _stateMachine.IsInState(RouteVehicleVMStates.Loading) ||
-													  _stateMachine.IsInState(RouteVehicleVMStates.ForecastDuplicated));
+													  _stateMachine.IsInState(RouteVehicleVMStates.Loading)));
 
 			_stateMachine = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
 			_stateMachine.OnTransitioned(sm => this.Dispatcher.RequestMainThreadAction(() => this.RaisePropertyChanged(() => this.State)));
@@ -64,14 +63,9 @@ namespace bstrkr.mvvm.viewmodels
 						 .OnEntry(this.RequestForecast)
 						 .Permit(RouteVehicleVMTriggers.ForecastReturned, RouteVehicleVMStates.ForecastReceived)
 						 .Permit(RouteVehicleVMTriggers.NoForecastDataReturned, RouteVehicleVMStates.NoForecast)
-						 .Permit(RouteVehicleVMTriggers.DuplicateForecastReturned, RouteVehicleVMStates.ForecastDuplicated)
 						 .Permit(RouteVehicleVMTriggers.RequestFailed, RouteVehicleVMStates.NoForecast);
 
 			_stateMachine.Configure(RouteVehicleVMStates.ForecastReceived)
-						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
-
-			_stateMachine.Configure(RouteVehicleVMStates.ForecastDuplicated)
-						 .OnEntry(this.PauseAndRequest)
 						 .Permit(RouteVehicleVMTriggers.ForecastRequested, RouteVehicleVMStates.Loading);
 
 			_stateMachine.Configure(RouteVehicleVMStates.NoForecast)
@@ -106,19 +100,6 @@ namespace bstrkr.mvvm.viewmodels
 		public RouteVehicleVMStates State
 		{
 			get { return _stateMachine.State; }
-		}
-
-		public VehicleForecastListItemViewModel NextStopForecast 
-		{ 
-			get { return _nextStopForecast; } 
-			private set
-			{
-				if (_nextStopForecast != value)
-				{
-					_nextStopForecast = value;
-					this.RaisePropertyChanged(() => this.NextStopForecast);
-				}
-			}
 		}
 
 		public ReadOnlyObservableCollection<VehicleForecastListItemViewModel> Forecast { get; private set; }
@@ -250,21 +231,6 @@ namespace bstrkr.mvvm.viewmodels
 						}
 
 						_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
-//						this.NextStopForecast = _forecast.FirstOrDefault();
-//						if (this.NextStopForecast != null)
-//						{
-//							_prevRouteStopId = this.NextStopForecast.RouteStopId;
-//						}
-//
-//						if (this.NextStopForecast != null && (this.NextStopForecast.ArrivesInSeconds == 0 ||
-//							(this.NextStopForecast.ArrivesInSeconds < 10 && string.Equals(_prevRouteStopId, this.NextStopForecast.RouteStopId))))
-//						{
-//							_stateMachine.Fire(RouteVehicleVMTriggers.DuplicateForecastReturned);
-//						}
-//						else
-//						{
-//							_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
-//						}
 					}
 				});
 			} 
@@ -300,15 +266,6 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 					}
-
-//					if (this.NextStopForecast != null)
-//					{
-//						if (_stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) && 
-//							this.NextStopForecast.ArrivesInSeconds == 0)
-//						{
-//							Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
-//						}
-//					}
 				}
 			});
 		}

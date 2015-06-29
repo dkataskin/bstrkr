@@ -7,7 +7,6 @@ namespace bstrkr.mvvm.viewmodels
 		Start,
 		Loading,
 		ForecastReceived,
-		ForecastDuplicated,
 		NoForecast
 	}
 }

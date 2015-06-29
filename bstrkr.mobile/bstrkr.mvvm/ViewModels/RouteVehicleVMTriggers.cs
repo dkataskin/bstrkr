@@ -7,7 +7,6 @@ namespace bstrkr.mvvm.viewmodels
 		ForecastRequested,
 		ForecastReturned,
 		NoForecastDataReturned,
-		DuplicateForecastReturned,
 		RequestFailed
 	}
 }
