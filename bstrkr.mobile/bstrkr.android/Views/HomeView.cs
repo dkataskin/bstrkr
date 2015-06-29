@@ -516,6 +516,12 @@ namespace bstrkr.android.views
 			transaction.Add(Resource.Id.panel_content_frame, fragment)
 					   .Commit();
 
+//			var dragView = fragment.View.FindViewById(Resource.Id.map_view_header);
+//			if (dragView != null)
+//			{
+//				panel.DragView = dragView;
+//			}
+
 			_slidingPanelFragment = fragment;
 
 			if (panel.IsExpanded)

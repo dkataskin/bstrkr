@@ -6,48 +6,82 @@
     android:layout_height="70dp"
     android:gravity="center_vertical">
 <!-- icon -->
-    <ImageView
-        android:src="@drawable/track"
-        android:layout_gravity="center_vertical"
+    <FrameLayout
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:scaleType="centerInside" />
+        android:layout_gravity="center_vertical">
+        <ImageView
+            android:src="@drawable/track"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)" />
+        <ImageView
+            android:src="@drawable/track_current"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            local:MvxBind="Tint VehicleTypeToColor(VehicleType); Visibility Visibility(IsCurrentRouteStop)" />
+    </FrameLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center_vertical"
         android:orientation="vertical">
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center_vertical">
-            <TextView
-                android:id="@+id/tv_arrive_time"
-                style="@style/ListItemRegular"
-                local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds)"
-                android:singleLine="true" />
-            <TextView
-                android:id="@+id/dl_divider"
-                style="@style/ListItemSubtle"
+            android:layout_height="fill_parent">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
-                android:text="|"
-                android:layout_toRightOf="@id/tv_arrive_time" />
-            <TextView
-                android:id="@+id/tv_routestop_name"
-                style="@style/ListItemBold"
+                local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)">
+                <TextView
+                    android:id="@+id/tv_arrive_time"
+                    style="@style/ListItemRegular"
+                    local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility InvertedVisibility(IsCurrentRouteStop)"
+                    android:singleLine="true" />
+                <TextView
+                    android:id="@+id/dl_divider"
+                    style="@style/ListItemSubtle"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:text="|"
+                    local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)"
+                    android:layout_toRightOf="@id/tv_arrive_time" />
+                <TextView
+                    android:id="@+id/tv_routestop_name"
+                    style="@style/ListItemRegular"
+                    android:gravity="center_vertical"
+                    local:MvxBind="Text RouteStopName"
+                    android:singleLine="true"
+                    android:layout_toRightOf="@id/dl_divider" />
+                <TextView
+                    style="@style/ListItemSubtleSmall"
+                    local:MvxBind="Text RouteStopDescription"
+                    android:singleLine="true"
+                    android:layout_below="@id/tv_arrive_time" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:gravity="center_vertical"
-                local:MvxBind="Text RouteStopName"
-                android:singleLine="true"
-                android:layout_toRightOf="@id/dl_divider" />
-            <TextView
-                style="@style/ListItemSubtleSmall"
-                local:MvxBind="Text RouteStopDescription"
-                android:singleLine="true"
-                android:layout_below="@id/tv_arrive_time" />
-        </RelativeLayout>
+                local:MvxBind="Visibility Visibility(IsCurrentRouteStop)">
+                <TextView
+                    android:id="@+id/tv_routestop_name1"
+                    style="@style/ListItemRegular"
+                    android:gravity="center_vertical"
+                    local:MvxBind="Text RouteStopName"
+                    android:singleLine="true" />
+                <TextView
+                    style="@style/ListItemSubtleSmall"
+                    local:MvxBind="Text RouteStopDescription"
+                    android:singleLine="true"
+                    android:layout_below="@id/tv_routestop_name1" />
+            </RelativeLayout>
+        </FrameLayout>
     <!-- divider -->
         <View
             android:layout_width="fill_parent"

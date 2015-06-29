@@ -9,28 +9,46 @@ namespace bstrkr.mvvm.viewmodels
 	public class VehicleForecastListItemViewModel : BusTrackerViewModelBase
 	{
 		private int _arrivesInSeconds;
+		private int _arrivedSeconds;
 		private string _routeStopId;
 		private string _routeStopName;
 		private string _routeStopDescription;
+		private VehicleTypes _vehicleType;
 
 		public VehicleForecastListItemViewModel()
 		{
-			this.CountdownCommand = new MvxCommand(this.Countdown, () => this.ArrivesInSeconds > 0);
+			this.CountdownCommand = new MvxCommand(this.Countdown);
 		}
 
 		public MvxCommand CountdownCommand { get; private set; }
+
+		public bool IsCurrentRouteStop
+		{
+			get { return this.ArrivesInSeconds == 0; }
+		}
 
 		public int ArrivesInSeconds 
 		{ 
 			get { return _arrivesInSeconds; } 
 			private set
 			{
-				if (_arrivesInSeconds != value)
-				{
-					_arrivesInSeconds = value;
-					this.RaisePropertyChanged(() => this.ArrivesInSeconds);
-				}
+				this.RaiseAndSetIfChanged(ref _arrivesInSeconds, value, () => this.ArrivesInSeconds);
 			}
+		}
+
+		public int ArrivedSeconds
+		{
+			get { return _arrivedSeconds; } 
+			private set
+			{
+				this.RaiseAndSetIfChanged(ref _arrivedSeconds, value, () => this.ArrivedSeconds);
+			}			
+		}
+
+		public VehicleTypes VehicleType
+		{
+			get { return _vehicleType; }
+			set { this.RaiseAndSetIfChanged(ref _vehicleType, value, () => this.VehicleType); }
 		}
 
 		public string RouteStopId 
@@ -38,11 +56,7 @@ namespace bstrkr.mvvm.viewmodels
 			get { return _routeStopId; } 
 			private set
 			{
-				if (_routeStopId != value)
-				{
-					_routeStopId = value;
-					this.RaisePropertyChanged(() => this.RouteStopId);
-				}
+				this.RaiseAndSetIfChanged(ref _routeStopId, value, () => this.RouteStopId);
 			}
 		}
 
@@ -51,11 +65,7 @@ namespace bstrkr.mvvm.viewmodels
 			get { return _routeStopName; }
 			private set
 			{
-				if (_routeStopName != value)
-				{
-					_routeStopName = value;
-					this.RaisePropertyChanged(() => this.RouteStopName);
-				}
+				this.RaiseAndSetIfChanged(ref _routeStopName, value, () => this.RouteStopName);
 			}
 		}
 
@@ -64,11 +74,7 @@ namespace bstrkr.mvvm.viewmodels
 			get { return _routeStopDescription; } 
 			private set
 			{
-				if (_routeStopDescription != value)
-				{
-					_routeStopDescription = value;
-					this.RaisePropertyChanged(() => this.RouteStopDescription);
-				}
+				this.RaiseAndSetIfChanged(ref _routeStopDescription, value, () => this.RouteStopDescription);
 			}
    		}
 
@@ -85,9 +91,21 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void Countdown()
 		{
+			var routeStopBecameCurrent = false;
+			routeStopBecameCurrent = this.ArrivesInSeconds == 0 && this.ArrivedSeconds == 0;
+
 			if (this.ArrivesInSeconds > 0)
 			{
 				this.ArrivesInSeconds--;
+			}
+			else
+			{
+				this.ArrivedSeconds++;
+			}
+
+			if (routeStopBecameCurrent)
+			{
+				this.RaisePropertyChanged(() => this.IsCurrentRouteStop);
 			}
 		}
 	}

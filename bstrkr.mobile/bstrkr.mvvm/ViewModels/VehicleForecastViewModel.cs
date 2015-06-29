@@ -21,6 +21,8 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleForecastViewModel : BusTrackerViewModelBase, ICleanable
 	{
+		private const int StopLengthInSeconds = 10;
+
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
 
@@ -229,32 +231,40 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						this.NextStopForecast = null;
 						_prevRouteStopId = string.Empty;
-						_forecast.Clear();
+						var vmsToRemove = _forecast.Where(x => x.ArrivesInSeconds > 0 || x.ArrivedSeconds > StopLengthInSeconds).ToList();
+						foreach(var vm in vmsToRemove)
+						{
+							_forecast.Remove(vm);
+						}
 
 						foreach (var forecastItem in forecast.Items) 
 						{
-							var vm = this.CreateFromForecastItem(forecastItem);
-							if (vm != null)
+							if (_forecast.FirstOrDefault(x => x.RouteStopId.Equals(forecastItem.RouteStop.Id)) == null)
 							{
-								_forecast.Add(vm);
+								var vm = this.CreateFromForecastItem(forecastItem);
+								if (vm != null)
+								{
+									_forecast.Add(vm);
+								}
 							}
 						}
 
-						this.NextStopForecast = _forecast.FirstOrDefault();
-						if (this.NextStopForecast != null)
-						{
-							_prevRouteStopId = this.NextStopForecast.RouteStopId;
-						}
-
-						if (this.NextStopForecast != null && (this.NextStopForecast.ArrivesInSeconds == 0 ||
-							(this.NextStopForecast.ArrivesInSeconds < 10 && string.Equals(_prevRouteStopId, this.NextStopForecast.RouteStopId))))
-						{
-							_stateMachine.Fire(RouteVehicleVMTriggers.DuplicateForecastReturned);
-						}
-						else
-						{
-							_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
-						}
+						_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
+//						this.NextStopForecast = _forecast.FirstOrDefault();
+//						if (this.NextStopForecast != null)
+//						{
+//							_prevRouteStopId = this.NextStopForecast.RouteStopId;
+//						}
+//
+//						if (this.NextStopForecast != null && (this.NextStopForecast.ArrivesInSeconds == 0 ||
+//							(this.NextStopForecast.ArrivesInSeconds < 10 && string.Equals(_prevRouteStopId, this.NextStopForecast.RouteStopId))))
+//						{
+//							_stateMachine.Fire(RouteVehicleVMTriggers.DuplicateForecastReturned);
+//						}
+//						else
+//						{
+//							_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
+//						}
 					}
 				});
 			} 
@@ -280,20 +290,25 @@ namespace bstrkr.mvvm.viewmodels
 						forecastVM.CountdownCommand.Execute();
 					}
 
-					var toRemove = this.Forecast.Where(x => x.ArrivesInSeconds == 0).ToList();
+					var toRemove = this.Forecast.Where(x => x.ArrivedSeconds > StopLengthInSeconds).ToList();
 					foreach (var forecastVMToRemove in toRemove) 
 					{
 						_forecast.Remove(forecastVMToRemove);
 					}
 
-					if (this.NextStopForecast != null)
+					if (toRemove.Count() > 0)
 					{
-						if (_stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) && 
-							this.NextStopForecast.ArrivesInSeconds == 0)
-						{
-							Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
-						}
+						Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 					}
+
+//					if (this.NextStopForecast != null)
+//					{
+//						if (_stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) && 
+//							this.NextStopForecast.ArrivesInSeconds == 0)
+//						{
+//							Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
+//						}
+//					}
 				}
 			});
 		}
@@ -312,6 +327,7 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			var vm = Mvx.IocConstruct<VehicleForecastListItemViewModel>();
+			vm.VehicleType = _route.VehicleTypes.First();
 			vm.UpdateFromForecastItem(forecastItem);
 
 			return vm;
