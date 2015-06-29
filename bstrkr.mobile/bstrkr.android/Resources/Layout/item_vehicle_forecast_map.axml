@@ -16,12 +16,12 @@
             android:layout_height="match_parent"
             android:scaleType="centerInside"
             local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)" />
-        <ImageView
+        <bstrkr.android.views.CustomImageView
             android:src="@drawable/track_current"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
-            local:MvxBind="Tint VehicleTypeToColor(VehicleType); Visibility Visibility(IsCurrentRouteStop)" />
+            local:MvxBind="TintColor VehicleTypeToColor(VehicleType); Visibility Visibility(IsCurrentRouteStop)" />
     </FrameLayout>
     <LinearLayout
         android:layout_width="fill_parent"

@@ -89,7 +89,6 @@
     <Compile Include="Converters\VehicleTypeToColorConverter.cs" />
     <Compile Include="Converters\RouteToFirstLastStopsConverter.cs" />
     <Compile Include="ViewModels\VehicleForecastViewModel.cs" />
-    <Compile Include="Converters\IsCurrentRouteStopToDrawableConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

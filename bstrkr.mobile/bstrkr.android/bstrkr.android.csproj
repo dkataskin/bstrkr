@@ -187,6 +187,7 @@
     <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
     <Compile Include="Bootstrap\UserInteractionPluginBootstrap.cs" />
     <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
+    <Compile Include="Views\CustomImageView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -230,17 +231,17 @@
       <Link>Resources\Drawable\busstop_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_s.png">
-      <Link>Resources\Drawable-xxhdpi\bus_s.png</Link>
+      <Link>Resources\Drawable-mdpi\bus_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\item_vehicletypes_list.axml" />
     <AndroidResource Include="Resources\Layout\item_umbrellaroutes_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_umbrellaroute_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolley_s.png">
-      <Link>Resources\Drawable-xxhdpi\trolley_s.png</Link>
+      <Link>Resources\Drawable-xhdpi\trolley_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="..\bstrkr.core\Resources\Images\minibus_s.png">
-      <Link>Resources\Drawable-xxhdpi\minibus_s.png</Link>
+      <Link>Resources\Drawable-xhdpi\minibus_s.png</Link>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\fragment_route_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routevehicles_list.axml" />
@@ -346,7 +347,7 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_m.png" />
     <AndroidResource Include="Resources\Layout\item_stop_forecast.axml" />
     <AndroidResource Include="..\bstrkr.core\Resources\Images\tram_s.png">
-      <Link>Resources\Drawable-xxhdpi\tram_s.png</Link>
+      <Link>Resources\Drawable-xhdpi\tram_s.png</Link>
     </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
