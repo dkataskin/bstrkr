@@ -29,7 +29,6 @@ namespace bstrkr.mvvm.converters
 				{ RouteVehicleVMStates.Start, new List<UIParts> { UIParts.NoDataText }},
 				{ RouteVehicleVMStates.Loading, new List<UIParts> { UIParts.Progress }},
 				{ RouteVehicleVMStates.ForecastReceived, new List<UIParts> { UIParts.Station, UIParts.Time }},
-				{ RouteVehicleVMStates.ForecastDuplicated, new List<UIParts> { UIParts.Station }},
 				{ RouteVehicleVMStates.NoForecast, new List<UIParts> { UIParts.NoDataText }}
 			};
 		}

@@ -51,7 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.CountdownCommand = new MvxCommand(
 												this.Countdown,
 												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) ||
-													  _stateMachine.IsInState(RouteVehicleVMStates.Loading)));
+													  _stateMachine.IsInState(RouteVehicleVMStates.Loading));
 
 			_stateMachine = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
 			_stateMachine.OnTransitioned(sm => this.Dispatcher.RequestMainThreadAction(() => this.RaisePropertyChanged(() => this.State)));
