@@ -14,12 +14,13 @@
         <ImageView
             style="@style/ListItemIcon"
             local:MvxBind="DrawableName VehicleTypeToImage(Vehicle.Type)"
+            android:layout_gravity="center_horizontal"
             android:layout_width="20dp"
             android:layout_height="20dp" />
         <TextView
             style="@style/ListItemRegularSmall"
+            android:layout_gravity="center_horizontal"
             local:MvxBind="Text Vehicle.CarPlate; TextColor VehicleTypeToColor(Vehicle.Type)"
-            android:layout_marginTop="5dp"
             android:singleLine="true" />
     </LinearLayout>
     <LinearLayout
@@ -31,25 +32,25 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
             <TextView
-                style="@style/ListItemSubtle"
+                style="@style/ListItemRegular"
                 android:gravity="center_vertical"
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"
                 local:MvxBind="Text [no_vehicle_forecast]; Visibility RouteVehicleVMStateToVisibility(State, 'NoDataText')" />
-            <ProgressBar
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/busyIndicator"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_vertical"
-                android:indeterminateOnly="true"
-                android:keepScreenOn="false"
-                android:indeterminate="true"
-                android:indeterminateBehavior="repeat"
-                local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')"
-                style="?android:attr/progressBarStyleSmall" />
+        <!--		    <ProgressBar
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:id="@+id/busyIndicator"
+		        android:layout_centerHorizontal="true"
+		        android:layout_centerVertical="true"
+		        android:layout_centerInParent="true"
+		        android:layout_gravity="center_vertical"
+		        android:indeterminateOnly="true"
+		        android:keepScreenOn="false"
+		        android:indeterminate="true"
+		        android:indeterminateBehavior="repeat"
+		        local:MvxBind="Visibility RouteVehicleVMStateToVisibility(State, 'Progress')"
+		        style="?android:attr/progressBarStyleSmall" />-->
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
