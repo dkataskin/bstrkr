@@ -210,7 +210,7 @@ namespace bstrkr.mvvm.viewmodels
 		private VehicleForecastViewModel CreateFromVehicle(Vehicle vehicle)
 		{
 			var vm = Mvx.IocConstruct<VehicleForecastViewModel>();
-			vm.InitWithVehicle(vehicle, false);
+			vm.InitWithData(vehicle, this.Route, false);
 
 			return vm;
 		}

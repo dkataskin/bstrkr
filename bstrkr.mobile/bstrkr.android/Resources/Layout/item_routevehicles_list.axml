@@ -27,11 +27,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center_vertical"
-                local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)">
+                local:MvxBind="Visibility InvertedVisibility(NextStopForecast.IsCurrentRouteStop)">
                 <TextView
                     android:id="@+id/tv_arrive_time"
                     style="@style/ListItemRegular"
-                    local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility InvertedVisibility(IsCurrentRouteStop)"
+                    local:MvxBind="Text ArriveTimeToString(NextStopForecast.ArrivesInSeconds); Visibility InvertedVisibility(NextStopForecast.IsCurrentRouteStop)"
                     android:singleLine="true" />
                 <TextView
                     android:id="@+id/dl_divider"
@@ -41,35 +41,42 @@
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:text="|"
-                    local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)"
                     android:layout_toRightOf="@id/tv_arrive_time" />
                 <TextView
                     android:id="@+id/tv_routestop_name"
                     style="@style/ListItemRegular"
                     android:gravity="center_vertical"
-                    local:MvxBind="Text RouteStopName"
+                    local:MvxBind="Text NextStopForecast.RouteStopName"
                     android:singleLine="true"
                     android:layout_toRightOf="@id/dl_divider" />
                 <TextView
+                    style="@style/ListItemRegularSmall"
+                    local:MvxBind="Text Vehicle.CarPlate; TextColor VehicleTypeToColor(VehicleType)"
+                    android:layout_alignParentRight="true" />
+                <TextView
                     style="@style/ListItemSubtleSmall"
-                    local:MvxBind="Text RouteStopDescription"
+                    local:MvxBind="Text NextStopForecast.RouteStopDescription"
                     android:singleLine="true"
-                    android:layout_below="@id/tv_arrive_time" />
+                    android:layout_toRightOf="@id/tv_arrive_time" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center_vertical"
-                local:MvxBind="Visibility Visibility(IsCurrentRouteStop)">
+                local:MvxBind="Visibility Visibility(NextStopForecast.IsCurrentRouteStop)">
                 <TextView
                     android:id="@+id/tv_routestop_name1"
                     style="@style/ListItemRegular"
                     android:gravity="center_vertical"
-                    local:MvxBind="Text RouteStopName"
+                    local:MvxBind="Text NextStopForecast.RouteStopName"
                     android:singleLine="true" />
                 <TextView
+                    style="@style/ListItemRegularSmall"
+                    local:MvxBind="Text Vehicle.CarPlate; TextColor VehicleTypeToColor(VehicleType)"
+                    android:layout_alignParentRight="true" />
+                <TextView
                     style="@style/ListItemSubtleSmall"
-                    local:MvxBind="Text RouteStopDescription"
+                    local:MvxBind="Text NextStopForecast.RouteStopDescription"
                     android:singleLine="true"
                     android:layout_below="@id/tv_routestop_name1" />
             </RelativeLayout>

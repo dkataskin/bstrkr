@@ -36,7 +36,6 @@ namespace bstrkr.mvvm.viewmodels
 		private CancellationToken _cancellationToken;
 
 		private VehicleForecastListItemViewModel _nextStopForecast;
-		private string _prevRouteStopId;
 		private Vehicle _vehicle;
 		private Route _route;
 
@@ -138,28 +137,31 @@ namespace bstrkr.mvvm.viewmodels
 			};
 		}
 
-		public void InitWithVehicle(Vehicle vehicle, bool runUpdates)
+		public void InitWithData(Vehicle vehicle, Route route, bool runUpdates)
 		{
 			_runUpdates = runUpdates;
 			this.Vehicle = vehicle;
+			this.Route = route;
 		}
 
 		public override void Start()
 		{
 			base.Start();
-			this.UpdateForecastCommand.Execute();
+
 			var provider = _liveDataProviderFactory.GetCurrentProvider();
 			if (provider != null && this.Vehicle.RouteInfo != null && 
 				!string.IsNullOrEmpty(this.Vehicle.RouteInfo.RouteId))
 			{
 				provider.GetRouteAsync(this.Vehicle.RouteInfo.RouteId)
 						.ContinueWith(task =>
-				{
-					if (task.Status == TaskStatus.RanToCompletion)
-					{
-						this.Dispatcher.RequestMainThreadAction(() => this.Route = task.Result);
-					}
-				}).ConfigureAwait(false);
+						{
+							if (task.Status == TaskStatus.RanToCompletion)
+							{
+								this.Dispatcher.RequestMainThreadAction(() => this.Route = task.Result);
+								this.UpdateForecastCommand.Execute();
+							}
+						})
+						.ConfigureAwait(false);
 			}
 
 			if (_runUpdates)
@@ -219,7 +221,6 @@ namespace bstrkr.mvvm.viewmodels
 
 					lock(_lockObject)
 					{
-						_prevRouteStopId = string.Empty;
 						var vmsToRemove = _forecast.Where(x => x.ArrivesInSeconds > 0).ToList();
 						foreach(var vm in vmsToRemove)
 						{

@@ -51,11 +51,12 @@
     </LinearLayout>
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp">
+        android:layout_height="fill_parent">
         <Mvx.MvxListView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
             local:MvxBind="ItemsSource Vehicles; ItemClick ShowRouteVehicleDetailsCommand"
             local:MvxItemTemplate="@layout/item_routevehicles_list" />
         <ProgressBar
