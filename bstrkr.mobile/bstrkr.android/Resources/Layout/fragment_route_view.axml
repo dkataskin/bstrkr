@@ -6,61 +6,49 @@
     android:layout_height="wrap_content"
     android:background="?android:attr/windowBackground"
     android:clickable="true">
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_vehicleType_label"
-            local:MvxBind="Text [route_view_route_name_label]"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
-        <TextView
-            android:id="@+id/tv_vehicleType_value"
-            local:MvxBind="Text Name"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_vehicleType_label"
-            android:layout_alignParentTop="true" />
-        <TextView
-            android:id="@+id/tv_from_label"
-            local:MvxBind="Text [route_view_from_stop_label]"
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/tv_vehicleType_label" />
-        <TextView
-            android:id="@+id/tv_from_value"
-            local:MvxBind="Text From"
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_from_label"
-            android:layout_below="@id/tv_vehicleType_value" />
-        <TextView
-            android:id="@+id/tv_to_label"
-            local:MvxBind="Text [route_view_to_stop_label]"
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/tv_from_label" />
-        <TextView
-            android:id="@+id/tv_to_value"
-            local:MvxBind="Text To"
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_to_label"
-            android:layout_below="@id/tv_from_value" />
-    </RelativeLayout>
+        android:layout_height="70dp"
+        android:gravity="center_vertical">
+    <!-- icon -->
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                local:MvxBind="DrawableName VehicleTypeToImage(VehicleType)"
+                style="@style/ListItemIcon" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_route_display_name"
+                    style="@style/ListItemBold"
+                    local:MvxBind="Text Name" />
+                <TextView
+                    style="@style/ListItemSubtleSmall"
+                    android:layout_width="fill_parent"
+                    android:layout_marginRight="10dp"
+                    android:singleLine="true"
+                    local:MvxBind="Text RouteToFirstLastStops(Route)"
+                    android:layout_below="@id/tv_route_display_name" />
+            </RelativeLayout>
+        </LinearLayout>
+    <!-- divider -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_item_h_divider" />
+    </LinearLayout>
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

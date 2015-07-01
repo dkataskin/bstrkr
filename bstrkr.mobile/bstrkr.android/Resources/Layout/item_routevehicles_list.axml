@@ -3,8 +3,84 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <TextView
+    android:layout_height="70dp"
+    android:gravity="center_vertical">
+<!-- icon -->
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:src="@drawable/busstop_icon"
+            style="@style/ListItemIcon" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)">
+                <TextView
+                    android:id="@+id/tv_arrive_time"
+                    style="@style/ListItemRegular"
+                    local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility InvertedVisibility(IsCurrentRouteStop)"
+                    android:singleLine="true" />
+                <TextView
+                    android:id="@+id/dl_divider"
+                    style="@style/ListItemSubtle"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:text="|"
+                    local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)"
+                    android:layout_toRightOf="@id/tv_arrive_time" />
+                <TextView
+                    android:id="@+id/tv_routestop_name"
+                    style="@style/ListItemRegular"
+                    android:gravity="center_vertical"
+                    local:MvxBind="Text RouteStopName"
+                    android:singleLine="true"
+                    android:layout_toRightOf="@id/dl_divider" />
+                <TextView
+                    style="@style/ListItemSubtleSmall"
+                    local:MvxBind="Text RouteStopDescription"
+                    android:singleLine="true"
+                    android:layout_below="@id/tv_arrive_time" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                local:MvxBind="Visibility Visibility(IsCurrentRouteStop)">
+                <TextView
+                    android:id="@+id/tv_routestop_name1"
+                    style="@style/ListItemRegular"
+                    android:gravity="center_vertical"
+                    local:MvxBind="Text RouteStopName"
+                    android:singleLine="true" />
+                <TextView
+                    style="@style/ListItemSubtleSmall"
+                    local:MvxBind="Text RouteStopDescription"
+                    android:singleLine="true"
+                    android:layout_below="@id/tv_routestop_name1" />
+            </RelativeLayout>
+        </FrameLayout>
+    <!-- divider -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_item_h_divider" />
+    </LinearLayout>
+<!--    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
@@ -74,5 +150,5 @@
             android:paddingRight="0dp"
             local:MvxBind="Text NextStopForecast.RouteStopDescription; Visibility RouteVehicleVMStateToVisibility(State, 'Station')"
             android:singleLine="true" />
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>

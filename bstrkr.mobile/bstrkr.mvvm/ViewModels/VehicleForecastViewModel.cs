@@ -104,6 +104,15 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<VehicleForecastListItemViewModel> Forecast { get; private set; }
 
+		public VehicleForecastListItemViewModel NextStopForecast
+		{
+			get { return _nextStopForecast; }
+			private set 
+			{
+				this.RaiseAndSetIfChanged(ref _nextStopForecast, value, () => this.NextStopForecast);
+			}
+		}
+
 		public void Init(
 					string id, 
 					string carPlate, 
@@ -210,9 +219,8 @@ namespace bstrkr.mvvm.viewmodels
 
 					lock(_lockObject)
 					{
-						this.NextStopForecast = null;
 						_prevRouteStopId = string.Empty;
-						var vmsToRemove = _forecast.Where(x => x.ArrivesInSeconds > 0 || x.ArrivedSeconds > StopLengthInSeconds).ToList();
+						var vmsToRemove = _forecast.Where(x => x.ArrivesInSeconds > 0).ToList();
 						foreach(var vm in vmsToRemove)
 						{
 							_forecast.Remove(vm);
@@ -220,7 +228,12 @@ namespace bstrkr.mvvm.viewmodels
 
 						foreach (var forecastItem in forecast.Items) 
 						{
-							if (_forecast.FirstOrDefault(x => x.RouteStopId.Equals(forecastItem.RouteStop.Id)) == null)
+							var duplicatedForecastItem = _forecast.FirstOrDefault(x => x.RouteStopId.Equals(forecastItem.RouteStop.Id));
+							if (duplicatedForecastItem != null)
+							{
+								duplicatedForecastItem.ResetArrivedTime.Execute();
+							}
+							else
 							{
 								var vm = this.CreateFromForecastItem(forecastItem);
 								if (vm != null)
@@ -230,6 +243,19 @@ namespace bstrkr.mvvm.viewmodels
 							}
 						}
 
+						vmsToRemove = _forecast.Where(x => x.ArrivedSeconds > StopLengthInSeconds).ToList();
+						foreach(var vm in vmsToRemove)
+						{
+							_forecast.Remove(vm);
+						}
+
+						var nextStop = _forecast.FirstOrDefault(x => !x.IsCurrentRouteStop);
+						if (nextStop != null)
+						{
+							nextStop.IsNextRouteStop = true;
+						}
+
+						this.NextStopForecast = _forecast.FirstOrDefault();
 						_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
 					}
 				});

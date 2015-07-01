@@ -35,6 +35,7 @@ namespace bstrkr.mvvm.viewmodels
 		private int _number;
 		private int _vehicleCount;
 		private VehicleTypes _vehicleType;
+		private Route _route;
 
 		public RouteViewModel(ILiveDataProviderFactory providerFactory)
 		{
@@ -90,7 +91,11 @@ namespace bstrkr.mvvm.viewmodels
 			private set { this.RaiseAndSetIfChanged(ref _vehicleType, value, () => this.VehicleType); }
 		}
 
-		public Route Route { get; set; }
+		public Route Route 
+		{ 
+			get { return _route; } 
+			private set { this.RaiseAndSetIfChanged(ref _route, value, () => this.Route); } 
+		}
 
 		public ReadOnlyObservableCollection<VehicleForecastViewModel> Vehicles { get; private set; }
 
@@ -137,6 +142,10 @@ namespace bstrkr.mvvm.viewmodels
 			var provider = _providerFactory.GetCurrentProvider();
 			if (provider != null)
 			{
+				provider.GetRouteAsync(this.RouteId)
+						.ContinueWith(this.SetRoute)
+						.ConfigureAwait(false);
+				
 				provider.GetRouteVehiclesAsync(new[] { this.Route })
 						.ContinueWith(this.ShowRouteVehicles)
 						.ConfigureAwait(false);
@@ -148,6 +157,14 @@ namespace bstrkr.mvvm.viewmodels
 			if (_intervalSubscription != null)
 			{
 				_intervalSubscription.Dispose();
+			}
+		}
+
+		private void SetRoute(Task<Route> task)
+		{
+			if (task.Status == TaskStatus.RanToCompletion && task.Result != null)
+			{
+				this.Route = task.Result;
 			}
 		}
 

@@ -14,17 +14,27 @@ namespace bstrkr.mvvm.viewmodels
 		private string _routeStopName;
 		private string _routeStopDescription;
 		private VehicleTypes _vehicleType;
+		private bool _isNextRouteStop;
 
 		public VehicleForecastListItemViewModel()
 		{
 			this.CountdownCommand = new MvxCommand(this.Countdown);
+			this.ResetArrivedTime = new MvxCommand(this.Reset, () => this.IsCurrentRouteStop);
 		}
 
 		public MvxCommand CountdownCommand { get; private set; }
 
+		public MvxCommand ResetArrivedTime { get; private set; }
+
 		public bool IsCurrentRouteStop
 		{
 			get { return this.ArrivesInSeconds == 0; }
+		}
+
+		public bool IsNextRouteStop
+		{
+			get { return _isNextRouteStop; }
+			set { this.RaiseAndSetIfChanged(ref _isNextRouteStop, value, () => this.IsNextRouteStop); }
 		}
 
 		public int ArrivesInSeconds 
@@ -107,6 +117,11 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.RaisePropertyChanged(() => this.IsCurrentRouteStop);
 			}
+		}
+
+		private void Reset()
+		{
+			this.ArrivedSeconds = 1;
 		}
 	}
 }

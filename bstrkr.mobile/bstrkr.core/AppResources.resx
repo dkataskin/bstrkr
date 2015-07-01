@@ -115,7 +115,7 @@
     <value>{0:D2}:{1:D2}</value>
   </data>
 	<data name="no_vehicle_forecast" xml:space="preserve">
-    <value> --- </value>
+    <value>no data</value>
   </data>
 	<data name="route_vehicles_no_data" xml:space="preserve">
     <value>Looks like there is no a single vehicle on this route right now.</value>
