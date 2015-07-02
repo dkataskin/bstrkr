@@ -250,13 +250,13 @@ namespace bstrkr.mvvm.viewmodels
 							_forecast.Remove(vm);
 						}
 
-						var nextStop = _forecast.FirstOrDefault(x => !x.IsCurrentRouteStop);
+						var nextStop = this.Forecast.FirstOrDefault(x => !x.IsCurrentRouteStop);
 						if (nextStop != null)
 						{
 							nextStop.IsNextRouteStop = true;
 						}
 
-						this.NextStopForecast = _forecast.FirstOrDefault();
+						this.NextStopForecast = nextStop;
 						_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
 					}
 				});
@@ -283,13 +283,17 @@ namespace bstrkr.mvvm.viewmodels
 						forecastVM.CountdownCommand.Execute();
 					}
 
-					var toRemove = this.Forecast.Where(x => x.ArrivedSeconds > StopLengthInSeconds).ToList();
-					foreach (var forecastVMToRemove in toRemove) 
+					var currentStop = this.Forecast.LastOrDefault(x => x.IsCurrentRouteStop);
+					if (currentStop != null)
 					{
-						_forecast.Remove(forecastVMToRemove);
+						var index = this.Forecast.IndexOf(currentStop) + 1;
+						if (index < this.Forecast.Count)
+						{
+							this.Forecast[index].IsNextRouteStop = true;
+						}
 					}
 
-					if (toRemove.Count() > 0)
+					if (this.Forecast.Count(x => x.ArrivedSeconds > StopLengthInSeconds) > 0)
 					{
 						Task.Factory.StartNew(() => _stateMachine.Fire(RouteVehicleVMTriggers.ForecastRequested));
 					}

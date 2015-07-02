@@ -39,7 +39,7 @@
                 <TextView
                     android:id="@+id/tv_arrive_time"
                     style="@style/ListItemRegular"
-                    local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds); Visibility InvertedVisibility(IsCurrentRouteStop)"
+                    local:MvxBind="Text ArriveTimeToString(ArrivesInSeconds)"
                     android:singleLine="true" />
                 <TextView
                     android:id="@+id/dl_divider"
@@ -49,13 +49,12 @@
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
                     android:text="|"
-                    local:MvxBind="Visibility InvertedVisibility(IsCurrentRouteStop)"
                     android:layout_toRightOf="@id/tv_arrive_time" />
-                <TextView
+                <bstrkr.android.views.CustomTextView
                     android:id="@+id/tv_routestop_name"
                     style="@style/ListItemRegular"
                     android:gravity="center_vertical"
-                    local:MvxBind="Text RouteStopName"
+                    local:MvxBind="Text RouteStopName; IsBold IsNextRouteStop"
                     android:singleLine="true"
                     android:layout_toRightOf="@id/dl_divider" />
                 <TextView

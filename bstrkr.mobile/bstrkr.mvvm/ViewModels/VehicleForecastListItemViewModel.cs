@@ -101,19 +101,21 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void Countdown()
 		{
-			var routeStopBecameCurrent = false;
-			routeStopBecameCurrent = this.ArrivesInSeconds == 0 && this.ArrivedSeconds == 0;
-
+			var raiseCurrentRouteStopChanged = false;
 			if (this.ArrivesInSeconds > 0)
 			{
 				this.ArrivesInSeconds--;
+				if (this.ArrivesInSeconds == 0)
+				{
+					raiseCurrentRouteStopChanged = true;
+				}
 			}
 			else
 			{
 				this.ArrivedSeconds++;
 			}
 
-			if (routeStopBecameCurrent)
+			if (raiseCurrentRouteStopChanged)
 			{
 				this.RaisePropertyChanged(() => this.IsCurrentRouteStop);
 			}
