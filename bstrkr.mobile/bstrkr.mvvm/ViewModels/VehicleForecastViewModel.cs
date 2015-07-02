@@ -256,7 +256,7 @@ namespace bstrkr.mvvm.viewmodels
 							nextStop.IsNextRouteStop = true;
 						}
 
-						this.NextStopForecast = nextStop;
+						this.NextStopForecast = this.Forecast.FirstOrDefault();
 						_stateMachine.Fire(RouteVehicleVMTriggers.ForecastReturned);
 					}
 				});
