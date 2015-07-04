@@ -379,12 +379,23 @@ namespace bstrkr.mvvm.viewmodels
 			while(true)
 			{
 				Task.Delay(200).Wait();
-				lock(_vehicles)
+				try
 				{
-					foreach(var vehicleVM in this.Vehicles)
+
+					IEnumerable<VehicleViewModel> vehicles;
+					lock(_vehicles)
 					{
-						vehicleVM.Update();
+						vehicles = this.Vehicles.ToList();
 					}
+
+					foreach(var vehicle in vehicles)
+					{
+						vehicle.Update();
+					}
+				} 
+				catch (Exception e)
+				{
+					Insights.Report(e, Insights.Severity.Warning);
 				}
 			}
 		}
