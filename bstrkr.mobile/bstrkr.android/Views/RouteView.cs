@@ -29,7 +29,7 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			var routeNumberConverter = new RouteInfoToTitleConverter();
-			var dataContext = this.DataContext as RouteViewModel;
+			var dataContext = this.DataContext as RouteVehiclesViewModel;
 		
 			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = 
 				routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);

@@ -26,6 +26,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		public event EventHandler<VehiclePathUpdatedEventArgs> PathUpdated;
 
+		public event EventHandler AnimationTimerElapsed;
+
 		public override Vehicle Model
 		{
 			get 
@@ -95,6 +97,14 @@ namespace bstrkr.mvvm.viewmodels
 
 			set
 			{
+			}
+		}
+
+		public void Update()
+		{
+			if (this.AnimationTimerElapsed != null)	
+			{
+				this.Dispatcher.RequestMainThreadAction(() => this.AnimationTimerElapsed(this, EventArgs.Empty));
 			}
 		}
 

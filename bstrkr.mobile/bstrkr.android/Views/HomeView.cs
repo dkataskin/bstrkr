@@ -317,8 +317,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(MapViewModel), this);
 			customPresenter.Register(typeof(SetAreaViewModel), this);
 			customPresenter.Register(typeof(SetRouteStopViewModel), this);
-			customPresenter.Register(typeof(UmbrellaRouteViewModel), this);
-			customPresenter.Register(typeof(RouteViewModel), this);
+			customPresenter.Register(typeof(RouteVehiclesViewModel), this);
 			customPresenter.Register(typeof(RouteStopViewModel), this);
 			customPresenter.Register(typeof(VehicleForecastViewModel), this);
 		}
@@ -376,21 +375,7 @@ namespace bstrkr.android.views
 				dialog.Show(this.FragmentManager, null);
 			}
 
-			if (request.ViewModelType == typeof(UmbrellaRouteViewModel))
-			{
-				MvxFragment umbrellaRouteView = new UmbrellaRouteView();
-				umbrellaRouteView.ViewModel = loaderService.LoadViewModel(request, null);
-				_frag2tag[typeof(UmbrellaRouteView)] = "umbrella_route_view";
-
-				this.FragmentManager.BeginTransaction()
-									.Replace(Resource.Id.content_frame, umbrellaRouteView, "umbrella_route_view")
-									.AddToBackStack(null)
-									.Commit();
-
-				this.DisableDrawer();
-			}
-
-			if (request.ViewModelType == typeof(RouteViewModel))
+			if (request.ViewModelType == typeof(RouteVehiclesViewModel))
 			{
 				MvxFragment routeView = new RouteView();
 				routeView.ViewModel = loaderService.LoadViewModel(request, null);

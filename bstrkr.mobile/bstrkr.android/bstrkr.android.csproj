@@ -175,7 +175,6 @@
     <Compile Include="Views\SetAreaView.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Views\RouteStopsView.cs" />
-    <Compile Include="Views\UmbrellaRouteView.cs" />
     <Compile Include="Views\RouteView.cs" />
     <Compile Include="Views\SetRouteStopView.cs" />
     <Compile Include="Views\RouteStopView.cs" />
@@ -234,9 +233,6 @@
     <AndroidResource Include="..\bstrkr.core\Resources\Images\bus_s.png">
       <Link>Resources\Drawable-mdpi\bus_s.png</Link>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\item_vehicletypes_list.axml" />
-    <AndroidResource Include="Resources\Layout\item_umbrellaroutes_list.axml" />
-    <AndroidResource Include="Resources\Layout\fragment_umbrellaroute_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
     <AndroidResource Include="..\bstrkr.core\Resources\Images\trolley_s.png">
       <Link>Resources\Drawable-xhdpi\trolley_s.png</Link>

@@ -60,11 +60,8 @@
     <Compile Include="ViewModels\LicensesViewModel.cs" />
     <Compile Include="ViewModels\RouteStopsViewModel.cs" />
     <Compile Include="ViewModels\RouteStopMapViewModel.cs" />
-    <Compile Include="ViewModels\UmbrellaRouteViewModel.cs" />
     <Compile Include="Converters\VehicleTypeToImageConverter.cs" />
-    <Compile Include="ViewModels\UmbrellaRoutesListItemViewModel.cs" />
     <Compile Include="ViewModels\SelectRouteStopViewModel.cs" />
-    <Compile Include="ViewModels\RouteViewModel.cs" />
     <Compile Include="ViewModels\RoutesListItemViewModel.cs" />
     <Compile Include="Messages\LocationUpdateMessage.cs" />
     <Compile Include="Converters\ArriveTimeToStringConverter.cs" />
@@ -89,6 +86,7 @@
     <Compile Include="Converters\VehicleTypeToColorConverter.cs" />
     <Compile Include="Converters\RouteToFirstLastStopsConverter.cs" />
     <Compile Include="ViewModels\VehicleForecastViewModel.cs" />
+    <Compile Include="ViewModels\RouteVehiclesViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

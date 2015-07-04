@@ -16,7 +16,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class RoutesViewModel : BusTrackerViewModelBase
 	{
 		private readonly ILiveDataProviderFactory _providerFactory;
-		private readonly ObservableCollection<UmbrellaRoutesListItemViewModel> _routes = new ObservableCollection<UmbrellaRoutesListItemViewModel>();
+		private readonly ObservableCollection<RoutesListItemViewModel> _routes = new ObservableCollection<RoutesListItemViewModel>();
 
 		private bool _unknownArea;
 
@@ -24,9 +24,9 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_providerFactory = providerFactory;
 
-			this.Routes = new ReadOnlyObservableCollection<UmbrellaRoutesListItemViewModel>(_routes);
+			this.Routes = new ReadOnlyObservableCollection<RoutesListItemViewModel>(_routes);
 			this.RefreshCommand = new MvxCommand(this.Refresh);
-			this.ShowRouteDetailsCommand = new MvxCommand<UmbrellaRoutesListItemViewModel>(this.ShowRouteDetails, vm => !this.IsBusy);
+			this.ShowRouteVehiclesCommand = new MvxCommand<RoutesListItemViewModel>(this.ShowRouteDetails, vm => !this.IsBusy);
 		}
 
 		public bool UnknownArea
@@ -46,11 +46,11 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public ReadOnlyObservableCollection<UmbrellaRoutesListItemViewModel> Routes { get; private set; }
+		public ReadOnlyObservableCollection<RoutesListItemViewModel> Routes { get; private set; }
 
 		public MvxCommand RefreshCommand { get; private set; }
 
-		public MvxCommand<UmbrellaRoutesListItemViewModel> ShowRouteDetailsCommand { get; private set; }
+		public MvxCommand<RoutesListItemViewModel> ShowRouteVehiclesCommand { get; private set; }
 
 		public override void Start()
 		{
@@ -68,13 +68,13 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_routes.Clear();
 			var provider = _providerFactory.GetCurrentProvider();
-
 			if (provider == null)
 			{
 				this.UnknownArea = true;
+				return;
 			}
 
-			if (!this.UnknownArea && !this.IsBusy)
+			if (!this.IsBusy)
 			{
 				this.UnknownArea = false;
 				this.IsBusy = true;
@@ -87,11 +87,15 @@ namespace bstrkr.mvvm.viewmodels
 						{
 							if (task.Result != null)
 							{
-								foreach (var routeGroup in task.Result.GroupBy(x => x.Number)) 
+								foreach (var route in task.Result) 
 								{
-									_routes.Add(new UmbrellaRoutesListItemViewModel(
-										routeGroup.Key,
-										routeGroup.ToList()));
+									_routes.Add(new RoutesListItemViewModel
+									{
+										Id = route.Id,
+										Name = route.Name,
+										VehicleType = route.VehicleTypes.First(),
+										Route = route
+									});
 								}
 							}
 						});
@@ -108,36 +112,18 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void ShowRouteDetails(UmbrellaRoutesListItemViewModel routeVM)
+		private void ShowRouteDetails(RoutesListItemViewModel routeVM)
 		{
-			if (routeVM.Routes.Count() == 1)
-			{
-				var selectedRoute = routeVM.Routes.First().Route;
-				var ids = string.Empty;
-				if (selectedRoute != null && selectedRoute.Ids != null)
-				{
-					ids = string.Join(",", selectedRoute.Ids);
-				}
+			var ids = string.Join(",", routeVM.Route.Ids);
 
-				this.ShowViewModel<RouteViewModel>(new 
-				{ 
-					routeId = selectedRoute.Id, 
-					routeName = selectedRoute.Name,
-					routeNumber = selectedRoute.Number,
-					routeIds = ids,
-					fromStop = selectedRoute.FirstStop.Name,
-					toStop = selectedRoute.LastStop.Name,
-					vehicleType = routeVM.Routes.First().VehicleType
-				});
-			}
-			else
-			{
-				this.ShowViewModel<UmbrellaRouteViewModel>(new 
-				{ 
-					name = routeVM.RouteNumber, 
-					routes = string.Join(",", routeVM.Routes.Select(x => x.Id))
-				});
-			}
+			this.ShowViewModel<RouteVehiclesViewModel>(new 
+			{ 
+				routeId = routeVM.Id, 
+				routeName = routeVM.Name,
+				routeNumber = routeVM.Route.Number,
+				routeIds = ids,
+				vehicleType = routeVM.Route.VehicleTypes.First()
+			});
 		}
 	}
 }

@@ -18,7 +18,7 @@ using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteViewModel : BusTrackerViewModelBase, ICleanable
+	public class RouteVehiclesViewModel : BusTrackerViewModelBase, ICleanable
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
@@ -30,14 +30,12 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _noData;
 		private string _routeId;
 		private string _name;
-		private string _from;
-		private string _to;
 		private int _number;
 		private int _vehicleCount;
 		private VehicleTypes _vehicleType;
 		private Route _route;
 
-		public RouteViewModel(ILiveDataProviderFactory providerFactory)
+		public RouteVehiclesViewModel(ILiveDataProviderFactory providerFactory)
 		{
 			_providerFactory = providerFactory;
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleForecastViewModel>(_vehicles);
@@ -67,18 +65,6 @@ namespace bstrkr.mvvm.viewmodels
 			private set { this.RaiseAndSetIfChanged(ref _name, value, () => this.Name); } 
 		}
 
-		public string From
-		{
-			get { return _from; }
-			private set { this.RaiseAndSetIfChanged(ref _from, value, () => this.From); }
-		}
-
-		public string To
-		{
-			get { return _to; }
-			private set { this.RaiseAndSetIfChanged(ref _to, value, () => this.To); }
-		}
-
 		public bool NoData
 		{
 			get { return _noData; }
@@ -106,8 +92,6 @@ namespace bstrkr.mvvm.viewmodels
 					string routeName, 
 					int routeNumber, 
 					string routeIds,
-					string fromStop,
-					string toStop,
 					VehicleTypes vehicleType)
 		{
 			string[] ids = null;
@@ -120,8 +104,6 @@ namespace bstrkr.mvvm.viewmodels
 			this.Number = routeNumber;
 			this.Name = routeName;
 			this.VehicleType = vehicleType;
-			this.From = fromStop;
-			this.To = toStop;
 
 			this.Route = new Route(
 							routeId, 

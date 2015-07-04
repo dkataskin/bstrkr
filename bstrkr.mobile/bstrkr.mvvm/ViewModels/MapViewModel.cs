@@ -48,6 +48,7 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _detectedArea = false;
 		private float _zoom;
 		private RouteStop _routeStop;
+		private Task _animationTask;
 
 		public MapViewModel(
 					IBusTrackerLocationService locationService, 
@@ -141,6 +142,8 @@ namespace bstrkr.mvvm.viewmodels
 			// android requires location watcher to be started on the UI thread
 			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
 			this.IsBusy = true;
+
+			_animationTask = Task.Factory.StartNew(() => this.RunAnimation());
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
@@ -367,6 +370,21 @@ namespace bstrkr.mvvm.viewmodels
 				foreach (var routeStop in _stops)
 				{
 					routeStop.IsVisible = zoom > 13.0f;
+				}
+			}
+		}
+
+		private void RunAnimation()
+		{
+			while(true)
+			{
+				Task.Delay(200).Wait();
+				lock(_vehicles)
+				{
+					foreach(var vehicleVM in this.Vehicles)
+					{
+						vehicleVM.Update();
+					}
 				}
 			}
 		}

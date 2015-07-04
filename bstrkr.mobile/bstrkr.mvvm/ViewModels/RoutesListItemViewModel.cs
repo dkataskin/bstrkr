@@ -16,6 +16,7 @@ namespace bstrkr.mvvm.viewmodels
 		private string _from;
 		private string _to;
 		private VehicleTypes _vehicleType;
+		private Route _route;
 
 		public string Id
 		{
@@ -33,55 +34,19 @@ namespace bstrkr.mvvm.viewmodels
 		public string Name 
 		{ 
 			get { return _name; } 
-			set
-			{
-				if (!string.Equals(_name, value))
-				{
-					_name = value;
-					this.RaisePropertyChanged(() => this.Name);
-				}
-			} 
-		}
-
-		public string From
-		{
-			get { return _from; }
-			set
-			{
-				if (_from != value)
-				{
-					_from = value;
-					this.RaisePropertyChanged(() => this.From);
-				}
-			}
-		}
-
-		public string To
-		{
-			get { return _to; }
-			set
-			{
-				if (_to != value)
-				{
-					_to = value;
-					this.RaisePropertyChanged(() => this.To);
-				}
-			}
+			set { this.RaiseAndSetIfChanged(ref _name, value, () => this.Name); } 
 		}
 
 		public VehicleTypes VehicleType
 		{
 			get { return _vehicleType; }
-			set
-			{
-				if (_vehicleType != value)
-				{
-					_vehicleType = value;
-					this.RaisePropertyChanged(() => this.VehicleType);
-				}
-			}
+			set { this.RaiseAndSetIfChanged(ref _vehicleType, value, () => this.VehicleType); }
 		}
 
-		public Route Route { get; set; }
+		public Route Route 
+		{ 
+			get { return _route; }
+			set { this.RaiseAndSetIfChanged(ref _route, value, () => this.Route); } 
+		}
 	}
 }
