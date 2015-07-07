@@ -21,7 +21,7 @@ namespace bstrkr.android.views
 
 			var dialog = new Android.Support.V7.App.AlertDialog.Builder(Activity);
 
-			return dialog;
+			return dialog.Create();
 		}
 	}
 }
