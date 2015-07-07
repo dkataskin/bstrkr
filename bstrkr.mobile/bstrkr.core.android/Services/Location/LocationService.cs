@@ -16,6 +16,7 @@ using bstrkr.core.spatial;
 
 using Cirrious.CrossCore.Droid;
 using Cirrious.CrossCore.Exceptions;
+using Android.Gms.Maps;
 
 namespace bstrkr.core.android.services.location
 {
@@ -24,7 +25,8 @@ namespace bstrkr.core.android.services.location
 								   IGoogleApiClientConnectionCallbacks, 
 								   IGoogleApiClientOnConnectionFailedListener, 
 								   Android.Gms.Location.ILocationListener,
-								   Android.Locations.ILocationListener
+								   Android.Locations.ILocationListener,
+	ILocationSource
 	{
 		private readonly float _displacement = 30;
 
@@ -33,6 +35,7 @@ namespace bstrkr.core.android.services.location
 		private LocationRequest _locationRequest;
 		private IGoogleApiClient _googleAPIClient;
 		private LocationManager _locationManager;
+		private ILocationSourceOnLocationChangedListener _mapsListener;
 
 		public LocationService(IMvxAndroidGlobals androidGlobals)
 		{
@@ -105,6 +108,12 @@ namespace bstrkr.core.android.services.location
 		{
 			if (location != null)
 			{
+				var mapsListener = _mapsListener;
+				if (mapsListener != null)
+				{
+					mapsListener.OnLocationChanged(location);
+				}
+
 				this.RaiseLocationUpdatedEvent(location);
 			}
 		}
@@ -119,6 +128,16 @@ namespace bstrkr.core.android.services.location
 
 		public void OnStatusChanged(string provider, Availability status, Bundle extras)
 		{
+		}
+
+		public void Activate(ILocationSourceOnLocationChangedListener listener)
+		{
+			_mapsListener = listener;
+		}
+
+		public void Deactivate()
+		{
+			_mapsListener = null;
 		}
 
 		private void InitializeGoogleAPI()

@@ -20,11 +20,13 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
+using Cirrious.CrossCore;
+using bstrkr.core.services.location;
 
 namespace bstrkr.android.views
 {
 	[Register("bstrkr.android.views.MapView")]
-	public class MapView : MvxFragment
+	public class MapView : MvxFragment, IOnMapReadyCallback
 	{
 		private Android.Gms.Maps.MapView _googleMapView;
 
@@ -98,6 +100,48 @@ namespace bstrkr.android.views
 			_googleMapView.OnLowMemory();
 		}
 
+		public void OnMapReady(GoogleMap map)
+		{
+			var locationProvider = Mvx.Resolve<ILocationService>();
+			map.SetLocationSource(locationProvider as ILocationSource);
+
+			_mapViewWrapper = new MonoDroidGoogleMapsView(map);
+			_mapViewWrapper.MarkerClicked += (s, a) =>
+			{
+				if (this.MapViewModel != null)
+				{
+					var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopMapViewModel>(a.Marker);
+					if (routeStopVM != null)
+					{
+						this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
+					} else
+					{
+						var vehicleVM = _vehicleMarkerManager.GetDataForMarker<VehicleViewModel>(a.Marker);
+						if (vehicleVM != null)
+						{
+							this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM);
+						}
+					}
+				}
+			};
+
+			_mapViewWrapper.MapClicked += (s, a) => this.RaiseMapClickedEvent();
+
+			_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
+			_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
+			_mapLocationManager = new MapLocationManager(_mapViewWrapper);
+
+			var set = this.CreateBindingSet<MapView, MapViewModel>();
+			set.Bind(map).For(m => m.MyLocationEnabled).To(vm => vm.DetectedArea);
+			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
+			set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
+			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
+			set.Bind(_mapViewWrapper).For(x => x.Zoom).To(vm => vm.Zoom);
+			set.Apply();
+
+			(this.ViewModel as MapViewModel).Zoom = map.CameraPosition.Zoom;
+		}
+
 		private void SetUpMapIfNeeded()
 		{
 			if (_googleMapView == null)
@@ -110,46 +154,7 @@ namespace bstrkr.android.views
 		{
 			this.SetUpMapIfNeeded();
 
-			GoogleMap map = _googleMapView.Map;
-			if (map != null) 
-			{
-				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
-				_mapViewWrapper.MarkerClicked += (s, a) =>
-				{
-					if (this.MapViewModel != null)
-					{
-						var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopMapViewModel>(a.Marker);
-						if (routeStopVM != null)
-						{
-							this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
-						}
-						else
-						{
-							var vehicleVM = _vehicleMarkerManager.GetDataForMarker<VehicleViewModel>(a.Marker);
-							if (vehicleVM != null)
-							{
-								this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM);
-							}
-						}
-					}
-				};
-
-				_mapViewWrapper.MapClicked += (s, a) => this.RaiseMapClickedEvent();
-
-				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
-				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
-				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
-
-				var set = this.CreateBindingSet<MapView, MapViewModel>();
-				set.Bind(map).For(m => m.MyLocationEnabled).To(vm => vm.DetectedArea);
-				set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
-				set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
-				set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
-				set.Bind(_mapViewWrapper).For(x => x.Zoom).To(vm => vm.Zoom);
-				set.Apply();
-
-				(this.ViewModel as MapViewModel).Zoom = map.CameraPosition.Zoom;
-			}
+			_googleMapView.GetMapAsync(this);
 		}
 
 		private void RaiseMapClickedEvent()
@@ -158,6 +163,6 @@ namespace bstrkr.android.views
 			{
 				this.MapClicked(this, EventArgs.Empty);
 			}
-		}
+   		}
 	}
 }

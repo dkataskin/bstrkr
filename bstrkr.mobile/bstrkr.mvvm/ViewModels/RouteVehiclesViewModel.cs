@@ -22,6 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
+		private readonly IList<VehicleForecastViewModel> _allVehicles = new List<VehicleForecastViewModel>();
 		private readonly ObservableCollection<VehicleForecastViewModel> _vehicles = new ObservableCollection<VehicleForecastViewModel>();
 
 		private readonly IObservable<long> _intervalObservable;
