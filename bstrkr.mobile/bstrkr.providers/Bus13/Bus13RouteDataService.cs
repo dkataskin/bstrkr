@@ -101,10 +101,10 @@ namespace bstrkr.core.providers.bus13
 							routes.Select(x => string.Join(",", x.Ids.Select(id => string.Format(RouteIdFormatStr, id))))),
 						ParameterType.QueryString);
 
-			request.AddParameter("lat0", this.CoordToInt(rect.LeftTop.Latitude), ParameterType.QueryString);
-			request.AddParameter("lng0", this.CoordToInt(rect.LeftTop.Longitude), ParameterType.QueryString);
-			request.AddParameter("lat1", this.CoordToInt(rect.RightBottom.Latitude), ParameterType.QueryString);
-			request.AddParameter("lng1", this.CoordToInt(rect.RightBottom.Longitude), ParameterType.QueryString);
+			request.AddParameter("lat0", this.CoordToInt(rect.NorthEast.Latitude), ParameterType.QueryString);
+			request.AddParameter("lng0", this.CoordToInt(rect.NorthEast.Longitude), ParameterType.QueryString);
+			request.AddParameter("lat1", this.CoordToInt(rect.SouthWest.Latitude), ParameterType.QueryString);
+			request.AddParameter("lng1", this.CoordToInt(rect.SouthWest.Longitude), ParameterType.QueryString);
 
 			request.AddParameter(TimestampParam, timestamp, ParameterType.QueryString);
 			request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);

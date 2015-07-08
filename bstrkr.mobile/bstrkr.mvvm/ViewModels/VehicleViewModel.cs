@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-using Cirrious.MvvmCross.ViewModels;
+using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.core.map;
 using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
-using bstrkr.mvvm.views;
-using bstrkr.mvvm.maps;
 using bstrkr.core.utils;
-using System.Threading.Tasks;
+using bstrkr.mvvm.maps;
+using bstrkr.mvvm.views;
+
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -26,7 +27,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public event EventHandler<VehiclePathUpdatedEventArgs> PathUpdated;
 
-		public event EventHandler AnimationTimerElapsed;
+		public event EventHandler<AnimationUpdateEventArgs> AnimationTimerElapsed;
 
 		public override Vehicle Model
 		{
@@ -100,11 +101,11 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public void Update()
+		public void Update(GeoRect visibleRegion)
 		{
 			if (this.AnimationTimerElapsed != null)	
 			{
-				this.Dispatcher.RequestMainThreadAction(() => this.AnimationTimerElapsed(this, EventArgs.Empty));
+				this.AnimationTimerElapsed(this, new AnimationUpdateEventArgs(visibleRegion));
 			}
 		}
 
@@ -191,5 +192,15 @@ namespace bstrkr.mvvm.viewmodels
 	public class VehiclePathUpdatedEventArgs : EventArgs
 	{
 		public IList<WaySegment> PathSegments { get; set; }
+	}
+
+	public class AnimationUpdateEventArgs : EventArgs
+	{
+		public AnimationUpdateEventArgs(GeoRect visibleRegion)
+		{
+			this.VisibleRegion = visibleRegion;
+		}
+
+		public GeoRect VisibleRegion { get; private set; }
 	}
 }

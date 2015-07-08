@@ -137,6 +137,7 @@ namespace bstrkr.android.views
 			set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
 			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
 			set.Bind(_mapViewWrapper).For(x => x.Zoom).To(vm => vm.Zoom);
+			set.Bind(_mapViewWrapper).For("VisibleRegion").To(vm => vm.VisibleRegion);
 			set.Apply();
 
 			(this.ViewModel as MapViewModel).Zoom = map.CameraPosition.Zoom;

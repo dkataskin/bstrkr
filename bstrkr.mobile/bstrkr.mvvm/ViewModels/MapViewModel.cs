@@ -37,7 +37,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
-		private readonly ZoomToMarkerSizeConverter _zoomConverter = new ZoomToMarkerSizeConverter();
 
 		private ReadOnlyObservableCollection<VehicleViewModel> _vehiclesReadOnly = 
 			new ReadOnlyObservableCollection<VehicleViewModel>(new ObservableCollection<VehicleViewModel>());
@@ -45,6 +44,7 @@ namespace bstrkr.mvvm.viewmodels
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
 		private ILiveDataProvider _liveDataProvider;
 		private GeoPoint _location = GeoPoint.Empty;
+		private GeoRect _visibleRegion;
 		private bool _detectedArea = false;
 		private float _zoom;
 		private RouteStop _routeStop;
@@ -94,6 +94,12 @@ namespace bstrkr.mvvm.viewmodels
 				}
 			}
    		}
+
+		public GeoRect VisibleRegion
+		{
+			get { return _visibleRegion; }
+			set { this.RaiseAndSetIfChanged(ref _visibleRegion, value, () => this.VisibleRegion); }
+		}
 
 		public bool DetectedArea
 		{
@@ -388,9 +394,10 @@ namespace bstrkr.mvvm.viewmodels
 						vehicles = this.Vehicles.ToList();
 					}
 
+					var visibleRegion = this.VisibleRegion;
 					foreach(var vehicle in vehicles)
 					{
-						vehicle.Update();
+						vehicle.Update(visibleRegion);
 					}
 				} 
 				catch (Exception e)

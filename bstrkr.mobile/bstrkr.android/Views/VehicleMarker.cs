@@ -15,22 +15,27 @@ using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 using bstrkr.core.utils;
+using Cirrious.CrossCore;
+using Cirrious.CrossCore.Core;
 
 namespace bstrkr.android.views
 {
-	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker
+	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker//, Android.Animation.Animator.IAnimatorListener
 	{
 		private static IGeoPointInterpolator _geoPointInterpolator = new LinearFixedGeoPointInterpolator();
 		private ConcurrentQueue<WaySegment> _animationQueue = new ConcurrentQueue<WaySegment>();
 		private long _lastUpdate = 0;
 		private float _currentFraction = 0;
+		private IMvxMainThreadDispatcher _dispatcher;
 
 		public VehicleMarker(VehicleViewModel vehicleVM)
 		{
 			this.ViewModel = vehicleVM;
 			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
 			this.ViewModel.PathUpdated += this.OnPathUpdated;
-			this.ViewModel.AnimationTimerElapsed += (s, a) => this.Animate();
+			this.ViewModel.AnimationTimerElapsed += (s, a) => this.Animate(a.VisibleRegion);
+
+			_dispatcher = Mvx.Resolve<IMvxMainThreadDispatcher>();
 		}
 
 		public VehicleViewModel ViewModel { get; private set; }
@@ -84,36 +89,63 @@ namespace bstrkr.android.views
 			}
 		}
 
-		private void Animate()
+		private void Animate(GeoRect visibleRegion)
 		{
+			var latLngBounds = new LatLngBounds(
+								visibleRegion.SouthWest.ToLatLng(),
+								visibleRegion.NorthEast.ToLatLng());
 			var newUpdate = DateTime.Now.Ticks;
-			if (_lastUpdate > 0)
+			GeoPoint targetPosition = GeoPoint.Empty;
+			WaySegment pathSegment = null;
+			if (_lastUpdate > 0 && _animationQueue.TryPeek(out pathSegment))
 			{
-				var timeDiff = newUpdate - _lastUpdate;
-				WaySegment pathSegment = null;
-				if (_animationQueue.TryPeek(out pathSegment))
+				var animate = false;
+				do
 				{
+					animate = latLngBounds.Contains(pathSegment.StartPosition.ToLatLng()) ||
+					latLngBounds.Contains(pathSegment.FinalPosition.ToLatLng());
+
+					if (animate)
+					{
+						break;
+					} 
+					else
+					{
+						if (_animationQueue.TryDequeue(out pathSegment))
+						{
+							_currentFraction = 0.0f;
+							targetPosition = pathSegment.FinalPosition;
+						};
+					}
+				} 
+				while(_animationQueue.TryPeek(out pathSegment));
+
+				if (animate)
+				{
+					var timeDiff = newUpdate - _lastUpdate;
 					var animationLength = pathSegment.Duration.Ticks;
 					var animationRunAt = animationLength * _currentFraction + timeDiff;
 					var fraction = animationRunAt / animationLength;
 
 					var geoPoint = _geoPointInterpolator.Interpolate(
-									               fraction > 1.0f ? 1.0f : fraction,
-									               pathSegment.StartPosition,
-									               pathSegment.FinalPosition);
+												fraction > 1.0f ? 1.0f : fraction,
+												pathSegment.StartPosition,
+												pathSegment.FinalPosition);
 
-
-					this.Marker.Position = geoPoint.ToLatLng();
-
+					_dispatcher.RequestMainThreadAction(() => this.Marker.Position = geoPoint.ToLatLng());
 					if (fraction > 1.0f)
 					{
 						_currentFraction = 0.0f;
 						_animationQueue.TryDequeue(out pathSegment);
-					}
+					} 
 					else
 					{
 						_currentFraction = fraction;
 					}
+				}
+				else if (!GeoPoint.Empty.Equals(targetPosition))
+				{
+					_dispatcher.RequestMainThreadAction(() => this.Marker.Position = targetPosition.ToLatLng());
 				}
 			}
 
@@ -140,83 +172,83 @@ namespace bstrkr.android.views
 			}
 			
 		}
-//
-//		private class AnimatorRunner : Java.Lang.Object, Android.Animation.Animator.IAnimatorListener
-//		{
-//			private readonly object _lockObject = new object();
-//			private bool _animationRunning;
-//			private ConcurrentQueue<ObjectAnimator> _animationQueue = new ConcurrentQueue<ObjectAnimator>();
-//			private Marker _marker;
-//
-//			public AnimatorRunner(Marker marker)
-//			{
-//				_marker = marker;
-//			}
-//
-//			public void Animate(WaySegment waySegment)
-//			{
-//				ObjectAnimator animator = ObjectAnimator.OfObject(
-//								_marker, 
-//								"Position", 
-//								new TpEvaluator(),
-//								waySegment.FinalPosition.ToLatLng());
-//				
-//				animator.AddListener(this);
-//				animator.SetDuration(Convert.ToInt64(waySegment.Duration.TotalMilliseconds));
-//
-//				bool runAnimation = false;
-//				lock(_lockObject)
-//				{
-//					runAnimation = !_animationRunning;
-//					_animationQueue.Enqueue(animator);
-//				}
-//
-//				if (runAnimation)
-//				{
-//					this.RunNext();
-//				}
-//			}
-//
-//			public void OnAnimationCancel(Animator animation)
-//			{
-//				lock(_lockObject)
-//				{
-//					_animationRunning = false;
-//				}
-//			}
-//
-//			public void OnAnimationEnd(Animator animation)
-//			{
-//				lock(_lockObject)
-//				{
-//					_animationRunning = false;
-//				}
-//
-//				this.RunNext();
-//			}
-//
-//			public void OnAnimationRepeat(Animator animation)
-//			{
-//			}
-//
-//			public void OnAnimationStart(Animator animation)
-//			{
-//				lock(_lockObject)
-//				{
-//					_animationRunning = true;
-//				}
-//			}
-//
-//			private void RunNext()
-//			{
-//				ObjectAnimator animator = null;
-//				_animationQueue.TryDequeue(out animator);
-//
-//				if (animator != null)
-//				{
-//					animator.Start();
-//				}
-//			}
-//		}
+
+		private class AnimatorRunner : Java.Lang.Object, Android.Animation.Animator.IAnimatorListener
+		{
+			private readonly object _lockObject = new object();
+			private bool _animationRunning;
+			private ConcurrentQueue<ObjectAnimator> _animationQueue = new ConcurrentQueue<ObjectAnimator>();
+			private Marker _marker;
+
+			public AnimatorRunner(Marker marker)
+			{
+				_marker = marker;
+			}
+
+			public void Animate(WaySegment waySegment)
+			{
+				ObjectAnimator animator = ObjectAnimator.OfObject(
+								_marker, 
+								"Position", 
+								new TpEvaluator(),
+								waySegment.FinalPosition.ToLatLng());
+				
+				animator.AddListener(this);
+				animator.SetDuration(Convert.ToInt64(waySegment.Duration.TotalMilliseconds));
+
+				bool runAnimation = false;
+				lock(_lockObject)
+				{
+					runAnimation = !_animationRunning;
+					_animationQueue.Enqueue(animator);
+				}
+
+				if (runAnimation)
+				{
+					this.RunNext();
+				}
+			}
+
+			public void OnAnimationCancel(Animator animation)
+			{
+				lock(_lockObject)
+				{
+					_animationRunning = false;
+				}
+			}
+
+			public void OnAnimationEnd(Animator animation)
+			{
+				lock(_lockObject)
+				{
+					_animationRunning = false;
+				}
+
+				this.RunNext();
+			}
+
+			public void OnAnimationRepeat(Animator animation)
+			{
+			}
+
+			public void OnAnimationStart(Animator animation)
+			{
+				lock(_lockObject)
+				{
+					_animationRunning = true;
+				}
+			}
+
+			private void RunNext()
+			{
+				ObjectAnimator animator = null;
+				_animationQueue.TryDequeue(out animator);
+
+				if (animator != null)
+				{
+					animator.Start();
+				}
+			}
+		}
 	}
 }

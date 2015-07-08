@@ -30,7 +30,7 @@ namespace bstrkr.android.views
 
 		public event EventHandler<EventArgs> ZoomChanged;
 
-		public event EventHandler<EventArgs> CameraLocationChanged;
+		public event EventHandler<CameraLocationChangedEventArgs> CameraLocationChanged;
 
 		public event EventHandler<MapMarkerClickEventArgs> MarkerClicked;
 
@@ -85,6 +85,12 @@ namespace bstrkr.android.views
 				_previousZoomValue = _map.CameraPosition.Zoom;
 				this.RaiseZoomChangedEvent();
 			}
+
+			var bounds = _map.Projection.VisibleRegion.LatLngBounds;
+
+			this.RaiseCameraLocationChanged(
+					args.Position.Target.ToGeoPoint(),
+					new GeoRect(bounds.Northeast.ToGeoPoint(), bounds.Southwest.ToGeoPoint()));
 		}
 
 		private void OnMarkerClick(object sender, GoogleMap.MarkerClickEventArgs args)
@@ -122,6 +128,14 @@ namespace bstrkr.android.views
 			if (this.MapClicked != null)
 			{
 				this.MapClicked(this, new MapClickEventArgs(point));
+			}
+		}
+
+		private void RaiseCameraLocationChanged(GeoPoint location, GeoRect projectionBounds)
+		{
+			if (this.CameraLocationChanged != null)
+			{
+				this.CameraLocationChanged(this, new CameraLocationChangedEventArgs(location, projectionBounds));
 			}
 		}
 	}

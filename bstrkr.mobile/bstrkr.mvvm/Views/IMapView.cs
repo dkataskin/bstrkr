@@ -7,7 +7,7 @@ namespace bstrkr.mvvm.views
 	public interface IMapView
 	{
 		event EventHandler<EventArgs> ZoomChanged;
-		event EventHandler<EventArgs> CameraLocationChanged;
+		event EventHandler<CameraLocationChangedEventArgs> CameraLocationChanged;
 		event EventHandler<MapMarkerClickEventArgs> MarkerClicked;
 		event EventHandler<MapClickEventArgs> MapClicked;
 
