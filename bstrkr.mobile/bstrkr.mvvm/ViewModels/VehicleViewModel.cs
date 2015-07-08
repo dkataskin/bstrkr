@@ -27,8 +27,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		public event EventHandler<VehiclePathUpdatedEventArgs> PathUpdated;
 
-//		public event EventHandler<AnimationUpdateEventArgs> AnimationTimerElapsed;
-
 		public override Vehicle Model
 		{
 			get 
@@ -100,14 +98,6 @@ namespace bstrkr.mvvm.viewmodels
 			{
 			}
 		}
-
-//		public void Update(GeoRect visibleRegion)
-//		{
-//			if (this.AnimationTimerElapsed != null)	
-//			{
-//				this.AnimationTimerElapsed(this, new AnimationUpdateEventArgs(visibleRegion));
-//			}
-//		}
 
 		public void UpdateLocation(GeoPoint currentLocation, WaypointCollection waypoints)
 		{
@@ -193,14 +183,4 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		public IList<WaySegment> PathSegments { get; set; }
 	}
-
-//	public class AnimationUpdateEventArgs : EventArgs
-//	{
-//		public AnimationUpdateEventArgs(GeoRect visibleRegion)
-//		{
-//			this.VisibleRegion = visibleRegion;
-//		}
-//
-//		public GeoRect VisibleRegion { get; private set; }
-//	}
 }
