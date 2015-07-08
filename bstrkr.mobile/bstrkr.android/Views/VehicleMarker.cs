@@ -103,17 +103,21 @@ namespace bstrkr.android.views
 			GeoPoint targetPosition = GeoPoint.Empty;
 			WaySegment pathSegment = null;
 			var animate = false;
+			var startPositionIsInView = false;
+			var finalPositionIsInView = false;
 			while(!animate && _animationQueue.TryDequeue(out pathSegment))
 			{
-				animate = latLngBounds.Contains(pathSegment.StartPosition.ToLatLng()) ||
-						  latLngBounds.Contains(pathSegment.FinalPosition.ToLatLng());
+				startPositionIsInView = latLngBounds.Contains(pathSegment.StartPosition.ToLatLng());
+				finalPositionIsInView = latLngBounds.Contains(pathSegment.FinalPosition.ToLatLng());
+
+				animate = startPositionIsInView || finalPositionIsInView;
 
 				targetPosition = pathSegment.FinalPosition;
 			}
 
 			if (animate)
 			{
-				_animatorRunner.Animate(pathSegment);
+				_animatorRunner.Animate(pathSegment, finalPositionIsInView);
 			}
 			else
 			{
@@ -156,13 +160,26 @@ namespace bstrkr.android.views
 
 			public bool AnimationRunning { get { return _animationRunning; } }
 
-			public void Animate(WaySegment waySegment)
+			public void Animate(WaySegment waySegment, bool animateStartPosition)
 			{
-				ObjectAnimator animator = ObjectAnimator.OfObject(
-								_marker, 
-								"Position", 
-								new TpEvaluator(),
-								waySegment.FinalPosition.ToLatLng());
+				ObjectAnimator animator = null;
+				if (animateStartPosition)
+				{
+					animator = ObjectAnimator.OfObject(
+													_marker, 
+													"Position", 
+													new TpEvaluator(),
+													waySegment.StartPosition.ToLatLng(),
+													waySegment.FinalPosition.ToLatLng());
+				}
+				else
+				{
+					animator = ObjectAnimator.OfObject(
+													_marker, 
+													"Position", 
+													new TpEvaluator(),
+													waySegment.FinalPosition.ToLatLng());
+				}
 				
 				animator.AddListener(this);
 				animator.SetDuration(Convert.ToInt64(waySegment.Duration.TotalMilliseconds));
