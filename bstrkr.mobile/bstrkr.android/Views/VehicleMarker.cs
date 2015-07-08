@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,31 +10,27 @@ using Android.Gms.Maps.Model;
 
 using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
+using bstrkr.core.utils;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using bstrkr.core.utils;
+
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Core;
 
 namespace bstrkr.android.views
 {
-	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker//, Android.Animation.Animator.IAnimatorListener
+	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker
 	{
-		private static IGeoPointInterpolator _geoPointInterpolator = new LinearFixedGeoPointInterpolator();
 		private ConcurrentQueue<WaySegment> _animationQueue = new ConcurrentQueue<WaySegment>();
-		private long _lastUpdate = 0;
-		private float _currentFraction = 0;
-		private IMvxMainThreadDispatcher _dispatcher;
+
+		private AnimatorRunner _animatorRunner;
 
 		public VehicleMarker(VehicleViewModel vehicleVM)
 		{
 			this.ViewModel = vehicleVM;
 			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
 			this.ViewModel.PathUpdated += this.OnPathUpdated;
-			this.ViewModel.AnimationTimerElapsed += (s, a) => this.Animate(a.VisibleRegion);
-
-			_dispatcher = Mvx.Resolve<IMvxMainThreadDispatcher>();
 		}
 
 		public VehicleViewModel ViewModel { get; private set; }
@@ -59,15 +54,9 @@ namespace bstrkr.android.views
 				return;
 			}
 
-			if (args.PropertyName.Equals("Location") && _lastUpdate == 0)
+			if (args.PropertyName.Equals("Location") && GeoPoint.Empty.Equals(this.Location))
 			{
 				this.Marker.Position = this.ViewModel.Location.ToLatLng();
-				this.Marker.Rotation = Convert.ToSingle(this.ViewModel.VehicleHeading);
-
-				if (_lastUpdate == 0)
-				{
-					_lastUpdate = DateTime.Now.Ticks;
-				}
 			}
 
 			if (args.PropertyName.Equals("Icon"))
@@ -87,6 +76,23 @@ namespace bstrkr.android.views
 			{
 				_animationQueue.Enqueue(pathSegment);
 			}
+
+			if (_animatorRunner == null && this.Marker == null)
+			{
+				return;
+			}
+
+			if (_animatorRunner == null)
+			{
+				_animatorRunner = new AnimatorRunner(this.Marker);
+			}
+
+			if (_animatorRunner.AnimationRunning)
+			{
+				return;
+			}
+
+			this.Animate(this.MapView.VisibleRegion);
 		}
 
 		private void Animate(GeoRect visibleRegion)
@@ -94,62 +100,25 @@ namespace bstrkr.android.views
 			var latLngBounds = new LatLngBounds(
 								visibleRegion.SouthWest.ToLatLng(),
 								visibleRegion.NorthEast.ToLatLng());
-			var newUpdate = DateTime.Now.Ticks;
 			GeoPoint targetPosition = GeoPoint.Empty;
 			WaySegment pathSegment = null;
-			if (_lastUpdate > 0 && _animationQueue.TryPeek(out pathSegment))
+			var animate = false;
+			while(!animate && _animationQueue.TryDequeue(out pathSegment))
 			{
-				var animate = false;
-				do
-				{
-					animate = latLngBounds.Contains(pathSegment.StartPosition.ToLatLng()) ||
-					latLngBounds.Contains(pathSegment.FinalPosition.ToLatLng());
+				animate = latLngBounds.Contains(pathSegment.StartPosition.ToLatLng()) ||
+						  latLngBounds.Contains(pathSegment.FinalPosition.ToLatLng());
 
-					if (animate)
-					{
-						break;
-					} 
-					else
-					{
-						if (_animationQueue.TryDequeue(out pathSegment))
-						{
-							_currentFraction = 0.0f;
-							targetPosition = pathSegment.FinalPosition;
-						};
-					}
-				} 
-				while(_animationQueue.TryPeek(out pathSegment));
-
-				if (animate)
-				{
-					var timeDiff = newUpdate - _lastUpdate;
-					var animationLength = pathSegment.Duration.Ticks;
-					var animationRunAt = animationLength * _currentFraction + timeDiff;
-					var fraction = animationRunAt / animationLength;
-
-					var geoPoint = _geoPointInterpolator.Interpolate(
-												fraction > 1.0f ? 1.0f : fraction,
-												pathSegment.StartPosition,
-												pathSegment.FinalPosition);
-
-					_dispatcher.RequestMainThreadAction(() => this.Marker.Position = geoPoint.ToLatLng());
-					if (fraction > 1.0f)
-					{
-						_currentFraction = 0.0f;
-						_animationQueue.TryDequeue(out pathSegment);
-					} 
-					else
-					{
-						_currentFraction = fraction;
-					}
-				}
-				else if (!GeoPoint.Empty.Equals(targetPosition))
-				{
-					_dispatcher.RequestMainThreadAction(() => this.Marker.Position = targetPosition.ToLatLng());
-				}
+				targetPosition = pathSegment.FinalPosition;
 			}
 
-			_lastUpdate = newUpdate;
+			if (animate)
+			{
+				_animatorRunner.Animate(pathSegment);
+			}
+			else
+			{
+				this.Marker.Position = targetPosition.ToLatLng();
+			}
 		}
 
 		private class TpEvaluator : Java.Lang.Object, ITypeEvaluator
@@ -184,6 +153,8 @@ namespace bstrkr.android.views
 			{
 				_marker = marker;
 			}
+
+			public bool AnimationRunning { get { return _animationRunning; } }
 
 			public void Animate(WaySegment waySegment)
 			{

@@ -51,6 +51,17 @@ namespace bstrkr.android.views
 			get { return _map.CameraPosition.Zoom; }
 		}
 
+		public GeoRect VisibleRegion
+		{
+			get 
+			{
+				var visibleRegion = _map.Projection.VisibleRegion;
+				return new GeoRect(
+						visibleRegion.LatLngBounds.Northeast.ToGeoPoint(),
+						visibleRegion.LatLngBounds.Southwest.ToGeoPoint());
+			}
+		}
+
 		public void SetCamera(GeoPoint location, float zoom)
 		{
 			var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(location.ToLatLng(), zoom);

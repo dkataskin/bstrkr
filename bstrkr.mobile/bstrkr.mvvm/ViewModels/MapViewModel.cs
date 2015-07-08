@@ -48,7 +48,7 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _detectedArea = false;
 		private float _zoom;
 		private RouteStop _routeStop;
-		private Task _animationTask;
+		//private Task _animationTask;
 
 		public MapViewModel(
 					IBusTrackerLocationService locationService, 
@@ -149,7 +149,8 @@ namespace bstrkr.mvvm.viewmodels
 			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
 			this.IsBusy = true;
 
-			_animationTask = Task.Factory.StartNew(() => this.RunAnimation());
+			//TODO: clean up
+			//_animationTask = Task.Factory.StartNew(() => this.RunAnimation());
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
@@ -380,31 +381,32 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void RunAnimation()
-		{
-			while(true)
-			{
-				Task.Delay(200).Wait();
-				try
-				{
-
-					IEnumerable<VehicleViewModel> vehicles;
-					lock(_vehicles)
-					{
-						vehicles = this.Vehicles.ToList();
-					}
-
-					var visibleRegion = this.VisibleRegion;
-					foreach(var vehicle in vehicles)
-					{
-						vehicle.Update(visibleRegion);
-					}
-				} 
-				catch (Exception e)
-				{
-					Insights.Report(e, Insights.Severity.Warning);
-				}
-			}
-		}
+		//TODO: clean up
+//		private void RunAnimation()
+//		{
+//			while(true)
+//			{
+//				Task.Delay(200).Wait();
+//				try
+//				{
+//
+//					IEnumerable<VehicleViewModel> vehicles;
+//					lock(_vehicles)
+//					{
+//						vehicles = this.Vehicles.ToList();
+//					}
+//
+//					var visibleRegion = this.VisibleRegion;
+//					foreach(var vehicle in vehicles)
+//					{
+//						vehicle.Update(visibleRegion);
+//					}
+//				} 
+//				catch (Exception e)
+//				{
+//					Insights.Report(e, Insights.Severity.Warning);
+//				}
+//			}
+//		}
 	}
 }

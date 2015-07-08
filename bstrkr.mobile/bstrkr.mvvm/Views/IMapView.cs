@@ -15,6 +15,8 @@ namespace bstrkr.mvvm.views
 
 		float Zoom { get; }
 
+		GeoRect VisibleRegion { get; }
+
 		GeoPoint CameraLocation { get; }
 
 		void SetCamera(GeoPoint location, float zoom);
