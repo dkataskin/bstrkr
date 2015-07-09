@@ -15,9 +15,9 @@ namespace bstrkr.mvvm.viewmodels
 		{
 		}
 
-		public override GeoPoint Location
+		public override GeoLocation Location
 		{
-			get { return this.Model == null ? GeoPoint.Empty : this.Model.Location; }
+			get { return this.Model == null ? GeoLocation.Empty : this.Model.Location; }
 			set	{ }
 		}
 

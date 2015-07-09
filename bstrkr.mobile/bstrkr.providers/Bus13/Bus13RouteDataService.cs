@@ -281,8 +281,7 @@ namespace bstrkr.core.providers.bus13
 			{
 				Id = bus13Vehicle.Id,
 				CarPlate = bus13Vehicle.Gos_Num,
-				Location = this.ParsePoint(bus13Vehicle.Lat, bus13Vehicle.Lon),
-				Heading = Convert.ToSingle(bus13Vehicle.Dir),
+				Location = new GeoLocation(this.ParsePoint(bus13Vehicle.Lat, bus13Vehicle.Lon), Convert.ToSingle(bus13Vehicle.Dir)),
 				Type = this.ParseVehicleType(bus13Vehicle.RType),
 				RouteInfo = new VehicleRouteInfo
 				{

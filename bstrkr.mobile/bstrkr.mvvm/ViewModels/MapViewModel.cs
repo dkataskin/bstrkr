@@ -48,7 +48,6 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _detectedArea = false;
 		private float _zoom;
 		private RouteStop _routeStop;
-		//private Task _animationTask;
 
 		public MapViewModel(
 					IBusTrackerLocationService locationService, 
@@ -219,7 +218,7 @@ namespace bstrkr.mvvm.viewmodels
 		private void SelectClosestRouteStop(GeoPoint location)
 		{
 			var closestStop = _stops.Select(x => x.Model)
-				.Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location), x))
+				.Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location.Position), x))
 				.OrderBy(x => x.Item1)
 				.First();
 
@@ -280,7 +279,6 @@ namespace bstrkr.mvvm.viewmodels
 		private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
 		{
 			vehicleVM.UpdateLocation(locationUpdate.Vehicle.Location, locationUpdate.Waypoints);
-			vehicleVM.VehicleHeading = locationUpdate.Vehicle.Heading;
 		}
 
 		private void ShowRouteStopInfo(RouteStopMapViewModel routeStopVM)
@@ -380,33 +378,5 @@ namespace bstrkr.mvvm.viewmodels
 				}
 			}
 		}
-
-		//TODO: clean up
-//		private void RunAnimation()
-//		{
-//			while(true)
-//			{
-//				Task.Delay(200).Wait();
-//				try
-//				{
-//
-//					IEnumerable<VehicleViewModel> vehicles;
-//					lock(_vehicles)
-//					{
-//						vehicles = this.Vehicles.ToList();
-//					}
-//
-//					var visibleRegion = this.VisibleRegion;
-//					foreach(var vehicle in vehicles)
-//					{
-//						vehicle.Update(visibleRegion);
-//					}
-//				} 
-//				catch (Exception e)
-//				{
-//					Insights.Report(e, Insights.Severity.Warning);
-//				}
-//			}
-//		}
 	}
 }

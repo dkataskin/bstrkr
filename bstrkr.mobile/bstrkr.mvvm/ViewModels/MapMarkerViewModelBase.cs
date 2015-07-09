@@ -14,7 +14,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private MapMarkerSizes _markerSize;
 		private object _icon;
-		private GeoPoint _location;
+		private GeoLocation _location;
 		private bool _isVisible = true;
 
 		private T _model;
@@ -47,7 +47,7 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public virtual GeoPoint Location
+		public virtual GeoLocation Location
 		{
 			get 
 			{ 
@@ -56,7 +56,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			set
 			{
-				if (!GeoPoint.Equals(_location, value))
+				if (!GeoLocation.Equals(_location, value))
 				{
 					_location = value;
 					this.RaisePropertyChanged(() => this.Location);

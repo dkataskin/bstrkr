@@ -42,7 +42,6 @@ namespace bstrkr.mvvm.viewmodels
 
 					this.RaisePropertyChanged(() => this.VehicleId);
 					this.RaisePropertyChanged(() => this.VehicleType);
-					this.RaisePropertyChanged(() => this.VehicleHeading);
 					this.RaisePropertyChanged(() => this.CarPlate);
 					this.RaisePropertyChanged(() => this.Location);
 					this.RaisePropertyChanged(() => this.Icon);
@@ -60,23 +59,6 @@ namespace bstrkr.mvvm.viewmodels
 			get { return this.Model == null ? VehicleTypes.Bus : this.Model.Type; }
 		}
 
-		public float VehicleHeading
-		{
-			get 
-			{ 
-				return this.Model == null ? 0.0f : this.Model.Heading; 
-			}
-
-			set
-			{
-				if (this.Model != null && this.Model.Heading != value)
-				{
-					this.Model.Heading = value;
-					this.RaisePropertyChanged(() => this.VehicleHeading);
-				}
-			}
-		}
-
 		public string CarPlate
 		{
 			get { return this.Model == null ? string.Empty : this.Model.CarPlate; }
@@ -87,11 +69,11 @@ namespace bstrkr.mvvm.viewmodels
 			get { return (this.Model == null || this.Model.RouteInfo == null) ? string.Empty : this.Model.RouteInfo.DisplayName; }
 		}
 
-		public override GeoPoint Location
+		public override GeoLocation Location
 		{
 			get 
 			{ 
-				return this.Model == null ? GeoPoint.Empty : this.Model.Location; 
+				return this.Model == null ? GeoLocation.Empty : this.Model.Location; 
 			}
 
 			set
@@ -99,9 +81,9 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public void UpdateLocation(GeoPoint currentLocation, WaypointCollection waypoints)
+		public void UpdateLocation(GeoLocation currentLocation, WaypointCollection waypoints)
 		{
-			var animList = new List<WaySegment>();
+			var animList = new List<PathSegment>();
 			var totalTime = 10.0d;
 			if (_lastUpdate > 0)
 			{
@@ -112,19 +94,22 @@ namespace bstrkr.mvvm.viewmodels
 
 			if (waypoints != null && waypoints.Waypoints.Any())
 			{
-				animList.Add(new WaySegment {
-					Duration = TimeSpan.FromSeconds(waypoints.Waypoints[0].Fraction * totalTime),
-					StartPosition = this.Location,
-					FinalPosition = waypoints.Waypoints[0].Location
-				});
+				animList.Add(
+					new PathSegment 
+					{
+						Duration = TimeSpan.FromSeconds(waypoints.Waypoints[0].Fraction * totalTime),
+						StartLocation = this.Location,
+						FinalLocation = waypoints.Waypoints[0].Location
+					});
 				
 				for (int i = 0; i < waypoints.Waypoints.Count - 1; i++)
 				{
 					animList.Add(
-						new WaySegment {
+						new PathSegment 
+						{
 							Duration = TimeSpan.FromSeconds(waypoints.Waypoints[i + 1].Fraction * totalTime),
-							StartPosition = waypoints.Waypoints[i].Location,
-							FinalPosition = waypoints.Waypoints[i + 1].Location
+							StartLocation = waypoints.Waypoints[i].Location,
+							FinalLocation = waypoints.Waypoints[i + 1].Location
 						});
 				};
 
@@ -137,14 +122,15 @@ namespace bstrkr.mvvm.viewmodels
 			}
 			else
 			{
-				if (this.Location.Latitude != 0 && this.Location.Longitude != 0)
+				if (!this.Location.Equals(GeoLocation.Empty))
 				{
 					animList.Add(
-						new WaySegment {
+						new PathSegment 
+						{
 							Duration = TimeSpan.FromSeconds(10),
-						StartPosition = this.Location,
-						FinalPosition = currentLocation
-					});
+							StartLocation = this.Location,
+							FinalLocation = currentLocation
+						});
 				}
 			}
 
@@ -161,16 +147,16 @@ namespace bstrkr.mvvm.viewmodels
 			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize);
 		}
 
-		private void SetLocation(GeoPoint location)
+		private void SetLocation(GeoLocation location)
 		{
-			if (this.Model != null && !GeoPoint.Equals(this.Model.Location, location))
+			if (this.Model != null && !GeoLocation.Equals(this.Model.Location, location))
 			{
 				this.Model.Location = location;
 				this.RaisePropertyChanged(() => this.Location);
 			}
 		}
 
-		private void RaisePathUpdatedEvent(IList<WaySegment> pathSegments)
+		private void RaisePathUpdatedEvent(IList<PathSegment> pathSegments)
 		{
 			if (this.PathUpdated != null)
 			{
@@ -181,6 +167,6 @@ namespace bstrkr.mvvm.viewmodels
 
 	public class VehiclePathUpdatedEventArgs : EventArgs
 	{
-		public IList<WaySegment> PathSegments { get; set; }
+		public IList<PathSegment> PathSegments { get; set; }
 	}
 }

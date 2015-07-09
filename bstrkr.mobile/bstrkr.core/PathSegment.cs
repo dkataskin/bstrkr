@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using bstrkr.core;
 using bstrkr.core.spatial;
 
-namespace bstrkr.mvvm.maps
+namespace bstrkr.core
 {
-	public class WaySegment
+	public class PathSegment
 	{
 		public TimeSpan Duration { get; set; }
 
-		public GeoPoint StartPosition { get; set; }
+		public GeoLocation StartLocation { get; set; }
 
-		public GeoPoint FinalPosition { get; set; }
+		public GeoLocation FinalLocation { get; set; }
 	}
 }

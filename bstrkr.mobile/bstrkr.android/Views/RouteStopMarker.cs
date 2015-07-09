@@ -3,6 +3,7 @@ using System.ComponentModel;
 
 using Android.Gms.Maps.Model;
 
+using bstrkr.core.android.extensions;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 
@@ -22,7 +23,7 @@ namespace bstrkr.android.views
 		{
 			return new MarkerOptions()
 				.Anchor(0.5f, 0.5f)
-				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
+				.SetPosition(this.ViewModel.Location.ToLatLng())
 				.SetTitle(this.ViewModel.Model.Name)
 				.SetSnippet(this.ViewModel.Model.Description)
 				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)

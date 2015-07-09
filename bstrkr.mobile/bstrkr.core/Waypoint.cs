@@ -6,17 +6,19 @@ namespace bstrkr.core
 {
 	public struct Waypoint
 	{
-		public Waypoint(GeoPoint location, float heading, float fraction)
+		public float Fraction;
+		public GeoLocation Location;
+
+		public Waypoint(GeoLocation location, float fraction)
 		{
-			Location = location;
-			Fraction = fraction;
-			Heading = heading;
+			this.Location = location;
+			this.Fraction = fraction;
 		}
 
-		public float Fraction;
-
-		public GeoPoint Location;
-
-		public float Heading;
+		public Waypoint(GeoPoint position, float heading, float fraction)
+		{
+			this.Location = new GeoLocation(position, heading);
+			this.Fraction = fraction;
+		}
 	}
 }  

@@ -33,9 +33,9 @@ namespace bstrkr.core
 
 		public IReadOnlyList<Waypoint> Waypoints { get; private set; }
 
-		public void Add(GeoPoint location, float heading, float fraction)
+		public void Add(GeoPoint position, float heading, float fraction)
 		{
-			_waypoints.Add(new Waypoint(location, heading, fraction));
+			_waypoints.Add(new Waypoint(position, heading, fraction));
 		}
 	}
 }

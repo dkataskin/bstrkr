@@ -11,12 +11,12 @@ namespace bstrkr.core
 			this.Id = id;
 			this.Name = name;
 			this.Description = description;
-			this.Location = location;
+			this.Location = new GeoLocation(location);
 		}
 
 		public string Id { get; private set; }
 
-		public GeoPoint Location { get; private set; }
+		public GeoLocation Location { get; private set; }
 
 		public string Name { get; private set; }
 

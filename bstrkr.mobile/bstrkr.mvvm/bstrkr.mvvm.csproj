@@ -46,7 +46,6 @@
     <Compile Include="ViewModels\MapMarkerViewModelBase.cs" />
     <Compile Include="Views\IRouteStopMarker.cs" />
     <Compile Include="Views\MapViewLocationTargetBinding.cs" />
-    <Compile Include="Maps\WaySegment.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\MenuSection.cs" />

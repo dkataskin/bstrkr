@@ -104,11 +104,10 @@
     <Compile Include="Presenters\ICustomPresenter.cs" />
     <Compile Include="Presenters\IFragmentHost.cs" />
     <Compile Include="Services\Resources\AndroidAppResourceManager.cs" />
-    <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
-    <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
     <Compile Include="Views\BusTrackerActionBarDrawerToggle.cs" />
     <Compile Include="Views\MvxActionBarCompatAcitivity.cs" />
     <Compile Include="Views\MvxActionBarEventSourceActivity.cs" />
+    <Compile Include="Extensions\GeoLocationExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

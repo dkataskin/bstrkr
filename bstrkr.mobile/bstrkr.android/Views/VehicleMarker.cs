@@ -8,6 +8,7 @@ using Android.Animation;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 
+using bstrkr.core;
 using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
 using bstrkr.core.utils;
@@ -17,13 +18,12 @@ using bstrkr.mvvm.views;
 
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Core;
+using Android.Views.Animations;
 
 namespace bstrkr.android.views
 {
 	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker
 	{
-		private ConcurrentQueue<WaySegment> _animationQueue = new ConcurrentQueue<WaySegment>();
-
 		private AnimatorRunner _animatorRunner;
 
 		public VehicleMarker(VehicleViewModel vehicleVM)
@@ -37,14 +37,13 @@ namespace bstrkr.android.views
 
 		public override MarkerOptions GetOptions()
 		{
-			var vehicleType = this.ViewModel.VehicleType.ToString()[0];
 			return new MarkerOptions()
 				.Anchor(0.5f, 0.5f)
-				.SetPosition(new LatLng(this.ViewModel.Location.Latitude, this.ViewModel.Location.Longitude))
+				.SetPosition(this.ViewModel.Location.ToLatLng())
 				.SetTitle(this.ViewModel.RouteNumber)
 				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(true)
-				.InvokeRotation(Convert.ToSingle(this.ViewModel.VehicleHeading));
+				.InvokeRotation(Convert.ToSingle(this.ViewModel.Location.Heading));
 		}
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -57,26 +56,17 @@ namespace bstrkr.android.views
 			if (args.PropertyName.Equals("Location") && GeoPoint.Empty.Equals(this.Location))
 			{
 				this.Marker.Position = this.ViewModel.Location.ToLatLng();
+				this.Marker.Rotation = this.ViewModel.Location.Heading;
 			}
 
 			if (args.PropertyName.Equals("Icon"))
 			{
 				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
 			}
-
-			if (args.PropertyName.Equals("VehicleHeading"))
-			{
-				this.Marker.Rotation = this.ViewModel.VehicleHeading;
-			}
 		}
 
 		private void OnPathUpdated(object sender, VehiclePathUpdatedEventArgs args)
 		{
-			foreach (var pathSegment in args.PathSegments)
-			{
-				_animationQueue.Enqueue(pathSegment);
-			}
-
 			if (_animatorRunner == null && this.Marker == null)
 			{
 				return;
@@ -84,53 +74,18 @@ namespace bstrkr.android.views
 
 			if (_animatorRunner == null)
 			{
-				_animatorRunner = new AnimatorRunner(this.Marker);
+				_animatorRunner = new AnimatorRunner(this.MapView, this.Marker);
 			}
 
-			if (_animatorRunner.AnimationRunning)
-			{
-				return;
-			}
-
-			this.Animate(this.MapView.VisibleRegion);
-		}
-
-		private void Animate(GeoRect visibleRegion)
-		{
-			var latLngBounds = new LatLngBounds(
-								visibleRegion.SouthWest.ToLatLng(),
-								visibleRegion.NorthEast.ToLatLng());
-			GeoPoint targetPosition = GeoPoint.Empty;
-			WaySegment pathSegment = null;
-			var animate = false;
-			var startPositionIsInView = false;
-			var finalPositionIsInView = false;
-			while(!animate && _animationQueue.TryDequeue(out pathSegment))
-			{
-				startPositionIsInView = latLngBounds.Contains(pathSegment.StartPosition.ToLatLng());
-				finalPositionIsInView = latLngBounds.Contains(pathSegment.FinalPosition.ToLatLng());
-
-				animate = startPositionIsInView || finalPositionIsInView;
-
-				targetPosition = pathSegment.FinalPosition;
-			}
-
-			if (animate)
-			{
-				_animatorRunner.Animate(pathSegment, finalPositionIsInView);
-			}
-			else
-			{
-				this.Marker.Position = targetPosition.ToLatLng();
-			}
+			_animatorRunner.QueueAnimation(args.PathSegments);
 		}
 
 		private class TpEvaluator : Java.Lang.Object, ITypeEvaluator
 		{
 			public Java.Lang.Object Evaluate(float fraction, Java.Lang.Object startValue, Java.Lang.Object endValue)
 			{
-				LatLng b = endValue as LatLng;
-				LatLng a = startValue as LatLng;
+				var b = endValue as LatLng;
+				var a = startValue as LatLng;
 
 				double lat = (b.Latitude - a.Latitude) * fraction + a.Latitude;
 				double lngDelta = b.Longitude - a.Longitude;
@@ -140,60 +95,64 @@ namespace bstrkr.android.views
 				{
 					lngDelta -= Math.Sign(lngDelta) * 360;
 				}
+
 				double lng = lngDelta * fraction + a.Longitude;
 				return new LatLng(lat, lng);
 			}
-			
 		}
 
 		private class AnimatorRunner : Java.Lang.Object, Android.Animation.Animator.IAnimatorListener
 		{
 			private readonly object _lockObject = new object();
-			private bool _animationRunning;
-			private ConcurrentQueue<ObjectAnimator> _animationQueue = new ConcurrentQueue<ObjectAnimator>();
-			private Marker _marker;
+			private readonly Queue<PathSegment> _animationQueue = new Queue<PathSegment>();
+			private readonly Marker _marker;
+			private readonly IMapView _mapView;
 
-			public AnimatorRunner(Marker marker)
+			private ObjectAnimator _animator = null;
+
+			public AnimatorRunner(IMapView mapView, Marker marker)
 			{
+				_mapView = mapView;
 				_marker = marker;
 			}
 
-			public bool AnimationRunning { get { return _animationRunning; } }
+			public bool AnimationRunning 
+			{ 
+				get 
+				{ 
+					lock(_lockObject)
+					{
+						return _animator != null;
+					}
+				} 
+			}
 
-			public void Animate(WaySegment waySegment, bool animateStartPosition)
+			public void QueueAnimation(IEnumerable<PathSegment> waySegments)
 			{
-				ObjectAnimator animator = null;
-				if (animateStartPosition)
-				{
-					animator = ObjectAnimator.OfObject(
-													_marker, 
-													"Position", 
-													new TpEvaluator(),
-													waySegment.StartPosition.ToLatLng(),
-													waySegment.FinalPosition.ToLatLng());
-				}
-				else
-				{
-					animator = ObjectAnimator.OfObject(
-													_marker, 
-													"Position", 
-													new TpEvaluator(),
-													waySegment.FinalPosition.ToLatLng());
-				}
-				
-				animator.AddListener(this);
-				animator.SetDuration(Convert.ToInt64(waySegment.Duration.TotalMilliseconds));
-
-				bool runAnimation = false;
 				lock(_lockObject)
 				{
-					runAnimation = !_animationRunning;
-					_animationQueue.Enqueue(animator);
-				}
+					foreach (var waySegment in waySegments)
+					{
+						_animationQueue.Enqueue(waySegment);
+					}
 
-				if (runAnimation)
+					if (_animator == null)
+					{
+						this.RunNext();
+					}
+				}
+			}
+
+			public void QueueAnimation(PathSegment waySegment)
+			{
+				lock(_lockObject)
 				{
-					this.RunNext();
+					_animationQueue.Enqueue(waySegment);
+
+					if (_animator == null)
+					{
+						this.RunNext();
+					}
 				}
 			}
 
@@ -201,7 +160,7 @@ namespace bstrkr.android.views
 			{
 				lock(_lockObject)
 				{
-					_animationRunning = false;
+					_animator = null;
 				}
 			}
 
@@ -209,7 +168,7 @@ namespace bstrkr.android.views
 			{
 				lock(_lockObject)
 				{
-					_animationRunning = false;
+					_animator = null;
 				}
 
 				this.RunNext();
@@ -223,18 +182,68 @@ namespace bstrkr.android.views
 			{
 				lock(_lockObject)
 				{
-					_animationRunning = true;
+					_animator = animation as ObjectAnimator;
 				}
 			}
 
 			private void RunNext()
 			{
-				ObjectAnimator animator = null;
-				_animationQueue.TryDequeue(out animator);
-
-				if (animator != null)
+				lock(_lockObject)
 				{
-					animator.Start();
+					if (_animator == null)
+					{
+						var visibleRegion = _mapView.VisibleRegion;
+						var latLngBounds = new LatLngBounds(
+											visibleRegion.SouthWest.ToLatLng(),
+											visibleRegion.NorthEast.ToLatLng());
+						GeoLocation targetLocation = GeoLocation.Empty;
+						PathSegment pathSegment = null;
+						var animate = false;
+						var startPositionIsInView = false;
+						var finalPositionIsInView = false;
+
+						while(!animate && _animationQueue.Count > 0)
+						{
+							pathSegment = _animationQueue.Dequeue();
+
+							startPositionIsInView = latLngBounds.Contains(pathSegment.StartLocation.ToLatLng());
+							finalPositionIsInView = latLngBounds.Contains(pathSegment.FinalLocation.ToLatLng());
+			
+							animate = startPositionIsInView || finalPositionIsInView;
+			
+							targetLocation = pathSegment.FinalLocation;
+						}
+			
+						if (animate)
+						{
+							ObjectAnimator animator = null;
+							if (finalPositionIsInView)
+							{
+								animator = ObjectAnimator.OfObject(
+																_marker, 
+																"Position", 
+																new TpEvaluator(),
+																pathSegment.StartLocation.ToLatLng(),
+																pathSegment.FinalLocation.ToLatLng());
+							}
+							else
+							{
+								animator = ObjectAnimator.OfObject(
+																_marker, 
+																"Position", 
+																new TpEvaluator(),
+																pathSegment.FinalLocation.ToLatLng());
+							}
+							
+							animator.AddListener(this);
+							animator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
+							animator.Start();
+						}
+						else if (!GeoPoint.Empty.Equals(targetLocation))
+						{
+							_marker.Position = targetLocation.ToLatLng();
+						}
+					}
 				}
 			}
 		}

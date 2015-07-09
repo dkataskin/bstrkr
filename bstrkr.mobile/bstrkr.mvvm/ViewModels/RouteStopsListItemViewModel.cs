@@ -52,7 +52,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void CalculateDistance(GeoPoint location)
 		{
-			this.DistanceInMeters = Convert.ToInt32(Math.Round(this.Stops.Min(x => location.DistanceTo(x.Location) * 1000)));
+			this.DistanceInMeters = Convert.ToInt32(Math.Round(this.Stops.Min(x => location.DistanceTo(x.Location.Position) * 1000)));
 		}
 	}
 }
