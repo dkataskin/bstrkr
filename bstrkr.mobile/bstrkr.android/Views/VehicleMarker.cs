@@ -108,7 +108,7 @@ namespace bstrkr.android.views
 			private readonly Marker _marker;
 			private readonly IMapView _mapView;
 
-			private ObjectAnimator _animator = null;
+			private AnimatorSet _animatorSet = null;
 
 			public AnimatorRunner(IMapView mapView, Marker marker)
 			{
@@ -122,7 +122,7 @@ namespace bstrkr.android.views
 				{ 
 					lock(_lockObject)
 					{
-						return _animator != null;
+						return _animatorSet != null;
 					}
 				} 
 			}
@@ -136,7 +136,7 @@ namespace bstrkr.android.views
 						_animationQueue.Enqueue(waySegment);
 					}
 
-					if (_animator == null)
+					if (_animatorSet == null)
 					{
 						this.RunNext();
 					}
@@ -149,7 +149,7 @@ namespace bstrkr.android.views
 				{
 					_animationQueue.Enqueue(waySegment);
 
-					if (_animator == null)
+					if (_animatorSet == null)
 					{
 						this.RunNext();
 					}
@@ -160,7 +160,7 @@ namespace bstrkr.android.views
 			{
 				lock(_lockObject)
 				{
-					_animator = null;
+					_animatorSet = null;
 				}
 			}
 
@@ -168,7 +168,7 @@ namespace bstrkr.android.views
 			{
 				lock(_lockObject)
 				{
-					_animator = null;
+					_animatorSet = null;
 				}
 
 				this.RunNext();
@@ -180,17 +180,13 @@ namespace bstrkr.android.views
 
 			public void OnAnimationStart(Animator animation)
 			{
-				lock(_lockObject)
-				{
-					_animator = animation as ObjectAnimator;
-				}
 			}
 
 			private void RunNext()
 			{
 				lock(_lockObject)
 				{
-					if (_animator == null)
+					if (_animatorSet == null)
 					{
 						var visibleRegion = _mapView.VisibleRegion;
 						var latLngBounds = new LatLngBounds(
@@ -216,10 +212,10 @@ namespace bstrkr.android.views
 			
 						if (animate)
 						{
-							ObjectAnimator animator = null;
+							ObjectAnimator positionAnimator = null;
 							if (finalPositionIsInView)
 							{
-								animator = ObjectAnimator.OfObject(
+								positionAnimator = ObjectAnimator.OfObject(
 																_marker, 
 																"Position", 
 																new TpEvaluator(),
@@ -228,18 +224,29 @@ namespace bstrkr.android.views
 							}
 							else
 							{
-								animator = ObjectAnimator.OfObject(
+								positionAnimator = ObjectAnimator.OfObject(
 																_marker, 
 																"Position", 
 																new TpEvaluator(),
 																pathSegment.FinalLocation.ToLatLng());
 							}
-							
-							animator.AddListener(this);
-							animator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
-							animator.Start();
+
+							positionAnimator.AddListener(this);
+							positionAnimator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
+
+							var rotationAnimator = ObjectAnimator.OfFloat(
+										                        _marker,
+										                        "Rotation",
+										                        pathSegment.FinalLocation.Heading + 90);
+							rotationAnimator.AddListener(this);
+							rotationAnimator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
+
+							_animatorSet = new AnimatorSet();
+							_animatorSet.AddListener(this);
+							_animatorSet.Play(positionAnimator).With(rotationAnimator);
+							_animatorSet.Start();
 						}
-						else if (!GeoPoint.Empty.Equals(targetLocation))
+						else if (!GeoLocation.Empty.Equals(targetLocation))
 						{
 							_marker.Position = targetLocation.ToLatLng();
 						}
