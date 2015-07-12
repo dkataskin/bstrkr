@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <com.google.android.gms.maps.MapView
@@ -12,13 +11,14 @@
         local:cameraTargetLng="37.6182293"
         local:cameraZoom="14" />
     <ProgressBar
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:id="@+id/busyIndicator"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:indeterminateOnly="true"
         android:keepScreenOn="false"
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
+        android:layout_gravity="center"
         local:MvxBind="Visibility Visibility(IsBusy)"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
-</RelativeLayout>
+        style="@style/Widget.AppCompat.ProgressBar" />
+</FrameLayout>

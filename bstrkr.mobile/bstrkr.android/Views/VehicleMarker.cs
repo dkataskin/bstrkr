@@ -108,7 +108,7 @@ namespace bstrkr.android.views
 			private readonly Marker _marker;
 			private readonly IMapView _mapView;
 
-			private AnimatorSet _animatorSet = null;
+			private AnimatorSet _animatorSet = new AnimatorSet();
 
 			public AnimatorRunner(IMapView mapView, Marker marker)
 			{
@@ -122,7 +122,7 @@ namespace bstrkr.android.views
 				{ 
 					lock(_lockObject)
 					{
-						return _animatorSet != null;
+						return _animatorSet.IsRunning;
 					}
 				} 
 			}
@@ -136,7 +136,7 @@ namespace bstrkr.android.views
 						_animationQueue.Enqueue(waySegment);
 					}
 
-					if (_animatorSet == null)
+					if (!_animatorSet.IsRunning)
 					{
 						this.RunNext();
 					}
@@ -149,7 +149,7 @@ namespace bstrkr.android.views
 				{
 					_animationQueue.Enqueue(waySegment);
 
-					if (_animatorSet == null)
+					if (!_animatorSet.IsRunning)
 					{
 						this.RunNext();
 					}
@@ -158,19 +158,10 @@ namespace bstrkr.android.views
 
 			public void OnAnimationCancel(Animator animation)
 			{
-				lock(_lockObject)
-				{
-					_animatorSet = null;
-				}
 			}
 
 			public void OnAnimationEnd(Animator animation)
 			{
-				lock(_lockObject)
-				{
-					_animatorSet = null;
-				}
-
 				this.RunNext();
 			}
 
@@ -186,7 +177,7 @@ namespace bstrkr.android.views
 			{
 				lock(_lockObject)
 				{
-					if (_animatorSet == null)
+					if (!_animatorSet.IsRunning)
 					{
 						var visibleRegion = _mapView.VisibleRegion;
 						var latLngBounds = new LatLngBounds(
