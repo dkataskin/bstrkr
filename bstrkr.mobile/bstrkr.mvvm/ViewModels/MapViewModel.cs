@@ -145,11 +145,8 @@ namespace bstrkr.mvvm.viewmodels
 			base.Start();
 
 			// android requires location watcher to be started on the UI thread
-			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
+			//this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
 			this.IsBusy = true;
-
-			//TODO: clean up
-			//_animationTask = Task.Factory.StartNew(() => this.RunAnimation());
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)

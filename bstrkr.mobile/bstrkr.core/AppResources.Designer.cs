@@ -173,6 +173,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string locating_countdown_format {
+            get {
+                return ResourceManager.GetString("locating_countdown_format", resourceCulture);
+            }
+        }
+        
         public static string map_view_title {
             get {
                 return ResourceManager.GetString("map_view_title", resourceCulture);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:background="#ffffff">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="-20dp">
+        <ProgressBar
+            android:id="@+id/busyIndicator"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:indeterminateOnly="true"
+            android:keepScreenOn="false"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            style="@style/Widget.AppCompat.ProgressBar" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/ListItemRegular"
+            local:MvxBind="Text StringFormat(LocatingSec, [locating_countdown_format])" />
+    </LinearLayout>
+</FrameLayout>

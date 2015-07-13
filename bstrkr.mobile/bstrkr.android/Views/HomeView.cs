@@ -197,6 +197,8 @@ namespace bstrkr.android.views
 			panel.SlidingEnabled = true;
 
 			this.CloseSlidingPanel();
+
+			(this.ViewModel as HomeViewModel).DetectLocationCommand.Execute();
 		}
 
 		public override void OnConfigurationChanged(Configuration newConfig)
@@ -234,6 +236,14 @@ namespace bstrkr.android.views
 			}
 
 			return base.OnOptionsItemSelected(item);
+		}
+
+		public override void OnBackPressed()
+		{
+			if (!this.NavigateBack())
+			{
+				base.OnBackPressed();
+			}
 		}
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -298,17 +308,10 @@ namespace bstrkr.android.views
 			}
         }
 
-		public override void OnBackPressed()
-		{
-			if (!this.NavigateBack())
-			{
-				base.OnBackPressed();
-			}
-		}
-
 		private void RegisterForDetailsRequests()
 		{
 			var customPresenter = Mvx.Resolve<ICustomPresenter>();
+			customPresenter.Register(typeof(InitViewModel), this);
 			customPresenter.Register(typeof(PreferencesViewModel), this);
 			customPresenter.Register(typeof(RoutesViewModel), this);
 			customPresenter.Register(typeof(RouteStopsViewModel), this);
@@ -361,6 +364,17 @@ namespace bstrkr.android.views
 
 		private void Navigate(MvxViewModelRequest request, IMvxViewModelLoader loaderService)
 		{
+			if (request.ViewModelType == typeof(InitViewModel))
+			{
+				var initView = new InitView();
+				initView.ViewModel = loaderService.LoadViewModel(request, null);
+				this.FragmentManager.BeginTransaction()
+					.Replace(Resource.Id.content_frame, initView, "init_view")
+					.Commit();
+
+				this.DisableDrawer();
+			}
+
 			if (request.ViewModelType == typeof(SetAreaViewModel))
 			{
 				var dialog = new SetAreaView();

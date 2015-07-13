@@ -189,6 +189,7 @@
     <Compile Include="Views\CustomImageView.cs" />
     <Compile Include="Views\CustomTextView.cs" />
     <Compile Include="Views\SetLocationView.cs" />
+    <Compile Include="Views\InitView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -344,6 +345,7 @@
     <AndroidResource Include="Resources\Drawable\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bus_s.png" />
+    <AndroidResource Include="Resources\Layout\fragment_init_view.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-using Cirrious.MvvmCross.ViewModels;
-
 using bstrkr.core;
+
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -25,11 +26,14 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
 			this.SelectMenuItemCommand = new MvxCommand<MenuViewModel>(this.SelectMenuItem);
+			this.DetectLocationCommand = new MvxCommand(() => this.ShowViewModel<InitViewModel>());
 		}
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
-		public ICommand SelectMenuItemCommand { get; private set; }
+		public MvxCommand<MenuViewModel> SelectMenuItemCommand { get; private set; }
+
+		public MvxCommand DetectLocationCommand { get; private set; }
 
 		public MenuSection GetSectionForViewModelType(Type type)
 		{

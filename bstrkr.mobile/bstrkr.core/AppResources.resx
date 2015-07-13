@@ -141,4 +141,7 @@
 	<data name="kilometers_short" xml:space="preserve">
     <value>km</value>
   </data>
+  	<data name="locating_countdown_format" xml:space="preserve">
+    <value>{00:D2} Understanding where you are...</value>
+  </data>
 </root>
