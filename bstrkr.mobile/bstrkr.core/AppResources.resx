@@ -142,6 +142,6 @@
     <value>km</value>
   </data>
   	<data name="locating_countdown_format" xml:space="preserve">
-    <value>{00:D2} Understanding where you are...</value>
+    <value>00:{0:D2} Understanding where you are...</value>
   </data>
 </root>

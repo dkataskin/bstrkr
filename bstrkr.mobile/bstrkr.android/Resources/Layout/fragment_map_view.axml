@@ -1,42 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.gms.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <com.google.android.gms.maps.MapView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/mapView"
-        local:cameraTargetLat="55.7503798"
-        local:cameraTargetLng="37.6182293"
-        local:cameraZoom="14" />
-<!--    <View android:layout_width="match_parent"
-    	  android:layout_height="match_parent"
-    	  android:clickable="true"
-    	  android:background="#c8ffffff"
-    	  local:MvxBind="Visibility Visibility(IsBusy)">
-    </View>
-    <LinearLayout android:layout_width="wrap_content"
-    			  android:layout_height="wrap_content"
-		          android:layout_gravity="center"
-		          android:orientation="vertical"
-		          android:gravity="center"
-		          android:layout_marginTop="-20dp"
-		          local:MvxBind="Visibility Visibility(IsBusy)">
-      <ProgressBar
-     	android:id="@+id/busyIndicator"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:indeterminateOnly="true"
-        android:keepScreenOn="false"
-        android:indeterminate="true"
-        android:indeterminateBehavior="repeat"
-        style="@style/Widget.AppCompat.ProgressBar" />
-
-     <TextView android:layout_width="wrap_content"
-     		   android:layout_height="wrap_content"
-     		   android:layout_marginTop="10dp"
-     		   style="@style/ListItemRegular"
-     		   android:text="00:30 Understanding where you are..." />
-  	</LinearLayout>-->
-</FrameLayout>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mapView"
+    local:cameraTargetLat="55.7503798"
+    local:cameraTargetLng="37.6182293"
+    local:cameraZoom="14" />

@@ -58,7 +58,7 @@ namespace bstrkr.mvvm.viewmodels
 			_messenger = messenger;
 			_locationService = locationService;
 			_locationService.LocationChanged += OnLocationChanged;
-			_locationService.LocationError += OnLocationError;
+//			_locationService.LocationError += OnLocationError;
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
@@ -326,28 +326,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)
 		{
-			this.IsBusy = false;
 
-			switch (args.Error)
-			{
-				case BusTrackerLocationErrors.UnknownArea:
-					Mvx.Resolve<IUserInteraction>().Confirm(
-									AppResources.unknown_location_dialog_text, 
-									answer => 
-									{
-										if (answer)
-										{
-											this.ShowViewModel<SetAreaViewModel>();
-										}
-									},
-									AppResources.unknown_location_dialog_title,
-									AppResources.yes,
-									AppResources.no_thanks);
-					break;
-
-				default:
-					break;
-			}
 		}
 
 		private void OnZoomChanged(float zoom)

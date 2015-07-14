@@ -373,6 +373,8 @@ namespace bstrkr.android.views
 					.Commit();
 
 				this.DisableDrawer();
+
+				_frag2tag[typeof(InitView)] = "init_view";
 			}
 
 			if (request.ViewModelType == typeof(SetAreaViewModel))

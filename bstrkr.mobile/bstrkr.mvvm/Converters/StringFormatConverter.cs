@@ -9,13 +9,12 @@ namespace bstrkr.mvvm.converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var strValue = value == null ? string.Empty : value.ToString();
 			if (parameter == null)
 			{
-				return strValue;
+				return value == null ? string.Empty : value.ToString();
 			}
 
-			return string.Format(parameter.ToString(), strValue);
+			return string.Format(parameter.ToString(), value == null ? string.Empty : value);
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
