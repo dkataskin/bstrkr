@@ -10,18 +10,18 @@ using bstrkr.core;
 using bstrkr.core.android.extensions;
 using bstrkr.core.consts;
 using bstrkr.core.map;
+using bstrkr.core.services.location;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
-using Cirrious.CrossCore;
-using bstrkr.core.services.location;
 
 namespace bstrkr.android.views
 {

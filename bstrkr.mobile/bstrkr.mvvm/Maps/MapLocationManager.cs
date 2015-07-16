@@ -17,15 +17,8 @@ namespace bstrkr.mvvm.maps
 
 		public virtual GeoPoint Location
 		{
-			get 
-			{ 
-				return _location; 
-			}
-
-			set
-			{
-				this.SetLocation(value);
-			}
+			get { return _location; }
+			set { this.SetLocation(value); }
 		}
 
 		protected virtual void SetLocation(GeoPoint location)
