@@ -14,8 +14,7 @@ namespace bstrkr.android
 		ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashScreen : MvxSplashScreenActivity
     {
-        public SplashScreen()
-            : base(Resource.Layout.page_splash_screen)
+        public SplashScreen(): base(Resource.Layout.page_splash_screen)
         {
         }
     }

@@ -202,7 +202,6 @@
     <AndroidResource Include="Resources\Layout\page_home_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_map_view.axml" />
     <AndroidResource Include="Resources\Layout\page_splash_screen.axml" />
-    <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_light.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_menu_refresh.png" />
@@ -346,10 +345,11 @@
     <AndroidResource Include="Resources\Drawable-mdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bus_s.png" />
     <AndroidResource Include="Resources\Layout\fragment_init_view.axml" />
-    <AndroidResource Include="Resources\Drawable-hdpi\splash.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\splash.png" />
-    <AndroidResource Include="Resources\Drawable-xhdpi\splash.png" />
-    <AndroidResource Include="Resources\Drawable-xxhdpi\splash.png" />
+    <AndroidResource Include="Resources\Drawable\splash.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\splash.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\splash.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\splash.9.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\splash.9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
