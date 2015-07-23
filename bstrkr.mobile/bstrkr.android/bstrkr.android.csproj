@@ -75,12 +75,6 @@
     <Reference Include="Cheesebaron.SlidingUpPanel">
       <HintPath>..\Components\slidinguppanel-1.0.1\lib\android\Cheesebaron.SlidingUpPanel.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.Portable">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.4.3\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp.Portable.Encodings">
-      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.4.3\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.CrossCore.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\MonoAndroid\Cirrious.CrossCore.Droid.dll</HintPath>
     </Reference>
@@ -152,6 +146,12 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Color.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Color.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Color.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.2.4.4\lib\MonoAndroid10\RestSharp.Portable.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp.Portable.Encodings">
+      <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.4.4\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -346,6 +346,10 @@
     <AndroidResource Include="Resources\Drawable-mdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bus_s.png" />
     <AndroidResource Include="Resources\Layout\fragment_init_view.axml" />
+    <AndroidResource Include="Resources\Drawable-hdpi\splash.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\splash.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\splash.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\splash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
