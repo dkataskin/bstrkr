@@ -5,10 +5,10 @@
 	<!-- colorPrimary is used for the default action bar background -->
 	<item name="colorPrimary">#FFFFFF</item>
 	<!-- colorPrimaryDark is used for the status bar -->
-	<item name="colorPrimaryDark">#1976D2</item>
+	<item name="colorPrimaryDark">#0fa389</item>
 	<!-- colorAccent is used as the default value for colorControlActivated
      	 which is used to tint widgets -->
-	<item name="colorAccent">#FF4081</item>
+	<item name="colorAccent">#0fa389</item>
   </style>
 
   <style name="BusTrackerTheme" parent="BusTrackerTheme.Base">
