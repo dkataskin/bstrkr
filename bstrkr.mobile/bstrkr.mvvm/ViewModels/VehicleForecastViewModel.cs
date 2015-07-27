@@ -81,19 +81,13 @@ namespace bstrkr.mvvm.viewmodels
 		public Vehicle Vehicle 
 		{ 
 			get { return _vehicle; } 
-			private set
-			{
-				this.RaiseAndSetIfChanged(ref _vehicle, value, () => Vehicle);
-			}
+			private set { this.RaiseAndSetIfChanged(ref _vehicle, value, () => Vehicle); }
 		}
 
 		public Route Route
 		{
 			get { return _route; }
-			private set 
-			{
-				this.RaiseAndSetIfChanged(ref _route, value, () => Route);
-			}
+			private set { this.RaiseAndSetIfChanged(ref _route, value, () => Route); }
 		}
 
 		public RouteVehicleVMStates State
@@ -106,10 +100,7 @@ namespace bstrkr.mvvm.viewmodels
 		public VehicleForecastListItemViewModel NextStopForecast
 		{
 			get { return _nextStopForecast; }
-			private set 
-			{
-				this.RaiseAndSetIfChanged(ref _nextStopForecast, value, () => this.NextStopForecast);
-			}
+			private set { this.RaiseAndSetIfChanged(ref _nextStopForecast, value, () => this.NextStopForecast); }
 		}
 
 		public void Init(

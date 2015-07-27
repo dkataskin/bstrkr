@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -140,6 +141,14 @@ namespace bstrkr.mvvm.viewmodels
 			if (_intervalSubscription != null)
 			{
 				_intervalSubscription.Dispose();
+				foreach (var vm in _allVehicles)
+				{
+					vm.PropertyChanged -= this.OnRouteVehicleVMPropertyChanged;
+					vm.CleanUp();
+				}
+
+				_allVehicles.Clear();
+				_vehicles.Clear();
 			}
 		}
 
@@ -169,7 +178,8 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						foreach(var vm in vms)
 						{
-							_vehicles.Add(vm);
+							_allVehicles.Add(vm);
+							vm.PropertyChanged += this.OnRouteVehicleVMPropertyChanged;
 						}
 					}
 
@@ -216,14 +226,33 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			await Task.Factory.StartNew(() =>
 			{
-				MvxTrace.Trace("There are {0} vehicles in the list", this.Vehicles.Count());
-				foreach (var vehicle in this.Vehicles) 
+				MvxTrace.Trace("There are {0} vehicles in the list", _allVehicles.Count());
+				foreach (var vehicle in _allVehicles) 
 				{
 					MvxTrace.Trace("Updating forecast for {0}", vehicle.Vehicle.CarPlate);
 					vehicle.UpdateForecastCommand.Execute();
 					MvxTrace.Trace("Forecast for {0} updated", vehicle.Vehicle.CarPlate);
 				}
 			});
+		}
+
+		private void OnRouteVehicleVMPropertyChanged(object sender, PropertyChangedEventArgs args)
+		{
+			if (args.PropertyName == "State")
+			{
+				lock (_lockObject)
+				{
+					var vm = sender as VehicleForecastViewModel;
+					if (vm.State == RouteVehicleVMStates.NoForecast)
+					{
+						_vehicles.Remove(vm);
+					}
+					else if (!_vehicles.Contains(vm))
+					{
+						_vehicles.Add(vm);
+					}
+				}
+			}
 		}
 	}
 }
