@@ -58,7 +58,6 @@ namespace bstrkr.mvvm.viewmodels
 			_messenger = messenger;
 			_locationService = locationService;
 			_locationService.LocationChanged += OnLocationChanged;
-//			_locationService.LocationError += OnLocationError;
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
@@ -143,10 +142,20 @@ namespace bstrkr.mvvm.viewmodels
 		public override void Start()
 		{
 			base.Start();
-
-			// android requires location watcher to be started on the UI thread
-			//this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
 			this.IsBusy = true;
+		}
+
+		public void Reload()
+		{
+			if (_liveDataProvider != null)
+			{
+				_liveDataProvider.Start();
+			}
+		}
+
+		public void Stop()
+		{
+			_liveDataProvider.Stop();
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
@@ -322,11 +331,6 @@ namespace bstrkr.mvvm.viewmodels
 			};
 
 			this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
-		}
-
-		private void OnLocationError(object sender, BusTrackerLocationErrorEventArgs args)
-		{
-
 		}
 
 		private void OnZoomChanged(float zoom)

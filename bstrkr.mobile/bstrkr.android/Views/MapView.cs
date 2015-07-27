@@ -86,6 +86,7 @@ namespace bstrkr.android.views
 			base.OnResume();
 			SetUpMapIfNeeded();
 			_googleMapView.OnResume();
+			this.MapViewModel.Reload();
 		}
 
 		public override void OnPause()
@@ -93,6 +94,13 @@ namespace bstrkr.android.views
 			base.OnPause();
 			_googleMapView.OnPause();
 		}
+
+		public override void OnStop()
+		{
+			base.OnStop();
+			this.MapViewModel.Stop();
+		}
+
 
 		public override void OnLowMemory()
 		{
@@ -105,31 +113,46 @@ namespace bstrkr.android.views
 			var locationProvider = Mvx.Resolve<ILocationService>();
 			map.SetLocationSource(locationProvider as ILocationSource);
 
-			_mapViewWrapper = new MonoDroidGoogleMapsView(map);
-			_mapViewWrapper.MarkerClicked += (s, a) =>
+			if (_mapViewWrapper == null)
 			{
-				if (this.MapViewModel != null)
+				_mapViewWrapper = new MonoDroidGoogleMapsView(map);
+				_mapViewWrapper.MarkerClicked += (s, a) =>
 				{
-					var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopMapViewModel>(a.Marker);
-					if (routeStopVM != null)
+					if (this.MapViewModel != null)
 					{
-						this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
-					} else
-					{
-						var vehicleVM = _vehicleMarkerManager.GetDataForMarker<VehicleViewModel>(a.Marker);
-						if (vehicleVM != null)
+						var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopMapViewModel>(a.Marker);
+						if (routeStopVM != null)
 						{
-							this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM);
+							this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
+						} 
+						else
+						{
+							var vehicleVM = _vehicleMarkerManager.GetDataForMarker<VehicleViewModel>(a.Marker);
+							if (vehicleVM != null)
+							{
+								this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM);
+							}
 						}
 					}
-				}
-			};
+				};
 
-			_mapViewWrapper.MapClicked += (s, a) => this.RaiseMapClickedEvent();
+				_mapViewWrapper.MapClicked += (s, a) => this.RaiseMapClickedEvent();
+			}
 
-			_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
-			_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
-			_mapLocationManager = new MapLocationManager(_mapViewWrapper);
+			if (_vehicleMarkerManager == null)
+			{
+				_vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
+			}
+
+			if (_routeStopMarkerManager == null)
+			{
+				_routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
+			}
+
+			if (_mapLocationManager == null)
+			{
+				_mapLocationManager = new MapLocationManager(_mapViewWrapper);
+			}
 
 			var set = this.CreateBindingSet<MapView, MapViewModel>();
 			set.Bind(map).For(m => m.MyLocationEnabled).To(vm => vm.DetectedArea);
