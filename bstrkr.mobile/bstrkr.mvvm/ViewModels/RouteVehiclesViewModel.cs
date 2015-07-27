@@ -33,7 +33,6 @@ namespace bstrkr.mvvm.viewmodels
 		private string _routeId;
 		private string _name;
 		private int _number;
-		private int _vehicleCount;
 		private VehicleTypes _vehicleType;
 		private Route _route;
 
