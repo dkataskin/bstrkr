@@ -35,6 +35,8 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.SelectedArea = provider.Area;
 			}
+
+			this.AnimateMarkers = Settings.AnimateMarkers;
 		}
 
 		public ReadOnlyObservableCollection<Area> Areas { get; private set; }

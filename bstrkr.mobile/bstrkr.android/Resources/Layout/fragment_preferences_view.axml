@@ -38,7 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/sp_area_value"
-            android:text="Animate markes"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             local:MvxBind="Checked AnimateMarkers, Text [animate_markers_label]" />
     </RelativeLayout>
 </LinearLayout>
