@@ -37,7 +37,11 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			this.AnimateMarkers = Settings.AnimateMarkers;
+
+			this.SavePreferencesCommand = new MvxCommand(this.SavePreferences);
 		}
+
+		public MvxCommand SavePreferencesCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<Area> Areas { get; private set; }
 
@@ -51,6 +55,11 @@ namespace bstrkr.mvvm.viewmodels
 		{ 
 			get { return _animateMarkers; }
 			set { this.RaiseAndSetIfChanged(ref _animateMarkers, value, () => this.AnimateMarkers); }
+		}
+
+		private void SavePreferences()
+		{
+			Settings.AnimateMarkers = this.AnimateMarkers;
 		}
 	}
 }

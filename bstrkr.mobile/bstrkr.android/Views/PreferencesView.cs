@@ -8,6 +8,7 @@ using Android.Views;
 using bstrkr.core;
 using bstrkr.core.android;
 using bstrkr.core.android.views;
+using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
@@ -24,6 +25,13 @@ namespace bstrkr.android.views
 			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.preferences_view_title;
 
 			return this.BindingInflate(Resource.Layout.fragment_preferences_view, null);
+		}
+
+		public override void OnDestroy()
+		{
+			base.OnDestroy();
+
+			(this.ViewModel as PreferencesViewModel).SavePreferencesCommand.Execute();
 		}
 	}
 }

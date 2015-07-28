@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using System.Threading.Tasks;
 
 using bstrkr.core;
@@ -23,6 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
+			this.AnimateMovement = Settings.AnimateMarkers;
 		}
 
 		public event EventHandler<VehiclePathUpdatedEventArgs> PathUpdated;
@@ -81,8 +81,15 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
+		public bool AnimateMovement 
+		{ 
+			get; private set; 
+		}
+
 		public void UpdateLocation(GeoLocation currentLocation, WaypointCollection waypoints)
 		{
+			this.AnimateMovement = Settings.AnimateMarkers;
+
 			var animList = new List<PathSegment>();
 			var totalTime = 10.0d;
 			if (_lastUpdate > 0)

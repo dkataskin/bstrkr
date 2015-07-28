@@ -153,6 +153,12 @@
     <Reference Include="RestSharp.Portable.Encodings">
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.2.4.4\lib\MonoAndroid10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
+    <Reference Include="Refractored.Xam.Settings">
+      <HintPath>..\packages\Xam.Plugins.Settings.1.5.2\lib\MonoAndroid10\Refractored.Xam.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="Refractored.Xam.Settings.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Settings.1.5.2\lib\MonoAndroid10\Refractored.Xam.Settings.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -229,12 +235,6 @@
     <AndroidResource Include="Resources\Layout\item_stops_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_stops_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routes_list.axml" />
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\trolley_s.png">
-      <Link>Resources\Drawable-xxhdpi\trolley_s.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\minibus_s.png">
-      <Link>Resources\Drawable-xxhdpi\minibus_s.png</Link>
-    </AndroidResource>
     <AndroidResource Include="Resources\Layout\fragment_route_view.axml" />
     <AndroidResource Include="Resources\Layout\item_routevehicles_list.axml" />
     <AndroidResource Include="Resources\Layout\fragment_routestop_view.axml" />
@@ -337,9 +337,6 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_b.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_m.png" />
     <AndroidResource Include="Resources\Layout\item_stop_forecast.axml" />
-    <AndroidResource Include="..\bstrkr.core\Resources\Images\tram_s.png">
-      <Link>Resources\Drawable-xxhdpi\tram_s.png</Link>
-    </AndroidResource>
     <AndroidResource Include="Resources\Drawable\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bus_s.png" />
@@ -350,6 +347,22 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\minibus_s.png" />
+    <AndroidResource Include="Resources\Drawable\tram_s.png" />
+    <AndroidResource Include="Resources\Drawable\trolley_s.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\bus_s.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\minibus_s.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\tram_s.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\trolley_s.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\minibus_s.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\tram_s.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trolley_s.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\minibus_s.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\tram_s.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\trolley_s.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\minibus_s.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\tram_s.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_s.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
