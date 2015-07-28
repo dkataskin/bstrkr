@@ -144,4 +144,7 @@
   	<data name="locating_countdown_format" xml:space="preserve">
     <value>00:{0:D2} Understanding where you are...</value>
   </data>
+	<data name="animate_markers_label" xml:space="preserve">
+    <value>Animate markers movement</value>
+  </data>
 </root>

@@ -167,6 +167,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string animate_markers_label {
+            get {
+                return ResourceManager.GetString("animate_markers_label", resourceCulture);
+            }
+        }
+        
         public static string no_thanks {
             get {
                 return ResourceManager.GetString("no_thanks", resourceCulture);

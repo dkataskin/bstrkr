@@ -32,14 +32,13 @@
             local:MvxItemTemplate="@layout/item_area_spinner"
             local:MvxDropDownItemTemplate="@layout/item_area_spinnerdropdown"
             local:MvxBind="ItemsSource Areas;SelectedItem SelectedArea" />
-        <CheckedTextView
-            style="?android:attr/spinnerDropDownItemStyle"
+        <CheckBox
+            android:id="@+id/checkbox_animation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@id/sp_area_value"
-            android:singleLine="true"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            android:ellipsize="marquee"
-            local:MvxBind="Text [route_view_to_stop_label]" />
+            android:text="Animate markes"
+            local:MvxBind="Checked AnimateMarkers, Text [animate_markers_label]" />
     </RelativeLayout>
 </LinearLayout>
