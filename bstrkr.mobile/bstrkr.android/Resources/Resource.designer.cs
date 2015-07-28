@@ -1819,97 +1819,94 @@ namespace bstrkr.android
 			public const int ic_setting_light = 2130837628;
 			
 			// aapt resource value: 0x7f02007d
-			public const int Icon = 2130837629;
+			public const int minibus_b = 2130837629;
 			
 			// aapt resource value: 0x7f02007e
-			public const int minibus_b = 2130837630;
+			public const int minibus_m = 2130837630;
 			
 			// aapt resource value: 0x7f02007f
-			public const int minibus_m = 2130837631;
+			public const int minibus_s = 2130837631;
 			
 			// aapt resource value: 0x7f020080
-			public const int minibus_s = 2130837632;
+			public const int mr_ic_audio_vol = 2130837632;
 			
 			// aapt resource value: 0x7f020081
-			public const int mr_ic_audio_vol = 2130837633;
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837633;
 			
 			// aapt resource value: 0x7f020082
-			public const int mr_ic_media_route_connecting_mono_dark = 2130837634;
+			public const int mr_ic_media_route_connecting_mono_light = 2130837634;
 			
 			// aapt resource value: 0x7f020083
-			public const int mr_ic_media_route_connecting_mono_light = 2130837635;
+			public const int mr_ic_media_route_mono_dark = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int mr_ic_media_route_mono_dark = 2130837636;
+			public const int mr_ic_media_route_mono_light = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int mr_ic_media_route_mono_light = 2130837637;
+			public const int mr_ic_pause_dark = 2130837637;
 			
 			// aapt resource value: 0x7f020086
-			public const int mr_ic_pause_dark = 2130837638;
+			public const int mr_ic_pause_light = 2130837638;
 			
 			// aapt resource value: 0x7f020087
-			public const int mr_ic_pause_light = 2130837639;
+			public const int mr_ic_play_dark = 2130837639;
 			
 			// aapt resource value: 0x7f020088
-			public const int mr_ic_play_dark = 2130837640;
+			public const int mr_ic_play_light = 2130837640;
 			
 			// aapt resource value: 0x7f020089
-			public const int mr_ic_play_light = 2130837641;
+			public const int mr_ic_settings_dark = 2130837641;
 			
 			// aapt resource value: 0x7f02008a
-			public const int mr_ic_settings_dark = 2130837642;
-			
-			// aapt resource value: 0x7f02008b
-			public const int mr_ic_settings_light = 2130837643;
-			
-			// aapt resource value: 0x7f02009b
-			public const int notification_template_icon_bg = 2130837659;
-			
-			// aapt resource value: 0x7f02008c
-			public const int powered_by_google_dark = 2130837644;
-			
-			// aapt resource value: 0x7f02008d
-			public const int powered_by_google_light = 2130837645;
-			
-			// aapt resource value: 0x7f02008e
-			public const int splash = 2130837646;
-			
-			// aapt resource value: 0x7f02008f
-			public const int track = 2130837647;
-			
-			// aapt resource value: 0x7f020090
-			public const int track_current = 2130837648;
-			
-			// aapt resource value: 0x7f020091
-			public const int tram_b = 2130837649;
-			
-			// aapt resource value: 0x7f020092
-			public const int tram_m = 2130837650;
-			
-			// aapt resource value: 0x7f020093
-			public const int tram_s = 2130837651;
-			
-			// aapt resource value: 0x7f020094
-			public const int trolley_b = 2130837652;
-			
-			// aapt resource value: 0x7f020095
-			public const int trolley_m = 2130837653;
-			
-			// aapt resource value: 0x7f020096
-			public const int trolley_s = 2130837654;
-			
-			// aapt resource value: 0x7f020097
-			public const int vehicletypes_bus = 2130837655;
-			
-			// aapt resource value: 0x7f020098
-			public const int vehicletypes_minibus = 2130837656;
-			
-			// aapt resource value: 0x7f020099
-			public const int vehicletypes_tram = 2130837657;
+			public const int mr_ic_settings_light = 2130837642;
 			
 			// aapt resource value: 0x7f02009a
-			public const int vehicletypes_trolley = 2130837658;
+			public const int notification_template_icon_bg = 2130837658;
+			
+			// aapt resource value: 0x7f02008b
+			public const int powered_by_google_dark = 2130837643;
+			
+			// aapt resource value: 0x7f02008c
+			public const int powered_by_google_light = 2130837644;
+			
+			// aapt resource value: 0x7f02008d
+			public const int splash = 2130837645;
+			
+			// aapt resource value: 0x7f02008e
+			public const int track = 2130837646;
+			
+			// aapt resource value: 0x7f02008f
+			public const int track_current = 2130837647;
+			
+			// aapt resource value: 0x7f020090
+			public const int tram_b = 2130837648;
+			
+			// aapt resource value: 0x7f020091
+			public const int tram_m = 2130837649;
+			
+			// aapt resource value: 0x7f020092
+			public const int tram_s = 2130837650;
+			
+			// aapt resource value: 0x7f020093
+			public const int trolley_b = 2130837651;
+			
+			// aapt resource value: 0x7f020094
+			public const int trolley_m = 2130837652;
+			
+			// aapt resource value: 0x7f020095
+			public const int trolley_s = 2130837653;
+			
+			// aapt resource value: 0x7f020096
+			public const int vehicletypes_bus = 2130837654;
+			
+			// aapt resource value: 0x7f020097
+			public const int vehicletypes_minibus = 2130837655;
+			
+			// aapt resource value: 0x7f020098
+			public const int vehicletypes_tram = 2130837656;
+			
+			// aapt resource value: 0x7f020099
+			public const int vehicletypes_trolley = 2130837657;
 			
 			static Drawable()
 			{

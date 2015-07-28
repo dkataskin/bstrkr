@@ -247,7 +247,6 @@
     <AndroidResource Include="Resources\Layout\fragment_vehicle_forecast_map_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_routestop_map_view.axml" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
     <AndroidResource Include="Resources\Values-v21\Styles.xml" />
     <AndroidResource Include="Resources\Layout\item_area_spinner.axml" />
     <AndroidResource Include="Resources\Layout\item_area_spinnerdropdown.axml" />
@@ -350,6 +349,7 @@
     <AndroidResource Include="Resources\Drawable-mdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\splash.9.png" />
+    <AndroidResource Include="Resources\Drawable\ic_launcher.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

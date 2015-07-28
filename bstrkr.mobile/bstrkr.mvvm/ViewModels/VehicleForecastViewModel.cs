@@ -49,8 +49,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.CountdownCommand = new MvxCommand(
 												this.Countdown,
-												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived) ||
-													  _stateMachine.IsInState(RouteVehicleVMStates.Loading));
+												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived));
 
 			_stateMachine = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
 			_stateMachine.OnTransitioned(sm => this.Dispatcher.RequestMainThreadAction(() => this.RaisePropertyChanged(() => this.State)));
@@ -321,8 +320,9 @@ namespace bstrkr.mvvm.viewmodels
 					Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).Wait();
 					this.Dispatcher.RequestMainThreadAction(() => this.CountdownCommand.Execute());
 				} 
-				catch (Exception ex)
+				catch (Exception e)
 				{
+					Insights.Report(e, Insights.Severity.Warning);
 				}
 			}
 		}

@@ -8,7 +8,7 @@ namespace bstrkr.android
     [Activity(
 		Label = "BusTracker",
 		MainLauncher = true,
-		Icon = "@drawable/icon",
+		Icon = "@drawable/ic_launcher",
 		Theme = "@style/Theme.Splash",
 		NoHistory = true,
 		ScreenOrientation = ScreenOrientation.Portrait)]
