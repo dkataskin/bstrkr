@@ -403,7 +403,7 @@
     <Folder Include="Assets\Licenses\" />
     <Folder Include="Resources\Menu\" />
     <Folder Include="Resources\Xml\" />
-    <Folder Include="Resources\values\" />
+    <Folder Include="Resources\Values\" />
     <Folder Include="Resources\Values-v21\" />
   </ItemGroup>
 </Project>
