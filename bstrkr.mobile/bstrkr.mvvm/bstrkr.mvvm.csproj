@@ -62,7 +62,6 @@
     <Compile Include="Converters\VehicleTypeToImageConverter.cs" />
     <Compile Include="ViewModels\SelectRouteStopViewModel.cs" />
     <Compile Include="ViewModels\RoutesListItemViewModel.cs" />
-    <Compile Include="Messages\LocationUpdateMessage.cs" />
     <Compile Include="Converters\ArriveTimeToStringConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\RouteVehicleVMStateToVisibilityConverter.cs" />
@@ -91,6 +90,7 @@
     <Compile Include="Views\MapViewVisibleRegionTargetBinding.cs" />
     <Compile Include="ViewModels\InitViewModel.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Messages\PreferencesChangedMessage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

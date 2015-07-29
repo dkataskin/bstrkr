@@ -142,6 +142,8 @@ namespace bstrkr.mvvm.viewmodels
 		public override void Start()
 		{
 			base.Start();
+
+//			_messenger.Subscribe<PreferencesChangedMessage>(this.OnPreferencesChanged);
 			this.IsBusy = true;
 		}
 
@@ -155,8 +157,39 @@ namespace bstrkr.mvvm.viewmodels
 
 		public void Stop()
 		{
-			_liveDataProvider.Stop();
+			if (_liveDataProvider != null)
+			{
+				_liveDataProvider.Stop();
+			}
 		}
+
+//		private void OnPreferencesChanged(PreferencesChangedMessage message)
+//		{
+//			if (message.Area == null)
+//			{
+//				return;
+//			}
+//
+//			var provider = _providerFactory.GetCurrentProvider();
+//			if (provider == null || provider.Area == null || provider.Area.Id != message.Area.Id)
+//			{
+//				if (_liveDataProvider != null)
+//				{
+//					_liveDataProvider.Stop();
+//					_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
+//				}
+//
+//				_stops.Clear();
+//				lock(_vehicles)
+//				{
+//					_vehicles.Clear();
+//				}
+//
+//				this.InitializeStartLiveDataProvider();
+//
+//				this.Location = new GeoPoint(message.Area.Latitude, message.Area.Longitude);
+//			}
+//		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
 		{
@@ -165,24 +198,37 @@ namespace bstrkr.mvvm.viewmodels
 			this.Location = _locationService.Location;
 			this.DetectedArea = _locationService.DetectedArea;
 
-			if (_liveDataProvider == null)
+			if (_liveDataProvider != null)
 			{
-				_liveDataProvider = _providerFactory.GetCurrentProvider();
-				if (_liveDataProvider != null)
-				{
-					_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
-					_liveDataProvider.GetRouteStopsAsync()
-									 .ContinueWith(this.ShowRouteStops)
-									 .ConfigureAwait(false);
-
-					_liveDataProvider.Start();
-
-					MvxTrace.Trace(() => "provider started");
-				}
+				_liveDataProvider.Stop();
+				_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
 			}
 
-			_messenger.Publish(new LocationUpdateMessage(this, _locationService.Area));
+			_stops.Clear();
+			lock(_vehicles)
+			{
+				_vehicles.Clear();
+			}
+
+			this.InitializeStartLiveDataProvider(_providerFactory);
+
 			this.IsBusy = false;
+		}
+
+		private void InitializeStartLiveDataProvider(ILiveDataProviderFactory factory)
+		{
+			_liveDataProvider = factory.GetCurrentProvider();
+			if (_liveDataProvider != null)
+			{
+				_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
+				_liveDataProvider.GetRouteStopsAsync()
+								 .ContinueWith(this.ShowRouteStops)
+								 .ConfigureAwait(false);
+
+				_liveDataProvider.Start();
+
+				MvxTrace.Trace(() => "provider started");
+			}
 		}
 
 		private void ShowRouteStops(Task<IEnumerable<RouteStop>> task)

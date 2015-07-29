@@ -98,9 +98,11 @@ namespace bstrkr.android.views
 		public override void OnStop()
 		{
 			base.OnStop();
-			this.MapViewModel.Stop();
+			if (this.MapViewModel != null)
+			{
+				this.MapViewModel.Stop();
+			}
 		}
-
 
 		public override void OnLowMemory()
 		{
