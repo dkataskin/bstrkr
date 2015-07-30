@@ -113,6 +113,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string select_location_btn {
+            get {
+                return ResourceManager.GetString("select_location_btn", resourceCulture);
+            }
+        }
+        
         public static string tramway_vehicle_type_title {
             get {
                 return ResourceManager.GetString("tramway_vehicle_type_title", resourceCulture);

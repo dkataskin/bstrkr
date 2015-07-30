@@ -45,6 +45,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using bstrkr.core.services.location;
 
 namespace bstrkr.android.views
 {
@@ -60,8 +61,9 @@ namespace bstrkr.android.views
 		private BusTrackerActionBarDrawerToggle _drawerToggle;
 		private MvxListView _drawerList;
 		private MenuSection _currentSection;
+		private IBusTrackerLocationService _locationService;
 
-		private IMvxMessenger _messenger;
+		private bool _enableDrawerOnNextNavigation;
 
 		private Fragment _slidingPanelFragment;
 
@@ -71,6 +73,12 @@ namespace bstrkr.android.views
 		{
 			try
 			{
+				if (_enableDrawerOnNextNavigation)
+				{
+					this.EnableDrawer();
+					_enableDrawerOnNextNavigation = false;
+				}
+
 				var loaderService = Mvx.Resolve<IMvxViewModelLoader>();
 				var homeViewModel = this.ViewModel as HomeViewModel;
 				MvxFragment fragment = null;
@@ -88,7 +96,7 @@ namespace bstrkr.android.views
 				{
 					case MenuSection.Map:
 						_currentSection = MenuSection.Map;
-						this.SupportActionBar.Title = AppResources.map_view_title;
+						this.UpdateTitle();
 
 						_drawerList.SetItemChecked(0, true);
 
@@ -258,8 +266,6 @@ namespace bstrkr.android.views
 
 			this.SetContentView(Resource.Layout.page_home_view);
 
-			_messenger = Mvx.Resolve<IMvxMessenger>();
-
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
 
@@ -287,25 +293,16 @@ namespace bstrkr.android.views
 
 			this.RegisterForDetailsRequests();
 
-			this.DisableDrawer();
+			this.EnableDrawer();
 
-			this.SupportActionBar.SetDisplayHomeAsUpEnabled(false);
-			this.SupportActionBar.SetHomeButtonEnabled(false);
-			this.SupportActionBar.Title = AppResources.refreshing;
+			this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+			this.SupportActionBar.SetHomeButtonEnabled(true);
+			this.SupportActionBar.Title = AppResources.map_view_title;
 
-			_messenger.SubscribeOnMainThread<LocationUpdateMessage>(msg => 
-			{
-				this.EnableDrawer();
+			_locationService = Mvx.Resolve<IBusTrackerLocationService>();
+			_locationService.LocationChanged += (s, a) => this.UpdateTitle();
 
-				this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-				this.SupportActionBar.SetHomeButtonEnabled(true);
-				this.SupportActionBar.Title = AppResources.map_view_title;
-			});
-
-			if (null == savedInstanceState)
-			{
-				this.ShowMap();
-			}
+			this.ShowMap();
         }
 
 		private void RegisterForDetailsRequests()
@@ -375,6 +372,7 @@ namespace bstrkr.android.views
 				this.DisableDrawer();
 
 				_frag2tag[typeof(InitView)] = "init_view";
+				_enableDrawerOnNextNavigation = true;
 			}
 
 			if (request.ViewModelType == typeof(SetAreaViewModel))
@@ -529,6 +527,11 @@ namespace bstrkr.android.views
 			{
 				panel.CollapsePane();
 			}
+		}
+
+		private void UpdateTitle()
+		{
+			this.SupportActionBar.Title = _locationService.Area == null ? AppResources.map_view_title : _locationService.Area.Name;
 		}
     }
 }

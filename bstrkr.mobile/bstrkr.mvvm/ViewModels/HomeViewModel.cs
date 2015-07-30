@@ -7,11 +7,14 @@ using bstrkr.core;
 
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
+using bstrkr.core.services.location;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class HomeViewModel : BusTrackerViewModelBase
     {
+		private readonly IBusTrackerLocationService _locationService;
+
 		private readonly IDictionary<Type, MenuSection> _menuSection2ViewModel = new Dictionary<Type, MenuSection>
 		{
 			{ typeof(MapViewModel), MenuSection.Map },
@@ -22,8 +25,9 @@ namespace bstrkr.mvvm.viewmodels
 			{ typeof(LicensesViewModel), MenuSection.Licenses }
 		};
 
-		public HomeViewModel()
+		public HomeViewModel(IBusTrackerLocationService locationService)
 		{
+			_locationService = locationService;
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
 			this.SelectMenuItemCommand = new MvxCommand<MenuViewModel>(this.SelectMenuItem);
 			this.DetectLocationCommand = new MvxCommand(() => this.ShowViewModel<InitViewModel>());

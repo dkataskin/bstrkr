@@ -147,4 +147,7 @@
 	<data name="animate_markers_label" xml:space="preserve">
     <value>Animate markers movement</value>
   </data>
+  	<data name="select_location_btn" xml:space="preserve">
+    <value>Select location</value>
+  </data>
 </root>

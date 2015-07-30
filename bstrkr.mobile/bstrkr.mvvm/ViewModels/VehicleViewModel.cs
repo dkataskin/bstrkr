@@ -119,13 +119,6 @@ namespace bstrkr.mvvm.viewmodels
 							FinalLocation = waypoints.Waypoints[i + 1].Location
 						});
 				};
-
-//				animList.Add(
-//					new WaySegment {
-//					Duration = TimeSpan.FromSeconds(waypoints.Waypoints.Last().Fraction * totalTime),
-//					StartPosition = waypoints.Waypoints.Last().Location,
-//					FinalPosition = currentLocation
-//				});
 			}
 			else
 			{

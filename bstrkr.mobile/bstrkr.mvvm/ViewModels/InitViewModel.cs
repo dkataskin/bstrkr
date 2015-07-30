@@ -26,7 +26,11 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService = locationService;
 			_locationService.LocationChanged += this.OnLocationChanged;
 			_locationService.LocationError += this.OnLocationError;
+
+			this.SelectManuallyCommand = new MvxCommand(this.SelectManually);
 		}
+
+		public MvxCommand SelectManuallyCommand { get; private set; }
 
 		public int LocatingSec
 		{
@@ -63,16 +67,13 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnLocationChanged(object sender, EventArgs args)
 		{
-			_tokenSource.Cancel();
-
+			this.CleanUp();
 			this.ShowViewModel<MapViewModel>();
 		}
 
 		private void OnLocationError(object sender, EventArgs args)
 		{
-			_tokenSource.Cancel();
-
-			this.IsBusy = false;
+			this.CleanUp();
 
 			Mvx.Resolve<IUserInteraction>().Confirm(
 				AppResources.unknown_location_dialog_text, 
@@ -90,6 +91,22 @@ namespace bstrkr.mvvm.viewmodels
 				AppResources.unknown_location_dialog_title,
 				AppResources.yes,
 				AppResources.no_thanks);
+		}
+
+		private void SelectManually()
+		{
+			this.CleanUp();
+			this.ShowViewModel<SetAreaViewModel>();
+		}
+
+		private void CleanUp()
+		{
+			this.IsBusy = false;
+
+			_tokenSource.Cancel();
+
+			_locationService.LocationChanged -= this.OnLocationChanged;
+			_locationService.LocationError -= this.OnLocationError;
 		}
 	}
 }

@@ -18,6 +18,11 @@ namespace bstrkr.android.views
 	[Register("bstrkr.android.views.PreferencesView")]
 	public class PreferencesView : MvxFragment
 	{
+		public PreferencesView()
+		{
+			this.RetainInstance = true;
+		}
+
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
@@ -27,10 +32,9 @@ namespace bstrkr.android.views
 			return this.BindingInflate(Resource.Layout.fragment_preferences_view, null);
 		}
 
-		public override void OnDestroy()
+		public override void OnStop()
 		{
-			base.OnDestroy();
-
+			base.OnStop();
 			(this.ViewModel as PreferencesViewModel).SavePreferencesCommand.Execute();
 		}
 	}

@@ -58,6 +58,11 @@ namespace bstrkr.core.services.location
 
 		private void OnLocationUpdated(object sender, LocationUpdatedEventArgs args)
 		{
+			if (args.Location.Equals(GeoPoint.Empty))
+			{
+				return;
+			}
+
 			this.Location = args.Location;
 			this.Accuracy = args.Accuracy;
 

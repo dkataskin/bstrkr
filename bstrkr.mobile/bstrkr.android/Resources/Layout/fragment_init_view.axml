@@ -27,5 +27,10 @@
             android:layout_marginTop="10dp"
             style="@style/ListItemRegular"
             local:MvxBind="Text StringFormat(LocatingSec, [locating_countdown_format])" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            local:MvxBind="Text [select_location_btn]; Click SelectManuallyCommand" />
     </LinearLayout>
 </FrameLayout>

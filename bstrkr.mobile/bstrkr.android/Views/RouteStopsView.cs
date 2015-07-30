@@ -96,5 +96,11 @@ namespace bstrkr.android.views
 
 			return false;
 		}
+
+		public override void OnResume()
+		{
+			base.OnResume();
+			(this.ViewModel as RouteStopsViewModel).RefreshCommand.Execute();
+		}
 	}
 }

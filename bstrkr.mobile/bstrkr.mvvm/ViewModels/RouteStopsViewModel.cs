@@ -31,6 +31,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private IList<RouteStopsListItemViewModel> _allStops = new List<RouteStopsListItemViewModel>();
 
+		private string _areaId;
 		private bool _unknownArea;
 		private string _filterString;
 
@@ -49,19 +50,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		public bool UnknownArea
 		{
-			get 
-			{
-				return _unknownArea;
-			}
-
-			set
-			{
-				if (_unknownArea != value)
-				{
-					_unknownArea = value;
-					this.RaisePropertyChanged(() => this.UnknownArea);
-				}
-			}
+			get { return _unknownArea; }
+			set { this.RaiseAndSetIfChanged(ref _unknownArea, value, () => this.UnknownArea); }
 		}
 
 		public string FilterSting
@@ -84,12 +74,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand<RouteStopsListItemViewModel> ShowStopDetailsCommand { get; private set; }
 
-		public override void Start()
-		{
-			base.Start();
-			this.Refresh();
-		}
-
 		protected override void OnIsBusyChanged()
 		{
 			base.OnIsBusyChanged();
@@ -99,22 +83,28 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void Refresh()
 		{
-			_stops.Clear();
-
 			var provider = _providerFactory.GetCurrentProvider();
 			if (provider == null)
 			{
+				_areaId = string.Empty;
+				_stops.Clear();
 				this.UnknownArea = true;
+				return;
 			}
-			else
-			{
-				this.UnknownArea = false;
-				this.IsBusy = true;
 
-				provider.GetRouteStopsAsync()
-						.ContinueWith(this.OnRouteStopListReceived)
-						.ConfigureAwait(false);
+			if (provider.Area.Id.Equals(_areaId))
+			{
+				return;
 			}
+
+			_stops.Clear();
+			_areaId = provider.Area.Id;
+			this.UnknownArea = false;
+			this.IsBusy = true;
+
+			provider.GetRouteStopsAsync()
+				.ContinueWith(this.OnRouteStopListReceived)
+				.ConfigureAwait(false);
 		}
 
 		private void ShowStopDetails(RouteStopsListItemViewModel routeStopViewModel)

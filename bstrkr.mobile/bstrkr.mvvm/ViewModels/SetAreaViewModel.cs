@@ -38,6 +38,7 @@ namespace bstrkr.mvvm.viewmodels
 			if (index >= 0)
 			{
 				_locationService.SelectArea(this.Areas[index]);
+				this.ShowViewModel<MapViewModel>();
 			}
 		}
 
