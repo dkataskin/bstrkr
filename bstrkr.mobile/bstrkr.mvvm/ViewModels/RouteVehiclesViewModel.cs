@@ -40,13 +40,13 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_providerFactory = providerFactory;
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleForecastViewModel>(_vehicles);
-			this.ShowRouteVehicleDetailsCommand = new MvxCommand(() => {});
+			this.ShowVehicleOnMapCommand = new MvxCommand<VehicleForecastViewModel>(this.ShowVehicleOnMap, vm => !this.IsBusy);
 
 			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
 			_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
 		}
 
-		public MvxCommand ShowRouteVehicleDetailsCommand { get; private set; }
+		public MvxCommand<VehicleForecastViewModel> ShowVehicleOnMapCommand { get; private set; }
 
 		public string RouteId
 		{
@@ -252,6 +252,11 @@ namespace bstrkr.mvvm.viewmodels
 					}
 				}
 			}
+		}
+
+		private void ShowVehicleOnMap(VehicleForecastViewModel vehicleViewModel)
+		{
+			vehicleViewModel.ShowOnMapCommand.Execute();
 		}
 	}
 }

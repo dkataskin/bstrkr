@@ -24,6 +24,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using bstrkr.mvvm.navigation;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -61,12 +62,12 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
-			this.ShowVehicleInfoCommand = new MvxCommand<VehicleViewModel>(this.ShowVehicleInfo, vm => vm != null);
+			this.ShowVehicleInfoCommand = new MvxCommand<string>(this.ShowVehicleInfo, vm => vm != null);
 		}
 
 		public MvxCommand<RouteStopMapViewModel> ShowRouteStopInfoCommand { get; private set; }
 
-		public MvxCommand<VehicleViewModel> ShowVehicleInfoCommand { get; private set; }
+		public MvxCommand<string> ShowVehicleInfoCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 
@@ -142,8 +143,6 @@ namespace bstrkr.mvvm.viewmodels
 		public override void Start()
 		{
 			base.Start();
-
-//			_messenger.Subscribe<PreferencesChangedMessage>(this.OnPreferencesChanged);
 			this.IsBusy = true;
 		}
 
@@ -162,34 +161,6 @@ namespace bstrkr.mvvm.viewmodels
 				_liveDataProvider.Stop();
 			}
 		}
-
-//		private void OnPreferencesChanged(PreferencesChangedMessage message)
-//		{
-//			if (message.Area == null)
-//			{
-//				return;
-//			}
-//
-//			var provider = _providerFactory.GetCurrentProvider();
-//			if (provider == null || provider.Area == null || provider.Area.Id != message.Area.Id)
-//			{
-//				if (_liveDataProvider != null)
-//				{
-//					_liveDataProvider.Stop();
-//					_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
-//				}
-//
-//				_stops.Clear();
-//				lock(_vehicles)
-//				{
-//					_vehicles.Clear();
-//				}
-//
-//				this.InitializeStartLiveDataProvider();
-//
-//				this.Location = new GeoPoint(message.Area.Latitude, message.Area.Longitude);
-//			}
-//		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
 		{
@@ -345,6 +316,8 @@ namespace bstrkr.mvvm.viewmodels
 											}, 
 											null, 
 											requestedBy);
+			
+			this.Location = routeStopVM.Location.Position;
 		}
 
 		private void ShowRouteStopInfo(string id, string name, string description)
@@ -361,14 +334,25 @@ namespace bstrkr.mvvm.viewmodels
 												requestedBy);
 		}
 
-		private void ShowVehicleInfo(VehicleViewModel vehicleVM)
+		private void ShowVehicleInfo(string vehicleId)
 		{
+			VehicleViewModel vehicleVM;
+			lock(_vehicles)
+			{
+				vehicleVM = _vehicles.FirstOrDefault(x => x.Model.Id.Equals(vehicleId));
+			}
+
+			if (vehicleVM == null)
+			{
+				return;
+			}
+
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 
 			var navParams = new 
 			{
-				id = vehicleVM.Model.Id,
-				carPlate = vehicleVM.Model.CarPlate,
+				id = vehicleVM.VehicleId,
+				carPlate = vehicleVM.CarPlate,
 				vehicleType = vehicleVM.VehicleType,
 				routeId = vehicleVM.Model.RouteInfo.RouteId,
 				routeNumber = vehicleVM.Model.RouteInfo.RouteNumber,
@@ -377,6 +361,7 @@ namespace bstrkr.mvvm.viewmodels
 			};
 
 			this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
+			this.Location = vehicleVM.Location.Position;
 		}
 
 		private void OnZoomChanged(float zoom)

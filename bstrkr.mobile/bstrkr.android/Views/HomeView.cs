@@ -24,6 +24,7 @@ using bstrkr.core.android.services;
 using bstrkr.core.android.views;
 using bstrkr.core.consts;
 using bstrkr.core.context;
+using bstrkr.core.services.location;
 using bstrkr.core.utils;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
@@ -32,7 +33,6 @@ using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
-
 using Cheesebaron.SlidingUpPanel;
 
 using Cirrious.CrossCore;
@@ -45,7 +45,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using bstrkr.core.services.location;
 
 namespace bstrkr.android.views
 {
@@ -412,6 +411,7 @@ namespace bstrkr.android.views
 						var vehicleForecastView = new RouteVehicleForecastView();
 						vehicleForecastView.ViewModel = loaderService.LoadViewModel(request, null);
 
+						this.FragmentManager.PopBackStackImmediate(null, PopBackStackFlags.Inclusive);
 						this.ShowInSlidingPanel(vehicleForecastView);
 					}
 				}

@@ -51,6 +51,8 @@ namespace bstrkr.mvvm.viewmodels
 												this.Countdown,
 												() => _stateMachine.IsInState(RouteVehicleVMStates.ForecastReceived));
 
+			this.ShowOnMapCommand = new MvxCommand(this.ShowOnMap);
+
 			_stateMachine = new StateMachine<RouteVehicleVMStates, RouteVehicleVMTriggers>(RouteVehicleVMStates.Start);
 			_stateMachine.OnTransitioned(sm => this.Dispatcher.RequestMainThreadAction(() => this.RaisePropertyChanged(() => this.State)));
 
@@ -76,6 +78,8 @@ namespace bstrkr.mvvm.viewmodels
 		public MvxCommand UpdateForecastCommand { get; private set; }
 
 		public MvxCommand CountdownCommand { get; private set; }
+
+		public MvxCommand ShowOnMapCommand { get; private set; }
 
 		public Vehicle Vehicle 
 		{ 
@@ -325,6 +329,12 @@ namespace bstrkr.mvvm.viewmodels
 					Insights.Report(e, Insights.Severity.Warning);
 				}
 			}
+		}
+
+		private void ShowOnMap()
+		{
+			var mapViewModel = Mvx.Resolve<MapViewModel>();
+			mapViewModel.ShowVehicleInfoCommand.Execute(this.Vehicle.Id);
 		}
 	}
 }

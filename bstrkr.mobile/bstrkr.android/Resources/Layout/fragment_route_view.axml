@@ -57,7 +57,7 @@
             android:layout_height="fill_parent"
             android:divider="@null"
             android:dividerHeight="0dp"
-            local:MvxBind="ItemsSource Vehicles; ItemClick ShowRouteVehicleDetailsCommand"
+            local:MvxBind="ItemsSource Vehicles; ItemClick ShowVehicleOnMapCommand"
             local:MvxItemTemplate="@layout/item_routevehicles_list" />
         <ProgressBar
             android:layout_height="wrap_content"

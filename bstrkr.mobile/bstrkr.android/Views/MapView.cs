@@ -132,7 +132,7 @@ namespace bstrkr.android.views
 							var vehicleVM = _vehicleMarkerManager.GetDataForMarker<VehicleViewModel>(a.Marker);
 							if (vehicleVM != null)
 							{
-								this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM);
+								this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM.VehicleId);
 							}
 						}
 					}
