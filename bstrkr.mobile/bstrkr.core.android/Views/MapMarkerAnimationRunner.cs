@@ -10,7 +10,8 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.core.android.views
 {
-	public class MapMarkerAnimationRunner : Java.Lang.Object, Android.Animation.Animator.IAnimatorListener
+	public class MapMarkerAnimationRunner : Java.Lang.Object, Android.Animation.Animator.IAnimatorListener,
+											Android.Animation.ValueAnimator.IAnimatorUpdateListener
 	{
 		private readonly object _lockObject = new object();
 		private readonly Queue<PathSegment> _animationQueue = new Queue<PathSegment>();
@@ -18,6 +19,9 @@ namespace bstrkr.core.android.views
 		private readonly IMapView _mapView;
 
 		private AnimatorSet _animatorSet = new AnimatorSet();
+
+		private LatLng _prevPosition;
+		private int _count;
 
 		public MapMarkerAnimationRunner(IMapView mapView, Marker marker)
 		{
@@ -35,6 +39,8 @@ namespace bstrkr.core.android.views
 				}
 			} 
 		}
+
+		public event EventHandler<AnimationValueUpdatedEventArgs> PositionValueUpdated;
 
 		public void QueueAnimation(IEnumerable<PathSegment> waySegments)
 		{
@@ -82,6 +88,22 @@ namespace bstrkr.core.android.views
 
 		public void OnAnimationStart(Animator animation)
 		{
+			_prevPosition = _marker.Position;
+		}
+
+		public void OnAnimationUpdate(ValueAnimator animation)
+		{
+			_count++;
+			if (_count % 4 == 0)
+			{
+				var curValue = (LatLng)animation.AnimatedValue;
+
+				var deltaX = curValue.Latitude - _prevPosition.Latitude;
+				var deltaY = curValue.Longitude - _prevPosition.Longitude;
+				_marker.Rotation = Convert.ToSingle(Math.Atan2(deltaY, deltaX) * (180 / Math.PI));
+			}
+
+			//this.RaisePositionValueUpdatedEvent(((LatLng)animation.AnimatedValue).ToGeoPoint());
 		}
 
 		public void StopAllAnimations()
@@ -144,6 +166,7 @@ namespace bstrkr.core.android.views
 						}
 
 						positionAnimator.AddListener(this);
+						positionAnimator.AddUpdateListener(this);
 						positionAnimator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
 
 						var rotationAnimator = ObjectAnimator.OfFloat(
@@ -155,7 +178,8 @@ namespace bstrkr.core.android.views
 
 						_animatorSet = new AnimatorSet();
 						_animatorSet.AddListener(this);
-						_animatorSet.Play(positionAnimator).With(rotationAnimator);
+						//_animatorSet.Play(positionAnimator).With(rotationAnimator);
+						_animatorSet.Play(positionAnimator);
 						_animatorSet.Start();
 					}
 					else if (!GeoLocation.Empty.Equals(targetLocation))
@@ -163,6 +187,14 @@ namespace bstrkr.core.android.views
 						_marker.Position = targetLocation.ToLatLng();
 					}
 				}
+			}
+		}
+
+		private void RaisePositionValueUpdatedEvent(GeoPoint position)
+		{
+			if (this.PositionValueUpdated != null)
+			{
+				this.PositionValueUpdated(this, new AnimationValueUpdatedEventArgs(position));
 			}
 		}
 	}

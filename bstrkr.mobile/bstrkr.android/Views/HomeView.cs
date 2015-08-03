@@ -411,7 +411,8 @@ namespace bstrkr.android.views
 						var vehicleForecastView = new RouteVehicleForecastView();
 						vehicleForecastView.ViewModel = loaderService.LoadViewModel(request, null);
 
-						this.FragmentManager.PopBackStackImmediate(null, PopBackStackFlags.Inclusive);
+						this.ShowMap();
+
 						this.ShowInSlidingPanel(vehicleForecastView);
 					}
 				}

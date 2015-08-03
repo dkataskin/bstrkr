@@ -7,10 +7,12 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using bstrkr.core;
+using bstrkr.mvvm.messages;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
 
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Stateless;
@@ -23,6 +25,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private const int StopLengthInSeconds = 10;
 
+		private readonly IMvxMessenger _messenger;
 		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
 		private readonly object _lockObject = new object();
 
@@ -39,8 +42,9 @@ namespace bstrkr.mvvm.viewmodels
 		private Vehicle _vehicle;
 		private Route _route;
 
-		public VehicleForecastViewModel(ILiveDataProviderFactory liveDataProviderFactory)
+		public VehicleForecastViewModel(ILiveDataProviderFactory liveDataProviderFactory, IMvxMessenger messenger)
 		{
+			_messenger = messenger;
 			_liveDataProviderFactory = liveDataProviderFactory;
 
 			this.UpdateForecastCommand = new MvxCommand(
@@ -333,8 +337,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ShowOnMap()
 		{
-			var mapViewModel = Mvx.Resolve<MapViewModel>();
-			mapViewModel.ShowVehicleInfoCommand.Execute(this.Vehicle.Id);
+			_messenger.Publish<ShowVehicleForecastOnMapMessage>(new ShowVehicleForecastOnMapMessage(this, this.Vehicle.Id));
 		}
 	}
 }

@@ -19,6 +19,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
 	{
 		private long _lastUpdate = 0;
+		private GeoPoint _positionAnimation;
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
@@ -79,6 +80,12 @@ namespace bstrkr.mvvm.viewmodels
 			set
 			{
 			}
+		}
+
+		public GeoPoint PositionAnimation
+		{
+			get { return _positionAnimation; }
+			set { this.RaiseAndSetIfChanged(ref _positionAnimation, value, () => this.PositionAnimation); }
 		}
 
 		public bool AnimateMovement 

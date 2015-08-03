@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,12 +9,13 @@ using System.Threading.Tasks;
 using bstrkr.core;
 using bstrkr.core.collections;
 using bstrkr.core.config;
-using bstrkr.core.map;
 
+using bstrkr.core.map;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.messages;
+using bstrkr.mvvm.navigation;
 using bstrkr.providers;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
@@ -24,7 +26,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using bstrkr.mvvm.navigation;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -35,6 +36,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IMvxMessenger _messenger;
+		private readonly MvxSubscriptionToken _vehicleInfoSubscriptionToken;
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
@@ -49,6 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _detectedArea = false;
 		private float _zoom;
 		private RouteStop _routeStop;
+		private VehicleViewModel _selectedVehicle;
 
 		public MapViewModel(
 					IBusTrackerLocationService locationService, 
@@ -63,6 +66,9 @@ namespace bstrkr.mvvm.viewmodels
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
 			this.ShowVehicleInfoCommand = new MvxCommand<string>(this.ShowVehicleInfo, vm => vm != null);
+
+			_vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
+													message => this.ShowVehicleInfoCommand.Execute(message.VehicleId));
 		}
 
 		public MvxCommand<RouteStopMapViewModel> ShowRouteStopInfoCommand { get; private set; }
@@ -347,21 +353,28 @@ namespace bstrkr.mvvm.viewmodels
 				return;
 			}
 
-			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
+//			if (_selectedVehicle != null)
+//			{
+//				_selectedVehicle.PropertyChanged -= this.OnVehicleVMPropertyChanged;
+//			}
 
+			_selectedVehicle = vehicleVM;
+			_selectedVehicle.PropertyChanged += this.OnVehicleVMPropertyChanged;
+
+			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
 			{
-				id = vehicleVM.VehicleId,
-				carPlate = vehicleVM.CarPlate,
-				vehicleType = vehicleVM.VehicleType,
-				routeId = vehicleVM.Model.RouteInfo.RouteId,
-				routeNumber = vehicleVM.Model.RouteInfo.RouteNumber,
-				routeDisplayName = vehicleVM.Model.RouteInfo.DisplayName,
+				id = _selectedVehicle.VehicleId,
+				carPlate = _selectedVehicle.CarPlate,
+				vehicleType = _selectedVehicle.VehicleType,
+				routeId = _selectedVehicle.Model.RouteInfo.RouteId,
+				routeNumber = _selectedVehicle.Model.RouteInfo.RouteNumber,
+				routeDisplayName = _selectedVehicle.Model.RouteInfo.DisplayName,
 				runUpdates = true
 			};
 
 			this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
-			this.Location = vehicleVM.Location.Position;
+			this.Location = _selectedVehicle.Location.Position;
 		}
 
 		private void OnZoomChanged(float zoom)
@@ -387,6 +400,19 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					routeStop.IsVisible = zoom > 13.0f;
 				}
+			}
+		}
+
+		private void OnVehicleVMPropertyChanged(object sender, PropertyChangedEventArgs args)
+		{
+			if (args.PropertyName.Equals("Location"))
+			{
+				this.Location = (sender as VehicleViewModel).Location.Position;
+			}
+
+			if (args.PropertyName.Equals("PositionAnimation"))
+			{
+				this.Location = (sender as VehicleViewModel).PositionAnimation;
 			}
 		}
 	}
