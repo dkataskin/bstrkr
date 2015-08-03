@@ -365,8 +365,8 @@ namespace bstrkr.mvvm.viewmodels
 //				_selectedVehicle.PropertyChanged -= this.OnVehicleVMPropertyChanged;
 //			}
 
-			_selectedVehicle = vehicleVM;
-			_selectedVehicle.PropertyChanged += this.OnVehicleVMPropertyChanged;
+//			_selectedVehicle = vehicleVM;
+//			_selectedVehicle.PropertyChanged += this.OnVehicleVMPropertyChanged;
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
