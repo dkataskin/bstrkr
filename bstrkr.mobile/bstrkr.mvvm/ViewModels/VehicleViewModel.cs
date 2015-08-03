@@ -20,6 +20,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private long _lastUpdate = 0;
 		private GeoPoint _positionAnimation;
+		private bool _animateMovement;
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
@@ -90,13 +91,12 @@ namespace bstrkr.mvvm.viewmodels
 
 		public bool AnimateMovement 
 		{ 
-			get; private set; 
+			get { return _animateMovement; } 
+			set { this.RaiseAndSetIfChanged(ref _animateMovement, value, () => this.AnimateMovement); } 
 		}
 
 		public void UpdateLocation(GeoLocation currentLocation, WaypointCollection waypoints)
 		{
-			this.AnimateMovement = Settings.AnimateMarkers;
-
 			var animList = new List<PathSegment>();
 			var totalTime = 10.0d;
 			if (_lastUpdate > 0)

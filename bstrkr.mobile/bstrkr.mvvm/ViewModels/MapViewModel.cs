@@ -36,7 +36,9 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IMvxMessenger _messenger;
+		private readonly IConfigManager _configManager;
 		private readonly MvxSubscriptionToken _vehicleInfoSubscriptionToken;
+		private readonly BusTrackerConfig _config;
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
@@ -56,12 +58,16 @@ namespace bstrkr.mvvm.viewmodels
 		public MapViewModel(
 					IBusTrackerLocationService locationService, 
 					ILiveDataProviderFactory providerFactory,
+					IConfigManager configManager,
 					IMvxMessenger messenger)
 		{
 			_providerFactory = providerFactory;
+			_configManager = configManager;
 			_messenger = messenger;
 			_locationService = locationService;
 			_locationService.LocationChanged += OnLocationChanged;
+
+			_config = _configManager.GetConfig();
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
 			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
@@ -307,6 +313,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
 		{
+			vehicleVM.AnimateMovement = this.GetAnimateMarkerMovementFlag(this.Zoom);
 			vehicleVM.UpdateLocation(locationUpdate.Vehicle.Location, locationUpdate.Waypoints);
 		}
 
@@ -379,8 +386,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnZoomChanged(float zoom)
 		{
-			var conv = new ZoomToMarkerSizeConverter();
-			var markerSize = (MapMarkerSizes)conv.Convert(zoom, typeof(MapMarkerSizes), null, null);
+			var converter = new ZoomToMarkerSizeConverter();
+			var markerSize = (MapMarkerSizes)converter.Convert(zoom, typeof(MapMarkerSizes), null, null);
 			if (_markerSize != markerSize)
 			{
 				_markerSize = markerSize;
@@ -390,6 +397,7 @@ namespace bstrkr.mvvm.viewmodels
 					foreach (var vm in _vehicles)
 					{
 						vm.MarkerSize = _markerSize;
+						vm.AnimateMovement = this.GetAnimateMarkerMovementFlag(zoom);
 					}
 				}
 			}
@@ -398,9 +406,14 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				foreach (var routeStop in _stops)
 				{
-					routeStop.IsVisible = zoom > 13.0f;
+					routeStop.IsVisible = zoom > _config.ShowRouteStopsZoomThreshold;
 				}
 			}
+		}
+
+		private bool GetAnimateMarkerMovementFlag(float zoom)
+		{
+			return Settings.AnimateMarkers && zoom > _config.AnimateMarkersMovementZoomThreshold;
 		}
 
 		private void OnVehicleVMPropertyChanged(object sender, PropertyChangedEventArgs args)
