@@ -23,7 +23,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		protected override object GetIcon()
 		{
-			return _resourceManager.GetRouteStopMarker(this.MarkerSize);
+			return _resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
 		}
 	}
 }

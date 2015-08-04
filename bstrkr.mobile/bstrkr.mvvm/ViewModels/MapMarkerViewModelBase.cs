@@ -16,6 +16,7 @@ namespace bstrkr.mvvm.viewmodels
 		private object _icon;
 		private GeoLocation _location;
 		private bool _isVisible = true;
+		private bool _isSelected = false;
 
 		private T _model;
 
@@ -66,51 +67,36 @@ namespace bstrkr.mvvm.viewmodels
 
 		public virtual T Model
 		{
-			get 
-			{ 
-				return _model; 
-			}
-
-			set
-			{
-				if (_model != value)
-				{
-					_model = value;
-					this.RaisePropertyChanged(() => this.Model);
-				}
-			}
+			get { return _model; }
+			set { this.RaiseAndSetIfChanged(ref _model, value, () => this.Model); }
 		}
 
 		public virtual object Icon
 		{
-			get 
-			{ 
-				return _icon;
-			}
-
-			private set 
-			{
-				if (_icon != value)
-				{
-					_icon = value;
-					this.RaisePropertyChanged(() => this.Icon);
-				}
-			}
+			get { return _icon; }
+			private set { this.RaiseAndSetIfChanged(ref _icon, value, () => this.Icon); }
 		}
 
 		public virtual bool IsVisible
 		{
-			get
-			{
-				return _isVisible;
+			get { return _isVisible; }
+			set { this.RaiseAndSetIfChanged(ref _isVisible, value, () => this.IsVisible); }
+		}
+
+		public virtual bool IsSelected
+		{
+			get 
+			{ 
+				return _isSelected; 
 			}
 
-			set
-			{
-				if (_isVisible != value)
+			set 
+			{ 
+				if (_isSelected != value)
 				{
-					_isVisible = value;
-					this.RaisePropertyChanged(() => this.IsVisible);
+					_isSelected = value;
+					this.RaisePropertyChanged(() => this.IsSelected);
+					this.Icon = this.GetIcon();
 				}
 			}
 		}

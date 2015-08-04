@@ -151,7 +151,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		protected override object GetIcon()
 		{
-			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize);
+			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize, this.IsSelected);
 		}
 
 		private void SetLocation(GeoLocation location)
