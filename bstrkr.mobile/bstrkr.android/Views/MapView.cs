@@ -125,20 +125,24 @@ namespace bstrkr.android.views
 						var routeStopVM = _routeStopMarkerManager.GetDataForMarker<RouteStopMapViewModel>(a.Marker);
 						if (routeStopVM != null)
 						{
-							this.MapViewModel.ShowRouteStopInfoCommand.Execute(routeStopVM);
+							this.MapViewModel.SelectRouteStopCommand.Execute(routeStopVM.Model.Id);
 						} 
 						else
 						{
 							var vehicleVM = _vehicleMarkerManager.GetDataForMarker<VehicleViewModel>(a.Marker);
 							if (vehicleVM != null)
 							{
-								this.MapViewModel.ShowVehicleInfoCommand.Execute(vehicleVM.VehicleId);
+								this.MapViewModel.SelectVehicleCommand.Execute(vehicleVM.VehicleId);
 							}
 						}
 					}
 				};
 
-				_mapViewWrapper.MapClicked += (s, a) => this.RaiseMapClickedEvent();
+				_mapViewWrapper.MapClicked += (s, a) =>
+				{
+					this.RaiseMapClickedEvent();
+					this.MapViewModel.ClearSelectionCommand.Execute();
+				};
 			}
 
 			if (_vehicleMarkerManager == null)

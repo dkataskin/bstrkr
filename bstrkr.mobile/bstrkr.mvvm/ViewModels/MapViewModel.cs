@@ -54,6 +54,7 @@ namespace bstrkr.mvvm.viewmodels
 		private float _zoom;
 		private RouteStop _routeStop;
 		private VehicleViewModel _selectedVehicle;
+		private RouteStopMapViewModel _selectedRouteStop;
 
 		public MapViewModel(
 					IBusTrackerLocationService locationService, 
@@ -70,16 +71,19 @@ namespace bstrkr.mvvm.viewmodels
 			_config = _configManager.GetConfig();
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
-			this.ShowRouteStopInfoCommand = new MvxCommand<RouteStopMapViewModel>(this.ShowRouteStopInfo, vm => vm != null);
-			this.ShowVehicleInfoCommand = new MvxCommand<string>(this.ShowVehicleInfo, vm => vm != null);
+			this.SelectRouteStopCommand = new MvxCommand<string>(this.SelectRouteStop);
+			this.SelectVehicleCommand = new MvxCommand<string>(this.SelectVehicle);
+			this.ClearSelectionCommand = new MvxCommand(this.ClearSelection);
 
 			_vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
-													message => this.ShowVehicleInfoCommand.Execute(message.VehicleId));
+													message => this.SelectVehicleCommand.Execute(message.VehicleId));
 		}
 
-		public MvxCommand<RouteStopMapViewModel> ShowRouteStopInfoCommand { get; private set; }
+		public MvxCommand<string> SelectRouteStopCommand { get; private set; }
 
-		public MvxCommand<string> ShowVehicleInfoCommand { get; private set; }
+		public MvxCommand<string> SelectVehicleCommand { get; private set; }
+
+		public MvxCommand ClearSelectionCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 
@@ -261,10 +265,7 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				var closestRouteStop = closestStop.Item2;
 				this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestRouteStop);
-				this.Dispatcher.RequestMainThreadAction(() => this.ShowRouteStopInfo(
-																			closestRouteStop.Id,
-																			closestRouteStop.Name,
-																			closestRouteStop.Description));
+				this.Dispatcher.RequestMainThreadAction(() => this.SelectRouteStop(closestRouteStop.Id));
 			}
 		}
 
@@ -317,38 +318,50 @@ namespace bstrkr.mvvm.viewmodels
 			vehicleVM.UpdateLocation(locationUpdate.Vehicle.Location, locationUpdate.Waypoints);
 		}
 
-		private void ShowRouteStopInfo(RouteStopMapViewModel routeStopVM)
+		private void SelectRouteStop(string routeStopId)
 		{
-			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
-			this.ShowViewModel<RouteStopViewModel>(
-											new 
-											{
-												id = routeStopVM.Model.Id,
-												name = routeStopVM.Model.Name,
-												description = routeStopVM.Model.Description
-											}, 
-											null, 
-											requestedBy);
-			
-			this.Location = routeStopVM.Location.Position;
-		}
+			if (string.IsNullOrEmpty(routeStopId))
+			{
+				this.ClearSelection();
+				return;
+			}
 
-		private void ShowRouteStopInfo(string id, string name, string description)
-		{
+			RouteStopMapViewModel routeStopVM;
+			lock(_stops)
+			{
+				routeStopVM = _stops.FirstOrDefault(x => x.Model.Id.Equals(routeStopId));
+			}
+
+			if (routeStopVM == null)
+			{
+				return;
+			}
+
+			this.ClearSelection();
+
+			_selectedRouteStop = routeStopVM;
+			_selectedRouteStop.IsSelected = true;
+
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			this.ShowViewModel<RouteStopViewModel>(
 												new 
 												{
-													id = id,
-													name = name,
-													description = description
+													id = _selectedRouteStop.Model.Id,
+													name = _selectedRouteStop.Model.Name,
+													description = _selectedRouteStop.Model.Description
 												},
 												null, 
 												requestedBy);
 		}
 
-		private void ShowVehicleInfo(string vehicleId)
+		private void SelectVehicle(string vehicleId)
 		{
+			if (string.IsNullOrEmpty(vehicleId))
+			{
+				this.ClearSelection();
+				return;
+			}
+
 			VehicleViewModel vehicleVM;
 			lock(_vehicles)
 			{
@@ -360,13 +373,10 @@ namespace bstrkr.mvvm.viewmodels
 				return;
 			}
 
-//			if (_selectedVehicle != null)
-//			{
-//				_selectedVehicle.PropertyChanged -= this.OnVehicleVMPropertyChanged;
-//			}
+			this.ClearSelection();
 
 			_selectedVehicle = vehicleVM;
-//			_selectedVehicle.PropertyChanged += this.OnVehicleVMPropertyChanged;
+			_selectedVehicle.IsSelected = true;
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
@@ -416,16 +426,18 @@ namespace bstrkr.mvvm.viewmodels
 			return Settings.AnimateMarkers && zoom > _config.AnimateMarkersMovementZoomThreshold;
 		}
 
-		private void OnVehicleVMPropertyChanged(object sender, PropertyChangedEventArgs args)
+		private void ClearSelection()
 		{
-			if (args.PropertyName.Equals("Location"))
+			if (_selectedVehicle != null)
 			{
-				this.Location = (sender as VehicleViewModel).Location.Position;
+				_selectedVehicle.IsSelected = false;
+				_selectedVehicle = null;
 			}
 
-			if (args.PropertyName.Equals("PositionAnimation"))
+			if (_selectedRouteStop != null)
 			{
-				this.Location = (sender as VehicleViewModel).PositionAnimation;
+				_selectedRouteStop.IsSelected = false;
+				_selectedRouteStop = null;
 			}
 		}
 	}
