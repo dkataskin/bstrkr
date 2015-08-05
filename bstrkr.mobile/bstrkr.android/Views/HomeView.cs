@@ -414,6 +414,8 @@ namespace bstrkr.android.views
 						this.ShowMap();
 
 						this.ShowInSlidingPanel(vehicleForecastView);
+
+						this.EnableDrawer();
 					}
 				}
 			}
@@ -428,6 +430,8 @@ namespace bstrkr.android.views
 						routeStopView1.ViewModel = loaderService.LoadViewModel(request, null);
 
 						this.ShowInSlidingPanel(routeStopView1);
+
+						this.EnableDrawer();
 					}
 				}
 				else
