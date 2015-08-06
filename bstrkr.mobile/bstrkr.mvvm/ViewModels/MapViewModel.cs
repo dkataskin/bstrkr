@@ -391,7 +391,7 @@ namespace bstrkr.mvvm.viewmodels
 			};
 
 			this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
-			this.Location = _selectedVehicle.Location.Position;
+//			this.Location = _selectedVehicle.Location.Position;
 		}
 
 		private void OnZoomChanged(float zoom)
