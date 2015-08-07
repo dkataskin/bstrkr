@@ -18,8 +18,8 @@
             android:paddingLeft="10dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Current area:"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            local:MvxBind="Text [current_area_label]" />
         <MvxSpinner
             android:id="@+id/sp_area_value"
             android:layout_width="fill_parent"

@@ -191,6 +191,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string current_area_label {
+            get {
+                return ResourceManager.GetString("current_area_label", resourceCulture);
+            }
+        }
+        
         public static string map_view_title {
             get {
                 return ResourceManager.GetString("map_view_title", resourceCulture);

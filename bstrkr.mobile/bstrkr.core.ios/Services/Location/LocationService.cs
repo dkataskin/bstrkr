@@ -53,6 +53,8 @@ namespace bstrkr.core.ios.service.location
 			}
 		}
 
+		public event EventHandler<LocationErrorEventArgs> LocatingFailed;
+
 		private void RaiseLocationUpdatedEvent(CLLocationCoordinate2D coord)
 		{
 			if (this.LocationUpdated != null)

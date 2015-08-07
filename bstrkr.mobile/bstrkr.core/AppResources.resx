@@ -150,4 +150,7 @@
   	<data name="select_location_btn" xml:space="preserve">
     <value>Select location</value>
   </data>
+    <data name="current_area_label" xml:space="preserve">
+    <value>Selected area:</value>
+  </data>
 </root>

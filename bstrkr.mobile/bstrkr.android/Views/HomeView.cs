@@ -45,6 +45,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using System.Reactive.Linq;
 
 namespace bstrkr.android.views
 {
@@ -203,9 +204,20 @@ namespace bstrkr.android.views
 			panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
 			panel.SlidingEnabled = true;
 
+			Observable.FromEvent<SlidingUpPanelSlideEventArgs>(
+					  ev => panel.PanelSlide += (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args), 
+					  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
+					  .Throttle(TimeSpan.FromMilliseconds(500))
+					  .Subscribe(this.OnNext);
+
 			this.CloseSlidingPanel();
 
 			(this.ViewModel as HomeViewModel).DetectLocationCommand.Execute();
+		}
+
+		private void OnNext(SlidingUpPanelSlideEventArgs args)
+		{
+			Mvx.Trace("panel slided, offset {0:F2}", args.SlideOffset);
 		}
 
 		public override void OnConfigurationChanged(Configuration newConfig)
