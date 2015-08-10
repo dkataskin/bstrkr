@@ -6,7 +6,7 @@ namespace bstrkr.mvvm.messages
 {
 	public class MainViewportChangedMessage : MvxMessage
 	{
-		public MainViewportChangedMessage(float visibleAreaOffset)
+		public MainViewportChangedMessage(object sender, float visibleAreaOffset) : base(sender)
 		{
 			this.VisibleAreaOffset = visibleAreaOffset;
 		}

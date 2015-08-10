@@ -110,6 +110,15 @@ namespace bstrkr.android.views
 			_googleMapView.OnLowMemory();
 		}
 
+		public void OnMapViewportChanged(float visibleRegionOffset)
+		{
+			var mapViewModel = this.ViewModel as MapViewModel;
+			if (mapViewModel != null)
+			{
+				mapViewModel.ChangeMapViewportCommand.Execute(visibleRegionOffset);
+			}
+		}
+
 		public void OnMapReady(GoogleMap map)
 		{
 			var locationProvider = Mvx.Resolve<ILocationService>();

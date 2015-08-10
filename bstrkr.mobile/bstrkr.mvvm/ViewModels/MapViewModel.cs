@@ -77,6 +77,8 @@ namespace bstrkr.mvvm.viewmodels
 
 			_vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
 													message => this.SelectVehicleCommand.Execute(message.VehicleId));
+
+			this.ChangeMapViewportCommand = new MvxCommand<float>(this.ChangeMapViewport);
 		}
 
 		public MvxCommand<string> SelectRouteStopCommand { get; private set; }
@@ -84,6 +86,8 @@ namespace bstrkr.mvvm.viewmodels
 		public MvxCommand<string> SelectVehicleCommand { get; private set; }
 
 		public MvxCommand ClearSelectionCommand { get; private set; }
+
+		public MvxCommand<float> ChangeMapViewportCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 
@@ -100,7 +104,7 @@ namespace bstrkr.mvvm.viewmodels
 		public GeoPoint Location 
 		{ 
 			get { return _location; }
-			private set 
+			set 
 			{
 				if (!_location.Equals(value))
 				{
@@ -176,6 +180,13 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				_liveDataProvider.Stop();
 			}
+		}
+
+		private void ChangeMapViewport(float viewportOffset)
+		{
+			var dx = (VisibleRegion.NorthEast.Latitude - VisibleRegion.SouthWest.Latitude);
+			var diff = (viewportOffset / 2.0f) * dx;
+			this.Location = new GeoPoint(this.Location.Latitude - diff, this.Location.Longitude);
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)

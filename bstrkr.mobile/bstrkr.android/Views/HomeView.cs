@@ -217,6 +217,9 @@ namespace bstrkr.android.views
 
 		private void OnNext(SlidingUpPanelSlideEventArgs args)
 		{
+			var map = this.FragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
+			map.OnMapViewportChanged(args.SlideOffset);
+
 			Mvx.Trace("panel slided, offset {0:F2}", args.SlideOffset);
 		}
 
