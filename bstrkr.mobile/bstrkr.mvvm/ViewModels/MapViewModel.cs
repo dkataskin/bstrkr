@@ -48,10 +48,11 @@ namespace bstrkr.mvvm.viewmodels
 
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
 		private ILiveDataProvider _liveDataProvider;
-		private GeoPoint _location = GeoPoint.Empty;
+		private GeoPoint _mapCenter = GeoPoint.Empty;
 		private GeoRect _visibleRegion;
 		private bool _detectedArea = false;
 		private float _zoom;
+		private float _viewportOffset = 1.0f;
 		private RouteStop _routeStop;
 		private VehicleViewModel _selectedVehicle;
 		private RouteStopMapViewModel _selectedRouteStop;
@@ -79,6 +80,7 @@ namespace bstrkr.mvvm.viewmodels
 													message => this.SelectVehicleCommand.Execute(message.VehicleId));
 
 			this.ChangeMapViewportCommand = new MvxCommand<float>(this.ChangeMapViewport);
+			this.MoveMapCenterCommand = new MvxCommand<GeoPoint>(newMapCenter => _mapCenter = newMapCenter);
 		}
 
 		public MvxCommand<string> SelectRouteStopCommand { get; private set; }
@@ -88,6 +90,8 @@ namespace bstrkr.mvvm.viewmodels
 		public MvxCommand ClearSelectionCommand { get; private set; }
 
 		public MvxCommand<float> ChangeMapViewportCommand { get; private set; }
+
+		public MvxCommand<GeoPoint> MoveMapCenterCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 
@@ -101,15 +105,15 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
 
-		public GeoPoint Location 
+		public GeoPoint MapCenter 
 		{ 
-			get { return _location; }
-			set 
+			get { return _mapCenter; }
+			private set 
 			{
-				if (!_location.Equals(value))
+				if (!_mapCenter.Equals(value))
 				{
-					_location = value;
-					this.RaisePropertyChanged(() => this.Location);
+					_mapCenter = value;
+					this.RaisePropertyChanged(() => this.MapCenter);
 				}
 			}
    		}
@@ -184,16 +188,32 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ChangeMapViewport(float viewportOffset)
 		{
+			if (viewportOffset == _viewportOffset || viewportOffset == 0)
+			{
+				return;
+			}
+
 			var dx = (VisibleRegion.NorthEast.Latitude - VisibleRegion.SouthWest.Latitude);
-			var diff = (viewportOffset / 2.0f) * dx;
-			this.Location = new GeoPoint(this.Location.Latitude - diff, this.Location.Longitude);
+			if (viewportOffset == 1.0f)
+			{
+				var diff = (_viewportOffset / 2.0f) * dx;
+				this.MapCenter = new GeoPoint(this.MapCenter.Latitude + diff, this.MapCenter.Longitude);
+			}
+			else
+			{
+				var diff = (viewportOffset / 2.0f) * dx;
+				var sig = viewportOffset > _viewportOffset ? 1 : -1;
+				this.MapCenter = new GeoPoint(this.MapCenter.Latitude + sig * diff, this.MapCenter.Longitude);
+			}
+
+			_viewportOffset = viewportOffset;
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
 		{
 			MvxTrace.Trace(MvxTraceLevel.Diagnostic, () => "Location changed");
 
-			this.Location = _locationService.Location;
+			this.MapCenter = _locationService.Location;
 			this.DetectedArea = _locationService.DetectedArea;
 
 			if (_liveDataProvider != null)
@@ -243,7 +263,7 @@ namespace bstrkr.mvvm.viewmodels
 							_stops.Add(vm);
 						}
 
-						this.SelectClosestRouteStop(this.Location);
+						this.SelectClosestRouteStop(this.MapCenter);
 					};
 
 					lock(_vehicles)
@@ -353,6 +373,8 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedRouteStop = routeStopVM;
 			_selectedRouteStop.IsSelected = true;
 
+			this.MapCenter = _selectedRouteStop.Location.Position;
+
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			this.ShowViewModel<RouteStopViewModel>(
 												new 
@@ -389,6 +411,8 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedVehicle = vehicleVM;
 			_selectedVehicle.IsSelected = true;
 
+			this.MapCenter = _selectedVehicle.Location.Position;
+
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
 			{
@@ -402,7 +426,6 @@ namespace bstrkr.mvvm.viewmodels
 			};
 
 			this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
-//			this.Location = _selectedVehicle.Location.Position;
 		}
 
 		private void OnZoomChanged(float zoom)

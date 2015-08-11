@@ -65,7 +65,8 @@ namespace bstrkr.android.views
 		public void SetCamera(GeoPoint location, float zoom)
 		{
 			var cameraUpdate = CameraUpdateFactory.NewLatLngZoom(location.ToLatLng(), zoom);
-			_map.MoveCamera(cameraUpdate);
+//			_map.MoveCamera(cameraUpdate);
+			_map.AnimateCamera(cameraUpdate);
 		}
 
 		public void AddMarker(IMapMarker marker)

@@ -152,6 +152,8 @@ namespace bstrkr.android.views
 					this.RaiseMapClickedEvent();
 					this.MapViewModel.ClearSelectionCommand.Execute();
 				};
+
+				_mapViewWrapper.CameraLocationChanged += (s, a) => this.MapViewModel.MoveMapCenterCommand.Execute(a.Location);
 			}
 
 			if (_vehicleMarkerManager == null)
@@ -170,12 +172,30 @@ namespace bstrkr.android.views
 			}
 
 			var set = this.CreateBindingSet<MapView, MapViewModel>();
-			set.Bind(map).For(m => m.MyLocationEnabled).To(vm => vm.DetectedArea);
-			set.Bind(_vehicleMarkerManager).For(m => m.ItemsSource).To(vm => vm.Vehicles);
-			set.Bind(_routeStopMarkerManager).For(m => m.ItemsSource).To(vm => vm.Stops);
-			set.Bind(_mapLocationManager).For(m => m.Location).To(vm => vm.Location);
-			set.Bind(_mapViewWrapper).For(x => x.Zoom).To(vm => vm.Zoom);
-			set.Bind(_mapViewWrapper).For("VisibleRegion").To(vm => vm.VisibleRegion);
+			set.Bind(map)
+			   .For(m => m.MyLocationEnabled)
+			   .To(vm => vm.DetectedArea);
+
+			set.Bind(_vehicleMarkerManager)
+			   .For(m => m.ItemsSource)
+			   .To(vm => vm.Vehicles);
+			
+			set.Bind(_routeStopMarkerManager)
+			   .For(m => m.ItemsSource)
+			   .To(vm => vm.Stops);
+			
+			set.Bind(_mapLocationManager)
+			   .For(m => m.Location)
+			   .To(vm => vm.MapCenter);
+			
+			set.Bind(_mapViewWrapper)
+			   .For(m => m.Zoom)
+			   .To(vm => vm.Zoom);
+			
+			set.Bind(_mapViewWrapper)
+			   .For(m => m.VisibleRegion)
+			   .To(vm => vm.VisibleRegion);
+			
 			set.Apply();
 
 			(this.ViewModel as MapViewModel).Zoom = map.CameraPosition.Zoom;
