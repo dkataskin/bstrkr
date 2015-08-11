@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 
 using Android.App;
 using Android.Content;
@@ -33,6 +34,7 @@ using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
+
 using Cheesebaron.SlidingUpPanel;
 
 using Cirrious.CrossCore;
@@ -45,7 +47,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using System.Reactive.Linq;
 
 namespace bstrkr.android.views
 {
@@ -62,6 +63,7 @@ namespace bstrkr.android.views
 		private MvxListView _drawerList;
 		private MenuSection _currentSection;
 		private IBusTrackerLocationService _locationService;
+		private IDisposable _slidingSubscription;
 
 		private bool _enableDrawerOnNextNavigation;
 
@@ -204,11 +206,11 @@ namespace bstrkr.android.views
 			panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
 			panel.SlidingEnabled = true;
 
-			Observable.FromEvent<SlidingUpPanelSlideEventArgs>(
-					  ev => panel.PanelSlide += (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args), 
-					  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
-					  .Throttle(TimeSpan.FromMilliseconds(500))
-					  .Subscribe(this.OnNext);
+			_slidingSubscription = Observable.FromEvent<SlidingUpPanelSlideEventArgs>(
+									  ev => panel.PanelSlide += (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args), 
+									  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
+									  .Throttle(TimeSpan.FromMilliseconds(200))
+									  .Subscribe(this.OnNext);
 
 			this.CloseSlidingPanel();
 

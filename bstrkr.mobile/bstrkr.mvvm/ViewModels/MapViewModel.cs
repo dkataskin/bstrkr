@@ -373,7 +373,7 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedRouteStop = routeStopVM;
 			_selectedRouteStop.IsSelected = true;
 
-			this.MapCenter = _selectedRouteStop.Location.Position;
+//			this.MapCenter = _selectedRouteStop.Location.Position;
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			this.ShowViewModel<RouteStopViewModel>(
@@ -385,6 +385,8 @@ namespace bstrkr.mvvm.viewmodels
 												},
 												null, 
 												requestedBy);
+
+			this.CenterMap(_viewportOffset, _selectedRouteStop.Location.Position);
 		}
 
 		private void SelectVehicle(string vehicleId)
@@ -411,7 +413,7 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedVehicle = vehicleVM;
 			_selectedVehicle.IsSelected = true;
 
-			this.MapCenter = _selectedVehicle.Location.Position;
+//			this.MapCenter = _selectedVehicle.Location.Position;
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
@@ -426,6 +428,8 @@ namespace bstrkr.mvvm.viewmodels
 			};
 
 			this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
+
+			this.CenterMap(_viewportOffset, _selectedVehicle.Location.Position);
 		}
 
 		private void OnZoomChanged(float zoom)
@@ -472,6 +476,22 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				_selectedRouteStop.IsSelected = false;
 				_selectedRouteStop = null;
+			}
+		}
+
+		private void CenterMap(float viewportOffset, GeoPoint location)
+		{
+			if (viewportOffset > 0 && viewportOffset < 1)
+			{
+				var dx = (VisibleRegion.NorthEast.Latitude - VisibleRegion.SouthWest.Latitude);
+				var diff = (viewportOffset / 2.0f) * dx;
+				this.MapCenter = new GeoPoint(
+									location.Latitude - diff, 
+									location.Longitude);
+			}
+			else
+			{
+				this.MapCenter = location;
 			}
 		}
 	}
