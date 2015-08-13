@@ -8,6 +8,7 @@ using Android.Content;
 using Android.Gms.Common;
 using Android.Gms.Common.Apis;
 using Android.Gms.Location;
+using Android.Gms.Maps;
 using Android.Locations;
 using Android.OS;
 
@@ -16,7 +17,6 @@ using bstrkr.core.spatial;
 
 using Cirrious.CrossCore.Droid;
 using Cirrious.CrossCore.Exceptions;
-using Android.Gms.Maps;
 
 namespace bstrkr.core.android.services.location
 {
@@ -144,7 +144,7 @@ namespace bstrkr.core.android.services.location
 			if (queryResult == ConnectionResult.Success)
 			{
 				_googleAPIClient = new GoogleApiClientBuilder(_androidGlobals.ApplicationContext)
-										.AddApi(LocationServices.Api)
+										.AddApi(LocationServices.API)
 										.AddConnectionCallbacks(this)
 										.AddOnConnectionFailedListener(this)
 										.Build();
