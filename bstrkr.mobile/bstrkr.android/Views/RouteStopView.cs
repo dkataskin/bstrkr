@@ -16,7 +16,7 @@ using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 namespace bstrkr.android.views
 {
 	[Register("bstrkr.android.views.RouteStopView")]
-	public class RouteStopView : MvxFragment
+	public class RouteStopView : MvxFragment, IMenuItemOnMenuItemClickListener
 	{
 		public RouteStopView()
 		{
@@ -27,7 +27,7 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			//this.SetHasOptionsMenu(true);
+			this.SetHasOptionsMenu(true);
 
 			var vm = this.DataContext as RouteStopViewModel;
 			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = string.Format(
@@ -36,6 +36,25 @@ namespace bstrkr.android.views
 													vm.Description);
 
 			return this.BindingInflate(Resource.Layout.fragment_routestop_view, null);
+		}
+
+		public bool OnMenuItemClick(IMenuItem item)
+		{
+			if (item.ItemId == Resource.Id.menu_showonmap)
+			{
+				(this.ViewModel as RouteStopViewModel).ShowOnMapCommand.Execute();
+				return true;
+			}
+
+			return false;
+		}
+
+		public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+		{
+			inflater.Inflate(Resource.Menu.route_stop_view_menu, menu);
+
+			var showOnMapMenuItem = menu.FindItem(Resource.Id.menu_showonmap);
+			showOnMapMenuItem.SetOnMenuItemClickListener(this);
 		}
 
 		public override void OnDestroyView()

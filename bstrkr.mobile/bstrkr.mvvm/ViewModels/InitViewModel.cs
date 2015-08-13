@@ -15,14 +15,17 @@ namespace bstrkr.mvvm.viewmodels
 	public class InitViewModel : BusTrackerViewModelBase
 	{
 		private readonly IBusTrackerLocationService _locationService;
+		private readonly IUserInteraction _userInteraction;
 
 		private int _locatingSec = 30;
 
 		private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 		private CancellationToken _token;
 
-		public InitViewModel(IBusTrackerLocationService locationService)
+		public InitViewModel(IBusTrackerLocationService locationService, IUserInteraction userInteraction)
 		{
+			_userInteraction = userInteraction;
+
 			_locationService = locationService;
 			_locationService.LocationChanged += this.OnLocationChanged;
 			_locationService.LocationError += this.OnLocationError;
@@ -62,7 +65,8 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					this.Dispatcher.RequestMainThreadAction(() => this.OnLocationError(this, LocationErrorEventArgs.Empty));
 				}
-			}, token);
+			}, 
+			token);
 		}
 
 		private void OnLocationChanged(object sender, EventArgs args)
@@ -75,7 +79,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			this.CleanUp();
 
-			Mvx.Resolve<IUserInteraction>().Confirm(
+			_userInteraction.Confirm(
 				AppResources.unknown_location_dialog_text, 
 				answer => 
 				{

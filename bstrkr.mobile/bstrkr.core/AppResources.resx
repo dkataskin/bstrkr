@@ -142,7 +142,7 @@
     <value>km</value>
   </data>
   	<data name="locating_countdown_format" xml:space="preserve">
-    <value>00:{0:D2} Understanding where you are...</value>
+    <value>00:{0:D2} Finding your location...</value>
   </data>
 	<data name="animate_markers_label" xml:space="preserve">
     <value>Animate markers movement</value>
@@ -153,4 +153,7 @@
     <data name="current_area_label" xml:space="preserve">
     <value>Selected area:</value>
   </data>
+      <data name="show_vehicle_on_map_confirm_format" xml:space="preserve">
+    <value>Show it on map?</value>
+    </data>
 </root>

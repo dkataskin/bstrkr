@@ -2011,8 +2011,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07003a
 			public const int action_mode_close_button = 2131165242;
 			
-			// aapt resource value: 0x7f070094
-			public const int action_search = 2131165332;
+			// aapt resource value: 0x7f070095
+			public const int action_search = 2131165333;
 			
 			// aapt resource value: 0x7f07003b
 			public const int activity_chooser_view_content = 2131165243;
@@ -2203,8 +2203,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f07007e
 			public const int media_route_volume_slider = 2131165310;
 			
-			// aapt resource value: 0x7f070095
-			public const int menu_refresh = 2131165333;
+			// aapt resource value: 0x7f070096
+			public const int menu_refresh = 2131165334;
+			
+			// aapt resource value: 0x7f070094
+			public const int menu_showonmap = 2131165332;
 			
 			// aapt resource value: 0x7f070016
 			public const int middle = 2131165206;
@@ -2654,10 +2657,13 @@ namespace bstrkr.android
 		{
 			
 			// aapt resource value: 0x7f0d0000
-			public const int route_stops_view_menu = 2131558400;
+			public const int route_stop_view_menu = 2131558400;
 			
 			// aapt resource value: 0x7f0d0001
-			public const int routes_view_menu = 2131558401;
+			public const int route_stops_view_menu = 2131558401;
+			
+			// aapt resource value: 0x7f0d0002
+			public const int routes_view_menu = 2131558402;
 			
 			static Menu()
 			{

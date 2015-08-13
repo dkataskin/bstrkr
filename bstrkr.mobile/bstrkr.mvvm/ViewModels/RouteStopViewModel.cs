@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using bstrkr.core;
 using bstrkr.core.collections;
 using bstrkr.mvvm.converters;
+using bstrkr.mvvm.messages;
 using bstrkr.providers;
 
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
@@ -23,6 +25,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly RouteInfoToTitleConverter _routeInfoToTitleConverter = new RouteInfoToTitleConverter();
 		private readonly ObservableCollection<RouteStopForecastViewModel> _forecast = new ObservableCollection<RouteStopForecastViewModel>();
 		private readonly IObservable<long> _intervalObservable;
+		private readonly IMvxMessenger _messenger;
 
 		private IDisposable _intervalSubscription;
 
@@ -31,13 +34,19 @@ namespace bstrkr.mvvm.viewmodels
 		private string _description;
 		private bool _noData;
 
-		public RouteStopViewModel(ILiveDataProviderFactory liveDataProvider)
+		public RouteStopViewModel(ILiveDataProviderFactory liveDataProvider, IMvxMessenger messenger)
 		{
 			_liveDataProviderFactory = liveDataProvider;
 			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
 
 			this.Forecast = new ReadOnlyObservableCollection<RouteStopForecastViewModel>(_forecast);
+
+			this.ShowOnMapCommand = new MvxCommand(this.ShowOnMap);
+
+			_messenger = messenger;
 		}
+
+		public MvxCommand ShowOnMapCommand { get; private set; }
 
 		public string RouteStopId 
 		{
@@ -193,6 +202,11 @@ namespace bstrkr.mvvm.viewmodels
 					}
 				}
 			});
+		}
+
+		private void ShowOnMap()
+		{
+			_messenger.Publish<ShowRouteStopForecastOnMapMessage>(new ShowRouteStopForecastOnMapMessage(this, this.RouteStopId));
 		}
 	}
 }

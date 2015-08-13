@@ -221,6 +221,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string show_vehicle_on_map_confirm_format {
+            get {
+                return ResourceManager.GetString("show_vehicle_on_map_confirm_format", resourceCulture);
+            }
+        }
+        
         public static string select {
             get {
                 return ResourceManager.GetString("select", resourceCulture);

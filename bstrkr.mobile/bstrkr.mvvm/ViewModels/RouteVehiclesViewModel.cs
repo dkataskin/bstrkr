@@ -16,6 +16,7 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using Chance.MvvmCross.Plugins.UserInteraction;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -28,6 +29,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private readonly IObservable<long> _intervalObservable;
 		private readonly IDisposable _intervalSubscription;
+		private readonly IUserInteraction _userInteraction;
 
 		private bool _noData;
 		private string _routeId;
@@ -36,9 +38,11 @@ namespace bstrkr.mvvm.viewmodels
 		private VehicleTypes _vehicleType;
 		private Route _route;
 
-		public RouteVehiclesViewModel(ILiveDataProviderFactory providerFactory)
+		public RouteVehiclesViewModel(ILiveDataProviderFactory providerFactory, IUserInteraction userInteraction)
 		{
 			_providerFactory = providerFactory;
+			_userInteraction = userInteraction;
+
 			this.Vehicles = new ReadOnlyObservableCollection<VehicleForecastViewModel>(_vehicles);
 			this.ShowVehicleOnMapCommand = new MvxCommand<VehicleForecastViewModel>(this.ShowVehicleOnMap, vm => !this.IsBusy);
 
@@ -256,7 +260,12 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ShowVehicleOnMap(VehicleForecastViewModel vehicleViewModel)
 		{
-			vehicleViewModel.ShowOnMapCommand.Execute();
+			_userInteraction.Confirm(
+				AppResources.show_vehicle_on_map_confirm_format,
+				() => vehicleViewModel.ShowOnMapCommand.Execute(),
+				string.Empty,
+				AppResources.yes,
+				AppResources.no);
 		}
 	}
 }

@@ -188,23 +188,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ChangeMapViewport(float viewportOffset)
 		{
-			if (viewportOffset == _viewportOffset || viewportOffset == 0)
-			{
-				return;
-			}
-
-			var dx = (VisibleRegion.NorthEast.Latitude - VisibleRegion.SouthWest.Latitude);
-			if (viewportOffset == 1.0f)
-			{
-				var diff = (_viewportOffset / 2.0f) * dx;
-				this.MapCenter = new GeoPoint(this.MapCenter.Latitude + diff, this.MapCenter.Longitude);
-			}
-			else
-			{
-				var diff = (viewportOffset / 2.0f) * dx;
-				var sig = viewportOffset > _viewportOffset ? 1 : -1;
-				this.MapCenter = new GeoPoint(this.MapCenter.Latitude + sig * diff, this.MapCenter.Longitude);
-			}
+			var diff =  (viewportOffset - _viewportOffset) * (VisibleRegion.NorthEast.Latitude - VisibleRegion.SouthWest.Latitude);
+			this.MapCenter = new GeoPoint(this.MapCenter.Latitude + diff / 2.0f, this.MapCenter.Longitude);
 
 			_viewportOffset = viewportOffset;
 		}
@@ -373,8 +358,6 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedRouteStop = routeStopVM;
 			_selectedRouteStop.IsSelected = true;
 
-//			this.MapCenter = _selectedRouteStop.Location.Position;
-
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			this.ShowViewModel<RouteStopViewModel>(
 												new 
@@ -412,8 +395,6 @@ namespace bstrkr.mvvm.viewmodels
 
 			_selectedVehicle = vehicleVM;
 			_selectedVehicle.IsSelected = true;
-
-//			this.MapCenter = _selectedVehicle.Location.Position;
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
