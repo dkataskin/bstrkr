@@ -358,7 +358,6 @@
     <AndroidResource Include="Resources\Drawable\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bus_s.png" />
-    <AndroidResource Include="Resources\Layout\fragment_init_view.axml" />
     <AndroidResource Include="Resources\Drawable\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\splash.9.png" />
@@ -452,6 +451,7 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_m_selected.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_s_selected.png" />
     <AndroidResource Include="Resources\Menu\route_stop_view_menu.xml" />
+    <AndroidResource Include="Resources\Layout\page_init_view.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

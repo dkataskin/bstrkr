@@ -54,9 +54,18 @@ namespace bstrkr.core.android.services.location
 
 		public void StartUpdating()
 		{
-			if (GooglePlayServicesUtil.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext) != ConnectionResult.Success)
+			var apiAvailability = GoogleApiAvailability.Instance;
+			var returnCode = apiAvailability.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
+			if (returnCode != ConnectionResult.Success)
 			{
-				throw new MvxException("Google Play Services are not available");
+				if (apiAvailability.IsUserResolvableError(returnCode))
+				{
+					//apiAvailability.ShowErrorDialogFragment(_androidGlobals.ApplicationContext.acti)
+				}
+				else
+				{
+					throw new MvxException("Google Play Services are not available");
+				}
 			}
 
 			this.ConnectGoogleAPI();
@@ -139,8 +148,8 @@ namespace bstrkr.core.android.services.location
 
 		private void InitializeGoogleAPI()
 		{
-			var queryResult = GooglePlayServicesUtil.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
-
+			var apiAvailability = GoogleApiAvailability.Instance;
+			var queryResult = apiAvailability.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
 			if (queryResult == ConnectionResult.Success)
 			{
 				_googleAPIClient = new GoogleApiClientBuilder(_androidGlobals.ApplicationContext)
@@ -154,7 +163,7 @@ namespace bstrkr.core.android.services.location
 				var errorString = string.Format(
 										"There is a problem with Google Play Services on this device: {0} - {1}", 
 										queryResult, 
-										GooglePlayServicesUtil.GetErrorString(queryResult));
+										apiAvailability.GetErrorString(queryResult));
 
 				throw new MvxException(errorString);
 			}

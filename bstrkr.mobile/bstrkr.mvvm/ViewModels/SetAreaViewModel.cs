@@ -38,13 +38,14 @@ namespace bstrkr.mvvm.viewmodels
 			if (index >= 0)
 			{
 				_locationService.SelectArea(this.Areas[index]);
-				this.ShowViewModel<MapViewModel>();
+				this.ShowViewModel<HomeViewModel>();
 			}
 		}
 
 		private void Cancel()
 		{
 			_locationService.SelectArea(null);
+			this.ShowViewModel<HomeViewModel>();
 		}
 	}
 }

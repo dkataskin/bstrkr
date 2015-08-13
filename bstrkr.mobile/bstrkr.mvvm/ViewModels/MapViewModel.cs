@@ -38,6 +38,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IMvxMessenger _messenger;
 		private readonly IConfigManager _configManager;
 		private readonly MvxSubscriptionToken _vehicleInfoSubscriptionToken;
+		private readonly MvxSubscriptionToken _routeStopInfoSubscriptionToken;
 		private readonly BusTrackerConfig _config;
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
@@ -78,6 +79,9 @@ namespace bstrkr.mvvm.viewmodels
 
 			_vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
 													message => this.SelectVehicleCommand.Execute(message.VehicleId));
+
+			_routeStopInfoSubscriptionToken = _messenger.Subscribe<ShowRouteStopForecastOnMapMessage>(
+													message => this.SelectRouteStopCommand.Execute(message.RouteStopId));
 
 			this.ChangeMapViewportCommand = new MvxCommand<float>(this.ChangeMapViewport);
 			this.MoveMapCenterCommand = new MvxCommand<GeoPoint>(newMapCenter => _mapCenter = newMapCenter);
@@ -167,6 +171,12 @@ namespace bstrkr.mvvm.viewmodels
 		public override void Start()
 		{
 			base.Start();
+
+			if (_locationService.Area != null)
+			{
+				this.OnLocationChanged(this, EventArgs.Empty);
+			}
+
 			this.IsBusy = true;
 		}
 

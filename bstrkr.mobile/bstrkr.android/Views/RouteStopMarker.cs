@@ -26,7 +26,7 @@ namespace bstrkr.android.views
 				.SetPosition(this.ViewModel.Location.ToLatLng())
 				.SetTitle(this.ViewModel.Model.Name)
 				.SetSnippet(this.ViewModel.Model.Description)
-				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)
+				.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(false);
 		}
 

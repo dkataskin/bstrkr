@@ -27,7 +27,21 @@ namespace bstrkr.providers
 
 		public ILiveDataProvider GetCurrentProvider()
 		{
-			return _currentProvider;
+			lock(_locationService)
+			{
+				var area = _locationService.Area;
+				if (_currentArea == null || area == null || !_currentArea.Id.Equals(area.Id) || _currentProvider == null)
+				{
+					_currentArea = area;
+					_currentProvider = this.CreateProvider(_currentArea);
+
+					return _currentProvider;
+				}
+				else
+				{
+					return _currentProvider;
+				}
+			}
 		}
 
 		public ILiveDataProvider CreateProvider(Area area)

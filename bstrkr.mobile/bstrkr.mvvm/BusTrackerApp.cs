@@ -9,7 +9,7 @@ namespace bstrkr.mvvm
     {
         public override void Initialize()
         {
-            this.RegisterAppStart<HomeViewModel>();
+            this.RegisterAppStart<InitViewModel>();
         }
 
 		protected override IMvxViewModelLocator CreateDefaultViewModelLocator()

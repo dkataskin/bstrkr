@@ -42,9 +42,9 @@ namespace bstrkr.android.views
 				.Anchor(0.5f, 0.5f)
 				.SetPosition(this.ViewModel.Location.ToLatLng())
 				.SetTitle(this.ViewModel.RouteNumber)
-				.InvokeIcon(this.ViewModel.Icon as BitmapDescriptor)
+				.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(true)
-				.InvokeRotation(Convert.ToSingle(this.ViewModel.Location.Heading));
+				.SetRotation(Convert.ToSingle(this.ViewModel.Location.Heading));
 		}
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)

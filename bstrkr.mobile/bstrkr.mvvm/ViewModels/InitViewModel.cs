@@ -14,6 +14,7 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class InitViewModel : BusTrackerViewModelBase
 	{
+		private readonly object _lockObject = new object();
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly IUserInteraction _userInteraction;
 
@@ -22,7 +23,8 @@ namespace bstrkr.mvvm.viewmodels
 		private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 		private CancellationToken _token;
 
-		public InitViewModel(IBusTrackerLocationService locationService, IUserInteraction userInteraction)
+		public InitViewModel(IBusTrackerLocationService locationService,
+							 IUserInteraction userInteraction)
 		{
 			_userInteraction = userInteraction;
 
@@ -71,36 +73,45 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnLocationChanged(object sender, EventArgs args)
 		{
-			this.CleanUp();
-			this.ShowViewModel<MapViewModel>();
+			lock(_lockObject)
+			{
+				this.CleanUp();
+				this.ShowViewModel<HomeViewModel>();
+			}
 		}
 
 		private void OnLocationError(object sender, EventArgs args)
 		{
-			this.CleanUp();
+			lock(_lockObject)
+			{
+				this.CleanUp();
 
-			_userInteraction.Confirm(
-				AppResources.unknown_location_dialog_text, 
-				answer => 
-				{
-					if (answer)
+				_userInteraction.Confirm(
+					AppResources.unknown_location_dialog_text, 
+					answer => 
 					{
-						this.ShowViewModel<SetAreaViewModel>();
-					}
-					else
-					{
-						this.ShowViewModel<MapViewModel>();
-					}
-				},
-				AppResources.unknown_location_dialog_title,
-				AppResources.yes,
-				AppResources.no_thanks);
+						if (answer)
+						{
+							this.ShowViewModel<SetAreaViewModel>();
+						}
+						else
+						{
+							this.ShowViewModel<HomeViewModel>();
+						}
+					},
+					AppResources.unknown_location_dialog_title,
+					AppResources.yes,
+					AppResources.no_thanks);
+			}
 		}
 
 		private void SelectManually()
 		{
-			this.CleanUp();
-			this.ShowViewModel<SetAreaViewModel>();
+			lock(_lockObject)
+			{
+				this.CleanUp();
+				this.ShowViewModel<SetAreaViewModel>();
+			}
 		}
 
 		private void CleanUp()

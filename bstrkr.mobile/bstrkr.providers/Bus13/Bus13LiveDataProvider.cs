@@ -55,35 +55,6 @@ namespace bstrkr.core.providers.bus13
 			MvxTrace.Trace(() => "started retrieving routes");
 
 			this.CreateStartTask();
-
-//			try
-//			{
-//				_dataService.GetRoutesAsync().ContinueWith(task => 
-//				{
-//					if (task.Status == TaskStatus.RanToCompletion)
-//					{
-//						var routes = task.Result.ToList();
-//						if (routes.Any())
-//						{
-//							MvxTrace.Trace("{0} routes retrieved", routes.Count);
-//
-//							_cancellationTokenSource = new CancellationTokenSource();
-//							_updateTask = Task.Factory.StartNew(
-//								() => this.UpdateInLoop(_dataService, routes, _updateInterval, _cancellationTokenSource.Token), 
-//								_cancellationTokenSource.Token);
-//						}
-//					}
-//					else
-//					{
-//						MvxTrace.Trace("an exception occured while retrieving routes: {0}", e);
-//					}
-//				}).ConfigureAwait(false);
-//			} 
-//			catch (Exception e)
-//			{
-//				MvxTrace.Trace("an exception occured while retrieving routes: {0}", e);
-//				Insights.Report(e, Xamarin.Insights.Severity.Warning);
-//			}
 		}
 
 		public void Stop()

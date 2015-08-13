@@ -30,14 +30,11 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService = locationService;
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
 			this.SelectMenuItemCommand = new MvxCommand<MenuViewModel>(this.SelectMenuItem);
-			this.DetectLocationCommand = new MvxCommand(() => this.ShowViewModel<InitViewModel>());
 		}
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
 		public MvxCommand<MenuViewModel> SelectMenuItemCommand { get; private set; }
-
-		public MvxCommand DetectLocationCommand { get; private set; }
 
 		public MenuSection GetSectionForViewModelType(Type type)
 		{

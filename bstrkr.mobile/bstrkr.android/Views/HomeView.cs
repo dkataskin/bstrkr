@@ -213,8 +213,6 @@ namespace bstrkr.android.views
 									  .Subscribe(this.OnNext);
 
 			this.CloseSlidingPanel();
-
-			(this.ViewModel as HomeViewModel).DetectLocationCommand.Execute();
 		}
 
 		private void OnNext(SlidingUpPanelSlideEventArgs args)
@@ -324,14 +322,12 @@ namespace bstrkr.android.views
 		private void RegisterForDetailsRequests()
 		{
 			var customPresenter = Mvx.Resolve<ICustomPresenter>();
-			customPresenter.Register(typeof(InitViewModel), this);
 			customPresenter.Register(typeof(PreferencesViewModel), this);
 			customPresenter.Register(typeof(RoutesViewModel), this);
 			customPresenter.Register(typeof(RouteStopsViewModel), this);
 			customPresenter.Register(typeof(LicensesViewModel), this);
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);
-			customPresenter.Register(typeof(SetAreaViewModel), this);
 			customPresenter.Register(typeof(SetRouteStopViewModel), this);
 			customPresenter.Register(typeof(RouteVehiclesViewModel), this);
 			customPresenter.Register(typeof(RouteStopViewModel), this);
@@ -377,27 +373,6 @@ namespace bstrkr.android.views
 
 		private void Navigate(MvxViewModelRequest request, IMvxViewModelLoader loaderService)
 		{
-			if (request.ViewModelType == typeof(InitViewModel))
-			{
-				var initView = new InitView();
-				initView.ViewModel = loaderService.LoadViewModel(request, null);
-				this.FragmentManager.BeginTransaction()
-					.Replace(Resource.Id.content_frame, initView, "init_view")
-					.Commit();
-
-				this.DisableDrawer();
-
-				_frag2tag[typeof(InitView)] = "init_view";
-				_enableDrawerOnNextNavigation = true;
-			}
-
-			if (request.ViewModelType == typeof(SetAreaViewModel))
-			{
-				var dialog = new SetAreaView();
-				dialog.ViewModel = loaderService.LoadViewModel(request, null);
-				dialog.Show(this.FragmentManager, null);
-			}
-
 			if (request.ViewModelType == typeof(SetRouteStopViewModel))
 			{
 				var dialog = new SetRouteStopView();
