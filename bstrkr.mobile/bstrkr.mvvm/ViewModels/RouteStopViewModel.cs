@@ -13,6 +13,8 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.messages;
 using bstrkr.providers;
 
+using Chance.MvvmCross.Plugins.UserInteraction;
+
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
@@ -26,6 +28,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ObservableCollection<RouteStopForecastViewModel> _forecast = new ObservableCollection<RouteStopForecastViewModel>();
 		private readonly IObservable<long> _intervalObservable;
 		private readonly IMvxMessenger _messenger;
+		private readonly IUserInteraction _userInteraction;
 
 		private IDisposable _intervalSubscription;
 
@@ -34,19 +37,25 @@ namespace bstrkr.mvvm.viewmodels
 		private string _description;
 		private bool _noData;
 
-		public RouteStopViewModel(ILiveDataProviderFactory liveDataProvider, IMvxMessenger messenger)
+		public RouteStopViewModel(
+						ILiveDataProviderFactory liveDataProvider, 
+						IMvxMessenger messenger,
+						IUserInteraction userInteraction)
 		{
+			_messenger = messenger;
+			_userInteraction = userInteraction;
 			_liveDataProviderFactory = liveDataProvider;
 			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
 
 			this.Forecast = new ReadOnlyObservableCollection<RouteStopForecastViewModel>(_forecast);
 
 			this.ShowOnMapCommand = new MvxCommand(this.ShowOnMap);
-
-			_messenger = messenger;
+			this.ShowVehicleOnMapCommand = new MvxCommand<RouteStopForecastViewModel>(this.ShowVehicleOnMap);
 		}
 
 		public MvxCommand ShowOnMapCommand { get; private set; }
+
+		public MvxCommand<RouteStopForecastViewModel> ShowVehicleOnMapCommand { get; private set;}
 
 		public string RouteStopId 
 		{
@@ -207,6 +216,16 @@ namespace bstrkr.mvvm.viewmodels
 		private void ShowOnMap()
 		{
 			_messenger.Publish<ShowRouteStopForecastOnMapMessage>(new ShowRouteStopForecastOnMapMessage(this, this.RouteStopId));
+		}
+
+		private void ShowVehicleOnMap(RouteStopForecastViewModel routeStopForecastViewModel)
+		{
+			_userInteraction.Confirm(
+				AppResources.show_vehicle_on_map_confirm_format,
+				() => _messenger.Publish<ShowVehicleForecastOnMapMessage>(new ShowVehicleForecastOnMapMessage(this, routeStopForecastViewModel.VehicleId)),
+				string.Empty,
+				AppResources.yes,
+				AppResources.no);
 		}
 	}
 }

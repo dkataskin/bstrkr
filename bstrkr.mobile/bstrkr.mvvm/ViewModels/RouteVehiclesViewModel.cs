@@ -261,11 +261,11 @@ namespace bstrkr.mvvm.viewmodels
 		private void ShowVehicleOnMap(VehicleForecastViewModel vehicleViewModel)
 		{
 			_userInteraction.Confirm(
-				AppResources.show_vehicle_on_map_confirm_format,
-				() => vehicleViewModel.ShowOnMapCommand.Execute(),
-				string.Empty,
-				AppResources.yes,
-				AppResources.no);
+					AppResources.show_vehicle_on_map_confirm_format,
+					() => vehicleViewModel.ShowOnMapCommand.Execute(),
+					string.Empty,
+					AppResources.yes,
+					AppResources.no);
 		}
 	}
 }

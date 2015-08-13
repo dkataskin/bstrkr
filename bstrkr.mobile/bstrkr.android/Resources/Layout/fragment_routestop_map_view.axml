@@ -57,7 +57,7 @@
         <Mvx.MvxListView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            local:MvxBind="ItemsSource Forecast"
+            local:MvxBind="ItemsSource Forecast; ItemClick ShowVehicleOnMapCommand"
             local:MvxItemTemplate="@layout/item_stop_forecast"
             android:divider="@null"
             android:dividerHeight="0dp" />
