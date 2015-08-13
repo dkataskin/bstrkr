@@ -35,16 +35,7 @@ namespace bstrkr.android
     {
         public Setup(Context applicationContext) : base(applicationContext)
         {
-			Insights.Initialize("<your key here>", applicationContext);
-
-			// Get thread pool information
-			int workerThreadsMin, completionPortThreadsMin;
-			ThreadPool.GetMinThreads(out workerThreadsMin, out completionPortThreadsMin);
-			int workerThreadsMax, completionPortThreadsMax;
-			ThreadPool.GetMaxThreads(out workerThreadsMax, out completionPortThreadsMax);
-
-			// Adjust min threads
-			ThreadPool.SetMinThreads(workerThreadsMax, completionPortThreadsMin);
+			Insights.Initialize("your key here", applicationContext);
         }
 
 		protected override void InitializeFirstChance()
@@ -72,8 +63,12 @@ namespace bstrkr.android
 		protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
 		{
 			registry.RegisterCustomBindingFactory<MonoDroidGoogleMapsView>(
-																		"Zoom", 
-																		mapView => new MapViewZoomTargetBinding(mapView));
+																	"Zoom", 
+																	mapView => new MapViewZoomTargetBinding(mapView));
+
+			registry.RegisterCustomBindingFactory<MonoDroidGoogleMapsView>(
+																	"VisibleRegion",
+																	mapView => new MapViewVisibleRegionTargetBinding(mapView));
 
 			base.FillTargetFactories(registry);
 		}
