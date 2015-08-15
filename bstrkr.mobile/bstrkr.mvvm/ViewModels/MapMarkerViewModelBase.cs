@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using bstrkr.core.map;
 using bstrkr.core.services.resources;
@@ -17,6 +18,7 @@ namespace bstrkr.mvvm.viewmodels
 		private GeoLocation _location;
 		private bool _isVisible = true;
 		private bool _isSelected = false;
+		private MapMarkerSelectionStates _selectionState = MapMarkerSelectionStates.NoSelection;
 
 		private T _model;
 
@@ -83,19 +85,28 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _isVisible, value, () => this.IsVisible); }
 		}
 
-		public virtual bool IsSelected
+		public virtual MapMarkerSelectionStates SelectionState
 		{
-			get 
-			{ 
-				return _isSelected; 
-			}
-
+			get { return _selectionState; }
 			set 
 			{ 
+				if (_selectionState != value)
+				{
+					_selectionState = value;
+					this.RaisePropertyChanged(() => this.SelectionState);
+					this.IsSelected = value == MapMarkerSelectionStates.SelectionSelected;
+				}
+			}
+		}
+
+		public bool IsSelected
+		{
+			get { return _isSelected; }
+			private set 
+			{
 				if (_isSelected != value)
 				{
 					_isSelected = value;
-					this.RaisePropertyChanged(() => this.IsSelected);
 					this.Icon = this.GetIcon();
 				}
 			}

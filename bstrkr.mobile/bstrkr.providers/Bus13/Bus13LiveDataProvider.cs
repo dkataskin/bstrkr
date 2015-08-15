@@ -33,6 +33,7 @@ namespace bstrkr.core.providers.bus13
 		private readonly IDictionary<string, Route> _routesCache = new Dictionary<string, Route>();
 		private readonly IDictionary<string, Route> _allRoutesCache = new Dictionary<string, Route>();
 
+		private bool _isRunning;
 		private Task _updateTask;
 		private CancellationTokenSource _cancellationTokenSource;
 
@@ -52,21 +53,36 @@ namespace bstrkr.core.providers.bus13
 
 		public void Start()
 		{
-			MvxTrace.Trace(() => "started retrieving routes");
+			lock(_lockObject)
+			{
+				if (!_isRunning)
+				{
+					_isRunning = true;
 
-			this.CreateStartTask();
+					MvxTrace.Trace(() => "started retrieving routes");
+					this.CreateStartTask();
+				}
+			}
 		}
 
 		public void Stop()
 		{
-			if (_cancellationTokenSource != null)
+			lock(_lockObject)
 			{
-				_cancellationTokenSource.Cancel();
-			}
+				if (_isRunning)
+				{
+					if (_cancellationTokenSource != null)
+					{
+						_cancellationTokenSource.Cancel();
+					}
 
-			if (_updateTask != null)
-			{
-				_cancellationTokenSource.Cancel();
+					if (_updateTask != null)
+					{
+						_cancellationTokenSource.Cancel();
+					}
+				}
+
+				_isRunning = false;
 			}
 		}
 
@@ -107,8 +123,9 @@ namespace bstrkr.core.providers.bus13
 				var routes = await this.GetRoutesAsync();
 				return routes.FirstOrDefault(x => x.Ids.Contains(routeId));
 			} 
-			catch (Exception ex)
+			catch (Exception e)
 			{
+				Insights.Report(e, Insights.Severity.Warning);
 				return null;
 			}
 		}
@@ -178,9 +195,12 @@ namespace bstrkr.core.providers.bus13
 
 		private void CreateStartTask()
 		{
-			this.GetRoutesAsync()
-				.ContinueWith(this.OnGetRoutesTaskCompleted)
-				.ConfigureAwait(false);
+			if (_updateTask == null)
+			{
+				this.GetRoutesAsync()
+					.ContinueWith(this.OnGetRoutesTaskCompleted)
+					.ConfigureAwait(false);
+			}
 		}
 
 		private void OnGetRoutesTaskCompleted(Task<IEnumerable<Route>> task)

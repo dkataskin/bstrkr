@@ -64,6 +64,11 @@ namespace bstrkr.android.views
 			{
 				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
 			}
+
+			if (args.PropertyName.Equals("SelectionState"))
+			{
+				this.Marker.Alpha = this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState);
+			}
 		}
 
 		private void OnPathUpdated(object sender, VehiclePathUpdatedEventArgs args)

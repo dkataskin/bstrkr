@@ -46,6 +46,11 @@ namespace bstrkr.android.views
 			{
 				this.Marker.Visible = this.ViewModel.IsVisible;
 			}
+
+			if (args.PropertyName.Equals("SelectionState"))
+			{
+				this.Marker.Alpha = this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState);
+			}
 		}
 	}
 }

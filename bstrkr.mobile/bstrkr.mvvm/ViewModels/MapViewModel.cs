@@ -366,7 +366,9 @@ namespace bstrkr.mvvm.viewmodels
 			this.ClearSelection();
 
 			_selectedRouteStop = routeStopVM;
-			_selectedRouteStop.IsSelected = true;
+			_selectedRouteStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
+
+			this.SetSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null, new[] { _selectedRouteStop.Model.Id });
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			this.ShowViewModel<RouteStopViewModel>(
@@ -404,7 +406,9 @@ namespace bstrkr.mvvm.viewmodels
 			this.ClearSelection();
 
 			_selectedVehicle = vehicleVM;
-			_selectedVehicle.IsSelected = true;
+			_selectedVehicle.SelectionState = MapMarkerSelectionStates.SelectionSelected;
+
+			this.SetSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedVehicle.Model.Id }, null);
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
@@ -455,19 +459,51 @@ namespace bstrkr.mvvm.viewmodels
 			return Settings.AnimateMarkers && zoom > _config.AnimateMarkersMovementZoomThreshold;
 		}
 
-		private void ClearSelection()
+		private void SetSelectionState(
+						MapMarkerSelectionStates selectionState,
+						IEnumerable<string> excludeVehicles = null,
+						IEnumerable<string> excludeStops = null)
 		{
-			if (_selectedVehicle != null)
+			lock(_vehicles)
 			{
-				_selectedVehicle.IsSelected = false;
-				_selectedVehicle = null;
+				foreach (var vehicle in _vehicles)
+				{
+					if (excludeVehicles != null)
+					{
+						if (!excludeVehicles.Any(v => v.Equals(vehicle.VehicleId)))
+						{
+							vehicle.SelectionState = selectionState;
+						}
+					}
+					else
+					{
+						vehicle.SelectionState = selectionState;
+					}
+				}
 			}
 
-			if (_selectedRouteStop != null)
+			lock(_stops)
 			{
-				_selectedRouteStop.IsSelected = false;
-				_selectedRouteStop = null;
+				foreach (var stop in _stops)
+				{
+					if (excludeStops != null)
+					{
+						if (!excludeStops.Any(v => v.Equals(stop.Model.Id)))
+						{
+							stop.SelectionState = selectionState;
+						}
+					}
+					else
+					{
+						stop.SelectionState = selectionState;
+					}
+				}
 			}
+		}
+
+		private void ClearSelection()
+		{
+			this.SetSelectionState(MapMarkerSelectionStates.NoSelection);
 		}
 
 		private void CenterMap(float viewportOffset, GeoPoint location)

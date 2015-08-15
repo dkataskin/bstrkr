@@ -133,10 +133,6 @@
     </BundleResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
-      <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
-      <Name>bstrkr.mvvm</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bstrkr.tests.infrastructure\bstrkr.tests.infrastructure.csproj">
       <Project>{FC611476-8401-4774-A5C1-0F8EFF58A1D2}</Project>
       <Name>bstrkr.tests.infrastructure</Name>
@@ -148,6 +144,10 @@
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
       <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
       <Name>bstrkr.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
+      <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
+      <Name>bstrkr.mvvm</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

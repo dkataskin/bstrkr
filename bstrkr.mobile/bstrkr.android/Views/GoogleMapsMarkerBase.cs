@@ -4,6 +4,7 @@ using Android.Gms.Maps.Model;
 
 using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
+using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
 
 namespace bstrkr.android.views
@@ -31,5 +32,23 @@ namespace bstrkr.android.views
 		}
 
 		public abstract MarkerOptions GetOptions();
+
+		protected float ConvertSelectionStateToAlpha(MapMarkerSelectionStates selectionState)
+		{
+			switch (selectionState)
+			{
+				case MapMarkerSelectionStates.NoSelection:
+					return 1.0f;
+
+				case MapMarkerSelectionStates.SelectionSelected:
+					return 1.0f;
+
+				case MapMarkerSelectionStates.SelectionNotSelected:
+					return 0.5f;
+
+				default:
+					return 1.0f;
+			}
+		}
 	}
 }
