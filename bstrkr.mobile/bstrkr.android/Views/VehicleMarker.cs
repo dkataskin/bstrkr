@@ -44,6 +44,7 @@ namespace bstrkr.android.views
 				.SetTitle(this.ViewModel.RouteNumber)
 				.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
 				.Flat(true)
+				.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
 				.SetRotation(Convert.ToSingle(this.ViewModel.Location.Heading));
 		}
 

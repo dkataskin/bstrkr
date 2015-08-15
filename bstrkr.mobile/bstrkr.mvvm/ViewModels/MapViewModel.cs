@@ -326,6 +326,11 @@ namespace bstrkr.mvvm.viewmodels
 			vehicleVM.Model = locationUpdate.Vehicle;
 			vehicleVM.MarkerSize = _markerSize;
 
+			if (_selectedRouteStop != null || _selectedVehicle != null)
+			{
+				vehicleVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
+			}
+
 			return vehicleVM;
 		}
 
@@ -334,6 +339,11 @@ namespace bstrkr.mvvm.viewmodels
 			var stopVM = Mvx.IocConstruct<RouteStopMapViewModel>();
 			stopVM.Model = routeStop;
 			stopVM.MarkerSize = MapMarkerSizes.Medium;
+
+			if (_selectedRouteStop != null || _selectedVehicle != null)
+			{
+				stopVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
+			}
 
 			return stopVM;
 		}
