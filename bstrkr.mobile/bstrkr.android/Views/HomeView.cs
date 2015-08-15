@@ -210,12 +210,12 @@ namespace bstrkr.android.views
 									  ev => panel.PanelSlide += (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args), 
 									  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
 									  .Throttle(TimeSpan.FromMilliseconds(200))
-									  .Subscribe(this.OnNext);
+									  .Subscribe(this.OnPanelSlided);
 
 			this.CloseSlidingPanel();
 		}
 
-		private void OnNext(SlidingUpPanelSlideEventArgs args)
+		private void OnPanelSlided(SlidingUpPanelSlideEventArgs args)
 		{
 			var map = this.FragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
 			map.OnMapViewportChanged(args.SlideOffset);
@@ -348,6 +348,9 @@ namespace bstrkr.android.views
 		{
 			if (this.CloseSlidingPanel())
 			{
+				var map = this.FragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
+				map.ClearSelection();
+
 				return true;
 			}
 

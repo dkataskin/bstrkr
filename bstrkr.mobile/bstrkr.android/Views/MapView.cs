@@ -119,6 +119,15 @@ namespace bstrkr.android.views
 			}
 		}
 
+		public void ClearSelection()
+		{
+			var mapViewModel = this.ViewModel as MapViewModel;
+			if (mapViewModel != null)
+			{
+				mapViewModel.ClearSelectionCommand.Execute();
+			}
+		}
+
 		public void OnMapReady(GoogleMap map)
 		{
 			var locationProvider = Mvx.Resolve<ILocationService>();
