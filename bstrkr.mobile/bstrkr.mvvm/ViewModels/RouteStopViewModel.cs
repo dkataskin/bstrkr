@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading;
 using System.Threading.Tasks;
 
 using bstrkr.core;
@@ -15,6 +16,7 @@ using bstrkr.providers;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
 
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
@@ -36,6 +38,8 @@ namespace bstrkr.mvvm.viewmodels
 		private string _name;
 		private string _description;
 		private bool _noData;
+
+		private CancellationTokenSource _cancellationTokenSource;
 
 		public RouteStopViewModel(
 						ILiveDataProviderFactory liveDataProvider, 
@@ -88,6 +92,8 @@ namespace bstrkr.mvvm.viewmodels
 			this.RouteStopId = id;
 			this.Name = name;
 			this.Description = description;
+
+			_cancellationTokenSource = new CancellationTokenSource();
 		}
 
 		public override void Start()
@@ -98,21 +104,34 @@ namespace bstrkr.mvvm.viewmodels
 
 		public void CleanUp()
 		{
-			if (_intervalSubscription != null)
+			lock(_lockObject)
 			{
-				_intervalSubscription.Dispose();
+				if (_intervalSubscription != null)
+				{
+					_intervalSubscription.Dispose();
+				}
+
+				_cancellationTokenSource.Cancel();
 			}
 		}
 
 		private void Refresh()
 		{
-			var provider = _liveDataProviderFactory.GetCurrentProvider();
-			if (provider != null)
+			lock(_lockObject)
 			{
-				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
-				provider.GetRouteStopForecastAsync(this.RouteStopId)
-						.ContinueWith(this.ShowForecast)
-						.ConfigureAwait(false);
+				if (_cancellationTokenSource.IsCancellationRequested)
+				{
+					return;
+				}
+
+				var provider = _liveDataProviderFactory.GetCurrentProvider();
+				if (provider != null)
+				{
+					this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
+					provider.GetRouteStopForecastAsync(this.RouteStopId)
+							.ContinueWith(this.ShowForecast)
+							.ConfigureAwait(false);
+				}
 			}
 		}
 
@@ -125,13 +144,18 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					this.Dispatcher.RequestMainThreadAction(() =>
 					{
-						if (_intervalSubscription != null)
-						{
-							_intervalSubscription.Dispose();
-						}
-
 						lock(_lockObject)
 						{
+							if (_cancellationTokenSource.IsCancellationRequested)
+							{
+								return;
+							}
+
+							if (_intervalSubscription != null)
+							{
+								_intervalSubscription.Dispose();
+							}
+
 							_forecast.Merge(
 										forecast.Items,
 										vm => vm.VehicleId,
@@ -145,26 +169,29 @@ namespace bstrkr.mvvm.viewmodels
 							{
 								_forecast.Add(this.CreateFromForecastItem(forecastItem));
 							}
+
+							_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
+
+							this.NoData = false;
+							this.IsBusy = false;
 						}
-
-						_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
-
-						this.NoData = false;
-						this.IsBusy = false;
 					});
 				}
 				else
 				{
 					this.Dispatcher.RequestMainThreadAction(() =>
 					{
-						_forecast.Clear();
-						this.IsBusy = false;
-						this.NoData = true;
+						lock(_lockObject)
+						{
+							_forecast.Clear();
+							this.IsBusy = false;
+							this.NoData = true;
+						}
 					});
 				}
 			}
 
-			Task.Delay(TimeSpan.FromSeconds(20))
+			Task.Delay(TimeSpan.FromSeconds(20), _cancellationTokenSource.Token)
 				.ContinueWith(delayTask => this.Refresh());
 		}
 

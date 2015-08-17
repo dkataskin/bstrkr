@@ -215,6 +215,7 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				_liveDataProvider.Stop();
 				_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
+				_liveDataProvider.RouteStopForecastReceived -= this.OnRouteStopForecastReceived;
 			}
 
 			_stops.Clear();
@@ -234,6 +235,7 @@ namespace bstrkr.mvvm.viewmodels
 			if (_liveDataProvider != null)
 			{
 				_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
+				_liveDataProvider.RouteStopForecastReceived += this.OnRouteStopForecastReceived;
 				_liveDataProvider.GetRouteStopsAsync()
 								 .ContinueWith(this.ShowRouteStops)
 								 .ConfigureAwait(false);
@@ -378,7 +380,7 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedRouteStop = routeStopVM;
 			_selectedRouteStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
 
-			this.SetSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null, new[] { _selectedRouteStop.Model.Id });
+			this.SetMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null, new[] { _selectedRouteStop.Model.Id });
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			this.ShowViewModel<RouteStopViewModel>(
@@ -418,7 +420,7 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedVehicle = vehicleVM;
 			_selectedVehicle.SelectionState = MapMarkerSelectionStates.SelectionSelected;
 
-			this.SetSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedVehicle.Model.Id }, null);
+			this.SetMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedVehicle.Model.Id }, null);
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
@@ -469,7 +471,7 @@ namespace bstrkr.mvvm.viewmodels
 			return Settings.AnimateMarkers && zoom > _config.AnimateMarkersMovementZoomThreshold;
 		}
 
-		private void SetSelectionState(
+		private void SetMarkersSelectionState(
 						MapMarkerSelectionStates selectionState,
 						IEnumerable<string> excludeVehicles = null,
 						IEnumerable<string> excludeStops = null)
@@ -513,7 +515,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ClearSelection()
 		{
-			this.SetSelectionState(MapMarkerSelectionStates.NoSelection);
+			this.SetMarkersSelectionState(MapMarkerSelectionStates.NoSelection);
 		}
 
 		private void CenterMap(float viewportOffset, GeoPoint location)
@@ -529,6 +531,30 @@ namespace bstrkr.mvvm.viewmodels
 			else
 			{
 				this.MapCenter = location;
+			}
+		}
+
+		private void OnRouteStopForecastReceived(object sender, RouteStopForecastReceivedEventArgs args)
+		{
+			var selectedRouteStop = _selectedRouteStop;
+			if (selectedRouteStop != null && selectedRouteStop.Model.Id.Equals(args.RouteStopId) &&
+				args.Forecast != null && args.Forecast.Items != null && args.Forecast.Items.Any())
+			{
+				var vehicleIds = args.Forecast.Items.Select(x => x.VehicleId).ToList();
+				lock(_vehicles)
+				{
+					foreach(var vehicle in _vehicles)
+					{
+						if (vehicleIds.Contains(vehicle.VehicleId))
+						{
+							vehicle.SelectionState = MapMarkerSelectionStates.SelectionSelected;
+						}
+						else
+						{
+							vehicle.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
+						}
+					}
+				}
 			}
 		}
 	}

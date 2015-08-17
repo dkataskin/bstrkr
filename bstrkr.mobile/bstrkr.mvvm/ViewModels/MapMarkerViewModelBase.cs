@@ -107,6 +107,7 @@ namespace bstrkr.mvvm.viewmodels
 				if (_isSelected != value)
 				{
 					_isSelected = value;
+					this.RaisePropertyChanged(() => this.IsSelected);
 					this.Icon = this.GetIcon();
 				}
 			}

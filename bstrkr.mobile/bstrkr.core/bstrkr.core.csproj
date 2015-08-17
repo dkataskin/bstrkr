@@ -35,7 +35,6 @@
     <Compile Include="Route.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="RouteStop.cs" />
-    <Compile Include="VehicleLocationsUpdatedEventArgs.cs" />
     <Compile Include="Spatial\GeoPoint.cs" />
     <Compile Include="Spatial\GeoPolyline.cs" />
     <Compile Include="Spatial\GeoRect.cs" />

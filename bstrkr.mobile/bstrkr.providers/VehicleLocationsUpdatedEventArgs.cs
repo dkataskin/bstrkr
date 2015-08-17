@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace bstrkr.core
+using bstrkr.core;
+
+namespace bstrkr.providers
 {
 	public class VehicleLocationsUpdatedEventArgs : EventArgs
 	{

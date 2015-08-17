@@ -12,6 +12,8 @@ namespace bstrkr.providers
 
 		event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
+		event EventHandler<RouteStopForecastReceivedEventArgs> RouteStopForecastReceived;
+
 		Task<IEnumerable<Route>> GetRoutesAsync();
 
 		Task<Route> GetRouteAsync(string routeId);

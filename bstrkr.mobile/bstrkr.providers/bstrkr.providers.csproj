@@ -48,6 +48,8 @@
     <Compile Include="DefaultLiveDataProviderFactory.cs" />
     <Compile Include="Bus13\Data\Bus13VehicleForecastItem.cs" />
     <Compile Include="Bus13\Data\Bus13RouteStopForecastItem.cs" />
+    <Compile Include="VehicleLocationsUpdatedEventArgs.cs" />
+    <Compile Include="RouteStopForecastReceivedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

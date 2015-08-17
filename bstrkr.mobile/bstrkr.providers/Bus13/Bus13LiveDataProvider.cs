@@ -51,6 +51,8 @@ namespace bstrkr.core.providers.bus13
 
 		public event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
+		public event EventHandler<RouteStopForecastReceivedEventArgs> RouteStopForecastReceived;
+
 		public void Start()
 		{
 			lock(_lockObject)
@@ -190,6 +192,7 @@ namespace bstrkr.core.providers.bus13
 				}
 			}
 
+			this.RaiseRouteStopForecastReceivedEvent(routeStopId, forecast);
 			return forecast;
 		}
 
@@ -281,6 +284,14 @@ namespace bstrkr.core.providers.bus13
 			if (this.VehicleLocationsUpdated != null)
 			{
 				this.VehicleLocationsUpdated(this, new VehicleLocationsUpdatedEventArgs(vehicleLocations));
+			}
+		}
+
+		private void RaiseRouteStopForecastReceivedEvent(string routeStopId, RouteStopForecast forecast)
+		{
+			if (this.RouteStopForecastReceived != null)
+			{
+				this.RouteStopForecastReceived(this, new RouteStopForecastReceivedEventArgs(routeStopId, forecast));
 			}
 		}
 	}
