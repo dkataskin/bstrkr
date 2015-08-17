@@ -216,6 +216,7 @@ namespace bstrkr.mvvm.viewmodels
 				_liveDataProvider.Stop();
 				_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
 				_liveDataProvider.RouteStopForecastReceived -= this.OnRouteStopForecastReceived;
+				_liveDataProvider.VehicleForecastReceived -= this.OnVehicleForecastReceived;
 			}
 
 			_stops.Clear();
@@ -236,6 +237,7 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
 				_liveDataProvider.RouteStopForecastReceived += this.OnRouteStopForecastReceived;
+				_liveDataProvider.VehicleForecastReceived += this.OnVehicleForecastReceived;
 				_liveDataProvider.GetRouteStopsAsync()
 								 .ContinueWith(this.ShowRouteStops)
 								 .ConfigureAwait(false);
@@ -552,6 +554,30 @@ namespace bstrkr.mvvm.viewmodels
 						else
 						{
 							vehicle.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
+						}
+					}
+				}
+			}
+		}
+
+		private void OnVehicleForecastReceived(object sender, VehicleForecastReceivedEventArgs args)
+		{
+			var selectedVehile = _selectedVehicle;
+			if (selectedVehile != null && selectedVehile.VehicleId.Equals(args.VehicleId) &&
+				args.Forecast != null && args.Forecast.Items != null && args.Forecast.Items.Any())
+			{
+				var routeStopIds = args.Forecast.Items.Select(x => x.RouteStop.Id).ToList();
+				lock(_stops)
+				{
+					foreach(var routeStop in _stops)
+					{
+						if (routeStopIds.Contains(routeStop.Model.Id))
+						{
+							routeStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
+						}
+						else
+						{
+							routeStop.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
 						}
 					}
 				}

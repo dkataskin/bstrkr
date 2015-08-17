@@ -53,6 +53,8 @@ namespace bstrkr.core.providers.bus13
 
 		public event EventHandler<RouteStopForecastReceivedEventArgs> RouteStopForecastReceived;
 
+		public event EventHandler<VehicleForecastReceivedEventArgs> VehicleForecastReceived;
+
 		public void Start()
 		{
 			lock(_lockObject)
@@ -175,7 +177,11 @@ namespace bstrkr.core.providers.bus13
 
 		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
 		{
-			return await _dataService.GetVehicleForecastAsync(vehicle).ConfigureAwait(false);
+			var forecast = await _dataService.GetVehicleForecastAsync(vehicle).ConfigureAwait(false);
+
+			this.RaiseVehicleForecastReceivedEvent(vehicle.Id, forecast);
+
+			return forecast;
 		}
 
 		public async Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId)
@@ -292,6 +298,14 @@ namespace bstrkr.core.providers.bus13
 			if (this.RouteStopForecastReceived != null)
 			{
 				this.RouteStopForecastReceived(this, new RouteStopForecastReceivedEventArgs(routeStopId, forecast));
+			}
+		}
+
+		private void RaiseVehicleForecastReceivedEvent(string vehicleId, VehicleForecast forecast)
+		{
+			if (this.VehicleForecastReceived != null)
+			{
+				this.VehicleForecastReceived(this, new VehicleForecastReceivedEventArgs(vehicleId, forecast));
 			}
 		}
 	}
