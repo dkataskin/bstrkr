@@ -46,7 +46,6 @@
     <Compile Include="ViewModels\MapMarkerViewModelBase.cs" />
     <Compile Include="Views\IRouteStopMarker.cs" />
     <Compile Include="Views\MapViewLocationTargetBinding.cs" />
-    <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\MenuSection.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -54,6 +53,7 @@
     <Compile Include="ViewModels\RoutesViewModel.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\PreferencesViewModel.cs" />
+    <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\BusTrackerViewModelLocator.cs" />
     <Compile Include="ViewModels\SetAreaViewModel.cs" />
     <Compile Include="ViewModels\LicensesViewModel.cs" />

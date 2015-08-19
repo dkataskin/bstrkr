@@ -278,7 +278,10 @@ namespace bstrkr.core.providers.bus13
 				foreach (var update in updates)
 				{
 					_locationState[update.Vehicle.Id] = update;
-					vehicleLocationUpdates.Add(new VehicleLocationUpdate(update.Vehicle, new WaypointCollection(update.Waypoints)));
+					vehicleLocationUpdates.Add(new VehicleLocationUpdate(
+																update.Vehicle,
+																new WaypointCollection(update.Waypoints),
+																update.LastUpdate));
 				}
 
 				return vehicleLocationUpdates;

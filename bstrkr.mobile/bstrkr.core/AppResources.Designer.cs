@@ -53,6 +53,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string vehicle_forecast_no_data {
+            get {
+                return ResourceManager.GetString("vehicle_forecast_no_data", resourceCulture);
+            }
+        }
+        
         public static string kilometers_short {
             get {
                 return ResourceManager.GetString("kilometers_short", resourceCulture);

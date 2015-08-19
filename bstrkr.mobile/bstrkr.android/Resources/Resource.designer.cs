@@ -1912,8 +1912,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b002b
 			public const int action_mode_close_button = 2131427371;
 			
-			// aapt resource value: 0x7f0b0086
-			public const int action_search = 2131427462;
+			// aapt resource value: 0x7f0b0087
+			public const int action_search = 2131427463;
 			
 			// aapt resource value: 0x7f0b002c
 			public const int activity_chooser_view_content = 2131427372;
@@ -2053,6 +2053,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b0030
 			public const int list_item = 2131427376;
 			
+			// aapt resource value: 0x7f0b0085
+			public const int map = 2131427461;
+			
 			// aapt resource value: 0x7f0b0055
 			public const int mapView = 2131427413;
 			
@@ -2074,11 +2077,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b006f
 			public const int media_route_volume_slider = 2131427439;
 			
-			// aapt resource value: 0x7f0b0087
-			public const int menu_refresh = 2131427463;
+			// aapt resource value: 0x7f0b0088
+			public const int menu_refresh = 2131427464;
 			
-			// aapt resource value: 0x7f0b0085
-			public const int menu_showonmap = 2131427461;
+			// aapt resource value: 0x7f0b0086
+			public const int menu_showonmap = 2131427462;
 			
 			// aapt resource value: 0x7f0b001b
 			public const int middle = 2131427355;

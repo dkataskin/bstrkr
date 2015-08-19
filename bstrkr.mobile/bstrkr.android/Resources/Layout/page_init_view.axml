@@ -2,9 +2,22 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:clickable="true"
-    android:background="#c8ffffff">
+    android:layout_height="fill_parent">
+    <fragment
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        local:cameraTargetLat="55.7503798"
+        local:cameraTargetLng="37.6182293"
+        local:cameraZoom="13"
+        local:mapType="normal"
+        local:liteMode="true" />
+    <View
+        android:background="#c8ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

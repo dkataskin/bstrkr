@@ -65,8 +65,9 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            local:MvxBind="Text [route_vehicles_no_data]; Visibility RouteVehicleVMStateToVisibility(State, 'NoDataText')" />
+            android:layout_marginTop="10dp"
+            android:gravity="top|center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            local:MvxBind="Text [vehicle_forecast_no_data]; Visibility RouteVehicleVMStateToVisibility(State, 'NoDataText')" />
     </FrameLayout>
 </LinearLayout>
