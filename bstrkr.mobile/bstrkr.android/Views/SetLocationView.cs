@@ -17,8 +17,6 @@ namespace bstrkr.android.views
 		{
 			base.EnsureBindingContextSet(savedState);
 
-			var viewModel = this.ViewModel as LocationViewModel;
-
 			var dialog = new Android.Support.V7.App.AlertDialog.Builder(Activity);
 
 			return dialog.Create();

@@ -95,58 +95,56 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _animateMovement, value, () => this.AnimateMovement); } 
 		}
 
-		public void UpdateLocation(GeoLocation currentLocation, WaypointCollection waypoints)
+		public void UpdateLocation(VehicleLocationUpdate update)
 		{
 			var animList = new List<PathSegment>();
-			var totalTime = 10.0d;
 			if (_lastUpdate > 0)
 			{
-				totalTime = TimeSpan.FromTicks(DateTime.Now.Ticks - _lastUpdate).TotalSeconds;
-			}
+				var totalTime = TimeSpan.FromTicks(update.LastUpdated.Ticks - _lastUpdate).TotalSeconds;
 
-			_lastUpdate = DateTime.Now.Ticks;
-
-			if (waypoints != null && waypoints.Waypoints.Any())
-			{
-				animList.Add(
-					new PathSegment 
+				if (update.Waypoints != null && update.Waypoints.Waypoints.Any())
+				{
+					animList.Add(
+						new PathSegment 
 					{
-						Duration = TimeSpan.FromSeconds(waypoints.Waypoints[0].Fraction * totalTime),
+						Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[0].Fraction * totalTime),
 						StartLocation = this.Location,
-						FinalLocation = waypoints.Waypoints[0].Location
+						FinalLocation = update.Waypoints.Waypoints[0].Location
 					});
-				
-				for (int i = 0; i < waypoints.Waypoints.Count - 1; i++)
-				{
-					animList.Add(
-						new PathSegment 
+
+					for (int i = 0; i < update.Waypoints.Waypoints.Count - 1; i++)
+					{
+						animList.Add(
+							new PathSegment 
 						{
-							Duration = TimeSpan.FromSeconds(waypoints.Waypoints[i + 1].Fraction * totalTime),
-							StartLocation = waypoints.Waypoints[i].Location,
-							FinalLocation = waypoints.Waypoints[i + 1].Location
+							Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[i + 1].Fraction * totalTime),
+							StartLocation = update.Waypoints.Waypoints[i].Location,
+							FinalLocation = update.Waypoints.Waypoints[i + 1].Location
 						});
-				};
-			}
-			else
-			{
-				if (!this.Location.Equals(GeoLocation.Empty))
+					};
+				}
+				else
 				{
-					animList.Add(
-						new PathSegment 
-						{
-							Duration = TimeSpan.FromSeconds(10),
-							StartLocation = this.Location,
-							FinalLocation = currentLocation
-						});
+					if (!this.Location.Equals(GeoLocation.Empty))
+					{
+						animList.Add(
+							new PathSegment 
+							{
+								Duration = TimeSpan.FromSeconds(totalTime),
+								StartLocation = this.Location,
+								FinalLocation = update.Vehicle.Location
+							});
+					}
+				}
+
+				if (animList.Any())
+				{
+					this.RaisePathUpdatedEvent(animList);
 				}
 			}
 
-			if (animList.Any())
-			{
-				this.RaisePathUpdatedEvent(animList);
-			}
-
-			this.SetLocation(currentLocation);
+			_lastUpdate = update.LastUpdated.Ticks;
+			this.SetLocation(update.Vehicle.Location);
 		}
 
 		protected override object GetIcon()

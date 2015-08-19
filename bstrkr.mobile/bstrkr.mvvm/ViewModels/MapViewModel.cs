@@ -355,7 +355,7 @@ namespace bstrkr.mvvm.viewmodels
 		private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
 		{
 			vehicleVM.AnimateMovement = this.GetAnimateMarkerMovementFlag(this.Zoom);
-			vehicleVM.UpdateLocation(locationUpdate.Vehicle.Location, locationUpdate.Waypoints);
+			vehicleVM.UpdateLocation(locationUpdate);
 		}
 
 		private void SelectRouteStop(string routeStopId)
