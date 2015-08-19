@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.2.9" package="ru.vershi.bustracker" android:versionCode="37">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.8.1" package="ru.vershi.bustracker" android:versionCode="55">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="22" />
 	<!-- Google Maps for Android v2 requires OpenGL ES v2 -->
 	<uses-feature android:glEsVersion="0x00020000" android:required="true" />
