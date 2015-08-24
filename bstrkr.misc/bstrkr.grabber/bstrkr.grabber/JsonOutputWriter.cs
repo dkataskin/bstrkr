@@ -1,8 +1,10 @@
 ﻿using System;
-using bstrkr.core;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
+
+using bstrkr.core;
 using bstrkr.providers.bus13.data;
+
 using Newtonsoft.Json;
 
 namespace bstrkr.grabber
@@ -18,31 +20,42 @@ namespace bstrkr.grabber
 
 		public void Write(Bus13VehicleLocationUpdate update)
 		{
-			var outputFile = Path.Combine(_outputDir, string.Format("trace-{0}.json", update.Vehicle.Id));
-			using (var streamWriter = new StreamWriter(File.Open(outputFile, FileMode.Append)))
+			try
 			{
-				var updateDTO = new VehicleLocationUpdateDTO 
+				var outputFile = Path.Combine(_outputDir, string.Format("trace-{0}.json", update.Vehicle.Id));
+				Console.WriteLine ("writing {0}", outputFile);
+				using (var streamWriter = new StreamWriter(File.Open(outputFile, FileMode.Append)))
 				{
-					ReceivedAt = DateTime.UtcNow,
-					VehicleId = update.Vehicle.Id,
-					LastUpdatedAt = update.LastUpdate,
-					Waypoints = new List<WaypointDTO>()
-				};
-
-				if (update.Waypoints != null)
-				{
-					foreach (var waypoint in update.Waypoints)
+					var updateDTO = new VehicleLocationUpdateDTO 
 					{
-						updateDTO.Waypoints.Add(new WaypointDTO 
-						{
-							Fraction = waypoint.Fraction,
-							Location = waypoint.Location
-						});
-					}
-				}
+						ReceivedAt = DateTime.UtcNow,
+						VehicleId = update.Vehicle.Id,
+						LastUpdatedAt = update.LastUpdate,
+						Waypoints = new List<WaypointDTO>()
+					};
 
-				streamWriter.WriteLine(JsonConvert.SerializeObject(updateDTO));
-				streamWriter.Flush();
+					if (update.Waypoints != null)
+					{
+						foreach (var waypoint in update.Waypoints)
+						{
+							updateDTO.Waypoints.Add(
+								new WaypointDTO 
+								{
+									Fraction = waypoint.Fraction,
+									Latitude = waypoint.Location.Position.Latitude,
+									Longitude = waypoint.Location.Position.Longitude,
+									Heading = waypoint.Location.Heading
+								});
+						}
+					}
+
+					streamWriter.WriteLine(JsonConvert.SerializeObject(updateDTO, Formatting.Indented));
+					streamWriter.Flush();
+				}
+			} 
+			catch (Exception e)
+			{
+				Console.WriteLine("An error occured while writing json response: {0}", e);
 			}
 		}
 	}

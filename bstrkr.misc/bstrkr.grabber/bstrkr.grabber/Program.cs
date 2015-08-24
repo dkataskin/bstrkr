@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
 using bstrkr.core.config;
 using bstrkr.core.providers.bus13;
 using bstrkr.core.spatial;
+using bstrkr.grabber;
 
 using CommandLine;
 
@@ -18,13 +20,13 @@ using RestSharp.Deserializers;
 using SharpKml.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
-using bstrkr.grabber;
 
 namespace bustracker.cli
 {
 	class MainClass
 	{
 		private static BusTrackerConfig Config;
+		private static ConfiguredTaskAwaitable _traceTask;
 
 		public static void Main(string[] args)
 		{
@@ -58,7 +60,6 @@ namespace bustracker.cli
 
 					if (!string.IsNullOrEmpty(options.OutputDir) && !Directory.Exists(options.OutputDir))
 					{
-
 						Console.WriteLine("Directory {0} doesn't exist!", options.OutputDir);
 						return;
 					}
@@ -108,11 +109,11 @@ namespace bustracker.cli
 			Console.WriteLine("{0} routes found...", routes.Count());
 
 			Console.WriteLine("Tracing {0}...", vehicleId);
-			Task.Factory.StartNew(() =>
+			_traceTask = Task.Factory.StartNew(() =>
 			{
 				var lastUpdate = DateTime.MinValue;
 				var timestamp = 0;
-				while(true)
+				while (true)
 				{
 					ClearLine();
 					Console.Write("retrieving vehicle locations...");
@@ -125,15 +126,14 @@ namespace bustracker.cli
 
 						ClearLine();
 						Console.WriteLine(
-								"id:{0}, lat:{1}, lng:{2}, upd: {3}, rcvd:{4}",
-								vehicleId, 
-								update.Vehicle.Location.Position.Latitude,
-								update.Vehicle.Location.Position.Longitude,
-								update.LastUpdate.ToString("u"),
-								lastUpdate.ToString("u"));
+							"id:{0}, lat:{1}, lng:{2}, upd: {3}, rcvd:{4}",
+							vehicleId, 
+							update.Vehicle.Location.Position.Latitude,
+							update.Vehicle.Location.Position.Longitude,
+							update.LastUpdate.ToString("u"),
+							lastUpdate.ToString("u"));
 
 						outputWriter.Write(update);
-
 					}
 
 					timestamp = response.Timestamp;
@@ -142,7 +142,7 @@ namespace bustracker.cli
 					Console.Write("waiting 10s...");
 					Task.Delay(System.TimeSpan.FromSeconds(10)).Wait();
 				}
-			});
+			}).ConfigureAwait(false);
 		}
 
 		private static void ClearLine()
@@ -161,8 +161,8 @@ namespace bustracker.cli
 		private static string GetOutputDir(Options options)
 		{
 			return string.IsNullOrEmpty(options.OutputDir) ? 
-						options.OutputDir : 
-						GetCurrentDirectory();
+						GetCurrentDirectory() :
+						options.OutputDir;
 		}
 	}
 }

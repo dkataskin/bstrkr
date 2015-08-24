@@ -7,6 +7,10 @@ namespace bstrkr.grabber
 	{
 		public float Fraction { get; set; }
 
-		public GeoLocation Location { get; set; }
+		public double Latitude { get; set; }
+
+		public double Longitude { get; set; }
+
+		public float Heading { get; set; }
 	}
 }
