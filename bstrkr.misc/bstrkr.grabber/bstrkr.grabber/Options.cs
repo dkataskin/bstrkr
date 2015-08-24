@@ -18,6 +18,9 @@ namespace bustracker.cli
 		[Option('t', "trace", Required = false, HelpText = "Trace vehicle's path")]
 		public bool Trace { get; set; }
 
+		[Option("outputtype", Required = false, HelpText = "Output type")]
+		public string OutputType { get; set;}
+
 		[Option("list", Required = false, HelpText = "List vehicles")]
 		public bool List { get; set; }
 

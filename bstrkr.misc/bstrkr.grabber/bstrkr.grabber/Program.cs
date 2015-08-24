@@ -18,6 +18,7 @@ using RestSharp.Deserializers;
 using SharpKml.Base;
 using SharpKml.Dom;
 using SharpKml.Engine;
+using bstrkr.grabber;
 
 namespace bustracker.cli
 {
@@ -62,7 +63,24 @@ namespace bustracker.cli
 						return;
 					}
 
-					Trace(service, options.VehicleId, options.OutputDir);
+					IVehicleTraceOutputWriter outputWriter = null;
+					if (string.IsNullOrEmpty(options.OutputType) || 
+						string.Equals("kml", options.OutputType, StringComparison.InvariantCultureIgnoreCase))
+					{
+						outputWriter = new KmlOutputWriter(GetOutputDir(options));
+					}
+
+					if (string.Equals("json", options.OutputType, StringComparison.InvariantCultureIgnoreCase))
+					{
+						outputWriter = new JsonOutputWriter(GetOutputDir(options));
+					}
+
+					if (outputWriter == null)
+					{
+						outputWriter = new KmlOutputWriter(GetOutputDir(options));
+					}
+
+					Trace(service, options.VehicleId, outputWriter);
 					Console.ReadKey();
 				}
 			}
@@ -83,10 +101,8 @@ namespace bustracker.cli
 			}
 		}
 
-		private static void Trace(IBus13RouteDataService service, string vehicleId, string outputDir)
+		private static void Trace(IBus13RouteDataService service, string vehicleId, IVehicleTraceOutputWriter outputWriter)
 		{
-			var kmlWriter = GetKmlWriter(vehicleId, outputDir);
-
 			Console.WriteLine("Retrieving routes...");
 			var routes = service.GetRoutesAsync().Result;
 			Console.WriteLine("{0} routes found...", routes.Count());
@@ -111,31 +127,14 @@ namespace bustracker.cli
 						Console.WriteLine(
 								"id:{0}, lat:{1}, lng:{2}, upd: {3}, rcvd:{4}",
 								vehicleId, 
-								update.Vehicle.Location.Latitude,
-								update.Vehicle.Location.Longitude,
+								update.Vehicle.Location.Position.Latitude,
+								update.Vehicle.Location.Position.Longitude,
 								update.LastUpdate.ToString("u"),
 								lastUpdate.ToString("u"));
 
-						if (update.Waypoints != null && update.Waypoints.Any())
-						{
-//							var sortedWaypoints = update.Waypoints.OrderBy(x => x.Fraction).ToList();
-							foreach (var waypoint in update.Waypoints)
-							{
-								Console.WriteLine(
-									"id:{0}, fr:{1:F2}, lat:{2}, lng:{3}",
-									vehicleId, 
-									waypoint.Fraction,
-									waypoint.Location.Latitude,
-									waypoint.Location.Longitude);
+						outputWriter.Write(update);
 
-								kmlWriter.AddPoint(waypoint.Location);
-							}
-						}
-
-						kmlWriter.AddPoint(update.Vehicle.Location);
 					}
-
-					kmlWriter.Save();
 
 					timestamp = response.Timestamp;
 
@@ -157,93 +156,13 @@ namespace bustracker.cli
 		{
 			var location = new DirectoryInfo(Assembly.GetExecutingAssembly().Location);
 			return Path.GetDirectoryName(location.FullName);
-		}
+   		}
 
-		private static KmlOutputWriter GetKmlWriter(string vehicleId, string outputDir)
+		private static string GetOutputDir(Options options)
 		{
-			var document = new Document();
-			document.Name = string.Format("Vehicle {0} trace", vehicleId);
-			document.Description = new Description 
-			{ 
-				Text = string.Format(
-					"Vehicle {0} trace, starts from {1}", 
-					vehicleId,
-					DateTime.Now.ToString("u"))
-			};
-
-			var style = new Style 
-			{
-				Id = "routePathStyle",
-				Line = new LineStyle 
-				{
-					Color = Color32.Parse("7f00ffff"),
-					Width = 4
-				}
-			};
-			document.AddStyle(style);
-
-			var placeMark = new Placemark 
-			{
-				Name = string.Format("Vehicle {0} path", vehicleId),
-				StyleUrl = new Uri("#routePathStyle", UriKind.RelativeOrAbsolute)
-			};
-
-			var lineString = new LineString 
-			{
-				Extrude = true,
-				AltitudeMode = AltitudeMode.ClampToGround,
-				Coordinates = new CoordinateCollection(),
-				Tessellate = true
-			};
-
-			placeMark.Geometry = lineString;
-			document.AddFeature(placeMark);
-
-			var kmlOutputDirectory = string.IsNullOrEmpty(outputDir) ? 
-												GetCurrentDirectory() :
-												new DirectoryInfo(outputDir).FullName;
-			return new KmlOutputWriter 
-			{
-				KmlFile = KmlFile.Create(document, false),
-				Path = lineString,
-				OutputFile = Path.Combine(kmlOutputDirectory, string.Format("trace-{0}.kml", vehicleId))
-			};
-		}
-
-		private class KmlOutputWriter
-		{
-			public KmlFile KmlFile { get; set; }
-
-			public LineString Path { get; set; }
-
-			public string OutputFile { get; set; }
-
-			public void AddPoint(GeoPoint point)
-			{
-				Path.Coordinates.Add(
-					new Vector(
-						point.Latitude,
-						point.Longitude,
-						1.0));
-			}
-
-			public void Save()
-			{
-				try 
-				{
-					using(var fileStream = File.OpenWrite(this.OutputFile))
-					{
-						KmlFile.Save(fileStream);
-					}
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine(
-								"An error occured while saving {0}: {1}", 
-								System.IO.Path.GetFileName(this.OutputFile), 
-								e.ToString());
-				}
-			}
+			return string.IsNullOrEmpty(options.OutputDir) ? 
+						options.OutputDir : 
+						GetCurrentDirectory();
 		}
 	}
 }
