@@ -1,0 +1,1439 @@
+{
+  "Updates": [
+    {
+      "ReceivedAt": "2015-08-25T10:32:25.400681Z",
+      "LastUpdatedAt": "2015-08-25T10:31:33",
+      "VehicleId": "49000005",
+      "Latitude": 54.185604,
+      "Longitude": 45.21124,
+      "Heading": 249.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.43,
+          "Latitude": 54.186292,
+          "Longitude": 45.214248,
+          "Heading": 167.0
+        },
+        {
+          "Fraction": 0.57,
+          "Latitude": 54.185696,
+          "Longitude": 45.211584,
+          "Heading": 159.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:32:56.317571Z",
+      "LastUpdatedAt": "2015-08-25T10:32:13",
+      "VehicleId": "49000005",
+      "Latitude": 54.184652,
+      "Longitude": 45.207024,
+      "Heading": 249.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.185024,
+          "Longitude": 45.20858,
+          "Heading": 159.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:33:06.641918Z",
+      "LastUpdatedAt": "2015-08-25T10:32:36",
+      "VehicleId": "49000005",
+      "Latitude": 54.183872,
+      "Longitude": 45.2038,
+      "Heading": 245.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.38,
+          "Latitude": 54.184636,
+          "Longitude": 45.206992,
+          "Heading": 157.0
+        },
+        {
+          "Fraction": 0.18,
+          "Latitude": 54.184476,
+          "Longitude": 45.20622,
+          "Heading": 161.0
+        },
+        {
+          "Fraction": 0.44,
+          "Latitude": 54.183992,
+          "Longitude": 45.204408,
+          "Heading": 155.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:33:17.008494Z",
+      "LastUpdatedAt": "2015-08-25T10:32:42",
+      "VehicleId": "49000005",
+      "Latitude": 54.183788,
+      "Longitude": 45.20306,
+      "Heading": 254.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.183792,
+          "Longitude": 45.20324,
+          "Heading": 164.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:33:27.320734Z",
+      "LastUpdatedAt": "2015-08-25T10:33:09",
+      "VehicleId": "49000005",
+      "Latitude": 54.183896,
+      "Longitude": 45.19842,
+      "Heading": 273.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.183892,
+          "Longitude": 45.199424,
+          "Heading": 183.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:34:19.060263Z",
+      "LastUpdatedAt": "2015-08-25T10:33:49",
+      "VehicleId": "49000005",
+      "Latitude": 54.184,
+      "Longitude": 45.193928,
+      "Heading": 272.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.18396,
+          "Longitude": 45.194888,
+          "Heading": 182.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:35:10.536768Z",
+      "LastUpdatedAt": "2015-08-25T10:34:30",
+      "VehicleId": "49000005",
+      "Latitude": 54.184016,
+      "Longitude": 45.19204,
+      "Heading": 273.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.76,
+          "Latitude": 54.18398,
+          "Longitude": 45.19356,
+          "Heading": 181.0
+        },
+        {
+          "Fraction": 0.24,
+          "Latitude": 54.183992,
+          "Longitude": 45.193144,
+          "Heading": 183.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:35:41.40697Z",
+      "LastUpdatedAt": "2015-08-25T10:35:02",
+      "VehicleId": "49000005",
+      "Latitude": 54.184124,
+      "Longitude": 45.189028,
+      "Heading": 272.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.184048,
+          "Longitude": 45.18948,
+          "Heading": 182.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:35:51.683972Z",
+      "LastUpdatedAt": "2015-08-25T10:35:05",
+      "VehicleId": "49000005",
+      "Latitude": 54.18414,
+      "Longitude": 45.1889,
+      "Heading": 271.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.184076,
+          "Longitude": 45.187496,
+          "Heading": 181.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:36:12.399352Z",
+      "LastUpdatedAt": "2015-08-25T10:35:46",
+      "VehicleId": "49000005",
+      "Latitude": 54.18414,
+      "Longitude": 45.188112,
+      "Heading": 273.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:36:43.664928Z",
+      "LastUpdatedAt": "2015-08-25T10:36:12",
+      "VehicleId": "49000005",
+      "Latitude": 54.184156,
+      "Longitude": 45.187704,
+      "Heading": 288.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:37:04.398781Z",
+      "LastUpdatedAt": "2015-08-25T10:36:20",
+      "VehicleId": "49000005",
+      "Latitude": 54.18434,
+      "Longitude": 45.187556,
+      "Heading": 2.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:37:35.387059Z",
+      "LastUpdatedAt": "2015-08-25T10:37:01",
+      "VehicleId": "49000005",
+      "Latitude": 54.186548,
+      "Longitude": 45.187832,
+      "Heading": 364.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.185952,
+          "Longitude": 45.18772,
+          "Heading": 274.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:38:16.748219Z",
+      "LastUpdatedAt": "2015-08-25T10:37:42",
+      "VehicleId": "49000005",
+      "Latitude": 54.187824,
+      "Longitude": 45.187932,
+      "Heading": 363.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.68,
+          "Latitude": 54.187304,
+          "Longitude": 45.187872,
+          "Heading": 274.0
+        },
+        {
+          "Fraction": 0.32,
+          "Latitude": 54.187928,
+          "Longitude": 45.187928,
+          "Heading": 273.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:38:58.194785Z",
+      "LastUpdatedAt": "2015-08-25T10:38:22",
+      "VehicleId": "49000005",
+      "Latitude": 54.189884,
+      "Longitude": 45.188184,
+      "Heading": 363.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.18928,
+          "Longitude": 45.18808,
+          "Heading": 273.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:39:18.81356Z",
+      "LastUpdatedAt": "2015-08-25T10:38:46",
+      "VehicleId": "49000005",
+      "Latitude": 54.190064,
+      "Longitude": 45.18816,
+      "Heading": 363.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.5,
+          "Latitude": 54.189908,
+          "Longitude": 45.188128,
+          "Heading": 273.0
+        },
+        {
+          "Fraction": 0.5,
+          "Latitude": 54.190536,
+          "Longitude": 45.188184,
+          "Heading": 273.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:40:10.33767Z",
+      "LastUpdatedAt": "2015-08-25T10:39:25",
+      "VehicleId": "49000005",
+      "Latitude": 54.19236,
+      "Longitude": 45.188404,
+      "Heading": 363.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.191784,
+          "Longitude": 45.188304,
+          "Heading": 273.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:40:41.307643Z",
+      "LastUpdatedAt": "2015-08-25T10:40:01",
+      "VehicleId": "49000005",
+      "Latitude": 54.193336,
+      "Longitude": 45.188492,
+      "Heading": 363.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.67,
+          "Latitude": 54.19304,
+          "Longitude": 45.188408,
+          "Heading": 273.0
+        },
+        {
+          "Fraction": 0.33,
+          "Latitude": 54.193668,
+          "Longitude": 45.188472,
+          "Heading": 273.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:41:12.203548Z",
+      "LastUpdatedAt": "2015-08-25T10:40:41",
+      "VehicleId": "49000005",
+      "Latitude": 54.194328,
+      "Longitude": 45.18864,
+      "Heading": 3.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:41:43.437724Z",
+      "LastUpdatedAt": "2015-08-25T10:41:09",
+      "VehicleId": "49000005",
+      "Latitude": 54.1954,
+      "Longitude": 45.188792,
+      "Heading": 53.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.96,
+          "Latitude": 54.195348,
+          "Longitude": 45.188728,
+          "Heading": -70.0
+        },
+        {
+          "Fraction": 0.04,
+          "Latitude": 54.1954,
+          "Longitude": 45.188792,
+          "Heading": -37.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:41:53.732058Z",
+      "LastUpdatedAt": "2015-08-25T10:41:17",
+      "VehicleId": "49000005",
+      "Latitude": 54.19542,
+      "Longitude": 45.189176,
+      "Heading": 95.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.31,
+          "Latitude": 54.195428,
+          "Longitude": 45.1889,
+          "Heading": -8.0
+        },
+        {
+          "Fraction": 0.69,
+          "Latitude": 54.19542,
+          "Longitude": 45.189176,
+          "Heading": 5.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:42:04.038494Z",
+      "LastUpdatedAt": "2015-08-25T10:41:27",
+      "VehicleId": "49000005",
+      "Latitude": 54.195428,
+      "Longitude": 45.189876,
+      "Heading": 68.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.195428,
+          "Longitude": 45.189876,
+          "Heading": -22.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:42:14.34245Z",
+      "LastUpdatedAt": "2015-08-25T10:41:33",
+      "VehicleId": "49000005",
+      "Latitude": 54.19554,
+      "Longitude": 45.189992,
+      "Heading": 359.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.67,
+          "Latitude": 54.195492,
+          "Longitude": 45.189984,
+          "Heading": -72.0
+        },
+        {
+          "Fraction": 0.33,
+          "Latitude": 54.19554,
+          "Longitude": 45.189992,
+          "Heading": 269.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:42:34.934146Z",
+      "LastUpdatedAt": "2015-08-25T10:42:00",
+      "VehicleId": "49000005",
+      "Latitude": 54.19624,
+      "Longitude": 45.189576,
+      "Heading": 277.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.67,
+          "Latitude": 54.196144,
+          "Longitude": 45.19,
+          "Heading": 255.0
+        },
+        {
+          "Fraction": 0.08,
+          "Latitude": 54.196208,
+          "Longitude": 45.189932,
+          "Heading": 221.0
+        },
+        {
+          "Fraction": 0.05,
+          "Latitude": 54.196232,
+          "Longitude": 45.189868,
+          "Heading": 199.0
+        },
+        {
+          "Fraction": 0.06,
+          "Latitude": 54.19624,
+          "Longitude": 45.189784,
+          "Heading": 182.0
+        },
+        {
+          "Fraction": 0.14,
+          "Latitude": 54.19624,
+          "Longitude": 45.189576,
+          "Heading": 187.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:42:45.231317Z",
+      "LastUpdatedAt": "2015-08-25T10:42:09",
+      "VehicleId": "49000005",
+      "Latitude": 54.196268,
+      "Longitude": 45.189232,
+      "Heading": 261.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:43:16.191248Z",
+      "LastUpdatedAt": "2015-08-25T10:42:49",
+      "VehicleId": "49000005",
+      "Latitude": 54.196268,
+      "Longitude": 45.189232,
+      "Heading": 261.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:44:48.979428Z",
+      "LastUpdatedAt": "2015-08-25T10:44:20",
+      "VehicleId": "49000005",
+      "Latitude": 54.196176,
+      "Longitude": 45.18868,
+      "Heading": 229.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.84,
+          "Latitude": 54.1962,
+          "Longitude": 45.188756,
+          "Heading": 152.0
+        },
+        {
+          "Fraction": 0.16,
+          "Latitude": 54.196176,
+          "Longitude": 45.18868,
+          "Heading": 139.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:45:09.563698Z",
+      "LastUpdatedAt": "2015-08-25T10:44:25",
+      "VehicleId": "49000005",
+      "Latitude": 54.196036,
+      "Longitude": 45.188592,
+      "Heading": 180.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.53,
+          "Latitude": 54.196104,
+          "Longitude": 45.188608,
+          "Heading": 104.0
+        },
+        {
+          "Fraction": 0.47,
+          "Latitude": 54.196036,
+          "Longitude": 45.188592,
+          "Heading": 90.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:45:40.43257Z",
+      "LastUpdatedAt": "2015-08-25T10:45:06",
+      "VehicleId": "49000005",
+      "Latitude": 54.194888,
+      "Longitude": 45.188592,
+      "Heading": 183.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.194888,
+          "Longitude": 45.188592,
+          "Heading": 93.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:46:31.95704Z",
+      "LastUpdatedAt": "2015-08-25T10:45:46",
+      "VehicleId": "49000005",
+      "Latitude": 54.193072,
+      "Longitude": 45.188364,
+      "Heading": 187.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:47:02.878689Z",
+      "LastUpdatedAt": "2015-08-25T10:46:28",
+      "VehicleId": "49000005",
+      "Latitude": 54.19262,
+      "Longitude": 45.18834,
+      "Heading": 183.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.75,
+          "Latitude": 54.19304,
+          "Longitude": 45.188408,
+          "Heading": 93.0
+        },
+        {
+          "Fraction": 0.25,
+          "Latitude": 54.192412,
+          "Longitude": 45.188356,
+          "Heading": 93.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:47:44.137978Z",
+      "LastUpdatedAt": "2015-08-25T10:47:08",
+      "VehicleId": "49000005",
+      "Latitude": 54.19026,
+      "Longitude": 45.188068,
+      "Heading": 183.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.190536,
+          "Longitude": 45.188184,
+          "Heading": 93.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:48:36.110609Z",
+      "LastUpdatedAt": "2015-08-25T10:47:49",
+      "VehicleId": "49000005",
+      "Latitude": 54.189836,
+      "Longitude": 45.188004,
+      "Heading": 183.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.189908,
+          "Longitude": 45.188128,
+          "Heading": 93.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:49:28.003231Z",
+      "LastUpdatedAt": "2015-08-25T10:48:59",
+      "VehicleId": "49000005",
+      "Latitude": 54.188584,
+      "Longitude": 45.187868,
+      "Heading": 183.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.18928,
+          "Longitude": 45.18808,
+          "Heading": 93.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:49:58.963587Z",
+      "LastUpdatedAt": "2015-08-25T10:49:25",
+      "VehicleId": "49000005",
+      "Latitude": 54.188404,
+      "Longitude": 45.187888,
+      "Heading": 183.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.54,
+          "Latitude": 54.188556,
+          "Longitude": 45.187992,
+          "Heading": 94.0
+        },
+        {
+          "Fraction": 0.46,
+          "Latitude": 54.187928,
+          "Longitude": 45.187928,
+          "Heading": 93.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:50:40.210999Z",
+      "LastUpdatedAt": "2015-08-25T10:49:57",
+      "VehicleId": "49000005",
+      "Latitude": 54.186368,
+      "Longitude": 45.187664,
+      "Heading": 183.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.186672,
+          "Longitude": 45.187816,
+          "Heading": 93.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:51:11.165253Z",
+      "LastUpdatedAt": "2015-08-25T10:50:38",
+      "VehicleId": "49000005",
+      "Latitude": 54.18602,
+      "Longitude": 45.187608,
+      "Heading": 184.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.185952,
+          "Longitude": 45.18772,
+          "Heading": 94.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:52:02.685794Z",
+      "LastUpdatedAt": "2015-08-25T10:51:18",
+      "VehicleId": "49000005",
+      "Latitude": 54.184992,
+      "Longitude": 45.187572,
+      "Heading": 184.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.185328,
+          "Longitude": 45.187648,
+          "Heading": 94.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:52:13.017123Z",
+      "LastUpdatedAt": "2015-08-25T10:51:37",
+      "VehicleId": "49000005",
+      "Latitude": 54.184188,
+      "Longitude": 45.1875,
+      "Heading": 184.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.184704,
+          "Longitude": 45.187572,
+          "Heading": 94.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:52:33.706571Z",
+      "LastUpdatedAt": "2015-08-25T10:51:46",
+      "VehicleId": "49000005",
+      "Latitude": 54.183996,
+      "Longitude": 45.187824,
+      "Heading": 97.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.5,
+          "Latitude": 54.184076,
+          "Longitude": 45.187496,
+          "Heading": 94.0
+        },
+        {
+          "Fraction": 0.5,
+          "Latitude": 54.184,
+          "Longitude": 45.18856,
+          "Heading": 7.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:53:04.743798Z",
+      "LastUpdatedAt": "2015-08-25T10:52:27",
+      "VehicleId": "49000005",
+      "Latitude": 54.183872,
+      "Longitude": 45.191672,
+      "Heading": 92.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.58,
+          "Latitude": 54.183952,
+          "Longitude": 45.189952,
+          "Heading": 4.0
+        },
+        {
+          "Fraction": 0.42,
+          "Latitude": 54.18392,
+          "Longitude": 45.190944,
+          "Heading": 2.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:53:45.916942Z",
+      "LastUpdatedAt": "2015-08-25T10:53:07",
+      "VehicleId": "49000005",
+      "Latitude": 54.183872,
+      "Longitude": 45.19248,
+      "Heading": 93.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.183892,
+          "Longitude": 45.191968,
+          "Heading": 3.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:54:27.070281Z",
+      "LastUpdatedAt": "2015-08-25T10:53:48",
+      "VehicleId": "49000005",
+      "Latitude": 54.183836,
+      "Longitude": 45.193948,
+      "Heading": 449.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.65,
+          "Latitude": 54.183868,
+          "Longitude": 45.193104,
+          "Heading": 2.0
+        },
+        {
+          "Fraction": 0.35,
+          "Latitude": 54.183872,
+          "Longitude": 45.19372,
+          "Heading": 359.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:54:57.991889Z",
+      "LastUpdatedAt": "2015-08-25T10:54:17",
+      "VehicleId": "49000005",
+      "Latitude": 54.183724,
+      "Longitude": 45.198688,
+      "Heading": 93.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.183772,
+          "Longitude": 45.197816,
+          "Heading": 3.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:55:28.935466Z",
+      "LastUpdatedAt": "2015-08-25T10:54:49",
+      "VehicleId": "49000005",
+      "Latitude": 54.1837,
+      "Longitude": 45.203844,
+      "Heading": 73.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:55:49.534134Z",
+      "LastUpdatedAt": "2015-08-25T10:55:17",
+      "VehicleId": "49000005",
+      "Latitude": 54.184708,
+      "Longitude": 45.20818,
+      "Heading": 429.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.21,
+          "Latitude": 54.183776,
+          "Longitude": 45.204336,
+          "Heading": 345.0
+        },
+        {
+          "Fraction": 0.41,
+          "Latitude": 54.184244,
+          "Longitude": 45.206004,
+          "Heading": 334.0
+        },
+        {
+          "Fraction": 0.38,
+          "Latitude": 54.184608,
+          "Longitude": 45.207604,
+          "Heading": 339.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:56:10.191564Z",
+      "LastUpdatedAt": "2015-08-25T10:55:38",
+      "VehicleId": "49000005",
+      "Latitude": 54.185188,
+      "Longitude": 45.210416,
+      "Heading": 429.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.67,
+          "Latitude": 54.18506,
+          "Longitude": 45.209608,
+          "Heading": 339.0
+        },
+        {
+          "Fraction": 0.33,
+          "Latitude": 54.18528,
+          "Longitude": 45.210608,
+          "Heading": 339.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:56:51.398085Z",
+      "LastUpdatedAt": "2015-08-25T10:56:18",
+      "VehicleId": "49000005",
+      "Latitude": 54.186068,
+      "Longitude": 45.214332,
+      "Heading": 429.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.186048,
+          "Longitude": 45.214008,
+          "Heading": 339.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:57:11.966483Z",
+      "LastUpdatedAt": "2015-08-25T10:56:34",
+      "VehicleId": "49000005",
+      "Latitude": 54.18638,
+      "Longitude": 45.21626,
+      "Heading": 434.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.186228,
+          "Longitude": 45.215124,
+          "Heading": 344.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:57:22.885583Z",
+      "LastUpdatedAt": "2015-08-25T10:56:52",
+      "VehicleId": "49000005",
+      "Latitude": 54.186408,
+      "Longitude": 45.217212,
+      "Heading": 435.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.186428,
+          "Longitude": 45.21638,
+          "Heading": 345.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:57:43.468752Z",
+      "LastUpdatedAt": "2015-08-25T10:57:09",
+      "VehicleId": "49000005",
+      "Latitude": 54.186328,
+      "Longitude": 45.218276,
+      "Heading": 99.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.74,
+          "Latitude": 54.186612,
+          "Longitude": 45.217548,
+          "Heading": 345.0
+        },
+        {
+          "Fraction": 0.26,
+          "Latitude": 54.186572,
+          "Longitude": 45.217968,
+          "Heading": 9.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:58:35.314024Z",
+      "LastUpdatedAt": "2015-08-25T10:57:55",
+      "VehicleId": "49000005",
+      "Latitude": 54.18574,
+      "Longitude": 45.221168,
+      "Heading": 110.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.31,
+          "Latitude": 54.186336,
+          "Longitude": 45.2192,
+          "Heading": 18.0
+        },
+        {
+          "Fraction": 0.26,
+          "Latitude": 54.18612,
+          "Longitude": 45.220208,
+          "Heading": 20.0
+        },
+        {
+          "Fraction": 0.43,
+          "Latitude": 54.185768,
+          "Longitude": 45.221852,
+          "Heading": 20.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:58:45.719355Z",
+      "LastUpdatedAt": "2015-08-25T10:58:11",
+      "VehicleId": "49000005",
+      "Latitude": 54.185376,
+      "Longitude": 45.221608,
+      "Heading": 122.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:58:56.003721Z",
+      "LastUpdatedAt": "2015-08-25T10:58:13",
+      "VehicleId": "49000005",
+      "Latitude": 54.185344,
+      "Longitude": 45.22172,
+      "Heading": 107.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:59:06.308814Z",
+      "LastUpdatedAt": "2015-08-25T10:58:26",
+      "VehicleId": "49000005",
+      "Latitude": 54.185504,
+      "Longitude": 45.22242,
+      "Heading": 63.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:59:26.895381Z",
+      "LastUpdatedAt": "2015-08-25T10:58:31",
+      "VehicleId": "49000005",
+      "Latitude": 54.185524,
+      "Longitude": 45.22272,
+      "Heading": 110.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.185416,
+          "Longitude": 45.223488,
+          "Heading": 20.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:59:37.19114Z",
+      "LastUpdatedAt": "2015-08-25T10:58:51",
+      "VehicleId": "49000005",
+      "Latitude": 54.185116,
+      "Longitude": 45.225076,
+      "Heading": 103.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.185236,
+          "Longitude": 45.224812,
+          "Heading": 13.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T10:59:57.760807Z",
+      "LastUpdatedAt": "2015-08-25T10:59:07",
+      "VehicleId": "49000005",
+      "Latitude": 54.185116,
+      "Longitude": 45.226816,
+      "Heading": 90.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.185236,
+          "Longitude": 45.22672,
+          "Heading": 0.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:00:28.797753Z",
+      "LastUpdatedAt": "2015-08-25T10:59:48",
+      "VehicleId": "49000005",
+      "Latitude": 54.185344,
+      "Longitude": 45.230368,
+      "Heading": 445.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.1854,
+          "Longitude": 45.229928,
+          "Heading": 355.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:00:59.769355Z",
+      "LastUpdatedAt": "2015-08-25T11:00:19",
+      "VehicleId": "49000005",
+      "Latitude": 54.18566,
+      "Longitude": 45.235508,
+      "Heading": 444.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.81,
+          "Latitude": 54.18564,
+          "Longitude": 45.234684,
+          "Heading": 355.0
+        },
+        {
+          "Fraction": 0.19,
+          "Latitude": 54.185704,
+          "Longitude": 45.235776,
+          "Heading": 354.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:01:20.592666Z",
+      "LastUpdatedAt": "2015-08-25T11:00:27",
+      "VehicleId": "49000005",
+      "Latitude": 54.185864,
+      "Longitude": 45.235784,
+      "Heading": 9.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:01:51.480159Z",
+      "LastUpdatedAt": "2015-08-25T11:01:08",
+      "VehicleId": "49000005",
+      "Latitude": 54.187264,
+      "Longitude": 45.235976,
+      "Heading": 364.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.186956,
+          "Longitude": 45.235928,
+          "Heading": 274.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:02:12.074049Z",
+      "LastUpdatedAt": "2015-08-25T11:01:37",
+      "VehicleId": "49000005",
+      "Latitude": 54.189104,
+      "Longitude": 45.2362,
+      "Heading": 364.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.188832,
+          "Longitude": 45.236152,
+          "Heading": 274.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:02:42.965407Z",
+      "LastUpdatedAt": "2015-08-25T11:01:56",
+      "VehicleId": "49000005",
+      "Latitude": 54.189372,
+      "Longitude": 45.236256,
+      "Heading": 362.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.189864,
+          "Longitude": 45.23622,
+          "Heading": 272.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:02:53.277954Z",
+      "LastUpdatedAt": "2015-08-25T11:02:26",
+      "VehicleId": "49000005",
+      "Latitude": 54.191512,
+      "Longitude": 45.236536,
+      "Heading": 366.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.39,
+          "Latitude": 54.190484,
+          "Longitude": 45.236324,
+          "Heading": 276.0
+        },
+        {
+          "Fraction": 0.61,
+          "Latitude": 54.191452,
+          "Longitude": 45.236488,
+          "Heading": 276.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:03:13.833419Z",
+      "LastUpdatedAt": "2015-08-25T11:02:28",
+      "VehicleId": "49000005",
+      "Latitude": 54.191592,
+      "Longitude": 45.236628,
+      "Heading": 384.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.191656,
+          "Longitude": 45.236648,
+          "Heading": 294.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:04:36.665414Z",
+      "LastUpdatedAt": "2015-08-25T11:02:54",
+      "VehicleId": "49000005",
+      "Latitude": 54.191992,
+      "Longitude": 45.237204,
+      "Heading": 408.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.191928,
+          "Longitude": 45.237152,
+          "Heading": 318.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:05:17.848277Z",
+      "LastUpdatedAt": "2015-08-25T11:04:28",
+      "VehicleId": "49000005",
+      "Latitude": 54.194464,
+      "Longitude": 45.238476,
+      "Heading": 393.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.07,
+          "Latitude": 54.19212,
+          "Longitude": 45.237216,
+          "Heading": 281.0
+        },
+        {
+          "Fraction": 0.04,
+          "Latitude": 54.192236,
+          "Longitude": 45.237216,
+          "Heading": 270.0
+        },
+        {
+          "Fraction": 0.06,
+          "Latitude": 54.192392,
+          "Longitude": 45.237088,
+          "Heading": 244.0
+        },
+        {
+          "Fraction": 0.1,
+          "Latitude": 54.192664,
+          "Longitude": 45.236964,
+          "Heading": 256.0
+        },
+        {
+          "Fraction": 0.06,
+          "Latitude": 54.192828,
+          "Longitude": 45.236984,
+          "Heading": 272.0
+        },
+        {
+          "Fraction": 0.08,
+          "Latitude": 54.193036,
+          "Longitude": 45.237052,
+          "Heading": 282.0
+        },
+        {
+          "Fraction": 0.04,
+          "Latitude": 54.193132,
+          "Longitude": 45.237112,
+          "Heading": 291.0
+        },
+        {
+          "Fraction": 0.32,
+          "Latitude": 54.19392,
+          "Longitude": 45.237724,
+          "Heading": 294.0
+        },
+        {
+          "Fraction": 0.23,
+          "Latitude": 54.19444,
+          "Longitude": 45.238296,
+          "Heading": 303.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:05:38.438826Z",
+      "LastUpdatedAt": "2015-08-25T11:05:03",
+      "VehicleId": "49000005",
+      "Latitude": 54.19642,
+      "Longitude": 45.241788,
+      "Heading": 405.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.35,
+          "Latitude": 54.19506,
+          "Longitude": 45.239252,
+          "Heading": 312.0
+        },
+        {
+          "Fraction": 0.65,
+          "Latitude": 54.196176,
+          "Longitude": 45.241148,
+          "Heading": 315.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:06:30.209749Z",
+      "LastUpdatedAt": "2015-08-25T11:05:44",
+      "VehicleId": "49000005",
+      "Latitude": 54.197224,
+      "Longitude": 45.243252,
+      "Heading": 37.0,
+      "Waypoints": []
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:07:01.124855Z",
+      "LastUpdatedAt": "2015-08-25T11:06:23",
+      "VehicleId": "49000005",
+      "Latitude": 54.198796,
+      "Longitude": 45.2459,
+      "Heading": 405.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.198368,
+          "Longitude": 45.244956,
+          "Heading": 315.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:07:42.390883Z",
+      "LastUpdatedAt": "2015-08-25T11:07:04",
+      "VehicleId": "49000005",
+      "Latitude": 54.20044,
+      "Longitude": 45.248828,
+      "Heading": 406.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.200288,
+          "Longitude": 45.24834,
+          "Heading": 316.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:08:23.810326Z",
+      "LastUpdatedAt": "2015-08-25T11:07:42",
+      "VehicleId": "49000005",
+      "Latitude": 54.202376,
+      "Longitude": 45.252196,
+      "Heading": 45.0,
+      "Waypoints": [
+        {
+          "Fraction": 1.0,
+          "Latitude": 54.202376,
+          "Longitude": 45.252196,
+          "Heading": -45.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:09:04.957704Z",
+      "LastUpdatedAt": "2015-08-25T11:08:20",
+      "VehicleId": "49000005",
+      "Latitude": 54.204028,
+      "Longitude": 45.25486,
+      "Heading": 8.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.93,
+          "Latitude": 54.203872,
+          "Longitude": 45.254744,
+          "Heading": -55.0
+        },
+        {
+          "Fraction": 0.04,
+          "Latitude": 54.203956,
+          "Longitude": 45.254816,
+          "Heading": -67.0
+        },
+        {
+          "Fraction": 0.04,
+          "Latitude": 54.204028,
+          "Longitude": 45.25486,
+          "Heading": -82.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:09:15.465275Z",
+      "LastUpdatedAt": "2015-08-25T11:08:39",
+      "VehicleId": "49000005",
+      "Latitude": 54.204368,
+      "Longitude": 45.25402,
+      "Heading": 261.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.09,
+          "Latitude": 54.204092,
+          "Longitude": 45.25486,
+          "Heading": 265.0
+        },
+        {
+          "Fraction": 0.07,
+          "Latitude": 54.204128,
+          "Longitude": 45.254816,
+          "Heading": 275.0
+        },
+        {
+          "Fraction": 0.29,
+          "Latitude": 54.20428,
+          "Longitude": 45.254616,
+          "Heading": 234.0
+        },
+        {
+          "Fraction": 0.27,
+          "Latitude": 54.204376,
+          "Longitude": 45.25436,
+          "Heading": 212.0
+        },
+        {
+          "Fraction": 0.28,
+          "Latitude": 54.204344,
+          "Longitude": 45.25404,
+          "Heading": 171.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:09:25.763292Z",
+      "LastUpdatedAt": "2015-08-25T11:08:48",
+      "VehicleId": "49000005",
+      "Latitude": 54.20408,
+      "Longitude": 45.253776,
+      "Heading": 187.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.19,
+          "Latitude": 54.204332,
+          "Longitude": 45.253928,
+          "Heading": 134.0
+        },
+        {
+          "Fraction": 0.22,
+          "Latitude": 54.204272,
+          "Longitude": 45.253856,
+          "Heading": 118.0
+        },
+        {
+          "Fraction": 0.22,
+          "Latitude": 54.2042,
+          "Longitude": 45.25382,
+          "Heading": 107.0
+        },
+        {
+          "Fraction": 0.38,
+          "Latitude": 54.20408,
+          "Longitude": 45.253776,
+          "Heading": 97.0
+        }
+      ]
+    },
+    {
+      "ReceivedAt": "2015-08-25T11:09:46.565651Z",
+      "LastUpdatedAt": "2015-08-25T11:09:08",
+      "VehicleId": "49000005",
+      "Latitude": 54.203196,
+      "Longitude": 45.253312,
+      "Heading": 227.0,
+      "Waypoints": [
+        {
+          "Fraction": 0.67,
+          "Latitude": 54.203456,
+          "Longitude": 45.25362,
+          "Heading": 111.0
+        },
+        {
+          "Fraction": 0.14,
+          "Latitude": 54.203336,
+          "Longitude": 45.253504,
+          "Heading": 123.0
+        },
+        {
+          "Fraction": 0.19,
+          "Latitude": 54.203196,
+          "Longitude": 45.253312,
+          "Heading": 137.0
+        }
+      ]
+    }
+  ]
+}

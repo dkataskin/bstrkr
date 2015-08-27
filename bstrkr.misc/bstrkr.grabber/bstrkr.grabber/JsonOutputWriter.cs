@@ -12,10 +12,13 @@ namespace bstrkr.grabber
 	public class JsonOutputWriter : IVehicleTraceOutputWriter
 	{
 		private readonly string _outputDir;
+		private readonly VehicleLocationUpdatesDTO _updates = new VehicleLocationUpdatesDTO();
+		private readonly JsonSerializer _serializer = new JsonSerializer();
 
 		public JsonOutputWriter(string outputDir)
 		{
 			_outputDir = outputDir;
+			_serializer.Formatting = Formatting.Indented;
 		}
 
 		public void Write(Bus13VehicleLocationUpdate update)
@@ -23,14 +26,17 @@ namespace bstrkr.grabber
 			try
 			{
 				var outputFile = Path.Combine(_outputDir, string.Format("trace-{0}.json", update.Vehicle.Id));
-				Console.WriteLine ("writing {0}", outputFile);
-				using (var streamWriter = new StreamWriter(File.Open(outputFile, FileMode.Append)))
+				using (var streamWriter = new StreamWriter(File.OpenWrite(outputFile)))
+				using (var jsonTextWriter = new JsonTextWriter(streamWriter))
 				{
 					var updateDTO = new VehicleLocationUpdateDTO 
 					{
 						ReceivedAt = DateTime.UtcNow,
 						VehicleId = update.Vehicle.Id,
 						LastUpdatedAt = update.LastUpdate,
+						Latitude = update.Vehicle.Location.Position.Latitude,
+						Longitude = update.Vehicle.Location.Position.Longitude,
+						Heading = update.Vehicle.Location.Heading,
 						Waypoints = new List<WaypointDTO>()
 					};
 
@@ -49,8 +55,10 @@ namespace bstrkr.grabber
 						}
 					}
 
-					streamWriter.WriteLine(JsonConvert.SerializeObject(updateDTO, Formatting.Indented));
-					streamWriter.Flush();
+					_updates.Updates.Add(updateDTO);
+
+					_serializer.Serialize(jsonTextWriter, _updates);
+					jsonTextWriter.Flush();
 				}
 			} 
 			catch (Exception e)

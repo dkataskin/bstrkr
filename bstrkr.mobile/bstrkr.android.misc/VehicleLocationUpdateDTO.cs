@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using bstrkr.core;
-
-namespace bstrkr.grabber
+namespace bstrkr.android.misc
 {
 	public class VehicleLocationUpdateDTO
 	{

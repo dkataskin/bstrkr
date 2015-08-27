@@ -108,11 +108,14 @@ namespace bstrkr.core.android.views
 
 		public void StopAllAnimations()
 		{
-			_animationQueue.Clear();
-			if (_animatorSet != null)
+			lock(_lockObject)
 			{
-				_animatorSet.Cancel();
-				_animatorSet.RemoveAllListeners();
+				_animationQueue.Clear();
+				if (_animatorSet != null)
+				{
+					_animatorSet.Cancel();
+					_animatorSet.RemoveAllListeners();
+				}
 			}
 		}
 

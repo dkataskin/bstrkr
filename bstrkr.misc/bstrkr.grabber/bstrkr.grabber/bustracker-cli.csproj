@@ -61,6 +61,7 @@
     <Compile Include="JsonOutputWriter.cs" />
     <Compile Include="VehicleLocationUpdateDTO.cs" />
     <Compile Include="WaypointDTO.cs" />
+    <Compile Include="VehicleLocationUpdatesDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
