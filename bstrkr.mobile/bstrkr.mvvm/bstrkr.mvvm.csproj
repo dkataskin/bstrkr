@@ -39,7 +39,6 @@
     <Compile Include="Converters\ZoomToMarkerSizeConverter.cs" />
     <Compile Include="Views\IMapMarker.cs" />
     <Compile Include="Views\MapViewZoomTargetBinding.cs" />
-    <Compile Include="Maps\IMapMarkerAnimator.cs" />
     <Compile Include="Maps\MapMarkerManager.cs" />
     <Compile Include="Maps\IMapMarkerManager.cs" />
     <Compile Include="Views\IBusStopMarker.cs" />

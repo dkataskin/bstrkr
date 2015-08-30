@@ -139,7 +139,7 @@ namespace bstrkr.core.android.views
 					{
 						pathSegment = _animationQueue.Dequeue();
 
-						startPositionIsInView = latLngBounds.Contains(pathSegment.StartLocation.ToLatLng());
+						startPositionIsInView = latLngBounds.Contains(_marker.Position);
 						finalPositionIsInView = latLngBounds.Contains(pathSegment.FinalLocation.ToLatLng());
 
 						animate = startPositionIsInView || finalPositionIsInView;
@@ -149,39 +149,18 @@ namespace bstrkr.core.android.views
 
 					if (animate)
 					{
-						ObjectAnimator positionAnimator = null;
-						if (finalPositionIsInView)
-						{
-							positionAnimator = ObjectAnimator.OfObject(
-								_marker, 
-								"Position", 
-								new MarkerPositionEvaluator(),
-								pathSegment.StartLocation.ToLatLng(),
-								pathSegment.FinalLocation.ToLatLng());
-						}
-						else
-						{
-							positionAnimator = ObjectAnimator.OfObject(
-								_marker, 
-								"Position", 
-								new MarkerPositionEvaluator(),
-								pathSegment.FinalLocation.ToLatLng());
-						}
+						var positionAnimator = ObjectAnimator.OfObject(
+																_marker, 
+																"Position", 
+																new MarkerPositionEvaluator(),
+																pathSegment.FinalLocation.ToLatLng());
 
 						positionAnimator.AddListener(this);
 						positionAnimator.AddUpdateListener(this);
 						positionAnimator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
 
-						var rotationAnimator = ObjectAnimator.OfFloat(
-							_marker,
-							"Rotation",
-							pathSegment.FinalLocation.Heading + 90);
-						rotationAnimator.AddListener(this);
-						rotationAnimator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
-
 						_animatorSet = new AnimatorSet();
 						_animatorSet.AddListener(this);
-						//_animatorSet.Play(positionAnimator).With(rotationAnimator);
 						_animatorSet.Play(positionAnimator);
 						_animatorSet.Start();
 					}

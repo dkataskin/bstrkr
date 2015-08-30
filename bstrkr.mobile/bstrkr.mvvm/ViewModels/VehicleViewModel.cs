@@ -100,7 +100,8 @@ namespace bstrkr.mvvm.viewmodels
 			var animList = new List<PathSegment>();
 			if (_lastUpdate > 0)
 			{
-				var totalTime = TimeSpan.FromTicks(update.LastUpdated.Ticks - _lastUpdate).TotalSeconds;
+//				var totalTime = TimeSpan.FromTicks(update.LastUpdated.Ticks - _lastUpdate).TotalSeconds;
+				var totalTime = 15.0f;
 
 				if (update.Waypoints != null && update.Waypoints.Waypoints.Any())
 				{

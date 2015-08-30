@@ -12,10 +12,10 @@
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>bstrkr.android.misc</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,6 +101,10 @@
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
       <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
       <Name>bstrkr.core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.core.android\bstrkr.core.android.csproj">
+      <Project>{158E30FA-BA5F-46E1-A4D2-B4A985C31858}</Project>
+      <Name>bstrkr.core.android</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

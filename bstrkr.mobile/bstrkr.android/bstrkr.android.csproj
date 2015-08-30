@@ -188,7 +188,6 @@
     <Compile Include="Views\VehicleMarkerManager.cs" />
     <Compile Include="Views\VehicleMarker.cs" />
     <Compile Include="Views\GoogleMapsMarkerBase.cs" />
-    <Compile Include="Views\MapMarkerAnimator.cs" />
     <Compile Include="Views\RouteStopMarker.cs" />
     <Compile Include="Views\RouteStopMarkerManager.cs" />
     <Compile Include="Views\HomeView.cs" />
