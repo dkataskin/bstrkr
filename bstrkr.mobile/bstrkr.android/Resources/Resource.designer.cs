@@ -1963,8 +1963,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b0037
 			public const int contentPanel = 2131427383;
 			
-			// aapt resource value: 0x7f0b0082
-			public const int content_frame = 2131427458;
+			// aapt resource value: 0x7f0b0055
+			public const int content_frame = 2131427413;
 			
 			// aapt resource value: 0x7f0b003b
 			public const int custom = 2131427387;
@@ -2056,8 +2056,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b0085
 			public const int map = 2131427461;
 			
-			// aapt resource value: 0x7f0b0055
-			public const int mapView = 2131427413;
+			// aapt resource value: 0x7f0b0082
+			public const int mapView = 2131427458;
 			
 			// aapt resource value: 0x7f0b005b
 			public const int map_view_header = 2131427419;

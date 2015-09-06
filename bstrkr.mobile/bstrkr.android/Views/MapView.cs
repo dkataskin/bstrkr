@@ -22,14 +22,14 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
+using Android.Gms.Maps.Model;
 
 namespace bstrkr.android.views
 {
 	[Register("bstrkr.android.views.MapView")]
 	public class MapView : MvxFragment, IOnMapReadyCallback
 	{
-		private Android.Gms.Maps.MapView _googleMapView;
-
+		private MapFragment _mapFragment;
 		private IMapView _mapViewWrapper;
 		private VehicleMarkerManager _vehicleMarkerManager;
 		private RouteStopMarkerManager _routeStopMarkerManager;
@@ -49,50 +49,24 @@ namespace bstrkr.android.views
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			var view = this.BindingInflate(Resource.Layout.fragment_map_view, null);
-			_googleMapView = view.FindViewById<Android.Gms.Maps.MapView>(Resource.Id.mapView);
-			_googleMapView.OnCreate(savedInstanceState);
+
+			var mapOptions = new GoogleMapOptions()
+				.InvokeCamera(new CameraPosition(new LatLng(54.180109f, 45.177947f), 14.0f, 0, 0));
+			
+			_mapFragment = MapFragment.NewInstance(mapOptions);
+			var transaction = this.FragmentManager.BeginTransaction();
+			transaction.Add(Resource.Id.content_frame, _mapFragment);
+			transaction.Commit();
+
+			_mapFragment.GetMapAsync(this);
 
 			return view;
-		}
-
-		public override void OnActivityCreated(Bundle savedInstanceState)
-		{
-			base.OnActivityCreated(savedInstanceState);
-
-			try 
-			{
-				MapsInitializer.Initialize(this.Activity);
-			} 
-			catch (GooglePlayServicesNotAvailableException e) 
-			{
-				Insights.Report(e, Xamarin.Insights.Severity.Error);
-			}
-		}
-
-		public override void OnStart()
-		{
-			base.OnStart();
-			this.InitializeMapAndHandlers();
-		}
-
-		public override void OnDestroyView()
-		{
-			base.OnDestroyView();
-			_googleMapView.OnDestroy();
 		}
 
 		public override void OnResume()
 		{
 			base.OnResume();
-			SetUpMapIfNeeded();
-			_googleMapView.OnResume();
 			this.MapViewModel.Reload();
-		}
-
-		public override void OnPause()
-		{
-			base.OnPause();
-			_googleMapView.OnPause();
 		}
 
 		public override void OnStop()
@@ -102,12 +76,6 @@ namespace bstrkr.android.views
 			{
 				this.MapViewModel.Stop();
 			}
-		}
-
-		public override void OnLowMemory()
-		{
-			base.OnLowMemory();
-			_googleMapView.OnLowMemory();
 		}
 
 		public void OnMapViewportChanged(float visibleRegionOffset)
@@ -208,21 +176,6 @@ namespace bstrkr.android.views
 			set.Apply();
 
 			(this.ViewModel as MapViewModel).Zoom = map.CameraPosition.Zoom;
-		}
-
-		private void SetUpMapIfNeeded()
-		{
-			if (_googleMapView == null)
-			{
-				_googleMapView = View.FindViewById<Android.Gms.Maps.MapView>(Resource.Id.mapView);
-			}
-		}
-
-		private void InitializeMapAndHandlers()
-		{
-			this.SetUpMapIfNeeded();
-
-			_googleMapView.GetMapAsync(this);
 		}
 
 		private void RaiseMapClickedEvent()
