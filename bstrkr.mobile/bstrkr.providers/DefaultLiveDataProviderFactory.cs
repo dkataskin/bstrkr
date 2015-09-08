@@ -20,7 +20,7 @@ namespace bstrkr.providers
 		public DefaultLiveDataProviderFactory(IBusTrackerLocationService locationService)
 		{
 			_locationService = locationService;
-			_locationService.LocationChanged += this.OnLocationChanged;
+			_locationService.AreaChanged += this.OnLocationChanged;
 
 			_currentArea = _locationService.Area;
 		}

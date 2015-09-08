@@ -70,9 +70,6 @@
     <None Include="Resources\Licenses\RestSharp.txt" />
     <None Include="Resources\Licenses\Newtonsoft.Json.txt" />
     <Compile Include="Context\BusTrackerAppContext.cs" />
-    <Compile Include="Services\Location\BusTrackerLocationErrors.cs" />
-    <Compile Include="Services\Location\LocationErrors.cs" />
-    <Compile Include="Services\Location\BusTrackerLocationErrorEventArgs.cs" />
     <Compile Include="Services\Location\LocationErrorEventArgs.cs" />
     <None Include="Resources\Images\bus_b.png" />
     <None Include="Resources\Images\bus_m.png" />

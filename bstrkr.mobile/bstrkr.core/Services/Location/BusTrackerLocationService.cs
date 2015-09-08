@@ -23,15 +23,11 @@ namespace bstrkr.core.services.location
 			_locationService.LocationUpdated += this.OnLocationUpdated;
 		}
 
-		public event EventHandler<EventArgs> LocationChanged;
+		public event EventHandler<EventArgs> AreaChanged;
 
-		public event EventHandler<BusTrackerLocationErrorEventArgs> LocationError;
+		public event EventHandler<EventArgs> LocationError;
 
 		public Area Area { get; private set; }
-
-		public GeoPoint Location { get; private set; }
-
-		public double? Accuracy { get; private set; }
 
 		public bool DetectedArea { get; private set; }
 
@@ -45,11 +41,8 @@ namespace bstrkr.core.services.location
 			_locationService.StopUpdating();
 
 			this.Area = area;
-
 			if (area != null)
 			{
-				this.Location = new GeoPoint(area.Latitude, area.Longitude);
-				this.Accuracy = 8.0d;
 				this.DetectedArea = false;
 			}
 
@@ -63,17 +56,14 @@ namespace bstrkr.core.services.location
 				return;
 			}
 
-			this.Location = args.Location;
-			this.Accuracy = args.Accuracy;
-
 			if (this.Area == null)
 			{
 				var config = _configManager.GetConfig();
 
 				var location = config.Areas
 									 .Select(x => new Tuple<double, Area>(
-															this.Location.DistanceTo(new GeoPoint(x.Latitude, x.Longitude)), 
-															x))
+																	args.Location.DistanceTo(new GeoPoint(x.Latitude, x.Longitude)), 
+																	x))
 									 .OrderBy(x => x.Item1)
 								     .First();
 
@@ -84,7 +74,7 @@ namespace bstrkr.core.services.location
 				}
 				else if (!_unknownAreaReported)
 				{
-					this.RaiseLocationErrorEvent(BusTrackerLocationErrors.UnknownArea);
+//					this.RaiseLocationErrorEvent(BusTrackerLocationErrors.UnknownArea);
 					_unknownAreaReported = true;
 				}
 			}
@@ -94,18 +84,18 @@ namespace bstrkr.core.services.location
 
 		private void RaiseLocationChangedEvent()
 		{
-			if (this.LocationChanged != null)
+			if (this.AreaChanged != null)
 			{
-				this.LocationChanged(this, EventArgs.Empty);
+				this.AreaChanged(this, EventArgs.Empty);
 			}
 		}
 
-		private void RaiseLocationErrorEvent(BusTrackerLocationErrors error)
-		{
-			if (this.LocationError != null)
-			{
-				this.LocationError(this, new BusTrackerLocationErrorEventArgs(error));
-			}
-		}
+//		private void RaiseLocationErrorEvent(BusTrackerLocationErrors error)
+//		{
+//			if (this.LocationError != null)
+//			{
+//				this.LocationError(this, new BusTrackerLocationErrorEventArgs(error));
+//			}
+//		}
 	}
 }

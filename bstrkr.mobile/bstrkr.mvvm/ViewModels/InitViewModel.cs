@@ -29,7 +29,7 @@ namespace bstrkr.mvvm.viewmodels
 			_userInteraction = userInteraction;
 
 			_locationService = locationService;
-			_locationService.LocationChanged += this.OnLocationChanged;
+			_locationService.AreaChanged += this.OnLocationChanged;
 			_locationService.LocationError += this.OnLocationError;
 
 			this.SelectManuallyCommand = new MvxCommand(this.SelectManually);
@@ -120,7 +120,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			_tokenSource.Cancel();
 
-			_locationService.LocationChanged -= this.OnLocationChanged;
+			_locationService.AreaChanged -= this.OnLocationChanged;
 			_locationService.LocationError -= this.OnLocationError;
 		}
 	}

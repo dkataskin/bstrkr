@@ -68,7 +68,7 @@ namespace bstrkr.mvvm.viewmodels
 			_configManager = configManager;
 			_messenger = messenger;
 			_locationService = locationService;
-			_locationService.LocationChanged += OnLocationChanged;
+			_locationService.AreaChanged += OnLocationChanged;
 
 			_config = _configManager.GetConfig();
 

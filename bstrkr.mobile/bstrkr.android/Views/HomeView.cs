@@ -314,7 +314,7 @@ namespace bstrkr.android.views
 			this.SupportActionBar.Title = AppResources.map_view_title;
 
 			_locationService = Mvx.Resolve<IBusTrackerLocationService>();
-			_locationService.LocationChanged += (s, a) => this.UpdateTitle();
+			_locationService.AreaChanged += (s, a) => this.UpdateTitle();
 
 			this.ShowMap();
         }

@@ -2,6 +2,7 @@
 
 using Android.Gms.Common;
 using Android.Gms.Maps;
+using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -22,7 +23,6 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
-using Android.Gms.Maps.Model;
 
 namespace bstrkr.android.views
 {

@@ -4,11 +4,11 @@ namespace bstrkr.core.services.location
 {
 	public class LocationErrorEventArgs : EventArgs
 	{
-		public LocationErrorEventArgs(LocationErrors error)
+		public LocationErrorEventArgs(string reason)
 		{
-			this.Error = error;
+			this.Reason = reason;
 		}
 
-		public LocationErrors Error { get; private set; }
+		public string Reason { get; private set; }
 	}
 }

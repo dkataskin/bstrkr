@@ -7,15 +7,9 @@ namespace bstrkr.core.services.location
 {
 	public interface IBusTrackerLocationService
 	{
-		event EventHandler<EventArgs> LocationChanged;
-
-		event EventHandler<BusTrackerLocationErrorEventArgs> LocationError;
+		event EventHandler<EventArgs> AreaChanged;
 
 		Area Area { get; }
-
-		GeoPoint Location { get; }
-
-		double? Accuracy { get; }
 
 		bool DetectedArea { get; }
 
