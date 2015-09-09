@@ -7,7 +7,9 @@ namespace bstrkr.core.services.location
 {
 	public interface IAreaPositioningService
 	{
-		event EventHandler<EventArgs> AreaChanged;
+		event EventHandler<EventArgs> AreaLocated;
+
+		event EventHandler<EventArgs> AreaLocatingFailed;
 
 		Area Area { get; }
 

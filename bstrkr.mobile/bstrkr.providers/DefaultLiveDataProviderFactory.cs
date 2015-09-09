@@ -20,7 +20,7 @@ namespace bstrkr.providers
 		public DefaultLiveDataProviderFactory(IAreaPositioningService locationService)
 		{
 			_locationService = locationService;
-			_locationService.AreaChanged += this.OnLocationChanged;
+			_locationService.AreaLocated += this.OnLocationChanged;
 
 			_currentArea = _locationService.Area;
 		}

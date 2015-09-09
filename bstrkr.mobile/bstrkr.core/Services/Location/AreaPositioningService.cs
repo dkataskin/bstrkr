@@ -23,9 +23,9 @@ namespace bstrkr.core.services.location
 			_locationService.LocationUpdated += this.OnLocationUpdated;
 		}
 
-		public event EventHandler<EventArgs> AreaChanged;
+		public event EventHandler<EventArgs> AreaLocated;
 
-		public event EventHandler<EventArgs> LocationError;
+		public event EventHandler<EventArgs> AreaLocatingFailed;
 
 		public Area Area { get; private set; }
 
@@ -74,7 +74,7 @@ namespace bstrkr.core.services.location
 				}
 				else if (!_unknownAreaReported)
 				{
-//					this.RaiseLocationErrorEvent(BusTrackerLocationErrors.UnknownArea);
+					this.RaiseAreaLocatingFailedEvent();
 					_unknownAreaReported = true;
 				}
 			}
@@ -84,18 +84,18 @@ namespace bstrkr.core.services.location
 
 		private void RaiseLocationChangedEvent()
 		{
-			if (this.AreaChanged != null)
+			if (this.AreaLocated != null)
 			{
-				this.AreaChanged(this, EventArgs.Empty);
+				this.AreaLocated(this, EventArgs.Empty);
 			}
 		}
 
-//		private void RaiseLocationErrorEvent(BusTrackerLocationErrors error)
-//		{
-//			if (this.LocationError != null)
-//			{
-//				this.LocationError(this, new BusTrackerLocationErrorEventArgs(error));
-//			}
-//		}
+		private void RaiseAreaLocatingFailedEvent()
+		{
+			if (this.AreaLocatingFailed != null)
+			{
+				this.AreaLocatingFailed(this, EventArgs.Empty);
+			}
+		}
 	}
 }

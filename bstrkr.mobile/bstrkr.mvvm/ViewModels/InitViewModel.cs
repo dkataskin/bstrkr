@@ -15,7 +15,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class InitViewModel : BusTrackerViewModelBase
 	{
 		private readonly object _lockObject = new object();
-		private readonly IAreaPositioningService _locationService;
+		private readonly IAreaPositioningService _areaPositioningService;
 		private readonly IUserInteraction _userInteraction;
 
 		private int _locatingSec = 30;
@@ -23,14 +23,15 @@ namespace bstrkr.mvvm.viewmodels
 		private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 		private CancellationToken _token;
 
-		public InitViewModel(IAreaPositioningService locationService,
-							 IUserInteraction userInteraction)
+		public InitViewModel(
+						IAreaPositioningService areaPositioningService,
+						IUserInteraction userInteraction)
 		{
 			_userInteraction = userInteraction;
 
-			_locationService = locationService;
-			_locationService.AreaChanged += this.OnLocationChanged;
-			_locationService.LocationError += this.OnLocationError;
+			_areaPositioningService = areaPositioningService;
+			_areaPositioningService.AreaChanged += this.OnLocationChanged;
+			_areaPositioningService.LocationError += this.OnLocationError;
 
 			this.SelectManuallyCommand = new MvxCommand(this.SelectManually);
 		}
@@ -50,7 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 			_token = _tokenSource.Token;
 			this.Countdown(_token);
 
-			this.Dispatcher.RequestMainThreadAction(() => _locationService.Start());
+			this.Dispatcher.RequestMainThreadAction(() => _areaPositioningService.Start());
 		}
 
 		private void Countdown(CancellationToken token)
@@ -120,8 +121,8 @@ namespace bstrkr.mvvm.viewmodels
 
 			_tokenSource.Cancel();
 
-			_locationService.AreaChanged -= this.OnLocationChanged;
-			_locationService.LocationError -= this.OnLocationError;
+			_areaPositioningService.AreaChanged -= this.OnLocationChanged;
+			_areaPositioningService.LocationError -= this.OnLocationError;
 		}
 	}
 }
