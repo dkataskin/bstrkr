@@ -8,14 +8,14 @@ using bstrkr.core.spatial;
 
 namespace bstrkr.core.services.location
 {
-	public class BusTrackerLocationService : IBusTrackerLocationService
+	public class AreaPositioningService : IAreaPositioningService
 	{
 		private readonly ILocationService _locationService;
 		private readonly IConfigManager _configManager;
 
 		private bool _unknownAreaReported;
 
-		public BusTrackerLocationService(IConfigManager configManager, ILocationService locationService)
+		public AreaPositioningService(IConfigManager configManager, ILocationService locationService)
 		{
 			_configManager = configManager;
 

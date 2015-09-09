@@ -24,7 +24,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
-		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _locationService;
 
 		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = 
 			new ObservableCollection<RouteStopsListItemViewModel>();
@@ -37,7 +37,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public RouteStopsViewModel(
 						ILiveDataProviderFactory providerFactory,
-						IBusTrackerLocationService locationService)
+						IAreaPositioningService locationService)
 		{
 			_providerFactory = providerFactory;
 			_locationService = locationService;

@@ -13,9 +13,9 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class SetAreaViewModel : BusTrackerViewModelBase
 	{
-		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _locationService;
 
-		public SetAreaViewModel(IConfigManager configManager, IBusTrackerLocationService locationService)
+		public SetAreaViewModel(IConfigManager configManager, IAreaPositioningService locationService)
 		{
 			_locationService = locationService;
 

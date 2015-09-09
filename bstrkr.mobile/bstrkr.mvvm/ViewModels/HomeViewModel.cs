@@ -13,7 +13,7 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class HomeViewModel : BusTrackerViewModelBase
     {
-		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _locationService;
 
 		private readonly IDictionary<Type, MenuSection> _menuSection2ViewModel = new Dictionary<Type, MenuSection>
 		{
@@ -25,7 +25,7 @@ namespace bstrkr.mvvm.viewmodels
 			{ typeof(LicensesViewModel), MenuSection.Licenses }
 		};
 
-		public HomeViewModel(IBusTrackerLocationService locationService)
+		public HomeViewModel(IAreaPositioningService locationService)
 		{
 			_locationService = locationService;
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());

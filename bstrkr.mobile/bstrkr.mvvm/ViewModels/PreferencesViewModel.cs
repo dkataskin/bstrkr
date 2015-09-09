@@ -16,7 +16,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class PreferencesViewModel : BusTrackerViewModelBase
 	{
 		private readonly IList<Area> _areas = new List<Area>();
-		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _locationService;
 		private readonly IConfigManager _configManager;
 		private readonly IMvxMessenger _messenger;
 
@@ -25,7 +25,7 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _animateMarkers;
 
 		public PreferencesViewModel(IConfigManager configManager, 
-									IBusTrackerLocationService locationService,
+									IAreaPositioningService locationService,
 									IMvxMessenger messenger)
 		{
 			_configManager = configManager;

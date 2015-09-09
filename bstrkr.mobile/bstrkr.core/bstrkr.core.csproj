@@ -58,8 +58,6 @@
     <Compile Include="WaypointCollection.cs" />
     <Compile Include="VehicleLocationUpdate.cs" />
     <Compile Include="Area.cs" />
-    <Compile Include="Services\Location\IBusTrackerLocationService.cs" />
-    <Compile Include="Services\Location\BusTrackerLocationService.cs" />
     <Compile Include="Services\Resources\IAppResourceManager.cs" />
     <Compile Include="Services\Resources\AppResourceManagerBase.cs" />
     <Compile Include="AppResources.Designer.cs">
@@ -93,6 +91,8 @@
     <Compile Include="PathSegment.cs" />
     <Compile Include="Spatial\GeoLocation.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Services\Location\IAreaPositioningService.cs" />
+    <Compile Include="Services\Location\AreaPositioningService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

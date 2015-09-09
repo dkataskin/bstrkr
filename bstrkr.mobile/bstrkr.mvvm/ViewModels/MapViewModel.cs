@@ -33,7 +33,8 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private const double MaxDistanceFromBusStop = 500.0;
 
-		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _areaPositioningService;
+		private readonly ILocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IMvxMessenger _messenger;
 		private readonly IConfigManager _configManager;
@@ -59,7 +60,8 @@ namespace bstrkr.mvvm.viewmodels
 		private RouteStopMapViewModel _selectedRouteStop;
 
 		public MapViewModel(
-					IBusTrackerLocationService locationService, 
+					IAreaPositioningService areaPositioningService,
+					ILocationService locationService,
 					ILiveDataProviderFactory providerFactory,
 					IConfigManager configManager,
 					IMvxMessenger messenger)
@@ -67,8 +69,8 @@ namespace bstrkr.mvvm.viewmodels
 			_providerFactory = providerFactory;
 			_configManager = configManager;
 			_messenger = messenger;
-			_locationService = locationService;
-			_locationService.AreaChanged += OnLocationChanged;
+			_areaPositioningService = areaPositioningService;
+			_areaPositioningService.AreaChanged += (s, a) => this.OnAreaChanged(_areaPositioningService.Area, null, _areaPositioningService.DetectedArea);
 
 			_config = _configManager.GetConfig();
 
@@ -172,9 +174,9 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			base.Start();
 
-			if (_locationService.Area != null)
+			if (_areaPositioningService.Area != null)
 			{
-				this.OnLocationChanged(this, EventArgs.Empty);
+				this.OnAreaChanged(_areaPositioningService.Area, null, _areaPositioningService.DetectedArea);
 			}
 
 			this.IsBusy = true;
@@ -204,12 +206,12 @@ namespace bstrkr.mvvm.viewmodels
 			_viewportOffset = viewportOffset;
 		}
 
-		private void OnLocationChanged(object sender, EventArgs args)
+		private void OnAreaChanged(Area area, GeoPoint? centerPosition, bool detected)
 		{
-			MvxTrace.Trace(MvxTraceLevel.Diagnostic, () => "Location changed");
+			MvxTrace.Trace("Area changed to {0}", area != null ? area.Name : string.Empty);
 
-			this.MapCenter = _locationService.Location;
-			this.DetectedArea = _locationService.DetectedArea;
+			this.MapCenter = centerPosition == null ? new GeoPoint(area.Latitude, area.Longitude) : centerPosition.Value;
+			this.DetectedArea = detected;
 
 			if (_liveDataProvider != null)
 			{

@@ -12,12 +12,12 @@ namespace bstrkr.providers
 {
 	public class DefaultLiveDataProviderFactory : ILiveDataProviderFactory
 	{
-		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _locationService;
 
 		private Area _currentArea;
 		private ILiveDataProvider _currentProvider;
 
-		public DefaultLiveDataProviderFactory(IBusTrackerLocationService locationService)
+		public DefaultLiveDataProviderFactory(IAreaPositioningService locationService)
 		{
 			_locationService = locationService;
 			_locationService.AreaChanged += this.OnLocationChanged;

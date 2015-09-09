@@ -15,7 +15,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class InitViewModel : BusTrackerViewModelBase
 	{
 		private readonly object _lockObject = new object();
-		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _locationService;
 		private readonly IUserInteraction _userInteraction;
 
 		private int _locatingSec = 30;
@@ -23,7 +23,7 @@ namespace bstrkr.mvvm.viewmodels
 		private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 		private CancellationToken _token;
 
-		public InitViewModel(IBusTrackerLocationService locationService,
+		public InitViewModel(IAreaPositioningService locationService,
 							 IUserInteraction userInteraction)
 		{
 			_userInteraction = userInteraction;
