@@ -16,10 +16,13 @@ namespace Services.Location
 			_locationService = locationService;
 			_areaPositioningService = areaPositioningService;
 
-			_areaPositioningService.AreaLocated += (s, a) => this.RaiseAreaChangedEvent();
+			_areaPositioningService.AreaLocated += (s, a) => this.RaiseAreaChangedEvent(
+																			this.CurrentArea, 
+																			this.DetectedArea,
+																			_locationService.GetLastLocation());
 		}
 
-		public event EventHandler<EventArgs> AreaChanged;
+		public event EventHandler<AreaChangedEventArgs> AreaChanged;
 
 		public Area CurrentArea { get { return _areaPositioningService.Area; } }
 
@@ -50,11 +53,11 @@ namespace Services.Location
 			_areaPositioningService.Stop();
 		}
 
-		private void RaiseAreaChangedEvent()
+		private void RaiseAreaChangedEvent(Area area, bool detected, GeoPoint lastLocation)
 		{
 			if (this.AreaChanged != null)
 			{
-				this.AreaChanged(this, EventArgs.Empty);
+				this.AreaChanged(this, new AreaChangedEventArgs(area, detected, lastLocation));
 			}
 		}
 	}

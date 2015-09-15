@@ -21,7 +21,7 @@ using Cirrious.CrossCore.Exceptions;
 namespace bstrkr.core.android.services.location
 {
 	public class LocationService : Java.Lang.Object, 
-	ILocationService, 
+								   ILocationService, 
 								   IGoogleApiClientConnectionCallbacks, 
 								   IGoogleApiClientOnConnectionFailedListener, 
 								   Android.Gms.Location.ILocationListener,

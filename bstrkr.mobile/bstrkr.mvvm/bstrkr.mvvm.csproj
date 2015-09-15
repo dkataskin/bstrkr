@@ -84,7 +84,6 @@
     <Compile Include="Converters\RouteToFirstLastStopsConverter.cs" />
     <Compile Include="ViewModels\VehicleForecastViewModel.cs" />
     <Compile Include="ViewModels\RouteVehiclesViewModel.cs" />
-    <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="Views\CameraLocationChangedEventArgs.cs" />
     <Compile Include="Views\MapViewVisibleRegionTargetBinding.cs" />
     <Compile Include="ViewModels\InitViewModel.cs" />

@@ -7,7 +7,7 @@ namespace bstrkr.core.services.location
 {
 	public interface IPositioningService
 	{
-		event EventHandler<EventArgs> AreaChanged;
+		event EventHandler<AreaChangedEventArgs> AreaChanged;
 
 		Area CurrentArea { get; }
 
