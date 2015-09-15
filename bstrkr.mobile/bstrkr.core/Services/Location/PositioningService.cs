@@ -4,7 +4,7 @@ using bstrkr.core;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
 
-namespace Services.Location
+namespace bstrkr.core.services.location
 {
 	public class PositioningService : IPositioningService
 	{
