@@ -42,7 +42,7 @@ namespace bstrkr.android.views
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.route_stops_view_title;
+			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = AppResources.route_stops_view_title;
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 

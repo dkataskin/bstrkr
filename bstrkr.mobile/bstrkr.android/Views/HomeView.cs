@@ -56,7 +56,7 @@ namespace bstrkr.android.views
 			  ScreenOrientation = ScreenOrientation.Portrait,
 			  Theme = "@style/BusTrackerTheme")]
 	[Register("bstrkr.android.views.HomeView")]
-	public class HomeView : MvxActionBarActivity, IFragmentHost
+	public class HomeView : MvxAppCompatActivity, IFragmentHost
     {
 		private DrawerLayout _drawer;
 		private BusTrackerActionBarDrawerToggle _drawerToggle;

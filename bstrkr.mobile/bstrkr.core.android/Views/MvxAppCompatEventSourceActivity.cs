@@ -10,7 +10,7 @@ using Cirrious.CrossCore.Droid.Views;
 
 namespace bstrkr.core.android.views
 {
-	public abstract class MvxActionBarEventSourceActivity: ActionBarActivity, IMvxEventSourceActivity
+	public abstract class MvxAppCompatEventSourceActivity: AppCompatActivity, IMvxEventSourceActivity
 	{
 		protected override void OnCreate(Bundle bundle)
 		{

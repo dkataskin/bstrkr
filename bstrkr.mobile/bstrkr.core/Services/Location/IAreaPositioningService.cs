@@ -17,6 +17,8 @@ namespace bstrkr.core.services.location
 
 		void Start();
 
+		void Stop();
+
 		void SelectArea(Area area);
 	}
 }

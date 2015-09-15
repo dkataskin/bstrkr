@@ -12,24 +12,24 @@ namespace bstrkr.providers
 {
 	public class DefaultLiveDataProviderFactory : ILiveDataProviderFactory
 	{
-		private readonly IAreaPositioningService _locationService;
+		private readonly IAreaPositioningService _areaPositioningService;
 
 		private Area _currentArea;
 		private ILiveDataProvider _currentProvider;
 
-		public DefaultLiveDataProviderFactory(IAreaPositioningService locationService)
+		public DefaultLiveDataProviderFactory(IAreaPositioningService areaPositioningService)
 		{
-			_locationService = locationService;
-			_locationService.AreaLocated += this.OnLocationChanged;
+			_areaPositioningService = areaPositioningService;
+			_areaPositioningService.AreaLocated += this.OnAreaChanged;
 
-			_currentArea = _locationService.Area;
+			_currentArea = _areaPositioningService.Area;
 		}
 
 		public ILiveDataProvider GetCurrentProvider()
 		{
-			lock(_locationService)
+			lock(_areaPositioningService)
 			{
-				var area = _locationService.Area;
+				var area = _areaPositioningService.Area;
 				if (_currentArea == null || area == null || !_currentArea.Id.Equals(area.Id) || _currentProvider == null)
 				{
 					_currentArea = area;
@@ -56,11 +56,11 @@ namespace bstrkr.providers
 										TimeSpan.FromMilliseconds(10000));
 		}
 
-		private void OnLocationChanged(object sender, EventArgs args)
+		private void OnAreaChanged(object sender, EventArgs args)
 		{
-			lock(_locationService)
+			lock(_areaPositioningService)
 			{
-				var area = _locationService.Area;
+				var area = _areaPositioningService.Area;
 				if (_currentArea == null || area == null)
 				{
 					_currentArea = area;

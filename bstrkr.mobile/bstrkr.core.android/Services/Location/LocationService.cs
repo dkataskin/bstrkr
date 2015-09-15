@@ -21,7 +21,7 @@ using Cirrious.CrossCore.Exceptions;
 namespace bstrkr.core.android.services.location
 {
 	public class LocationService : Java.Lang.Object, 
-								   ILocationService, 
+	ILocationService, 
 								   IGoogleApiClientConnectionCallbacks, 
 								   IGoogleApiClientOnConnectionFailedListener, 
 								   Android.Gms.Location.ILocationListener,
@@ -69,6 +69,13 @@ namespace bstrkr.core.android.services.location
 			}
 
 			this.ConnectGoogleAPI();
+		}
+
+		public GeoPoint GetLastLocation()
+		{
+			var lastLocation = LocationServices.FusedLocationApi.GetLastLocation(_googleAPIClient);
+
+			return new GeoPoint(lastLocation.Latitude, lastLocation.Longitude);
 		}
 
 		public void StopUpdating()

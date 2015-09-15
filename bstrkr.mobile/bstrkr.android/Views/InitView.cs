@@ -14,6 +14,7 @@ using Android.Widget;
 using bstrkr.android;
 using bstrkr.android.views;
 using bstrkr.core.android.presenters;
+using bstrkr.core.android.views;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.CrossCore;

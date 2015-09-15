@@ -15,9 +15,9 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.core.android.views
 {
-	public class MvxActionBarActivity : MvxActionBarEventSourceActivity, IMvxAndroidView
+	public class MvxAppCompatActivity : MvxAppCompatEventSourceActivity, IMvxAndroidView
 	{
-		public MvxActionBarActivity()
+		public MvxAppCompatActivity()
 		{
 			BindingContext = new MvxAndroidBindingContext(this, this);
 			this.AddEventListeners();

@@ -30,8 +30,8 @@ namespace bstrkr.mvvm.viewmodels
 			_userInteraction = userInteraction;
 
 			_areaPositioningService = areaPositioningService;
-			_areaPositioningService.AreaChanged += this.OnLocationChanged;
-			_areaPositioningService.LocationError += this.OnLocationError;
+			_areaPositioningService.AreaLocated += this.OnAreaLocated;
+			_areaPositioningService.AreaLocatingFailed += this.OnAreaLocatingFailed;
 
 			this.SelectManuallyCommand = new MvxCommand(this.SelectManually);
 		}
@@ -66,13 +66,13 @@ namespace bstrkr.mvvm.viewmodels
 
 				if (!token.IsCancellationRequested)
 				{
-					this.Dispatcher.RequestMainThreadAction(() => this.OnLocationError(this, LocationErrorEventArgs.Empty));
+					this.Dispatcher.RequestMainThreadAction(() => this.OnAreaLocatingFailed(this, LocationErrorEventArgs.Empty));
 				}
 			}, 
 			token);
 		}
 
-		private void OnLocationChanged(object sender, EventArgs args)
+		private void OnAreaLocated(object sender, EventArgs args)
 		{
 			lock(_lockObject)
 			{
@@ -81,7 +81,7 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void OnLocationError(object sender, EventArgs args)
+		private void OnAreaLocatingFailed(object sender, EventArgs args)
 		{
 			lock(_lockObject)
 			{
@@ -121,8 +121,8 @@ namespace bstrkr.mvvm.viewmodels
 
 			_tokenSource.Cancel();
 
-			_areaPositioningService.AreaChanged -= this.OnLocationChanged;
-			_areaPositioningService.LocationError -= this.OnLocationError;
+			_areaPositioningService.AreaLocated -= this.OnAreaLocated;
+			_areaPositioningService.AreaLocatingFailed -= this.OnAreaLocatingFailed;
 		}
 	}
 }

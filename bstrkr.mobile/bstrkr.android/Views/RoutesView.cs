@@ -29,7 +29,7 @@ namespace bstrkr.android.views
 		{
 			this.SetHasOptionsMenu(true);
 
-			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.routes_view_title;
+			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = AppResources.routes_view_title;
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 

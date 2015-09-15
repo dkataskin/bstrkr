@@ -1,5 +1,7 @@
 ﻿using System;
 
+using bstrkr.core.spatial;
+
 namespace bstrkr.core.services.location
 {
 	public interface ILocationService
@@ -9,6 +11,8 @@ namespace bstrkr.core.services.location
 		event EventHandler<LocationErrorEventArgs> LocatingFailed;
 
 		void StartUpdating();
+
+		GeoPoint GetLastLocation();
 
 		void StopUpdating();
 	}

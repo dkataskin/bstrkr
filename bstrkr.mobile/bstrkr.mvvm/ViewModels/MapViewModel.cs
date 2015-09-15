@@ -70,7 +70,7 @@ namespace bstrkr.mvvm.viewmodels
 			_configManager = configManager;
 			_messenger = messenger;
 			_areaPositioningService = areaPositioningService;
-			_areaPositioningService.AreaChanged += (s, a) => this.OnAreaChanged(_areaPositioningService.Area, null, _areaPositioningService.DetectedArea);
+			_areaPositioningService.AreaLocated += (s, a) => this.OnAreaChanged(_areaPositioningService.Area, null, _areaPositioningService.DetectedArea);
 
 			_config = _configManager.GetConfig();
 

@@ -36,6 +36,11 @@ namespace bstrkr.core.services.location
 			_locationService.StartUpdating();
 		}
 
+		public void Stop()
+		{
+			_locationService.StopUpdating();
+		}
+
 		public void SelectArea(Area area)
 		{
 			_locationService.StopUpdating();

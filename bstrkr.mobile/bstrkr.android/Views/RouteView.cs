@@ -31,7 +31,7 @@ namespace bstrkr.android.views
 			var routeNumberConverter = new RouteInfoToTitleConverter();
 			var dataContext = this.DataContext as RouteVehiclesViewModel;
 		
-			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = 
+			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = 
 				routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
 
 			return this.BindingInflate(Resource.Layout.fragment_route_view, null);

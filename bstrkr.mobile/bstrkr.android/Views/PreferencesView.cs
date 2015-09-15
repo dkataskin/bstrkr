@@ -27,7 +27,7 @@ namespace bstrkr.android.views
 		{
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			(this.Activity as MvxActionBarActivity).SupportActionBar.Title = AppResources.preferences_view_title;
+			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = AppResources.preferences_view_title;
 
 			return this.BindingInflate(Resource.Layout.fragment_preferences_view, null);
 		}
