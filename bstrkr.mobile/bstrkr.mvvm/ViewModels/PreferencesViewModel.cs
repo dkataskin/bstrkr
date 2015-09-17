@@ -16,7 +16,7 @@ namespace bstrkr.mvvm.viewmodels
 	public class PreferencesViewModel : BusTrackerViewModelBase
 	{
 		private readonly IList<Area> _areas = new List<Area>();
-		private readonly IAreaPositioningService _locationService;
+		private readonly IAreaPositioningService _areaPositioningService;
 		private readonly IConfigManager _configManager;
 		private readonly IMvxMessenger _messenger;
 
@@ -25,12 +25,12 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _animateMarkers;
 
 		public PreferencesViewModel(IConfigManager configManager, 
-									IAreaPositioningService locationService,
+									IAreaPositioningService areaPositioning,
 									IMvxMessenger messenger)
 		{
 			_configManager = configManager;
 			_messenger = messenger;
-			_locationService = locationService;
+			_areaPositioningService = areaPositioning;
 
 			this.SavePreferencesCommand = new MvxCommand(this.SavePreferences);
 		}
@@ -62,7 +62,7 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			this.Areas = new ReadOnlyObservableCollection<Area>(new ObservableCollection<Area>(_areas));
-			this.SelectedArea = _locationService.Area;
+			this.SelectedArea = _areaPositioningService.Area;
 			this.AnimateMarkers = Settings.AnimateMarkers;
 
 			_selectedAreaIdOldValue = this.SelectedArea == null ? string.Empty : this.SelectedArea.Id;
@@ -77,7 +77,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			if (_selectedAreaIdOldValue != selectedAreaId)
 			{
-				_locationService.SelectArea(this.SelectedArea);
+				_areaPositioningService.SelectArea(this.SelectedArea);
 			}
 
 //			_messenger.Publish<PreferencesChangedMessage>(
