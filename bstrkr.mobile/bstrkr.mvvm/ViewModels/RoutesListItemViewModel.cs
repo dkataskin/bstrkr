@@ -13,8 +13,6 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private string _id;
 		private string _name;
-		private string _from;
-		private string _to;
 		private VehicleTypes _vehicleType;
 		private Route _route;
 

@@ -62,7 +62,7 @@ namespace bstrkr.android.views
 		private BusTrackerActionBarDrawerToggle _drawerToggle;
 		private MvxListView _drawerList;
 		private MenuSection _currentSection;
-		private IPositioningService _positioningService;
+		private IBusTrackerLocationService _locationService;
 		private IDisposable _slidingSubscription;
 
 		private bool _enableDrawerOnNextNavigation;
@@ -313,8 +313,8 @@ namespace bstrkr.android.views
 			this.SupportActionBar.SetHomeButtonEnabled(true);
 			this.SupportActionBar.Title = AppResources.map_view_title;
 
-			_positioningService = Mvx.Resolve<IPositioningService>();
-			_positioningService.AreaChanged += (s, a) => this.UpdateTitle(a.Area);
+			_locationService = Mvx.Resolve<IBusTrackerLocationService>();
+			_locationService.AreaChanged += (s, a) => this.UpdateTitle(a.Area);
 
 			this.ShowMap();
         }

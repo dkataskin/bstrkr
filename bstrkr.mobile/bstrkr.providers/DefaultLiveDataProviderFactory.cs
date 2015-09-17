@@ -12,24 +12,24 @@ namespace bstrkr.providers
 {
 	public class DefaultLiveDataProviderFactory : ILiveDataProviderFactory
 	{
-		private readonly IAreaPositioningService _areaPositioningService;
+		private readonly IBusTrackerLocationService _locationService;
 
 		private Area _currentArea;
 		private ILiveDataProvider _currentProvider;
 
-		public DefaultLiveDataProviderFactory(IAreaPositioningService areaPositioningService)
+		public DefaultLiveDataProviderFactory(IBusTrackerLocationService locationService)
 		{
-			_areaPositioningService = areaPositioningService;
-			_areaPositioningService.AreaLocated += this.OnAreaChanged;
+			_locationService = locationService;
+			_locationService.AreaChanged += this.OnAreaChanged;
 
-			_currentArea = _areaPositioningService.Area;
+			_currentArea = _locationService.CurrentArea;
 		}
 
 		public ILiveDataProvider GetCurrentProvider()
 		{
-			lock(_areaPositioningService)
+			lock(_locationService)
 			{
-				var area = _areaPositioningService.Area;
+				var area = _locationService.CurrentArea;
 				if (_currentArea == null || area == null || !_currentArea.Id.Equals(area.Id) || _currentProvider == null)
 				{
 					_currentArea = area;
@@ -56,21 +56,20 @@ namespace bstrkr.providers
 										TimeSpan.FromMilliseconds(10000));
 		}
 
-		private void OnAreaChanged(object sender, EventArgs args)
+		private void OnAreaChanged(object sender, AreaChangedEventArgs args)
 		{
-			lock(_areaPositioningService)
+			lock(_locationService)
 			{
-				var area = _areaPositioningService.Area;
-				if (_currentArea == null || area == null)
+				if (_currentArea == null || args.Area == null)
 				{
-					_currentArea = area;
+					_currentArea = args.Area;
 					_currentProvider = this.CreateProvider(_currentArea);
 				}
 				else
 				{
-					if (!_currentArea.Id.Equals(area.Id))
+					if (!_currentArea.Id.Equals(args.Area.Id))
 					{
-						_currentArea = area;
+						_currentArea = args.Area;
 						_currentProvider = this.CreateProvider(_currentArea);
 					}
 				}

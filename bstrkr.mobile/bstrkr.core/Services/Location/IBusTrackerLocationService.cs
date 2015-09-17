@@ -5,7 +5,7 @@ using bstrkr.core.spatial;
 
 namespace bstrkr.core.services.location
 {
-	public interface IPositioningService
+	public interface IBusTrackerLocationService
 	{
 		event EventHandler<AreaChangedEventArgs> AreaChanged;
 

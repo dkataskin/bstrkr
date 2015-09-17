@@ -33,7 +33,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private const double MaxDistanceFromBusStop = 500.0;
 
-		private readonly IPositioningService _positioningService;
+		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
 		private readonly IMvxMessenger _messenger;
 		private readonly IConfigManager _configManager;
@@ -59,7 +59,7 @@ namespace bstrkr.mvvm.viewmodels
 		private RouteStopMapViewModel _selectedRouteStop;
 
 		public MapViewModel(
-					IPositioningService positioningService,
+					IBusTrackerLocationService locationService,
 					ILiveDataProviderFactory providerFactory,
 					IConfigManager configManager,
 					IMvxMessenger messenger)
@@ -67,8 +67,8 @@ namespace bstrkr.mvvm.viewmodels
 			_providerFactory = providerFactory;
 			_configManager = configManager;
 			_messenger = messenger;
-			_positioningService = positioningService;
-			_positioningService.AreaChanged += (s, a) =>
+			_locationService = locationService;
+			_locationService.AreaChanged += (s, a) =>
 			{
 				this.DetectedArea = a.Detected;
 				this.ChangeArea(a.Area, a.LastLocation);
@@ -176,10 +176,10 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			base.Start();
 
-			if (_positioningService.CurrentArea != null)
+			if (_locationService.CurrentArea != null)
 			{
-				this.DetectedArea = _positioningService.DetectedArea;
-				this.ChangeArea(_positioningService.CurrentArea, _positioningService.GetLastLocation());
+				this.DetectedArea = _locationService.DetectedArea;
+				this.ChangeArea(_locationService.CurrentArea, _locationService.GetLastLocation());
 			}
 
 			this.IsBusy = true;

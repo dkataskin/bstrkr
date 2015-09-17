@@ -6,20 +6,24 @@ using bstrkr.core.spatial;
 
 namespace bstrkr.core.services.location
 {
-	public class PositioningService : IPositioningService
+	public class BusTrackerLocationService : IBusTrackerLocationService
 	{
 		private readonly ILocationService _locationService;
 		private readonly IAreaPositioningService _areaPositioningService;
 
-		public PositioningService(ILocationService locationService, IAreaPositioningService areaPositioningService)
+		public BusTrackerLocationService(ILocationService locationService, IAreaPositioningService areaPositioningService)
 		{
 			_locationService = locationService;
 			_areaPositioningService = areaPositioningService;
 
-			_areaPositioningService.AreaLocated += (s, a) => this.RaiseAreaChangedEvent(
-																			this.CurrentArea, 
-																			this.DetectedArea,
-																			_locationService.GetLastLocation());
+			_areaPositioningService.AreaLocated += (s, a) => 
+									this.RaiseAreaChangedEvent(
+														this.CurrentArea, 
+														this.DetectedArea,
+														this.DetectedArea ? _locationService.GetLastLocation() : 
+																			new GeoPoint(
+																					this.CurrentArea.Latitude,
+																					this.CurrentArea.Longitude));
 		}
 
 		public event EventHandler<AreaChangedEventArgs> AreaChanged;

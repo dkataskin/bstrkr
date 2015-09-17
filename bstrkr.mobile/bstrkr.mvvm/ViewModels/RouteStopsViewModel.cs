@@ -24,7 +24,7 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private readonly object _lockObject = new object();
 		private readonly ILiveDataProviderFactory _providerFactory;
-		private readonly IPositioningService _positioningService;
+		private readonly IBusTrackerLocationService _locationService;
 
 		private readonly ObservableCollection<RouteStopsListItemViewModel> _stops = 
 			new ObservableCollection<RouteStopsListItemViewModel>();
@@ -37,10 +37,10 @@ namespace bstrkr.mvvm.viewmodels
 
 		public RouteStopsViewModel(
 						ILiveDataProviderFactory providerFactory,
-						IPositioningService positioningService)
+						IBusTrackerLocationService locationService)
 		{
 			_providerFactory = providerFactory;
-			_positioningService = positioningService;
+			_locationService = locationService;
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_stops);
 
@@ -167,7 +167,7 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					lock(_lockObject)
 					{
-						var location = _positioningService.GetLastLocation();
+						var location = _locationService.GetLastLocation();
 						foreach (var stopsGroup in getRouteStopsTask.Result.GroupBy(x => x.Name)) 
 						{
 							var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
