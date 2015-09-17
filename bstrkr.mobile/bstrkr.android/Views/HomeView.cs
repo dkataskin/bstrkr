@@ -268,6 +268,21 @@ namespace bstrkr.android.views
 			}
 		}
 
+		protected override void OnSaveInstanceState(Bundle outState)
+		{
+			//base.OnSaveInstanceState(outState);
+		}
+
+		protected override void OnRestoreInstanceState(Bundle savedInstanceState)
+		{
+//			base.OnRestoreInstanceState(savedInstanceState);
+		}
+
+		public override void OnRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState)
+		{
+//			base.OnRestoreInstanceState(savedInstanceState, persistentState);
+		}
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
 			var context = this.ApplicationContext;

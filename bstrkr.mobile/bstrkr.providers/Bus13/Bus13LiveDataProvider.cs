@@ -80,10 +80,8 @@ namespace bstrkr.core.providers.bus13
 						_cancellationTokenSource.Cancel();
 					}
 
-					if (_updateTask != null)
-					{
-						_cancellationTokenSource.Cancel();
-					}
+					_updateTask = null;
+					_cancellationTokenSource = null;
 				}
 
 				_isRunning = false;
@@ -204,12 +202,9 @@ namespace bstrkr.core.providers.bus13
 
 		private void CreateStartTask()
 		{
-			if (_updateTask == null)
-			{
-				this.GetRoutesAsync()
-					.ContinueWith(this.OnGetRoutesTaskCompleted)
-					.ConfigureAwait(false);
-			}
+			this.GetRoutesAsync()
+				.ContinueWith(this.OnGetRoutesTaskCompleted)
+				.ConfigureAwait(false);
 		}
 
 		private void OnGetRoutesTaskCompleted(Task<IEnumerable<Route>> task)
@@ -220,6 +215,11 @@ namespace bstrkr.core.providers.bus13
 				if (routes.Any())
 				{
 					MvxTrace.Trace("{0} routes retrieved", routes.Count);
+
+					if (_cancellationTokenSource != null)
+					{
+						_cancellationTokenSource.Cancel();
+					}
 
 					_cancellationTokenSource = new CancellationTokenSource();
 					_updateTask = Task.Factory.StartNew(
