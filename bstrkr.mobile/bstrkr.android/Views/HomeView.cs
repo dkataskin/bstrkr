@@ -98,7 +98,7 @@ namespace bstrkr.android.views
 				{
 					case MenuSection.Map:
 						_currentSection = MenuSection.Map;
-						this.UpdateTitle();
+						this.UpdateTitle(null);
 
 						_drawerList.SetItemChecked(0, true);
 
