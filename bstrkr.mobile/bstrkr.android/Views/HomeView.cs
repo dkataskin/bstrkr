@@ -291,9 +291,13 @@ namespace bstrkr.android.views
 												  .VersionName;
 
             base.OnCreate(savedInstanceState);
-			SupportRequestWindowFeature(WindowCompat.FeatureActionBar);
+//			SupportRequestWindowFeature(WindowCompat.FeatureActionBar);
 
 			this.SetContentView(Resource.Layout.page_home_view);
+
+			var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+			SetSupportActionBar(toolbar);
+			SupportActionBar.Title = "Hello from Appcompat Toolbar";
 
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);

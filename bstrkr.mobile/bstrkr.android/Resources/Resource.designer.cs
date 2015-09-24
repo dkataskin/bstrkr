@@ -1912,8 +1912,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b002b
 			public const int action_mode_close_button = 2131427371;
 			
-			// aapt resource value: 0x7f0b0087
-			public const int action_search = 2131427463;
+			// aapt resource value: 0x7f0b0088
+			public const int action_search = 2131427464;
 			
 			// aapt resource value: 0x7f0b002c
 			public const int activity_chooser_view_content = 2131427372;
@@ -2035,8 +2035,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b007e
 			public const int info = 2131427454;
 			
-			// aapt resource value: 0x7f0b0084
-			public const int left_drawer = 2131427460;
+			// aapt resource value: 0x7f0b0085
+			public const int left_drawer = 2131427461;
 			
 			// aapt resource value: 0x7f0b005f
 			public const int licensesView = 2131427423;
@@ -2053,8 +2053,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b0030
 			public const int list_item = 2131427376;
 			
-			// aapt resource value: 0x7f0b0085
-			public const int map = 2131427461;
+			// aapt resource value: 0x7f0b0086
+			public const int map = 2131427462;
 			
 			// aapt resource value: 0x7f0b0082
 			public const int mapView = 2131427458;
@@ -2077,11 +2077,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b006f
 			public const int media_route_volume_slider = 2131427439;
 			
-			// aapt resource value: 0x7f0b0088
-			public const int menu_refresh = 2131427464;
+			// aapt resource value: 0x7f0b0089
+			public const int menu_refresh = 2131427465;
 			
-			// aapt resource value: 0x7f0b0086
-			public const int menu_showonmap = 2131427462;
+			// aapt resource value: 0x7f0b0087
+			public const int menu_showonmap = 2131427463;
 			
 			// aapt resource value: 0x7f0b001b
 			public const int middle = 2131427355;
@@ -2098,8 +2098,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b000c
 			public const int normal = 2131427340;
 			
-			// aapt resource value: 0x7f0b0083
-			public const int panel_content_frame = 2131427459;
+			// aapt resource value: 0x7f0b0084
+			public const int panel_content_frame = 2131427460;
 			
 			// aapt resource value: 0x7f0b0033
 			public const int parentPanel = 2131427379;
@@ -2235,6 +2235,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f0b0035
 			public const int title_template = 2131427381;
+			
+			// aapt resource value: 0x7f0b0083
+			public const int toolbar = 2131427459;
 			
 			// aapt resource value: 0x7f0b0034
 			public const int topPanel = 2131427380;
@@ -2501,6 +2504,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f03003c
 			public const int support_simple_spinner_dropdown_item = 2130903100;
+			
+			// aapt resource value: 0x7f03003d
+			public const int toolbar = 2130903101;
 			
 			static Layout()
 			{
