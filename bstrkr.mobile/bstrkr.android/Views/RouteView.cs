@@ -26,6 +26,8 @@ namespace bstrkr.android.views
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
+			this.SetHasOptionsMenu(true);
+
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			var routeNumberConverter = new RouteInfoToTitleConverter();
@@ -35,6 +37,12 @@ namespace bstrkr.android.views
 				routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
 
 			return this.BindingInflate(Resource.Layout.fragment_route_view, null);
+		}
+
+		public override void OnPrepareOptionsMenu(IMenu menu)
+		{
+			menu.Clear();
+			base.OnPrepareOptionsMenu(menu);
 		}
 
 		public override void OnDestroyView()

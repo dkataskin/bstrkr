@@ -202,7 +202,6 @@
     <Compile Include="Views\SetRouteStopView.cs" />
     <Compile Include="Views\RouteStopView.cs" />
     <Compile Include="Views\MapRouteStopView.cs" />
-    <Compile Include="Views\GenericFragmentPagerAdaptor.cs" />
     <Compile Include="Views\RouteVehicleForecastView.cs" />
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />

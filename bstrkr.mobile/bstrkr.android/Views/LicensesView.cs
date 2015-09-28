@@ -23,11 +23,19 @@ namespace bstrkr.android.views
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
+			this.SetHasOptionsMenu(true);
+
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
 			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = AppResources.licenses_view_title;
 
 			return this.BindingInflate(Resource.Layout.fragment_licenses_view, null);
+		}
+
+		public override void OnPrepareOptionsMenu(IMenu menu)
+		{
+			menu.Clear();
+			base.OnPrepareOptionsMenu(menu);
 		}
 	}
 }

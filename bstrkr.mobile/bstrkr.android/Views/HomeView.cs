@@ -278,17 +278,14 @@ namespace bstrkr.android.views
 
 		protected override void OnSaveInstanceState(Bundle outState)
 		{
-			//base.OnSaveInstanceState(outState);
 		}
 
 		protected override void OnRestoreInstanceState(Bundle savedInstanceState)
 		{
-//			base.OnRestoreInstanceState(savedInstanceState);
 		}
 
 		public override void OnRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState)
 		{
-//			base.OnRestoreInstanceState(savedInstanceState, persistentState);
 		}
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -299,7 +296,6 @@ namespace bstrkr.android.views
 												  .VersionName;
 
             base.OnCreate(savedInstanceState);
-//			SupportRequestWindowFeature(WindowCompat.FeatureActionBar);
 
 			this.SetContentView(Resource.Layout.page_home_view);
 
@@ -450,6 +446,8 @@ namespace bstrkr.android.views
 					{
 						var routeStopView1 = new MapRouteStopView();
 						routeStopView1.ViewModel = loaderService.LoadViewModel(request, null);
+
+						this.ShowMap();
 
 						this.ShowInSlidingPanel(routeStopView1);
 
