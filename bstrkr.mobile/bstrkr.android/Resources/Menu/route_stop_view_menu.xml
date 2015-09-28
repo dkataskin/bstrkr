@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:local="http://schemas.android.com/apk/res-auto">
   <item android:id="@+id/menu_showonmap"
-        android:showAsAction="ifRoom"
+        local:showAsAction="never"
         android:title="show on map" />
 </menu>

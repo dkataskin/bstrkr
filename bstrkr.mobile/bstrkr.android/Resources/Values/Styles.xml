@@ -1,11 +1,11 @@
 ﻿<resources>
-  <style name="BusTrackerTheme.Base" parent="Theme.AppCompat.Light">
+  <style name="BusTrackerTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
   	<item name="android:windowBackground">@color/background_light</item>
   	<item name="windowNoTitle">true</item>
   	<item name="windowActionBar">false</item>
 	<!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
 	<!-- colorPrimary is used for the default action bar background -->
-	<item name="colorPrimary">#FFFFFF</item>
+	<item name="colorPrimary">#0fa389</item>
 	<!-- colorPrimaryDark is used for the status bar -->
 	<item name="colorPrimaryDark">#0fa389</item>
 	<!-- colorAccent is used as the default value for colorControlActivated
@@ -15,6 +15,8 @@
 
   <style name="BusTrackerTheme" parent="BusTrackerTheme.Base">
   </style>
+
+  <item name="header_shadow" type="drawable">@drawable/bottom_shadow</item>
 
   <style name="Theme.Splash" parent="BusTrackerTheme">
     <item name="android:windowBackground">@drawable/splash</item>

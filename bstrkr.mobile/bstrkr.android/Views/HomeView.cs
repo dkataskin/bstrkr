@@ -195,6 +195,14 @@ namespace bstrkr.android.views
 			}
 		}
 
+		public override bool OnCreateOptionsMenu(IMenu menu)
+		{
+			var menuInflater = this.MenuInflater;
+			menuInflater.Inflate(Resource.Menu.main_menu, menu);
+
+			return true;
+		}
+
 		protected override void OnPostCreate(Bundle savedInstanceState)
 		{
 			base.OnPostCreate(savedInstanceState);

@@ -4,36 +4,46 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <cheesebaron.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/sliding_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
-    <!-- The main content view -->
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <!-- Map view -->
-            <fragment
-                android:name="bstrkr.android.views.MapView"
-                android:id="@+id/mapView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        <!-- Other views -->
-            <FrameLayout
-                android:id="@+id/content_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar" />
-        </FrameLayout>
-        <FrameLayout
-            android:id="@+id/panel_content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
-    </cheesebaron.slidinguppanel.SlidingUpPanelLayout>
+            android:layout_below="@id/toolbar"
+            android:foreground="@drawable/header_shadow">
+            <cheesebaron.slidinguppanel.SlidingUpPanelLayout
+                android:id="@+id/sliding_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom">
+            <!-- The main content view -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <!-- Map view -->
+                    <fragment
+                        android:name="bstrkr.android.views.MapView"
+                        android:id="@+id/mapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                <!-- Other views -->
+                    <FrameLayout
+                        android:id="@+id/content_frame"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/panel_content_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </cheesebaron.slidinguppanel.SlidingUpPanelLayout>
+        </FrameLayout>
+    </RelativeLayout>
 <!-- The navigation drawer -->
     <Mvx.MvxListView
         local:MvxBind="ItemsSource MenuItems; ItemClick SelectMenuItemCommand"
