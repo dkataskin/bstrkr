@@ -44,7 +44,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.Stops = new ReadOnlyObservableCollection<RouteStopsListItemViewModel>(_stops);
 
-			this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
+			this.RefreshCommand = new MvxCommand<bool>(this.Refresh, noCache => !this.IsBusy);
 			this.ShowStopDetailsCommand = new MvxCommand<RouteStopsListItemViewModel>(this.ShowStopDetails, vm => !this.IsBusy);
 		}
 
@@ -70,7 +70,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RouteStopsListItemViewModel> Stops { get; private set; }
 
-		public MvxCommand RefreshCommand { get; private set; }
+		public MvxCommand<bool> RefreshCommand { get; private set; }
 
 		public MvxCommand<RouteStopsListItemViewModel> ShowStopDetailsCommand { get; private set; }
 
@@ -81,7 +81,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.ShowStopDetailsCommand.RaiseCanExecuteChanged();
 		}
 
-		private void Refresh()
+		private void Refresh(bool noCache = false)
 		{
 			var provider = _providerFactory.GetCurrentProvider();
 			if (provider == null)
@@ -92,19 +92,20 @@ namespace bstrkr.mvvm.viewmodels
 				return;
 			}
 
-			if (provider.Area.Id.Equals(_areaId))
+			if (provider.Area.Id.Equals(_areaId) && !noCache)
 			{
 				return;
 			}
 
+			_allStops.Clear();
 			_stops.Clear();
 			_areaId = provider.Area.Id;
 			this.UnknownArea = false;
 			this.IsBusy = true;
 
 			provider.GetRouteStopsAsync()
-				.ContinueWith(this.OnRouteStopListReceived)
-				.ConfigureAwait(false);
+					.ContinueWith(this.OnRouteStopListReceived)
+					.ConfigureAwait(false);
 		}
 
 		private void ShowStopDetails(RouteStopsListItemViewModel routeStopViewModel)
