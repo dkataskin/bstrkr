@@ -88,13 +88,16 @@ namespace bstrkr.core.providers.bus13
 			}
 		}
 
-		public async Task<IEnumerable<Route>> GetRoutesAsync()
+		public async Task<IEnumerable<Route>> GetRoutesAsync(bool noCache = false)
 		{
-			lock(_routesCache)
+			if (!noCache)
 			{
-				if (_routesCache.Count != 0)
+				lock(_routesCache)
 				{
-					return _routesCache.Values.ToList();
+					if (_routesCache.Count != 0)
+					{
+						return _routesCache.Values.ToList();
+					}
 				}
 			}
 

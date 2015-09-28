@@ -49,7 +49,7 @@ namespace bstrkr.android.views
 		{
 			if (item.ItemId == Resource.Id.menu_refresh)
 			{
-				(this.ViewModel as RoutesViewModel).RefreshCommand.Execute();
+				(this.ViewModel as RoutesViewModel).RefreshCommand.Execute(true);
 				return true;
 			}
 
@@ -59,7 +59,7 @@ namespace bstrkr.android.views
 		public override void OnResume()
 		{
 			base.OnResume();
-			(this.ViewModel as RoutesViewModel).RefreshCommand.Execute();
+			(this.ViewModel as RoutesViewModel).RefreshCommand.Execute(false);
 		}
 	}
 }

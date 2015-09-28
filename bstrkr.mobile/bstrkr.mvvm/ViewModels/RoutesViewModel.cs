@@ -26,7 +26,7 @@ namespace bstrkr.mvvm.viewmodels
 			_providerFactory = providerFactory;
 
 			this.Routes = new ReadOnlyObservableCollection<RoutesListItemViewModel>(_routes);
-			this.RefreshCommand = new MvxCommand(this.Refresh);
+			this.RefreshCommand = new MvxCommand<bool>(this.Refresh);
 			this.ShowRouteVehiclesCommand = new MvxCommand<RoutesListItemViewModel>(this.ShowRouteDetails, vm => !this.IsBusy);
 		}
 
@@ -49,7 +49,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RoutesListItemViewModel> Routes { get; private set; }
 
-		public MvxCommand RefreshCommand { get; private set; }
+		public MvxCommand<bool> RefreshCommand { get; private set; }
 
 		public MvxCommand<RoutesListItemViewModel> ShowRouteVehiclesCommand { get; private set; }
 
@@ -59,7 +59,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.RefreshCommand.RaiseCanExecuteChanged();
 		}
 
-		private void Refresh()
+		private void Refresh(bool noCache = false)
 		{
 			var provider = _providerFactory.GetCurrentProvider();
 			if (provider == null)
@@ -71,7 +71,7 @@ namespace bstrkr.mvvm.viewmodels
 				return;
 			}
 
-			if (provider.Area.Id.Equals(_areaId))
+			if (provider.Area.Id.Equals(_areaId) && !noCache)
 			{
 				return;
 			}
@@ -81,7 +81,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.UnknownArea = false;
 			this.IsBusy = true;
 
-			provider.GetRoutesAsync().ContinueWith(task =>
+			provider.GetRoutesAsync(noCache).ContinueWith(task =>
 			{
 				try 
 				{
