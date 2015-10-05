@@ -12,4 +12,3 @@ namespace bstrkr.core.android.views
 		public object Value { get; private set; }
 	}
 }
-
