@@ -43,6 +43,14 @@
                     android:visibility="gone" />
             </cheesebaron.slidinguppanel.SlidingUpPanelLayout>
         </FrameLayout>
+        <smoothprogressbarsharp.SmoothProgressBar
+            android:id="@+id/progressbar"
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-7dp"
+            style="@style/BusTrackerProgressBar"
+            android:indeterminate="true" />
     </RelativeLayout>
 <!-- The navigation drawer -->
     <Mvx.MvxListView

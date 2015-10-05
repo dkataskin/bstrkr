@@ -41,6 +41,36 @@ namespace bstrkr.android
 			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.ApplicationName = global::bstrkr.android.Resource.String.ApplicationName;
 			global::Cirrious.MvvmCross.Droid.FullFragging.Resource.String.Hello = global::bstrkr.android.Resource.String.Hello;
 			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::bstrkr.android.Resource.String.library_name;
+			global::SmoothProgressBarSharp.Resource.Attribute.spbStyle = global::bstrkr.android.Resource.Attribute.spbStyle;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_color = global::bstrkr.android.Resource.Attribute.spb_color;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_colors = global::bstrkr.android.Resource.Attribute.spb_colors;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_mirror_mode = global::bstrkr.android.Resource.Attribute.spb_mirror_mode;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_reversed = global::bstrkr.android.Resource.Attribute.spb_reversed;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_sections_count = global::bstrkr.android.Resource.Attribute.spb_sections_count;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_speed = global::bstrkr.android.Resource.Attribute.spb_speed;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_stroke_separator_length = global::bstrkr.android.Resource.Attribute.spb_stroke_separator_length;
+			global::SmoothProgressBarSharp.Resource.Attribute.spb_stroke_width = global::bstrkr.android.Resource.Attribute.spb_stroke_width;
+			global::SmoothProgressBarSharp.Resource.Boolean.spb_default_mirror_mode = global::bstrkr.android.Resource.Boolean.spb_default_mirror_mode;
+			global::SmoothProgressBarSharp.Resource.Boolean.spb_default_reversed = global::bstrkr.android.Resource.Boolean.spb_default_reversed;
+			global::SmoothProgressBarSharp.Resource.Color.spb_default_color = global::bstrkr.android.Resource.Color.spb_default_color;
+			global::SmoothProgressBarSharp.Resource.Dimension.spb_default_stroke_separator_length = global::bstrkr.android.Resource.Dimension.spb_default_stroke_separator_length;
+			global::SmoothProgressBarSharp.Resource.Dimension.spb_default_stroke_width = global::bstrkr.android.Resource.Dimension.spb_default_stroke_width;
+			global::SmoothProgressBarSharp.Resource.Integer.spb_default_sections_count = global::bstrkr.android.Resource.Integer.spb_default_sections_count;
+			global::SmoothProgressBarSharp.Resource.Interpolator.spb_default_interpolator = global::bstrkr.android.Resource.Interpolator.spb_default_interpolator;
+			global::SmoothProgressBarSharp.Resource.String.spb_default_speed = global::bstrkr.android.Resource.String.spb_default_speed;
+			global::SmoothProgressBarSharp.Resource.Style.SmoothProgressBar = global::bstrkr.android.Resource.Style.SmoothProgressBar;
+			global::SmoothProgressBarSharp.Resource.Style.Theme_SmoothProgressBarDefaults = global::bstrkr.android.Resource.Style.Theme_SmoothProgressBarDefaults;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar = global::bstrkr.android.Resource.Styleable.SmoothProgressBar;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_android_interpolator = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_android_interpolator;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spbStyle = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spbStyle;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_color = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_color;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_colors = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_colors;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_mirror_mode = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_mirror_mode;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_reversed = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_reversed;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_sections_count = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_sections_count;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_speed = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_speed;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_stroke_separator_length = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_stroke_separator_length;
+			global::SmoothProgressBarSharp.Resource.Styleable.SmoothProgressBar_spb_stroke_width = global::bstrkr.android.Resource.Styleable.SmoothProgressBar_spb_stroke_width;
 		}
 		
 		public partial class Animation
@@ -98,29 +128,45 @@ namespace bstrkr.android
 			}
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f0d0000
+			public const int progressbar_colors = 2131558400;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
-			// aapt resource value: 0x7f010121
-			public const int GroupItemTemplate = 2130772257;
+			// aapt resource value: 0x7f01012a
+			public const int GroupItemTemplate = 2130772266;
 			
-			// aapt resource value: 0x7f01011c
-			public const int MvxBind = 2130772252;
+			// aapt resource value: 0x7f010125
+			public const int MvxBind = 2130772261;
 			
-			// aapt resource value: 0x7f010120
-			public const int MvxDropDownItemTemplate = 2130772256;
+			// aapt resource value: 0x7f010129
+			public const int MvxDropDownItemTemplate = 2130772265;
 			
-			// aapt resource value: 0x7f01011f
-			public const int MvxItemTemplate = 2130772255;
+			// aapt resource value: 0x7f010128
+			public const int MvxItemTemplate = 2130772264;
 			
-			// aapt resource value: 0x7f01011d
-			public const int MvxLang = 2130772253;
+			// aapt resource value: 0x7f010126
+			public const int MvxLang = 2130772262;
 			
-			// aapt resource value: 0x7f010122
-			public const int MvxSource = 2130772258;
+			// aapt resource value: 0x7f01012b
+			public const int MvxSource = 2130772267;
 			
-			// aapt resource value: 0x7f01011e
-			public const int MvxTemplate = 2130772254;
+			// aapt resource value: 0x7f010127
+			public const int MvxTemplate = 2130772263;
 			
 			// aapt resource value: 0x7f0100b2
 			public const int actionBarDivider = 2130772146;
@@ -326,8 +372,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f01010e
 			public const int collapseIcon = 2130772238;
 			
-			// aapt resource value: 0x7f010117
-			public const int collapsedHeight = 2130772247;
+			// aapt resource value: 0x7f010120
+			public const int collapsedHeight = 2130772256;
 			
 			// aapt resource value: 0x7f01000a
 			public const int collapsedTitleTextAppearance = 2130771978;
@@ -407,8 +453,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0100d2
 			public const int dividerVertical = 2130772178;
 			
-			// aapt resource value: 0x7f01011b
-			public const int dragView = 2130772251;
+			// aapt resource value: 0x7f010124
+			public const int dragView = 2130772260;
 			
 			// aapt resource value: 0x7f010075
 			public const int drawableSize = 2130772085;
@@ -467,11 +513,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f010015
 			public const int fabSize = 2130771989;
 			
-			// aapt resource value: 0x7f010119
-			public const int fadeColor = 2130772249;
+			// aapt resource value: 0x7f010122
+			public const int fadeColor = 2130772258;
 			
-			// aapt resource value: 0x7f01011a
-			public const int flingVelocity = 2130772250;
+			// aapt resource value: 0x7f010123
+			public const int flingVelocity = 2130772259;
 			
 			// aapt resource value: 0x7f010076
 			public const int gapBetweenBars = 2130772086;
@@ -725,8 +771,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0100d0
 			public const int selectableItemBackgroundBorderless = 2130772176;
 			
-			// aapt resource value: 0x7f010118
-			public const int shadowHeight = 2130772248;
+			// aapt resource value: 0x7f010121
+			public const int shadowHeight = 2130772257;
 			
 			// aapt resource value: 0x7f01007e
 			public const int showAsAction = 2130772094;
@@ -739,6 +785,33 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f010070
 			public const int singleChoiceItemLayout = 2130772080;
+			
+			// aapt resource value: 0x7f010117
+			public const int spbStyle = 2130772247;
+			
+			// aapt resource value: 0x7f010118
+			public const int spb_color = 2130772248;
+			
+			// aapt resource value: 0x7f01011f
+			public const int spb_colors = 2130772255;
+			
+			// aapt resource value: 0x7f01011e
+			public const int spb_mirror_mode = 2130772254;
+			
+			// aapt resource value: 0x7f01011d
+			public const int spb_reversed = 2130772253;
+			
+			// aapt resource value: 0x7f01011b
+			public const int spb_sections_count = 2130772251;
+			
+			// aapt resource value: 0x7f01011c
+			public const int spb_speed = 2130772252;
+			
+			// aapt resource value: 0x7f01011a
+			public const int spb_stroke_separator_length = 2130772250;
+			
+			// aapt resource value: 0x7f010119
+			public const int spb_stroke_width = 2130772249;
 			
 			// aapt resource value: 0x7f010074
 			public const int spinBars = 2130772084;
@@ -1008,6 +1081,12 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0b0006
 			public const int abc_config_showMenuShortcutsWhenKeyboardPresent = 2131427334;
 			
+			// aapt resource value: 0x7f0b0008
+			public const int spb_default_mirror_mode = 2131427336;
+			
+			// aapt resource value: 0x7f0b0007
+			public const int spb_default_reversed = 2131427335;
+			
 			static Boolean()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -1021,29 +1100,29 @@ namespace bstrkr.android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f080050
-			public const int abc_background_cache_hint_selector_material_dark = 2131230800;
+			// aapt resource value: 0x7f080055
+			public const int abc_background_cache_hint_selector_material_dark = 2131230805;
 			
-			// aapt resource value: 0x7f080051
-			public const int abc_background_cache_hint_selector_material_light = 2131230801;
+			// aapt resource value: 0x7f080056
+			public const int abc_background_cache_hint_selector_material_light = 2131230806;
 			
 			// aapt resource value: 0x7f080013
 			public const int abc_input_method_navigation_guard = 2131230739;
 			
-			// aapt resource value: 0x7f080052
-			public const int abc_primary_text_disable_only_material_dark = 2131230802;
+			// aapt resource value: 0x7f080057
+			public const int abc_primary_text_disable_only_material_dark = 2131230807;
 			
-			// aapt resource value: 0x7f080053
-			public const int abc_primary_text_disable_only_material_light = 2131230803;
+			// aapt resource value: 0x7f080058
+			public const int abc_primary_text_disable_only_material_light = 2131230808;
 			
-			// aapt resource value: 0x7f080054
-			public const int abc_primary_text_material_dark = 2131230804;
+			// aapt resource value: 0x7f080059
+			public const int abc_primary_text_material_dark = 2131230809;
 			
-			// aapt resource value: 0x7f080055
-			public const int abc_primary_text_material_light = 2131230805;
+			// aapt resource value: 0x7f08005a
+			public const int abc_primary_text_material_light = 2131230810;
 			
-			// aapt resource value: 0x7f080056
-			public const int abc_search_url_text = 2131230806;
+			// aapt resource value: 0x7f08005b
+			public const int abc_search_url_text = 2131230811;
 			
 			// aapt resource value: 0x7f080014
 			public const int abc_search_url_text_normal = 2131230740;
@@ -1054,11 +1133,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f080016
 			public const int abc_search_url_text_selected = 2131230742;
 			
-			// aapt resource value: 0x7f080057
-			public const int abc_secondary_text_material_dark = 2131230807;
+			// aapt resource value: 0x7f08005c
+			public const int abc_secondary_text_material_dark = 2131230812;
 			
-			// aapt resource value: 0x7f080058
-			public const int abc_secondary_text_material_light = 2131230808;
+			// aapt resource value: 0x7f08005d
+			public const int abc_secondary_text_material_light = 2131230813;
 			
 			// aapt resource value: 0x7f080017
 			public const int accent_material_dark = 2131230743;
@@ -1066,8 +1145,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f080018
 			public const int accent_material_light = 2131230744;
 			
-			// aapt resource value: 0x7f080049
-			public const int background_dark = 2131230793;
+			// aapt resource value: 0x7f08004a
+			public const int background_dark = 2131230794;
 			
 			// aapt resource value: 0x7f080019
 			public const int background_floating_material_dark = 2131230745;
@@ -1075,8 +1154,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f08001a
 			public const int background_floating_material_light = 2131230746;
 			
-			// aapt resource value: 0x7f08004a
-			public const int background_light = 2131230794;
+			// aapt resource value: 0x7f08004b
+			public const int background_light = 2131230795;
 			
 			// aapt resource value: 0x7f08001b
 			public const int background_material_dark = 2131230747;
@@ -1084,8 +1163,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f08001c
 			public const int background_material_light = 2131230748;
 			
-			// aapt resource value: 0x7f080047
-			public const int black = 2131230791;
+			// aapt resource value: 0x7f080048
+			public const int black = 2131230792;
 			
 			// aapt resource value: 0x7f08001d
 			public const int bright_foreground_disabled_material_dark = 2131230749;
@@ -1141,11 +1220,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f08000e
 			public const int common_signin_btn_light_text_pressed = 2131230734;
 			
-			// aapt resource value: 0x7f080059
-			public const int common_signin_btn_text_dark = 2131230809;
+			// aapt resource value: 0x7f08005e
+			public const int common_signin_btn_text_dark = 2131230814;
 			
-			// aapt resource value: 0x7f08005a
-			public const int common_signin_btn_text_light = 2131230810;
+			// aapt resource value: 0x7f08005f
+			public const int common_signin_btn_text_light = 2131230815;
 			
 			// aapt resource value: 0x7f080025
 			public const int dim_foreground_disabled_material_dark = 2131230757;
@@ -1192,14 +1271,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f08002e
 			public const int link_text_material_light = 2131230766;
 			
+			// aapt resource value: 0x7f080050
+			public const int list_background = 2131230800;
+			
 			// aapt resource value: 0x7f08004f
-			public const int list_background = 2131230799;
+			public const int list_header_background = 2131230799;
 			
 			// aapt resource value: 0x7f08004e
-			public const int list_header_background = 2131230798;
-			
-			// aapt resource value: 0x7f08004d
-			public const int list_item_h_divider = 2131230797;
+			public const int list_item_h_divider = 2131230798;
 			
 			// aapt resource value: 0x7f08002f
 			public const int material_blue_grey_800 = 2131230767;
@@ -1240,6 +1319,18 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f08003b
 			public const int primary_text_disabled_material_light = 2131230779;
 			
+			// aapt resource value: 0x7f080051
+			public const int progressbar_color_1 = 2131230801;
+			
+			// aapt resource value: 0x7f080052
+			public const int progressbar_color_2 = 2131230802;
+			
+			// aapt resource value: 0x7f080053
+			public const int progressbar_color_3 = 2131230803;
+			
+			// aapt resource value: 0x7f080054
+			public const int progressbar_color_4 = 2131230804;
+			
 			// aapt resource value: 0x7f08003c
 			public const int ripple_material_dark = 2131230780;
 			
@@ -1270,17 +1361,20 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f080008
 			public const int snackbar_background_color = 2131230728;
 			
+			// aapt resource value: 0x7f080046
+			public const int spb_default_color = 2131230790;
+			
 			// aapt resource value: 0x7f080042
 			public const int switch_thumb_disabled_material_dark = 2131230786;
 			
 			// aapt resource value: 0x7f080043
 			public const int switch_thumb_disabled_material_light = 2131230787;
 			
-			// aapt resource value: 0x7f08005b
-			public const int switch_thumb_material_dark = 2131230811;
+			// aapt resource value: 0x7f080060
+			public const int switch_thumb_material_dark = 2131230816;
 			
-			// aapt resource value: 0x7f08005c
-			public const int switch_thumb_material_light = 2131230812;
+			// aapt resource value: 0x7f080061
+			public const int switch_thumb_material_light = 2131230817;
 			
 			// aapt resource value: 0x7f080044
 			public const int switch_thumb_normal_material_dark = 2131230788;
@@ -1288,17 +1382,17 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f080045
 			public const int switch_thumb_normal_material_light = 2131230789;
 			
-			// aapt resource value: 0x7f08004b
-			public const int text_primary = 2131230795;
-			
 			// aapt resource value: 0x7f08004c
-			public const int text_secondary = 2131230796;
+			public const int text_primary = 2131230796;
 			
-			// aapt resource value: 0x7f080048
-			public const int transparent = 2131230792;
+			// aapt resource value: 0x7f08004d
+			public const int text_secondary = 2131230797;
 			
-			// aapt resource value: 0x7f080046
-			public const int white = 2131230790;
+			// aapt resource value: 0x7f080049
+			public const int transparent = 2131230793;
+			
+			// aapt resource value: 0x7f080047
+			public const int white = 2131230791;
 			
 			static Color()
 			{
@@ -1594,6 +1688,12 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f060018
 			public const int snackbar_text_size = 2131099672;
+			
+			// aapt resource value: 0x7f060060
+			public const int spb_default_stroke_separator_length = 2131099744;
+			
+			// aapt resource value: 0x7f060061
+			public const int spb_default_stroke_width = 2131099745;
 			
 			// aapt resource value: 0x7f060019
 			public const int tab_max_width = 2131099673;
@@ -2194,8 +2294,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090042
 			public const int action_mode_close_button = 2131296322;
 			
-			// aapt resource value: 0x7f0900a2
-			public const int action_search = 2131296418;
+			// aapt resource value: 0x7f0900a3
+			public const int action_search = 2131296419;
 			
 			// aapt resource value: 0x7f090043
 			public const int activity_chooser_view_content = 2131296323;
@@ -2359,8 +2459,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f09001c
 			public const int left = 2131296284;
 			
-			// aapt resource value: 0x7f09009e
-			public const int left_drawer = 2131296414;
+			// aapt resource value: 0x7f09009f
+			public const int left_drawer = 2131296415;
 			
 			// aapt resource value: 0x7f090076
 			public const int licensesView = 2131296374;
@@ -2377,8 +2477,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090047
 			public const int list_item = 2131296327;
 			
-			// aapt resource value: 0x7f09009f
-			public const int map = 2131296415;
+			// aapt resource value: 0x7f0900a0
+			public const int map = 2131296416;
 			
 			// aapt resource value: 0x7f09009c
 			public const int mapView = 2131296412;
@@ -2401,11 +2501,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090088
 			public const int media_route_volume_slider = 2131296392;
 			
-			// aapt resource value: 0x7f0900a0
-			public const int menu_refresh = 2131296416;
-			
 			// aapt resource value: 0x7f0900a1
-			public const int menu_showonmap = 2131296417;
+			public const int menu_refresh = 2131296417;
+			
+			// aapt resource value: 0x7f0900a2
+			public const int menu_showonmap = 2131296418;
 			
 			// aapt resource value: 0x7f090032
 			public const int middle = 2131296306;
@@ -2445,6 +2545,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f090007
 			public const int progress_horizontal = 2131296263;
+			
+			// aapt resource value: 0x7f09009e
+			public const int progressbar = 2131296414;
 			
 			// aapt resource value: 0x7f090057
 			public const int radio = 2131296343;
@@ -2666,6 +2769,9 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f070000
 			public const int snackbar_text_max_lines = 2131165184;
 			
+			// aapt resource value: 0x7f070007
+			public const int spb_default_sections_count = 2131165191;
+			
 			// aapt resource value: 0x7f070006
 			public const int status_bar_notification_info_maxnum = 2131165190;
 			
@@ -2675,6 +2781,22 @@ namespace bstrkr.android
 			}
 			
 			private Integer()
+			{
+			}
+		}
+		
+		public partial class Interpolator
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int spb_default_interpolator = 2131492864;
+			
+			static Interpolator()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Interpolator()
 			{
 			}
 		}
@@ -2902,17 +3024,17 @@ namespace bstrkr.android
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f0c0000
-			public const int main_menu = 2131492864;
+			// aapt resource value: 0x7f0e0000
+			public const int main_menu = 2131623936;
 			
-			// aapt resource value: 0x7f0c0001
-			public const int route_stop_view_menu = 2131492865;
+			// aapt resource value: 0x7f0e0001
+			public const int route_stop_view_menu = 2131623937;
 			
-			// aapt resource value: 0x7f0c0002
-			public const int route_stops_view_menu = 2131492866;
+			// aapt resource value: 0x7f0e0002
+			public const int route_stops_view_menu = 2131623938;
 			
-			// aapt resource value: 0x7f0c0003
-			public const int routes_view_menu = 2131492867;
+			// aapt resource value: 0x7f0e0003
+			public const int routes_view_menu = 2131623939;
 			
 			static Menu()
 			{
@@ -2927,11 +3049,11 @@ namespace bstrkr.android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f0a0041
-			public const int ApplicationName = 2131361857;
+			// aapt resource value: 0x7f0a0042
+			public const int ApplicationName = 2131361858;
 			
-			// aapt resource value: 0x7f0a0040
-			public const int Hello = 2131361856;
+			// aapt resource value: 0x7f0a0041
+			public const int Hello = 2131361857;
 			
 			// aapt resource value: 0x7f0a002d
 			public const int abc_action_bar_home_description = 2131361837;
@@ -2984,8 +3106,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a003d
 			public const int abc_toolbar_collapse_description = 2131361853;
 			
-			// aapt resource value: 0x7f0a0042
-			public const int app_name = 2131361858;
+			// aapt resource value: 0x7f0a0043
+			public const int app_name = 2131361859;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int appbar_scrolling_view_behavior = 2131361792;
@@ -3092,14 +3214,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a001e
 			public const int common_signin_button_text_long = 2131361822;
 			
+			// aapt resource value: 0x7f0a0045
+			public const int drawer_close = 2131361861;
+			
 			// aapt resource value: 0x7f0a0044
-			public const int drawer_close = 2131361860;
+			public const int drawer_open = 2131361860;
 			
-			// aapt resource value: 0x7f0a0043
-			public const int drawer_open = 2131361859;
-			
-			// aapt resource value: 0x7f0a003f
-			public const int library_name = 2131361855;
+			// aapt resource value: 0x7f0a0040
+			public const int library_name = 2131361856;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int mr_media_route_button_content_description = 2131361827;
@@ -3130,6 +3252,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f0a0028
 			public const int mr_user_route_category_name = 2131361832;
+			
+			// aapt resource value: 0x7f0a003f
+			public const int spb_default_speed = 2131361855;
 			
 			// aapt resource value: 0x7f0a003e
 			public const int status_bar_notification_info_overflow = 2131361854;
@@ -3558,38 +3683,41 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050001
 			public const int Base_Widget_Design_TabLayout = 2131034113;
 			
-			// aapt resource value: 0x7f050138
-			public const int BusTrackerTheme = 2131034424;
-			
-			// aapt resource value: 0x7f050137
-			public const int BusTrackerTheme_Base = 2131034423;
-			
-			// aapt resource value: 0x7f050141
-			public const int ListHeaderIcon = 2131034433;
-			
-			// aapt resource value: 0x7f05013e
-			public const int ListItemBold = 2131034430;
-			
-			// aapt resource value: 0x7f050142
-			public const int ListItemIcon = 2131034434;
-			
-			// aapt resource value: 0x7f05013c
-			public const int ListItemRegular = 2131034428;
-			
-			// aapt resource value: 0x7f05013d
-			public const int ListItemRegularSmall = 2131034429;
-			
-			// aapt resource value: 0x7f05013f
-			public const int ListItemSubtle = 2131034431;
-			
-			// aapt resource value: 0x7f050140
-			public const int ListItemSubtleSmall = 2131034432;
+			// aapt resource value: 0x7f050145
+			public const int BusTrackerProgressBar = 2131034437;
 			
 			// aapt resource value: 0x7f05013a
-			public const int ListPrimaryTitle = 2131034426;
+			public const int BusTrackerTheme = 2131034426;
 			
-			// aapt resource value: 0x7f05013b
-			public const int ListSecondaryTitle = 2131034427;
+			// aapt resource value: 0x7f050139
+			public const int BusTrackerTheme_Base = 2131034425;
+			
+			// aapt resource value: 0x7f050143
+			public const int ListHeaderIcon = 2131034435;
+			
+			// aapt resource value: 0x7f050140
+			public const int ListItemBold = 2131034432;
+			
+			// aapt resource value: 0x7f050144
+			public const int ListItemIcon = 2131034436;
+			
+			// aapt resource value: 0x7f05013e
+			public const int ListItemRegular = 2131034430;
+			
+			// aapt resource value: 0x7f05013f
+			public const int ListItemRegularSmall = 2131034431;
+			
+			// aapt resource value: 0x7f050141
+			public const int ListItemSubtle = 2131034433;
+			
+			// aapt resource value: 0x7f050142
+			public const int ListItemSubtleSmall = 2131034434;
+			
+			// aapt resource value: 0x7f05013c
+			public const int ListPrimaryTitle = 2131034428;
+			
+			// aapt resource value: 0x7f05013d
+			public const int ListSecondaryTitle = 2131034429;
 			
 			// aapt resource value: 0x7f050023
 			public const int Platform_AppCompat = 2131034147;
@@ -3656,6 +3784,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f050040
 			public const int RtlOverlay_Widget_AppCompat_Toolbar_Button_Navigation = 2131034176;
+			
+			// aapt resource value: 0x7f050138
+			public const int SmoothProgressBar = 2131034424;
 			
 			// aapt resource value: 0x7f0500b6
 			public const int TextAppearance_AppCompat = 2131034294;
@@ -3870,8 +4001,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f050010
 			public const int Theme_MediaRouter_Light = 2131034128;
 			
-			// aapt resource value: 0x7f050139
-			public const int Theme_Splash = 2131034425;
+			// aapt resource value: 0x7f050137
+			public const int Theme_SmoothProgressBarDefaults = 2131034423;
+			
+			// aapt resource value: 0x7f05013b
+			public const int Theme_Splash = 2131034427;
 			
 			// aapt resource value: 0x7f0500f1
 			public const int ThemeOverlay_AppCompat = 2131034353;
@@ -4813,8 +4947,8 @@ namespace bstrkr.android
 			
 			public static int[] MvxBinding = new int[]
 			{
-					2130772252,
-					2130772253};
+					2130772261,
+					2130772262};
 			
 			// aapt resource value: 0
 			public const int MvxBinding_MvxBind = 0;
@@ -4824,29 +4958,29 @@ namespace bstrkr.android
 			
 			public static int[] MvxControl = new int[]
 			{
-					2130772254};
+					2130772263};
 			
 			// aapt resource value: 0
 			public const int MvxControl_MvxTemplate = 0;
 			
 			public static int[] MvxExpandableListView = new int[]
 			{
-					2130772257};
+					2130772266};
 			
 			// aapt resource value: 0
 			public const int MvxExpandableListView_GroupItemTemplate = 0;
 			
 			public static int[] MvxImageView = new int[]
 			{
-					2130772258};
+					2130772267};
 			
 			// aapt resource value: 0
 			public const int MvxImageView_MvxSource = 0;
 			
 			public static int[] MvxListView = new int[]
 			{
-					2130772255,
-					2130772256};
+					2130772264,
+					2130772265};
 			
 			// aapt resource value: 1
 			public const int MvxListView_MvxDropDownItemTemplate = 1;
@@ -4998,11 +5132,11 @@ namespace bstrkr.android
 			
 			public static int[] SlidingUpPanelLayout = new int[]
 			{
-					2130772247,
-					2130772248,
-					2130772249,
-					2130772250,
-					2130772251};
+					2130772256,
+					2130772257,
+					2130772258,
+					2130772259,
+					2130772260};
 			
 			// aapt resource value: 0
 			public const int SlidingUpPanelLayout_collapsedHeight = 0;
@@ -5018,6 +5152,49 @@ namespace bstrkr.android
 			
 			// aapt resource value: 1
 			public const int SlidingUpPanelLayout_shadowHeight = 1;
+			
+			public static int[] SmoothProgressBar = new int[]
+			{
+					16843073,
+					2130772247,
+					2130772248,
+					2130772249,
+					2130772250,
+					2130772251,
+					2130772252,
+					2130772253,
+					2130772254,
+					2130772255};
+			
+			// aapt resource value: 0
+			public const int SmoothProgressBar_android_interpolator = 0;
+			
+			// aapt resource value: 1
+			public const int SmoothProgressBar_spbStyle = 1;
+			
+			// aapt resource value: 2
+			public const int SmoothProgressBar_spb_color = 2;
+			
+			// aapt resource value: 9
+			public const int SmoothProgressBar_spb_colors = 9;
+			
+			// aapt resource value: 8
+			public const int SmoothProgressBar_spb_mirror_mode = 8;
+			
+			// aapt resource value: 7
+			public const int SmoothProgressBar_spb_reversed = 7;
+			
+			// aapt resource value: 5
+			public const int SmoothProgressBar_spb_sections_count = 5;
+			
+			// aapt resource value: 6
+			public const int SmoothProgressBar_spb_speed = 6;
+			
+			// aapt resource value: 4
+			public const int SmoothProgressBar_spb_stroke_separator_length = 4;
+			
+			// aapt resource value: 3
+			public const int SmoothProgressBar_spb_stroke_width = 3;
 			
 			public static int[] SnackbarLayout = new int[]
 			{
