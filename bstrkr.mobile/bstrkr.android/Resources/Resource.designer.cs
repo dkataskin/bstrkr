@@ -3095,9 +3095,6 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0044
 			public const int drawer_close = 2131361860;
 			
-			// aapt resource value: 0x7f0a0045
-			public const int drawer_close1 = 2131361861;
-			
 			// aapt resource value: 0x7f0a0043
 			public const int drawer_open = 2131361859;
 			

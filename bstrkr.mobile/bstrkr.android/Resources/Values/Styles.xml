@@ -1,5 +1,5 @@
 ﻿<resources>
-  <style name="BusTrackerTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="BusTrackerTheme.Base" parent="Theme.AppCompat.Light">
   	<item name="android:windowBackground">@color/background_light</item>
   	<item name="windowNoTitle">true</item>
   	<item name="windowActionBar">false</item>
