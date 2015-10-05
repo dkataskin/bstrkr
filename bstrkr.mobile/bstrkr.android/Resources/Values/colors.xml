@@ -19,8 +19,8 @@
 	<color name="list_header_background">#bfffffff</color>
 	<color name="list_background">#ffffffff</color>
 
-    <color name="progressbar_color_1">#3e802f</color>
-    <color name="progressbar_color_2">#427fed</color>
-    <color name="progressbar_color_3">#b23424</color>
-    <color name="progressbar_color_4">#f4b400</color>
+	<color name="progressbar_color_1">#338FDB</color>
+	<color name="progressbar_color_2">#EE1449</color>
+    <color name="progressbar_color_3">#F39728</color>
+    <color name="progressbar_color_4">#32987A</color>
 </resources>
