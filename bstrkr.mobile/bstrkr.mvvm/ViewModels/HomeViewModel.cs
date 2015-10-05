@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 using bstrkr.core;
+using bstrkr.core.services.location;
 
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
@@ -12,6 +13,8 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class HomeViewModel : BusTrackerViewModelBase
     {
+		private readonly IBusTrackerLocationService _locationService;
+
 		private readonly IDictionary<Type, MenuSection> _menuSection2ViewModel = new Dictionary<Type, MenuSection>
 		{
 			{ typeof(MapViewModel), MenuSection.Map },
@@ -22,15 +25,26 @@ namespace bstrkr.mvvm.viewmodels
 			{ typeof(LicensesViewModel), MenuSection.Licenses }
 		};
 
-		public HomeViewModel()
+		private string _title = AppResources.map_view_title;
+
+		public HomeViewModel(IBusTrackerLocationService busTrackerLocationService)
 		{
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
 			this.SelectMenuItemCommand = new MvxCommand<MenuViewModel>(this.SelectMenuItem);
+
+			_locationService = busTrackerLocationService;
+			_locationService.AreaChanged += (s, a) => this.UpdateTitle(a.Area);
 		}
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
 		public MvxCommand<MenuViewModel> SelectMenuItemCommand { get; private set; }
+
+		public string Title 
+		{
+			get { return _title; }
+			private set { this.RaiseAndSetIfChanged(ref _title, value, () => this.Title); }
+		}
 
 		public MenuSection GetSectionForViewModelType(Type type)
 		{
@@ -40,6 +54,13 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			return MenuSection.Unknown;
+		}
+
+		public override void Start()
+		{
+			base.Start();
+
+			this.UpdateTitle(_locationService.CurrentArea);
 		}
 
 		private ObservableCollection<MenuViewModel> CreateMenuViewModels()
@@ -107,6 +128,11 @@ namespace bstrkr.mvvm.viewmodels
 					this.ShowViewModel<AboutViewModel>(new { item.Id });
 					break;
 			}
+		}
+
+		private void UpdateTitle(Area area)
+		{
+			this.Title = area == null ? AppResources.map_view_title : area.Name;
 		}
     }
 }

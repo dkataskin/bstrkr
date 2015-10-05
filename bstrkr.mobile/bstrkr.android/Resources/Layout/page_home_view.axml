@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-7dp"
             style="@style/BusTrackerProgressBar"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            local:MvxBind="Visibility Visibility(IsBusy)" />
     </RelativeLayout>
 <!-- The navigation drawer -->
     <Mvx.MvxListView
