@@ -229,20 +229,17 @@
     <AndroidResource Include="Resources\Layout\page_splash_screen.axml" />
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_light.png" />
-    <AndroidResource Include="Resources\Drawable-hdpi\ic_menu_refresh.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_dark.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_dark.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_light.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\ic_menu_refresh.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_drawer_dark.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_drawer_light.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_launcher.png" />
-    <AndroidResource Include="Resources\Drawable-xhdpi\ic_menu_refresh.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\Values\Styles.xml" />
@@ -456,6 +453,11 @@
     <AndroidResource Include="Resources\Layout\toolbar.axml" />
     <AndroidResource Include="Resources\Menu\main_menu.xml" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bottom_shadow.9.png" />
+    <AndroidResource Include="Resources\Drawable\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\ic_action_refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

@@ -10,7 +10,7 @@
         local:actionViewClass="android.support.v7.widget.SearchView" />
 
   <item android:id="@+id/menu_refresh"
-        android:icon="@drawable/ic_menu_refresh"
+        android:icon="@drawable/ic_action_refresh"
         local:showAsAction="ifRoom"
         android:title="refresh" />
 </menu>

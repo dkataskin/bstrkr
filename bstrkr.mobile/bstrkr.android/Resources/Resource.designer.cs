@@ -1921,64 +1921,64 @@ namespace bstrkr.android
 			public const int header_shadow = 2130837676;
 			
 			// aapt resource value: 0x7f020065
-			public const int ic_cast_dark = 2130837605;
+			public const int ic_action_refresh = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int ic_cast_disabled_light = 2130837606;
+			public const int ic_cast_dark = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int ic_cast_light = 2130837607;
+			public const int ic_cast_disabled_light = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int ic_cast_off_light = 2130837608;
+			public const int ic_cast_light = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int ic_cast_on_0_light = 2130837609;
+			public const int ic_cast_off_light = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int ic_cast_on_1_light = 2130837610;
+			public const int ic_cast_on_0_light = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int ic_cast_on_2_light = 2130837611;
+			public const int ic_cast_on_1_light = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int ic_cast_on_light = 2130837612;
+			public const int ic_cast_on_2_light = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int ic_drawer_dark = 2130837613;
+			public const int ic_cast_on_light = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int ic_drawer_light = 2130837614;
+			public const int ic_drawer_dark = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int ic_launcher = 2130837615;
+			public const int ic_drawer_light = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int ic_media_pause = 2130837616;
+			public const int ic_launcher = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int ic_media_play = 2130837617;
+			public const int ic_media_pause = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int ic_media_route_disabled_mono_dark = 2130837618;
+			public const int ic_media_play = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int ic_media_route_off_mono_dark = 2130837619;
+			public const int ic_media_route_disabled_mono_dark = 2130837619;
 			
 			// aapt resource value: 0x7f020074
-			public const int ic_media_route_on_0_mono_dark = 2130837620;
+			public const int ic_media_route_off_mono_dark = 2130837620;
 			
 			// aapt resource value: 0x7f020075
-			public const int ic_media_route_on_1_mono_dark = 2130837621;
+			public const int ic_media_route_on_0_mono_dark = 2130837621;
 			
 			// aapt resource value: 0x7f020076
-			public const int ic_media_route_on_2_mono_dark = 2130837622;
+			public const int ic_media_route_on_1_mono_dark = 2130837622;
 			
 			// aapt resource value: 0x7f020077
-			public const int ic_media_route_on_mono_dark = 2130837623;
+			public const int ic_media_route_on_2_mono_dark = 2130837623;
 			
 			// aapt resource value: 0x7f020078
-			public const int ic_menu_refresh = 2130837624;
+			public const int ic_media_route_on_mono_dark = 2130837624;
 			
 			// aapt resource value: 0x7f020079
 			public const int ic_pause_dark = 2130837625;
