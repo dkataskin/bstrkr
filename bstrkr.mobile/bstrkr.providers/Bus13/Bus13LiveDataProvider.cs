@@ -49,6 +49,10 @@ namespace bstrkr.core.providers.bus13
 
 		public Area Area { get; private set; }
 
+		public event EventHandler<EventArgs> VehicleLocationsUpdateStarted;
+
+		public event EventHandler<EventArgs> VehicleLocationsUpdateFailed;
+
 		public event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
 		public event EventHandler<RouteStopForecastReceivedEventArgs> RouteStopForecastReceived;
@@ -251,6 +255,8 @@ namespace bstrkr.core.providers.bus13
 			{
 				try
 				{
+					this.RaiseVehicleLocationsUpdateStartedEvent();
+
 					var response = _dataService.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, timestamp)
 											   .ConfigureAwait(false)
 											   .GetAwaiter()
@@ -264,6 +270,7 @@ namespace bstrkr.core.providers.bus13
 				} 
 				catch (Exception e)
 				{
+					this.RaiseVehicleLocationsUpdateFailedEvent();
 					Insights.Report(e, Xamarin.Insights.Severity.Warning);
 				}
 				finally
@@ -288,6 +295,22 @@ namespace bstrkr.core.providers.bus13
 				}
 
 				return vehicleLocationUpdates;
+			}
+		}
+
+		private void RaiseVehicleLocationsUpdateStartedEvent()
+		{
+			if (this.VehicleLocationsUpdateStarted != null)
+			{
+				this.VehicleLocationsUpdateStarted(this, EventArgs.Empty);
+			}
+		}
+
+		private void RaiseVehicleLocationsUpdateFailedEvent()
+		{
+			if (this.VehicleLocationsUpdateFailed != null)
+			{
+				this.VehicleLocationsUpdateFailed(this, EventArgs.Empty);
 			}
 		}
 

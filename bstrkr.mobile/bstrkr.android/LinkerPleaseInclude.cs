@@ -6,6 +6,7 @@ using Android.Widget;
 
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Binding.Droid.Views;
+using SmoothProgressBarSharp;
 
 namespace bstrkr.android
 {
@@ -85,6 +86,11 @@ namespace bstrkr.android
 		public void Include(ProgressBar progressBar)
 		{
 			progressBar.Visibility = progressBar.Visibility;
+		}
+
+		public void Include(SmoothProgressBar smoothProgressBar)
+		{
+			smoothProgressBar.Visibility = smoothProgressBar.Visibility;
 		}
 
 		public void Include(ListView listView)

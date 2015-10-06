@@ -31,6 +31,7 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class MapViewModel : BusTrackerViewModelBase
 	{
+		private const string UpdateVehicleLocationsTaskId = "UpdateVehicleLocations";
 		private const double MaxDistanceFromBusStop = 500.0;
 
 		private readonly IBusTrackerLocationService _locationService;
@@ -217,6 +218,8 @@ namespace bstrkr.mvvm.viewmodels
 			if (_liveDataProvider != null)
 			{
 				_liveDataProvider.Stop();
+				_liveDataProvider.VehicleLocationsUpdateStarted -= this.OnVehicleLocationsUpdateStarted;
+				_liveDataProvider.VehicleLocationsUpdateFailed -= this.OnVehicleLocationsUpdateFailed;
 				_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
 				_liveDataProvider.RouteStopForecastReceived -= this.OnRouteStopForecastReceived;
 				_liveDataProvider.VehicleForecastReceived -= this.OnVehicleForecastReceived;
@@ -238,6 +241,8 @@ namespace bstrkr.mvvm.viewmodels
 			_liveDataProvider = factory.GetCurrentProvider();
 			if (_liveDataProvider != null)
 			{
+				_liveDataProvider.VehicleLocationsUpdateStarted += this.OnVehicleLocationsUpdateStarted;
+				_liveDataProvider.VehicleLocationsUpdateFailed += this.OnVehicleLocationsUpdateFailed;
 				_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
 				_liveDataProvider.RouteStopForecastReceived += this.OnRouteStopForecastReceived;
 				_liveDataProvider.VehicleForecastReceived += this.OnVehicleForecastReceived;
@@ -319,6 +324,8 @@ namespace bstrkr.mvvm.viewmodels
 							this.UpdateVehicleVM,
 							MergeMode.Update));
 				}
+
+				_messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Finished));
 
 			} 
 			catch (Exception e)
@@ -537,6 +544,16 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.MapCenter = location;
 			}
+		}
+
+		private void OnVehicleLocationsUpdateStarted(object sender, EventArgs EventArgs)
+		{
+			_messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Running));
+		}
+
+		private void OnVehicleLocationsUpdateFailed(object sender, EventArgs EventArgs)
+		{
+			_messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Failed));
 		}
 
 		private void OnRouteStopForecastReceived(object sender, RouteStopForecastReceivedEventArgs args)

@@ -10,6 +10,10 @@ namespace bstrkr.providers
 	{
 		Area Area { get; }
 
+		event EventHandler<EventArgs> VehicleLocationsUpdateStarted;
+
+		event EventHandler<EventArgs> VehicleLocationsUpdateFailed;
+
 		event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
 		event EventHandler<RouteStopForecastReceivedEventArgs> RouteStopForecastReceived;

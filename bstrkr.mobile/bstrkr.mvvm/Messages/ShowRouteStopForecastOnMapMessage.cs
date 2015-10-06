@@ -6,9 +6,9 @@ namespace bstrkr.mvvm.messages
 {
 	public class ShowRouteStopForecastOnMapMessage : MvxMessage
 	{
-		public ShowRouteStopForecastOnMapMessage(object sender, string RouteStopId) : base(sender)
+		public ShowRouteStopForecastOnMapMessage(object sender, string routeStopId) : base(sender)
 		{
-			this.RouteStopId = RouteStopId;
+			this.RouteStopId = routeStopId;
 		}
 
 		public string RouteStopId { get; private set; }
