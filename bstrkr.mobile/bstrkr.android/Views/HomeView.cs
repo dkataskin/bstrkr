@@ -46,6 +46,8 @@ using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
+using SmoothProgressBarSharp;
+
 using Xamarin;
 
 namespace bstrkr.android.views
@@ -56,7 +58,7 @@ namespace bstrkr.android.views
 			  ScreenOrientation = ScreenOrientation.Portrait,
 			  Theme = "@style/BusTrackerTheme")]
 	[Register("bstrkr.android.views.HomeView")]
-	public class HomeView : MvxAppCompatActivity, IFragmentHost
+	public class HomeView : MvxAppCompatActivity, IFragmentHost, IMenuItemOnMenuItemClickListener
     {
 		private DrawerLayout _drawer;
 		private BusTrackerActionBarDrawerToggle _drawerToggle;
@@ -200,7 +202,20 @@ namespace bstrkr.android.views
 			var menuInflater = this.MenuInflater;
 			menuInflater.Inflate(Resource.Menu.main_menu, menu);
 
+			var refreshMenuItem = menu.FindItem(Resource.Id.menu_refresh);
+			refreshMenuItem.SetOnMenuItemClickListener(this);
+
 			return true;
+		}
+
+		public bool OnMenuItemClick(IMenuItem item)
+		{
+			if (item.ItemId == Resource.Id.menu_refresh)
+			{
+				return true;
+			}
+
+			return false;
 		}
 
 		protected override void OnPostCreate(Bundle savedInstanceState)
@@ -301,7 +316,6 @@ namespace bstrkr.android.views
 
 			var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 			SetSupportActionBar(toolbar);
-			SupportActionBar.Title = "Hello from Appcompat Toolbar";
 
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
@@ -335,6 +349,15 @@ namespace bstrkr.android.views
 			this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
 			this.SupportActionBar.SetHomeButtonEnabled(true);
 			this.SupportActionBar.Title = AppResources.map_view_title;
+
+			var progressView = this.FindViewById<SmoothProgressBar>(Resource.Id.progressbar);
+			var set = this.CreateBindingSet<HomeView, HomeViewModel>();
+			set.Bind(progressView)
+				.For(lt => lt.Visibility)
+				.To(vm => vm.IsBusy)
+				.WithConversion("Visibility");
+
+			set.Apply();
 
 			this.ShowMap();
         }

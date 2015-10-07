@@ -49,7 +49,7 @@ namespace bstrkr.core.android.views
 		public override void SetContentView(int layoutResId)
 		{
 			var view = this.BindingInflate(layoutResId, null);
-			SetContentView(view);
+			this.SetContentView(view);
 		}
 
 		protected virtual void OnViewModelSet()
