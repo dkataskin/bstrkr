@@ -43,7 +43,11 @@ namespace bstrkr.mvvm.viewmodels
 			_locationService.AreaChanged += (s, a) => this.UpdateTitle(a.Area);
 
 			_taskChangedMessagesSubscription = _messenger.Subscribe<BackgroundTaskStateChangedMessage>(this.OnBackgroundTaskStateChanged);
+
+			this.UpdateVehicleLocationsCommand = new MvxCommand(this.UpdateVehicleLocations);
 		}
+
+		public MvxCommand UpdateVehicleLocationsCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
@@ -161,6 +165,11 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.IsBusy = message.TaskState == BackgroundTaskState.Running;
 			}
+		}
+
+		private void UpdateVehicleLocations()
+		{
+			_messenger.Publish(new VehicleLocationsUpdateRequestMessage(this));
 		}
     }
 }

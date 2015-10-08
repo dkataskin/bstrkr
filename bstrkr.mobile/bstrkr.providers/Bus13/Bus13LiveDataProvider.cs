@@ -25,6 +25,7 @@ namespace bstrkr.core.providers.bus13
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
 		private readonly object _lockObject = new object();
+		private readonly object _updaterLockObject = new object();
 		private readonly string _endpoint;
 		private readonly string _location;
 		private readonly TimeSpan _updateInterval;
@@ -34,6 +35,7 @@ namespace bstrkr.core.providers.bus13
 		private readonly IDictionary<string, Route> _allRoutesCache = new Dictionary<string, Route>();
 
 		private bool _isRunning;
+		private UpdateRoutineState _updateRoutineState;
 		private Task _updateTask;
 		private CancellationTokenSource _cancellationTokenSource;
 
@@ -71,6 +73,30 @@ namespace bstrkr.core.providers.bus13
 					this.CreateStartTask();
 				}
 			}
+		}
+
+		public Task UpdateVehicleLocationsAsync()
+		{
+			if (_updateRoutineState == null)
+			{
+				return Task.FromResult<object>(null);
+			}
+
+			return Task.Factory.StartNew(() => 
+			{
+				lock(_lockObject)
+				{
+					try
+					{
+						_updateRoutineState = this.RunUpdateVehicleLocationsRoutine(_dataService, _updateRoutineState);
+					} 
+					catch (Exception e)
+					{
+						this.RaiseVehicleLocationsUpdateFailedEvent();
+						Insights.Report(e, Xamarin.Insights.Severity.Warning);
+					}
+				}
+			});
 		}
 
 		public void Stop()
@@ -250,34 +276,54 @@ namespace bstrkr.core.providers.bus13
 							TimeSpan sleepInterval, 
 							CancellationToken token)
 		{
-			var timestamp = 0;
+			_updateRoutineState = new UpdateRoutineState(routes);
 			while(!token.IsCancellationRequested)
 			{
-				try
+				var nextSleepInterval = sleepInterval;
+				lock(_lockObject)
 				{
-					this.RaiseVehicleLocationsUpdateStartedEvent();
-
-					var response = _dataService.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, timestamp)
-											   .ConfigureAwait(false)
-											   .GetAwaiter()
-											   .GetResult();
-
-					timestamp = response.Timestamp;
-
-					var vehicleLocationUpdates = this.UpdateVehicleLocations(response.Updates);
-
-					this.RaiseVehicleLocationsUpdatedEvent(vehicleLocationUpdates);
-				} 
-				catch (Exception e)
-				{
-					this.RaiseVehicleLocationsUpdateFailedEvent();
-					Insights.Report(e, Xamarin.Insights.Severity.Warning);
+					var now = DateTime.UtcNow;
+					try
+					{
+						if ((now - _updateRoutineState.LastUpdate) >= sleepInterval)
+						{
+							_updateRoutineState = this.RunUpdateVehicleLocationsRoutine(dataService, _updateRoutineState);
+						}
+						else
+						{
+							nextSleepInterval = sleepInterval - (now - _updateRoutineState.LastUpdate) + TimeSpan.FromSeconds(1);
+						}
+					} 
+					catch (Exception e)
+					{
+						this.RaiseVehicleLocationsUpdateFailedEvent();
+						Insights.Report(e, Xamarin.Insights.Severity.Warning);
+					}
 				}
-				finally
-				{
-					Task.Delay(sleepInterval).Wait();
-				}
+
+				Task.Delay(nextSleepInterval).Wait(token);
 			}
+		}
+
+		private UpdateRoutineState RunUpdateVehicleLocationsRoutine(
+												IBus13RouteDataService dataService,
+												UpdateRoutineState state)
+		{
+			this.RaiseVehicleLocationsUpdateStartedEvent();
+
+			var response = _dataService.GetVehicleLocationsAsync(
+															state.Routes, 
+															GeoRect.EarthWide, 
+															state.Timestamp)
+										.ConfigureAwait(false)
+										.GetAwaiter()
+										.GetResult();
+
+			var vehicleLocationUpdates = this.UpdateVehicleLocations(response.Updates);
+
+			this.RaiseVehicleLocationsUpdatedEvent(vehicleLocationUpdates);
+
+			return UpdateRoutineState.CreateFrom(state, response.Timestamp);
 		}
 
 		private IEnumerable<VehicleLocationUpdate> UpdateVehicleLocations(IEnumerable<Bus13VehicleLocationUpdate> updates)
@@ -335,6 +381,30 @@ namespace bstrkr.core.providers.bus13
 			if (this.VehicleForecastReceived != null)
 			{
 				this.VehicleForecastReceived(this, new VehicleForecastReceivedEventArgs(vehicleId, forecast));
+			}
+		}
+
+		private class UpdateRoutineState
+		{
+			public UpdateRoutineState(IEnumerable<Route> routes)
+			{
+				this.LastUpdate = DateTime.MinValue;
+				this.Routes = routes;
+			}
+
+			public int Timestamp { get; set; }
+
+			public DateTime LastUpdate { get; set; }
+
+			public IEnumerable<Route> Routes { get; set; } 
+
+			public static UpdateRoutineState CreateFrom(UpdateRoutineState state, int timestamp)
+			{
+				return new UpdateRoutineState(state.Routes)
+				{
+					Timestamp = timestamp,
+					LastUpdate = DateTime.UtcNow
+				};
 			}
 		}
 	}

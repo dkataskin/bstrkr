@@ -212,6 +212,7 @@ namespace bstrkr.android.views
 		{
 			if (item.ItemId == Resource.Id.menu_refresh)
 			{
+				(this.ViewModel as HomeViewModel).UpdateVehicleLocationsCommand.Execute();
 				return true;
 			}
 

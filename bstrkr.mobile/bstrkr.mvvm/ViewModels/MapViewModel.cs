@@ -40,6 +40,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IConfigManager _configManager;
 		private readonly MvxSubscriptionToken _vehicleInfoSubscriptionToken;
 		private readonly MvxSubscriptionToken _routeStopInfoSubscriptionToken;
+		private readonly MvxSubscriptionToken _updateVehicleLocationsSubscriptionToken;
 		private readonly BusTrackerConfig _config;
 
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
@@ -87,6 +88,9 @@ namespace bstrkr.mvvm.viewmodels
 
 			_routeStopInfoSubscriptionToken = _messenger.Subscribe<ShowRouteStopForecastOnMapMessage>(
 													message => this.SelectRouteStopCommand.Execute(message.RouteStopId));
+
+			_updateVehicleLocationsSubscriptionToken = _messenger.Subscribe<VehicleLocationsUpdateRequestMessage>(
+													message => this.ForceVehicleLocationsUpdate());
 
 			this.ChangeMapViewportCommand = new MvxCommand<float>(this.ChangeMapViewport);
 			this.MoveMapCenterCommand = new MvxCommand<GeoPoint>(newMapCenter => _mapCenter = newMapCenter);
@@ -602,6 +606,15 @@ namespace bstrkr.mvvm.viewmodels
 					}
 				}
 			}
+		}
+
+		private void ForceVehicleLocationsUpdate()
+		{
+			var provider = _liveDataProvider;
+			if (provider != null)
+			{
+				provider.UpdateVehicleLocationsAsync();
+			};
 		}
 	}
 }

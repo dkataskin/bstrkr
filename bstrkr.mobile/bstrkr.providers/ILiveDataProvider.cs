@@ -36,6 +36,8 @@ namespace bstrkr.providers
 
 		void Start();
 
+		Task UpdateVehicleLocationsAsync();
+
 		void Stop();
 	}
 }
