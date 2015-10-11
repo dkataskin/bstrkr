@@ -3,23 +3,40 @@
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        local:MvxBind="Text Name"
-        android:singleLine="true"
-        android:background="?android:attr/activatedBackgroundIndicator"
-        android:minHeight="?android:attr/listPreferredItemHeight" />
-    <TextView
+    android:layout_height="70dp"
+    android:gravity="center_vertical">
+<!-- icon -->
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:src="@drawable/busstop_icon"
+            style="@style/ListItemIcon" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:gravity="right|center_vertical"
-        android:paddingRight="10dp"
-        android:singleLine="true"
-        local:MvxBind="Text DistanceToStr(DistanceInMeters)" />
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical">
+            <TextView
+                style="@style/ListItemRegular"
+                local:MvxBind="Text Name" />
+            <TextView
+                style="@style/ListItemSubtleSmall"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                local:MvxBind="Text DistanceToStr(DistanceInMeters)" />
+        </RelativeLayout>
+    <!-- divider -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_item_h_divider" />
+    </LinearLayout>
 </LinearLayout>
