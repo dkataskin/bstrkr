@@ -22,8 +22,8 @@ namespace bstrkr.core.android.services.location
 {
 	public class LocationService : Java.Lang.Object, 
 								   ILocationService, 
-								   IGoogleApiClientConnectionCallbacks, 
-								   IGoogleApiClientOnConnectionFailedListener, 
+								   GoogleApiClient.IConnectionCallbacks, 
+								   GoogleApiClient.IOnConnectionFailedListener, 
 								   Android.Gms.Location.ILocationListener,
 								   Android.Locations.ILocationListener,
 								   ILocationSource
@@ -33,7 +33,7 @@ namespace bstrkr.core.android.services.location
 		private readonly IMvxAndroidGlobals _androidGlobals;
 
 		private LocationRequest _locationRequest;
-		private IGoogleApiClient _googleAPIClient;
+		private GoogleApiClient _googleAPIClient;
 		private LocationManager _locationManager;
 		private ILocationSourceOnLocationChangedListener _mapsListener;
 
@@ -159,7 +159,7 @@ namespace bstrkr.core.android.services.location
 			var queryResult = apiAvailability.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
 			if (queryResult == ConnectionResult.Success)
 			{
-				_googleAPIClient = new GoogleApiClientBuilder(_androidGlobals.ApplicationContext)
+				_googleAPIClient = new GoogleApiClient.Builder(_androidGlobals.ApplicationContext)
 										.AddApi(LocationServices.API)
 										.AddConnectionCallbacks(this)
 										.AddOnConnectionFailedListener(this)
