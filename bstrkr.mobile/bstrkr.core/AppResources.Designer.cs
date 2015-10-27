@@ -287,12 +287,6 @@ namespace bstrkr.core {
             }
         }
         
-        public static string refreshing {
-            get {
-                return ResourceManager.GetString("refreshing", resourceCulture);
-            }
-        }
-        
         public static string route_view_to_stop_label {
             get {
                 return ResourceManager.GetString("route_view_to_stop_label", resourceCulture);

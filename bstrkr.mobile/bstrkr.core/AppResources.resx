@@ -13,18 +13,18 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 	<data name="about_view_title" xml:space="preserve">
-    <value>About</value>
-  </data>
+    	<value>About</value>
+    </data>
 	<data name="map_view_title" xml:space="preserve">
-    <value>Map</value>
-  </data>
+    	<value>Map</value>
+  	</data>
 	<data name="routes_view_title" xml:space="preserve">
-    <value>Routes</value>
-  </data>
+    	<value>Routes</value>
+  	</data>
 	<data name="route_stops_view_title" xml:space="preserve">
-    <value>Stops</value>
-  </data>
-  	<data name="close_route_stops_view_title" xml:space="preserve">
+    	<value>Stops</value>
+  	</data>
+	<data name="close_route_stops_view_title" xml:space="preserve">
     <value>Close route stops</value>
   </data>
 	<data name="all_route_stops_view_title" xml:space="preserve">
@@ -33,7 +33,7 @@
 	<data name="preferences_view_title" xml:space="preserve">
     <value>Preferences</value>
   </data>
-  	<data name="route_stop_view_title_format" xml:space="preserve">
+	<data name="route_stop_view_title_format" xml:space="preserve">
     <value>{0} ({1})</value>
   </data>
 	<data name="licenses_view_title" xml:space="preserve">
@@ -102,11 +102,8 @@
 	<data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-	<data name="refreshing" xml:space="preserve">
-    <value>Refreshing...</value>
-  </data>
 	<data name="route_vehicle_format" xml:space="preserve">
-    <value>{0} -></value>
+    <value>{0} -&gt;</value>
   </data>
 	<data name="route_vehicle_arrives_st_format" xml:space="preserve">
     <value>st. {0}</value>
@@ -120,7 +117,7 @@
 	<data name="route_vehicles_no_data" xml:space="preserve">
     <value>Looks like there is no a single vehicle on this route right now.</value>
   </data>
-  	<data name="vehicle_forecast_no_data" xml:space="preserve">
+	<data name="vehicle_forecast_no_data" xml:space="preserve">
     <value>We couldn't get forecast for you, this vehicle might be off duty.</value>
   </data>
 	<data name="route_stop_forecast_no_data" xml:space="preserve">
@@ -144,19 +141,19 @@
 	<data name="kilometers_short" xml:space="preserve">
     <value>km</value>
   </data>
-  	<data name="locating_countdown_format" xml:space="preserve">
+	<data name="locating_countdown_format" xml:space="preserve">
     <value>00:{0:D2} Finding your location...</value>
   </data>
 	<data name="animate_markers_label" xml:space="preserve">
     <value>Animate markers movement</value>
   </data>
-  	<data name="select_location_btn" xml:space="preserve">
+	<data name="select_location_btn" xml:space="preserve">
     <value>Select location</value>
   </data>
-    <data name="current_area_label" xml:space="preserve">
+	<data name="current_area_label" xml:space="preserve">
     <value>Selected area:</value>
   </data>
-      <data name="show_vehicle_on_map_confirm_format" xml:space="preserve">
+	<data name="show_vehicle_on_map_confirm_format" xml:space="preserve">
     <value>Show it on map?</value>
     </data>
 </root>
