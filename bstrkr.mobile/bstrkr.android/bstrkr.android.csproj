@@ -153,9 +153,6 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Insights">
-      <HintPath>..\packages\Xamarin.Insights.1.11.1\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
-    </Reference>
     <Reference Include="SmoothProgressBarSharp">
       <HintPath>..\libs\android\SmoothProgressBarSharp.dll</HintPath>
     </Reference>
@@ -185,6 +182,9 @@
     </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Location">
       <HintPath>..\packages\Xamarin.GooglePlayServices.Location.27.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\packages\Xamarin.Insights.1.11.2\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +221,9 @@
     <Compile Include="Views\CustomTextView.cs" />
     <Compile Include="Views\SetLocationView.cs" />
     <Compile Include="Views\InitView.cs" />
+    <Compile Include="Util\BubbleDrawable.cs" />
+    <Compile Include="Util\IconGenerator.cs" />
+    <Compile Include="Util\RotationLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -236,21 +239,11 @@
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_light.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_drawer_dark.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_dark.9.png">
-      <Link>Resources\Drawable\drawer_shadow_dark.9.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_light.9.png">
-      <Link>Resources\Drawable\drawer_shadow_light.9.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_dark.png">
-      <Link>Resources\Drawable\ic_drawer_dark.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_light.png">
-      <Link>Resources\Drawable\ic_drawer_light.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\ic_launcher.png">
-      <Link>Resources\Drawable\ic_launcher.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_dark.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\drawer_shadow_light.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_dark.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_drawer_light.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\drawer_shadow_dark.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\drawer_shadow_light.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_drawer_dark.png" />
@@ -273,9 +266,7 @@
     <AndroidResource Include="Resources\Menu\routes_view_menu.xml" />
     <AndroidResource Include="Resources\Menu\route_stops_view_menu.xml" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_search.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\ic_search.png">
-      <Link>Resources\Drawable\ic_search.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_search.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_search.png" />
     <AndroidResource Include="Resources\Layout\item_vehicle_forecast_map.axml" />
     <AndroidResource Include="Resources\Layout\fragment_vehicle_forecast_map_view.axml" />
@@ -284,24 +275,12 @@
     <AndroidResource Include="Resources\Values-v21\Styles.xml" />
     <AndroidResource Include="Resources\Layout\item_area_spinner.axml" />
     <AndroidResource Include="Resources\Layout\item_area_spinnerdropdown.axml" />
-    <AndroidResource Include="Resources\Drawable-mdpi\busstop_icon.png">
-      <Link>Resources\Drawable\busstop_icon.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\track.png">
-      <Link>Resources\Drawable\track.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_bus.png">
-      <Link>Resources\Drawable\vehicletypes_bus.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_minibus.png">
-      <Link>Resources\Drawable\vehicletypes_minibus.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_tram.png">
-      <Link>Resources\Drawable\vehicletypes_tram.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_trolley.png">
-      <Link>Resources\Drawable\vehicletypes_trolley.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_icon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\track.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_bus.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_minibus.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_tram.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vehicletypes_trolley.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\busstop_icon.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\track.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\vehicletypes_bus.png" />
@@ -314,9 +293,7 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\vehicletypes_minibus.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\vehicletypes_tram.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\vehicletypes_trolley.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\track_current.png">
-      <Link>Resources\Drawable\track_current.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\track_current.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\busstop_icon.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\track_current.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\track.png" />
@@ -328,24 +305,16 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\track_current.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\busstop_b.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\busstop_m.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\busstop_b.png">
-      <Link>Resources\Drawable\busstop_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\busstop_m.png">
-      <Link>Resources\Drawable\busstop_m.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_b.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_m.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\busstop_b.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\busstop_m.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\busstop_b.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\busstop_m.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\bus_b.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\bus_m.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\bus_b.png">
-      <Link>Resources\Drawable\bus_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\bus_m.png">
-      <Link>Resources\Drawable\bus_m.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_b.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_m.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\bus_b.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\bus_m.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\bus_s.png" />
@@ -357,24 +326,12 @@
     <AndroidResource Include="Resources\Drawable-hdpi\tram_m.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\trolley_b.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\trolley_m.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\minibus_b.png">
-      <Link>Resources\Drawable\minibus_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\minibus_m.png">
-      <Link>Resources\Drawable\minibus_m.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\tram_b.png">
-      <Link>Resources\Drawable\tram_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\tram_m.png">
-      <Link>Resources\Drawable\tram_m.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\trolley_b.png">
-      <Link>Resources\Drawable\trolley_b.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\trolley_m.png">
-      <Link>Resources\Drawable\trolley_m.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\minibus_b.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\minibus_m.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\tram_b.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\tram_m.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trolley_b.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trolley_m.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\minibus_b.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\minibus_m.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\tram_b.png" />
@@ -388,29 +345,19 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_b.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\trolley_m.png" />
     <AndroidResource Include="Resources\Layout\item_stop_forecast.axml" />
-    <AndroidResource Include="Resources\Drawable-mdpi\bus_s.png">
-      <Link>Resources\Drawable\bus_s.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\splash.9.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\splash.9.png">
-      <Link>Resources\Drawable\splash.9.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\splash.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\bus_s.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\minibus_s.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\tram_s.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\trolley_s.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\minibus_s.png">
-      <Link>Resources\Drawable\minibus_s.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\tram_s.png">
-      <Link>Resources\Drawable\tram_s.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\trolley_s.png">
-      <Link>Resources\Drawable\trolley_s.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\minibus_s.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\tram_s.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trolley_s.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\minibus_s.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\tram_s.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\trolley_s.png" />
@@ -431,48 +378,20 @@
     <AndroidResource Include="Resources\Drawable-hdpi\trolley_b_selected.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\trolley_m_selected.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\trolley_s_selected.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\bus_b_selected.png">
-      <Link>Resources\Drawable\bus_b_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\bus_m_selected.png">
-      <Link>Resources\Drawable\bus_m_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\bus_s_selected.png">
-      <Link>Resources\Drawable\bus_s_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\busstop_b_selected.png">
-      <Link>Resources\Drawable\busstop_b_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\busstop_m_selected.png">
-      <Link>Resources\Drawable\busstop_m_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\minibus_b_selected.png">
-      <Link>Resources\Drawable\minibus_b_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\minibus_m_selected.png">
-      <Link>Resources\Drawable\minibus_m_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\minibus_s_selected.png">
-      <Link>Resources\Drawable\minibus_s_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\tram_b_selected.png">
-      <Link>Resources\Drawable\tram_b_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\tram_m_selected.png">
-      <Link>Resources\Drawable\tram_m_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\tram_s_selected.png">
-      <Link>Resources\Drawable\tram_s_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\trolley_b_selected.png">
-      <Link>Resources\Drawable\trolley_b_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\trolley_m_selected.png">
-      <Link>Resources\Drawable\trolley_m_selected.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-mdpi\trolley_s_selected.png">
-      <Link>Resources\Drawable\trolley_s_selected.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_b_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_m_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\bus_s_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_b_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\busstop_m_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\minibus_b_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\minibus_m_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\minibus_s_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\tram_b_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\tram_m_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\tram_s_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trolley_b_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trolley_m_selected.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trolley_s_selected.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\bus_b_selected.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\bus_m_selected.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\bus_s_selected.png" />
@@ -507,21 +426,26 @@
     <AndroidResource Include="Resources\Menu\main_menu.xml" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bottom_shadow.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_action_refresh.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\ic_action_refresh.png">
-      <Link>Resources\Drawable\ic_action_refresh.png</Link>
-    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-mdpi\ic_action_refresh.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_action_refresh.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\ic_action_refresh.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\my_location.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\my_location.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\my_location.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\my_location.png">
-      <Link>Resources\Drawable\my_location.png</Link>
+    <AndroidResource Include="Resources\Drawable-mdpi\my_location.png" />
+    <AndroidResource Include="Resources\Drawable\arrowvertical.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\bubble_mask.9.png">
+      <Link>Resources\Drawable\bubble_mask.9.png</Link>
     </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-xhdpi\bubble_shadow.9.png">
+      <Link>Resources\Drawable\bubble_shadow.9.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-xxhdpi\bubble_mask.9.png" />
+    <AndroidResource Include="Resources\Layout\text_bubble.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\packages\Xamarin.Insights.1.11.1\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.11.1\build\MonoAndroid10\Xamarin.Insights.targets')" />
+  <Import Project="..\packages\Xamarin.Insights.1.11.2\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.11.2\build\MonoAndroid10\Xamarin.Insights.targets')" />
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core.android\bstrkr.core.android.csproj">
       <Project>{158E30FA-BA5F-46E1-A4D2-B4A985C31858}</Project>
@@ -575,5 +499,6 @@
     <Folder Include="Resources\Values\" />
     <Folder Include="Resources\Values-v21\" />
     <Folder Include="Resources\Drawable\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 </Project>
