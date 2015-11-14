@@ -19,9 +19,11 @@ using Android.Widget;
 using Android.Content;
 using Android.Graphics;
 using Android.Util;
+using Android.Runtime;
 
 namespace bstrkr.android.util
 {
+	[Register("bstrkr.android.utils.RotationLayout")]
 	public class RotationLayout : FrameLayout
 	{
 		private int _rotation;

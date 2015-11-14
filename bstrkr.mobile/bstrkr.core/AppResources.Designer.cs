@@ -299,12 +299,6 @@ namespace bstrkr.core {
             }
         }
         
-        public static string route_stops_view_search_hint {
-            get {
-                return ResourceManager.GetString("route_stops_view_search_hint", resourceCulture);
-            }
-        }
-        
         public static string close_route_stops_view_title {
             get {
                 return ResourceManager.GetString("close_route_stops_view_title", resourceCulture);
@@ -317,9 +311,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string route_vehicle_format {
+        public static string route_stops_view_search_hint {
             get {
-                return ResourceManager.GetString("route_vehicle_format", resourceCulture);
+                return ResourceManager.GetString("route_stops_view_search_hint", resourceCulture);
             }
         }
         

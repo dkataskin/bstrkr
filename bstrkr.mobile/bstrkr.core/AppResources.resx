@@ -102,9 +102,6 @@
 	<data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-	<data name="route_vehicle_format" xml:space="preserve">
-    <value>{0} -&gt;</value>
-  </data>
 	<data name="route_vehicle_arrives_st_format" xml:space="preserve">
     <value>st. {0}</value>
   </data>

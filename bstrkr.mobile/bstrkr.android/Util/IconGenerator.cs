@@ -218,7 +218,7 @@ namespace bstrkr.android.util
 		// View#setBackgroundDrawable is compatible with pre-API level 16 (Jelly Bean).
 		public void SetBackground(Drawable background) 
 		{
-			_container.SetBackgroundDrawable(background);
+			_container.Background = background;
 
 			// Force setting of padding.
 			// setBackgroundDrawable does not call setPadding if the background has 0 padding.

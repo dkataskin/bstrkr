@@ -9,7 +9,7 @@ namespace bstrkr.mvvm.converters
 {
 	public class RouteToFirstLastStopsConverter : MvxValueConverter<Route, string>
 	{
-		private const string FirstLastStopFormatString = "{0} - {1}";
+		private const string FirstLastStopFormatString = "{0} — {1}";
 
 		protected override string Convert(Route value, Type targetType, object parameter, CultureInfo culture)
 		{
