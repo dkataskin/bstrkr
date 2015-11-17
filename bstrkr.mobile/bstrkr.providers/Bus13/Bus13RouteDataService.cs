@@ -13,6 +13,7 @@ using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
 using Xamarin;
+using bstrkr.providers.postprocessors;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -36,6 +37,7 @@ namespace bstrkr.core.providers.bus13
 		private const string InfoParamValue = "0123";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
+		private readonly IEnumerable<IRouteStopsDataPostProcessor> _routeStopPostProcessors;
 
 		private string _endpoint;
 		private string _location;
@@ -54,6 +56,11 @@ namespace bstrkr.core.providers.bus13
 
 			_endpoint = endpoint;
 			_location = location;
+
+			var context = new DataServiceContext(CultureInfo.CurrentUICulture.EnglishName);
+			var postProcessorsFactory = new PostProcessorFactory();
+
+			_routeStopPostProcessors = postProcessorsFactory.CreateRouteStopsDataPostProcessors(context);
 		}
 
 		public async Task<IEnumerable<Route>> GetRoutesAsync()
@@ -146,7 +153,7 @@ namespace bstrkr.core.providers.bus13
 
 			var bus13Stops = await this.ExecuteAsync<List<Bus13RouteStop>>(client, request).ConfigureAwait(false);
 
-			return this.ParseRouteStops(bus13Stops);
+			return this.ApplyPostProcessor(this.ParseRouteStops(bus13Stops));
 		}
 
 		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
@@ -407,6 +414,17 @@ namespace bstrkr.core.providers.bus13
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		private IEnumerable<RouteStop> ApplyPostProcessor(IEnumerable<RouteStop> routeStops)
+		{
+			IEnumerable<RouteStop> data = routeStops;
+			foreach (var postProcessor in _routeStopPostProcessors)
+			{
+				data = postProcessor.Process(data);
+			}
+
+			return data;
 		}
 	}
 }

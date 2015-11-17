@@ -13,12 +13,12 @@ namespace bstrkr.providers.postprocessors
 
 		public IEnumerable<RouteStop> Process(IEnumerable<RouteStop> stops)
 		{
-			stops.Select(stop => 
+			return stops.Select(stop => 
 							new RouteStop(
 										stop.Id,
 										this.ConvertQuotes(stop.Name),
 										stop.Description,
-										stop.Location)).ToList();
+										stop.Location.Position)).ToList();
 		}
 
 		private string ConvertQuotes(string routeStopName)

@@ -53,7 +53,8 @@
     <Compile Include="VehicleForecastReceivedEventArgs.cs" />
     <Compile Include="PostProcessors\IRouteStopsDataPostProcessor.cs" />
     <Compile Include="PostProcessors\RouteStopNameTranslatorProcessor.cs" />
-    <Compile Include="LiveDataProviderContext.cs" />
+    <Compile Include="PostProcessors\PostProcessorFactory.cs" />
+    <Compile Include="DataServiceContext.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
