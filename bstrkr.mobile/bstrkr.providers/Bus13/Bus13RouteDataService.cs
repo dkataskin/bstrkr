@@ -8,12 +8,12 @@ using bstrkr.core;
 using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.providers.bus13.data;
+using bstrkr.providers.postprocessors;
 
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
 
 using Xamarin;
-using bstrkr.providers.postprocessors;
 
 namespace bstrkr.core.providers.bus13
 {
@@ -57,7 +57,7 @@ namespace bstrkr.core.providers.bus13
 			_endpoint = endpoint;
 			_location = location;
 
-			var context = new DataServiceContext(CultureInfo.CurrentUICulture.EnglishName);
+			var context = new DataServiceContext(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
 			var postProcessorsFactory = new PostProcessorFactory();
 
 			_routeStopPostProcessors = postProcessorsFactory.CreateRouteStopsDataPostProcessors(context);
@@ -241,18 +241,19 @@ namespace bstrkr.core.providers.bus13
 									new List<GeoPoint>(),
 									new List<VehicleTypes> { this.ParseVehicleType(routeSource.Type) });
 
-				route.FirstStop = new RouteStop(
-										routeSource.FromStId.ToString(), 
-										routeSource.FromSt,
-										string.Empty,
-										GeoPoint.Empty);
+				route.FirstStop = this.ApplyPostProcessor(
+												new RouteStop(
+														routeSource.FromStId.ToString(), 
+														routeSource.FromSt,
+														string.Empty,
+														GeoPoint.Empty));
 
-				route.LastStop = new RouteStop(
-										routeSource.ToStId.ToString(),
-										routeSource.ToSt,
-										string.Empty,
-										GeoPoint.Empty);
-
+				route.LastStop = this.ApplyPostProcessor(
+												new RouteStop(
+														routeSource.ToStId.ToString(),
+														routeSource.ToSt,
+														string.Empty,
+														GeoPoint.Empty));
 
 				routes.Add(route);
 			}
@@ -320,11 +321,12 @@ namespace bstrkr.core.providers.bus13
 
 		private VehicleForecastItem ParseVehicleForecast(Bus13VehicleForecastItem item)
 		{
-			var routeStop = new RouteStop(
-									item.StId.ToString(), 
-									item.StName, 
-									item.StDescr, 
-									this.ParsePoint(item.Lat0, item.Lng0));
+			var routeStop = this.ApplyPostProcessor(
+											new RouteStop(
+													item.StId.ToString(), 
+													item.StName, 
+													item.StDescr, 
+													this.ParsePoint(item.Lat0, item.Lng0)));
 
 			return new VehicleForecastItem(routeStop, item.Arrt);
 		}
@@ -414,6 +416,11 @@ namespace bstrkr.core.providers.bus13
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+		}
+
+		private RouteStop ApplyPostProcessor(RouteStop routeStop)
+		{
+			return this.ApplyPostProcessor(new[] { routeStop }).Single();
 		}
 
 		private IEnumerable<RouteStop> ApplyPostProcessor(IEnumerable<RouteStop> routeStops)

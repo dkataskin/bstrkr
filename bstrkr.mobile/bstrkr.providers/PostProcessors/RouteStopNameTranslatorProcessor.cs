@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 
 using bstrkr.core;
+using System.Text;
 
 namespace bstrkr.providers.postprocessors
 {
 	public class RouteStopNameTranslatorProcessor : IRouteStopsDataPostProcessor
 	{
-		private const string QuoteToReplace = "\"";
-		private const string Quote = "«";
+		private const char QuoteToReplace = '"';
+		private const char LeftQuote = '«';
+		private const char RightQuote = '»';
 
 		public IEnumerable<RouteStop> Process(IEnumerable<RouteStop> stops)
 		{
@@ -23,7 +25,19 @@ namespace bstrkr.providers.postprocessors
 
 		private string ConvertQuotes(string routeStopName)
 		{
-			return routeStopName.Replace(QuoteToReplace, Quote);
+			var first = routeStopName.IndexOf(QuoteToReplace);
+			var last = routeStopName.LastIndexOf(QuoteToReplace);
+
+			if (first >= 0 && last >= 0)
+			{
+				var sb = new StringBuilder(routeStopName);
+				sb[first] = LeftQuote;
+				sb[last] = RightQuote;
+
+				return sb.ToString();
+			}
+
+			return routeStopName;
 		}
 	}
 }

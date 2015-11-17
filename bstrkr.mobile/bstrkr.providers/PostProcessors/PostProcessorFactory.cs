@@ -5,7 +5,7 @@ namespace bstrkr.providers.postprocessors
 {
 	public class PostProcessorFactory
 	{
-		private const string RuCultureISOName = "rus";
+		private const string RuCultureISOName = "ru";
 
 		public PostProcessorFactory()
 		{
@@ -13,7 +13,7 @@ namespace bstrkr.providers.postprocessors
 
 		public IEnumerable<IRouteStopsDataPostProcessor> CreateRouteStopsDataPostProcessors(DataServiceContext context)
 		{
-			if (context.CurrentUIThreeLetterISOName.Equals(RuCultureISOName))
+			if (string.Equals(context.CurrentUIThreeLetterISOName, RuCultureISOName, StringComparison.OrdinalIgnoreCase))
 			{
 				return new[] { new RouteStopNameTranslatorProcessor() };
 			}
