@@ -20,6 +20,7 @@ using bstrkr.mvvm.viewmodels;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 using Cirrious.MvvmCross.Binding.BindingContext;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.android.views
 {
@@ -30,7 +31,6 @@ namespace bstrkr.android.views
 								  View.IOnFocusChangeListener
 	{
 		private SearchView _searchView;
-		private MvxSwipeRefreshLayout _swipeRefresh;
 
 		public RouteStopsView()
 		{
@@ -51,8 +51,8 @@ namespace bstrkr.android.views
 
 			var view = this.BindingInflate(Resource.Layout.fragment_stops_view, null);
 
-			_swipeRefresh = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swiperefresh);
-			_swipeRefresh.RefreshCommand = (this.DataContext as RouteStopsViewModel).RefreshCommand;
+			var swipeRefresh = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swiperefresh);
+			swipeRefresh.RefreshCommand = new MvxCommand(() => (this.DataContext as RouteStopsViewModel).RefreshCommand.Execute(true));
 
 			return view;
 		}

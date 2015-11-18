@@ -4,8 +4,12 @@ using System.Windows.Input;
 using Android.Views;
 using Android.Widget;
 
-using Cirrious.MvvmCross.Droid.Views;
+using bstrkr.android.views;
+using bstrkr.core.android.views;
+
 using Cirrious.MvvmCross.Binding.Droid.Views;
+using Cirrious.MvvmCross.Droid.Views;
+
 using SmoothProgressBarSharp;
 
 namespace bstrkr.android
@@ -91,6 +95,11 @@ namespace bstrkr.android
 		public void Include(SmoothProgressBar smoothProgressBar)
 		{
 			smoothProgressBar.Visibility = smoothProgressBar.Visibility;
+		}
+
+		public void Include(MvxSwipeRefreshLayout refreshLayout)
+		{
+			refreshLayout.Refreshing = refreshLayout.Refreshing;
 		}
 
 		public void Include(ListView listView)

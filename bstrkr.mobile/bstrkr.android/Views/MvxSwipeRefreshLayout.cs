@@ -6,9 +6,9 @@ using Android.Support.V4.Widget;
 using Android.Util;
 using Android.Runtime;
 
-namespace bstrkr.core.android.views
+namespace bstrkr.android.views
 {
-	[Register("bstrkr.core.android.views.MvxSwipeRefreshLayout")]
+	[Register("bstrkr.android.views.MvxSwipeRefreshLayout")]
 	public class MvxSwipeRefreshLayout : SwipeRefreshLayout
 	{
 		/// <summary>

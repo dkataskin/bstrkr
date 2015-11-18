@@ -225,6 +225,7 @@
     <Compile Include="Util\IconGenerator.cs" />
     <Compile Include="Util\RotationLayout.cs" />
     <Compile Include="Views\ScrollChildSwipeRefreshLayout.cs" />
+    <Compile Include="Views\MvxSwipeRefreshLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
