@@ -1,11 +1,12 @@
 ﻿using System;
 
 using bstrkr.core.spatial;
+using bstrkr.mvvm.views;
 
 using Cirrious.MvvmCross.Binding;
 using Cirrious.MvvmCross.Binding.Bindings.Target;
 
-namespace bstrkr.mvvm.views
+namespace bstrkr.mvvm.bindings
 {
 	public class MapViewZoomTargetBinding : MvxConvertingTargetBinding
 	{

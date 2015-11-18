@@ -6,10 +6,11 @@
     android:layout_height="fill_parent"
     android:background="?android:attr/windowBackground"
     android:clickable="true">
-    <android.support.v4.widget.SwipeRefreshLayout
+    <bstrkr.core.android.views.MvxSwipeRefreshLayout
         android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        local:MvxBind="Refreshing IsBusy">
         <Mvx.MvxListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,8 +18,8 @@
             local:MvxItemTemplate="@layout/item_stops_list"
             android:divider="@null"
             android:dividerHeight="0dp" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-    <ProgressBar
+    </bstrkr.core.android.views.MvxSwipeRefreshLayout>
+<!--    <ProgressBar
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/busyIndicator"
@@ -30,7 +31,7 @@
         android:keepScreenOn="false"
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
-        local:MvxBind="Visibility Visibility(IsBusy)" />
+        local:MvxBind="Visibility Visibility(IsBusy)" />-->
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

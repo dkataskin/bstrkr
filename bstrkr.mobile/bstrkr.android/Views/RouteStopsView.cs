@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.V13.App;
 using Android.Support.V4.View;
+using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
 using Android.Views;
 
@@ -18,6 +19,7 @@ using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Cirrious.MvvmCross.Binding.BindingContext;
 
 namespace bstrkr.android.views
 {
@@ -28,6 +30,7 @@ namespace bstrkr.android.views
 								  View.IOnFocusChangeListener
 	{
 		private SearchView _searchView;
+		private MvxSwipeRefreshLayout _swipeRefresh;
 
 		public RouteStopsView()
 		{
@@ -46,7 +49,12 @@ namespace bstrkr.android.views
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			return this.BindingInflate(Resource.Layout.fragment_stops_view, null);
+			var view = this.BindingInflate(Resource.Layout.fragment_stops_view, null);
+
+			_swipeRefresh = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swiperefresh);
+			_swipeRefresh.RefreshCommand = (this.DataContext as RouteStopsViewModel).RefreshCommand;
+
+			return view;
 		}
 
 		public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)

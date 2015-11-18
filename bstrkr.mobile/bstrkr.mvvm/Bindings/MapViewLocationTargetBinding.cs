@@ -3,8 +3,9 @@
 using Cirrious.MvvmCross.Binding.Bindings.Target;
 
 using bstrkr.core.spatial;
+using bstrkr.mvvm.views;
 
-namespace bstrkr.mvvm.views
+namespace bstrkr.mvvm.bindings
 {
 	public class MapViewLocationTargetBinding : MvxConvertingTargetBinding
 	{
