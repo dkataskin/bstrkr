@@ -6,13 +6,18 @@
     android:layout_height="fill_parent"
     android:background="?android:attr/windowBackground"
     android:clickable="true">
-    <Mvx.MvxListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        local:MvxBind="ItemsSource Stops; ItemClick ShowStopDetailsCommand"
-        local:MvxItemTemplate="@layout/item_stops_list"
-        android:divider="@null"
-        android:dividerHeight="0dp" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Mvx.MvxListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            local:MvxBind="ItemsSource Stops; ItemClick ShowStopDetailsCommand"
+            local:MvxItemTemplate="@layout/item_stops_list"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
+    </android.support.v4.widget.SwipeRefreshLayout>
     <ProgressBar
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"

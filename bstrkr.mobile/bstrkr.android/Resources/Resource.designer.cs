@@ -2324,8 +2324,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a000a
 			public const int MvxBindingTagUnique = 2131361802;
 			
-			// aapt resource value: 0x7f0a0089
-			public const int action0 = 2131361929;
+			// aapt resource value: 0x7f0a008a
+			public const int action0 = 2131361930;
 			
 			// aapt resource value: 0x7f0a005b
 			public const int action_bar = 2131361883;
@@ -2351,8 +2351,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a005c
 			public const int action_context_bar = 2131361884;
 			
-			// aapt resource value: 0x7f0a008d
-			public const int action_divider = 2131361933;
+			// aapt resource value: 0x7f0a008e
+			public const int action_divider = 2131361934;
 			
 			// aapt resource value: 0x7f0a0003
 			public const int action_menu_divider = 2131361795;
@@ -2387,8 +2387,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0038
 			public const int always = 2131361848;
 			
-			// aapt resource value: 0x7f0a0081
-			public const int art = 2131361921;
+			// aapt resource value: 0x7f0a0082
+			public const int art = 2131361922;
 			
 			// aapt resource value: 0x7f0a0036
 			public const int beginning = 2131361846;
@@ -2402,11 +2402,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0051
 			public const int buttonPanel = 2131361873;
 			
-			// aapt resource value: 0x7f0a0086
-			public const int buttons = 2131361926;
+			// aapt resource value: 0x7f0a0087
+			public const int buttons = 2131361927;
 			
-			// aapt resource value: 0x7f0a008a
-			public const int cancel_action = 2131361930;
+			// aapt resource value: 0x7f0a008b
+			public const int cancel_action = 2131361931;
 			
 			// aapt resource value: 0x7f0a0019
 			public const int center = 2131361817;
@@ -2423,8 +2423,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a006f
 			public const int checkbox_animation = 2131361903;
 			
-			// aapt resource value: 0x7f0a0090
-			public const int chronometer = 2131361936;
+			// aapt resource value: 0x7f0a0091
+			public const int chronometer = 2131361937;
 			
 			// aapt resource value: 0x7f0a0022
 			public const int clip_horizontal = 2131361826;
@@ -2453,20 +2453,20 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0044
 			public const int default_activity_button = 2131361860;
 			
-			// aapt resource value: 0x7f0a0080
-			public const int default_control_frame = 2131361920;
+			// aapt resource value: 0x7f0a0081
+			public const int default_control_frame = 2131361921;
 			
 			// aapt resource value: 0x7f0a002b
 			public const int disableHome = 2131361835;
 			
-			// aapt resource value: 0x7f0a0087
-			public const int disconnect = 2131361927;
+			// aapt resource value: 0x7f0a0088
+			public const int disconnect = 2131361928;
 			
-			// aapt resource value: 0x7f0a0079
-			public const int dl_divider = 2131361913;
+			// aapt resource value: 0x7f0a007a
+			public const int dl_divider = 2131361914;
 			
-			// aapt resource value: 0x7f0a0096
-			public const int drawer_layout = 2131361942;
+			// aapt resource value: 0x7f0a0097
+			public const int drawer_layout = 2131361943;
 			
 			// aapt resource value: 0x7f0a005d
 			public const int edit_query = 2131361885;
@@ -2474,8 +2474,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a001c
 			public const int end = 2131361820;
 			
-			// aapt resource value: 0x7f0a0095
-			public const int end_padder = 2131361941;
+			// aapt resource value: 0x7f0a0096
+			public const int end_padder = 2131361942;
 			
 			// aapt resource value: 0x7f0a0012
 			public const int enterAlways = 2131361810;
@@ -2522,8 +2522,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0043
 			public const int image = 2131361859;
 			
-			// aapt resource value: 0x7f0a0094
-			public const int info = 2131361940;
+			// aapt resource value: 0x7f0a0095
+			public const int info = 2131361941;
 			
 			// aapt resource value: 0x7f0a001e
 			public const int left = 2131361822;
@@ -2531,14 +2531,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a009d
 			public const int left_drawer = 2131361949;
 			
-			// aapt resource value: 0x7f0a0076
-			public const int licensesView = 2131361910;
+			// aapt resource value: 0x7f0a0077
+			public const int licensesView = 2131361911;
 			
-			// aapt resource value: 0x7f0a008e
-			public const int line1 = 2131361934;
+			// aapt resource value: 0x7f0a008f
+			public const int line1 = 2131361935;
 			
-			// aapt resource value: 0x7f0a0092
-			public const int line3 = 2131361938;
+			// aapt resource value: 0x7f0a0093
+			public const int line3 = 2131361939;
 			
 			// aapt resource value: 0x7f0a0029
 			public const int listMode = 2131361833;
@@ -2555,20 +2555,20 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0072
 			public const int map_view_header = 2131361906;
 			
-			// aapt resource value: 0x7f0a008c
-			public const int media_actions = 2131361932;
+			// aapt resource value: 0x7f0a008d
+			public const int media_actions = 2131361933;
 			
-			// aapt resource value: 0x7f0a007f
-			public const int media_route_control_frame = 2131361919;
+			// aapt resource value: 0x7f0a0080
+			public const int media_route_control_frame = 2131361920;
 			
-			// aapt resource value: 0x7f0a007b
-			public const int media_route_list = 2131361915;
-			
-			// aapt resource value: 0x7f0a0084
-			public const int media_route_volume_layout = 2131361924;
+			// aapt resource value: 0x7f0a007c
+			public const int media_route_list = 2131361916;
 			
 			// aapt resource value: 0x7f0a0085
-			public const int media_route_volume_slider = 2131361925;
+			public const int media_route_volume_layout = 2131361925;
+			
+			// aapt resource value: 0x7f0a0086
+			public const int media_route_volume_slider = 2131361926;
 			
 			// aapt resource value: 0x7f0a009f
 			public const int menu_refresh = 2131361951;
@@ -2606,8 +2606,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0017
 			public const int pin = 2131361815;
 			
-			// aapt resource value: 0x7f0a0082
-			public const int play_pause = 2131361922;
+			// aapt resource value: 0x7f0a0083
+			public const int play_pause = 2131361923;
 			
 			// aapt resource value: 0x7f0a0006
 			public const int progress_circular = 2131361798;
@@ -2621,14 +2621,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0055
 			public const int radio = 2131361877;
 			
-			// aapt resource value: 0x7f0a0097
-			public const int refresher = 2131361943;
-			
 			// aapt resource value: 0x7f0a001f
 			public const int right = 2131361823;
 			
-			// aapt resource value: 0x7f0a007d
-			public const int route_name = 2131361917;
+			// aapt resource value: 0x7f0a007e
+			public const int route_name = 2131361918;
 			
 			// aapt resource value: 0x7f0a000e
 			public const int satellite = 2131361806;
@@ -2678,8 +2675,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0069
 			public const int select_dialog_listview = 2131361897;
 			
-			// aapt resource value: 0x7f0a007e
-			public const int settings = 2131361918;
+			// aapt resource value: 0x7f0a007f
+			public const int settings = 2131361919;
 			
 			// aapt resource value: 0x7f0a0054
 			public const int shortcut = 2131361876;
@@ -2720,17 +2717,20 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0020
 			public const int start = 2131361824;
 			
-			// aapt resource value: 0x7f0a008b
-			public const int status_bar_latest_event_content = 2131361931;
+			// aapt resource value: 0x7f0a008c
+			public const int status_bar_latest_event_content = 2131361932;
 			
-			// aapt resource value: 0x7f0a0088
-			public const int stop = 2131361928;
+			// aapt resource value: 0x7f0a0089
+			public const int stop = 2131361929;
 			
 			// aapt resource value: 0x7f0a0066
 			public const int submit_area = 2131361894;
 			
-			// aapt resource value: 0x7f0a0083
-			public const int subtitle = 2131361923;
+			// aapt resource value: 0x7f0a0084
+			public const int subtitle = 2131361924;
+			
+			// aapt resource value: 0x7f0a0075
+			public const int swiperefresh = 2131361909;
 			
 			// aapt resource value: 0x7f0a002a
 			public const int tabMode = 2131361834;
@@ -2738,23 +2738,23 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a000f
 			public const int terrain = 2131361807;
 			
-			// aapt resource value: 0x7f0a0093
-			public const int text = 2131361939;
+			// aapt resource value: 0x7f0a0094
+			public const int text = 2131361940;
 			
-			// aapt resource value: 0x7f0a0091
-			public const int text2 = 2131361937;
+			// aapt resource value: 0x7f0a0092
+			public const int text2 = 2131361938;
 			
 			// aapt resource value: 0x7f0a004e
 			public const int textSpacerNoButtons = 2131361870;
 			
-			// aapt resource value: 0x7f0a008f
-			public const int time = 2131361935;
+			// aapt resource value: 0x7f0a0090
+			public const int time = 2131361936;
 			
 			// aapt resource value: 0x7f0a0047
 			public const int title = 2131361863;
 			
-			// aapt resource value: 0x7f0a007c
-			public const int title_bar = 2131361916;
+			// aapt resource value: 0x7f0a007d
+			public const int title_bar = 2131361917;
 			
 			// aapt resource value: 0x7f0a004a
 			public const int title_template = 2131361866;
@@ -2771,14 +2771,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a006d
 			public const int tv_area_label = 2131361901;
 			
-			// aapt resource value: 0x7f0a0078
-			public const int tv_arrive_time = 2131361912;
+			// aapt resource value: 0x7f0a0079
+			public const int tv_arrive_time = 2131361913;
 			
 			// aapt resource value: 0x7f0a0070
 			public const int tv_route_display_name = 2131361904;
 			
-			// aapt resource value: 0x7f0a0075
-			public const int tv_routename = 2131361909;
+			// aapt resource value: 0x7f0a0076
+			public const int tv_routename = 2131361910;
 			
 			// aapt resource value: 0x7f0a0074
 			public const int tv_routestop_description = 2131361908;
@@ -2786,11 +2786,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0073
 			public const int tv_routestop_name = 2131361907;
 			
-			// aapt resource value: 0x7f0a007a
-			public const int tv_routestop_name1 = 2131361914;
+			// aapt resource value: 0x7f0a007b
+			public const int tv_routestop_name1 = 2131361915;
 			
-			// aapt resource value: 0x7f0a0077
-			public const int tv_vehicle_type = 2131361911;
+			// aapt resource value: 0x7f0a0078
+			public const int tv_vehicle_type = 2131361912;
 			
 			// aapt resource value: 0x7f0a0009
 			public const int up = 2131361801;
