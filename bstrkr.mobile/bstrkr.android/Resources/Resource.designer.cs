@@ -2369,8 +2369,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0040
 			public const int action_mode_close_button = 2131361856;
 			
-			// aapt resource value: 0x7f0a00a0
-			public const int action_search = 2131361952;
+			// aapt resource value: 0x7f0a00a1
+			public const int action_search = 2131361953;
 			
 			// aapt resource value: 0x7f0a0041
 			public const int activity_chooser_view_content = 2131361857;
@@ -2528,8 +2528,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a001e
 			public const int left = 2131361822;
 			
-			// aapt resource value: 0x7f0a009c
-			public const int left_drawer = 2131361948;
+			// aapt resource value: 0x7f0a009d
+			public const int left_drawer = 2131361949;
 			
 			// aapt resource value: 0x7f0a0076
 			public const int licensesView = 2131361910;
@@ -2546,11 +2546,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0045
 			public const int list_item = 2131361861;
 			
-			// aapt resource value: 0x7f0a009d
-			public const int map = 2131361949;
+			// aapt resource value: 0x7f0a009e
+			public const int map = 2131361950;
 			
-			// aapt resource value: 0x7f0a0099
-			public const int mapView = 2131361945;
+			// aapt resource value: 0x7f0a009a
+			public const int mapView = 2131361946;
 			
 			// aapt resource value: 0x7f0a0072
 			public const int map_view_header = 2131361906;
@@ -2570,11 +2570,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0085
 			public const int media_route_volume_slider = 2131361925;
 			
-			// aapt resource value: 0x7f0a009e
-			public const int menu_refresh = 2131361950;
-			
 			// aapt resource value: 0x7f0a009f
-			public const int menu_showonmap = 2131361951;
+			public const int menu_refresh = 2131361951;
+			
+			// aapt resource value: 0x7f0a00a0
+			public const int menu_showonmap = 2131361952;
 			
 			// aapt resource value: 0x7f0a0037
 			public const int middle = 2131361847;
@@ -2594,8 +2594,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a000d
 			public const int normal = 2131361805;
 			
-			// aapt resource value: 0x7f0a009a
-			public const int panel_content_frame = 2131361946;
+			// aapt resource value: 0x7f0a009b
+			public const int panel_content_frame = 2131361947;
 			
 			// aapt resource value: 0x7f0a0016
 			public const int parallax = 2131361814;
@@ -2615,11 +2615,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0007
 			public const int progress_horizontal = 2131361799;
 			
-			// aapt resource value: 0x7f0a009b
-			public const int progressbar = 2131361947;
+			// aapt resource value: 0x7f0a009c
+			public const int progressbar = 2131361948;
 			
 			// aapt resource value: 0x7f0a0055
 			public const int radio = 2131361877;
+			
+			// aapt resource value: 0x7f0a0097
+			public const int refresher = 2131361943;
 			
 			// aapt resource value: 0x7f0a001f
 			public const int right = 2131361823;
@@ -2690,8 +2693,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a002f
 			public const int showTitle = 2131361839;
 			
-			// aapt resource value: 0x7f0a0098
-			public const int sliding_layout = 2131361944;
+			// aapt resource value: 0x7f0a0099
+			public const int sliding_layout = 2131361945;
 			
 			// aapt resource value: 0x7f0a006b
 			public const int snackbar_action = 2131361899;
@@ -2756,8 +2759,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a004a
 			public const int title_template = 2131361866;
 			
-			// aapt resource value: 0x7f0a0097
-			public const int toolbar = 2131361943;
+			// aapt resource value: 0x7f0a0098
+			public const int toolbar = 2131361944;
 			
 			// aapt resource value: 0x7f0a0021
 			public const int top = 2131361825;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 using bstrkr.core;
-using System.Text;
 
 namespace bstrkr.providers.postprocessors
 {
