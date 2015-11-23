@@ -21,12 +21,23 @@ namespace bstrkr.android.views
 			: base(context, attrs)
 		{
 			this.Init();
+			this.SetColorSchemeColors(
+					Resource.Color.progressbar_color_1,
+					Resource.Color.progressbar_color_2,
+					Resource.Color.progressbar_color_3,
+					Resource.Color.progressbar_color_4);
 		}
 
 		public MvxSwipeRefreshLayout(Context context)
 			: base(context)
 		{
 			this.Init();
+
+			this.SetColorSchemeColors(
+				Resource.Color.progressbar_color_1,
+				Resource.Color.progressbar_color_2,
+				Resource.Color.progressbar_color_3,
+				Resource.Color.progressbar_color_4);
 		}
 
 		private void Init()

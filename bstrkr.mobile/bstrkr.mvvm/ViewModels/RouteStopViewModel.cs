@@ -55,7 +55,10 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.ShowOnMapCommand = new MvxCommand(this.ShowOnMap);
 			this.ShowVehicleOnMapCommand = new MvxCommand<RouteStopForecastViewModel>(this.ShowVehicleOnMap);
+			this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
 		}
+
+		public MvxCommand RefreshCommand { get; private set; }
 
 		public MvxCommand ShowOnMapCommand { get; private set; }
 

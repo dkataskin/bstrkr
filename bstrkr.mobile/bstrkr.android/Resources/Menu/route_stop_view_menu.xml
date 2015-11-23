@@ -4,4 +4,9 @@
   <item android:id="@+id/menu_showonmap"
         local:showAsAction="never"
         android:title="show on map" />
+
+    <item android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_action_refresh"
+        local:showAsAction="ifRoom"
+        android:title="refresh" />
 </menu>

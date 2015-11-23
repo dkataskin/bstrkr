@@ -5,27 +5,20 @@
     android:layout_height="fill_parent"
     android:background="?android:attr/windowBackground"
     android:clickable="true">
-    <Mvx.MvxListView
-        local:MvxBind="ItemsSource Routes; ItemClick ShowRouteVehiclesCommand"
-        local:MvxItemTemplate="@layout/item_routes_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:divider="@null"
-        android:dividerHeight="0dp" />
-    <ProgressBar
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/busyIndicator"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:indeterminateOnly="true"
-        android:keepScreenOn="false"
-        android:indeterminate="true"
-        android:indeterminateBehavior="repeat"
-        local:MvxBind="Visibility Visibility(IsBusy)" />
+    <bstrkr.android.views.MvxSwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        local:MvxBind="Refreshing IsBusy">
+        <Mvx.MvxListView
+            local:MvxBind="ItemsSource Routes; ItemClick ShowRouteVehiclesCommand"
+            local:MvxItemTemplate="@layout/item_routes_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
+    </bstrkr.android.views.MvxSwipeRefreshLayout>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

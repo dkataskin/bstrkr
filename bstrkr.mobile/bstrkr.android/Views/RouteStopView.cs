@@ -35,7 +35,11 @@ namespace bstrkr.android.views
 													vm.Name,
 													vm.Description);
 
-			return this.BindingInflate(Resource.Layout.fragment_routestop_view, null);
+			var view = this.BindingInflate(Resource.Layout.fragment_routestop_view, null);
+			var refresher = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swiperefresh);
+			refresher.RefreshCommand = (this.ViewModel as RouteStopViewModel).RefreshCommand;
+
+			return view;
 		}
 
 		public bool OnMenuItemClick(IMenuItem item)
@@ -43,6 +47,12 @@ namespace bstrkr.android.views
 			if (item.ItemId == Resource.Id.menu_showonmap)
 			{
 				(this.ViewModel as RouteStopViewModel).ShowOnMapCommand.Execute();
+				return true;
+			}
+
+			if (item.ItemId == Resource.Id.menu_refresh)
+			{
+				(this.ViewModel as RouteStopViewModel).RefreshCommand.Execute();
 				return true;
 			}
 
@@ -57,6 +67,9 @@ namespace bstrkr.android.views
 
 			var showOnMapMenuItem = menu.FindItem(Resource.Id.menu_showonmap);
 			showOnMapMenuItem.SetOnMenuItemClickListener(this);
+
+			var refreshItem = menu.FindItem(Resource.Id.menu_refresh);
+			refreshItem.SetOnMenuItemClickListener(this);
 		}
 
 		public override void OnDestroyView()

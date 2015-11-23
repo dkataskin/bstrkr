@@ -11,6 +11,7 @@ using bstrkr.mvvm.viewmodels;
 
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.android.views
 {
@@ -33,7 +34,12 @@ namespace bstrkr.android.views
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			return this.BindingInflate(Resource.Layout.fragment_routes_view, null);
+			var view = this.BindingInflate(Resource.Layout.fragment_routes_view, null);
+
+			var swipeRefresh = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swiperefresh);
+			swipeRefresh.RefreshCommand = new MvxCommand(() => (this.DataContext as RoutesViewModel).RefreshCommand.Execute(true));
+
+			return view;
 		}
 
 		public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
