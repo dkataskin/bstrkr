@@ -171,10 +171,109 @@ namespace bstrkr.mvvm.viewmodels
 						var location = _locationService.GetLastLocation();
 						foreach (var stopsGroup in getRouteStopsTask.Result.GroupBy(x => x.Name)) 
 						{
-							var vm = new RouteStopsListItemViewModel(stopsGroup.Key, stopsGroup.ToList());
-							vm.CalculateDistanceCommand.Execute(location);
+							var routeStopList = stopsGroup.ToList();
+							var clusters = new List<List<RouteStop>>();
 
-							_allStops.Add(vm);
+							if (routeStopList.Count > 1)
+							{
+								var stopsGraphEdges = new List<RouteStopsGraphEdge>();
+								for (int i = 0; i < routeStopList.Count - 1; i++) 
+								{
+									for (int j = i + 1; j < routeStopList.Count; j++) 
+									{
+										stopsGraphEdges.Add(new RouteStopsGraphEdge 
+										{ 
+											FirstStop = routeStopList[i],
+											SecondStop = routeStopList[j],
+											Length = routeStopList[i].Location.Position.DistanceTo(routeStopList[j].Location.Position) * 1000
+										});
+									}
+								}
+
+								stopsGraphEdges = stopsGraphEdges.OrderBy(x => x.Length).ToList();
+								var shortestEdge = stopsGraphEdges.FirstOrDefault(x => x.Length <= 250.0d);
+								if (shortestEdge != null)
+								{
+									clusters.Add(new List<RouteStop> { shortestEdge.FirstStop, shortestEdge.SecondStop });
+									stopsGraphEdges.Remove(shortestEdge);
+								}
+								else
+								{
+									clusters.Add(new List<RouteStop> { stopsGraphEdges.First().FirstStop });
+									clusters.Add(new List<RouteStop> { stopsGraphEdges.First().SecondStop });
+									stopsGraphEdges.RemoveAt(0);
+								}
+
+								foreach (var edge in stopsGraphEdges) 
+								{
+									var firstNodeCluster = clusters.FirstOrDefault(x => x.Contains(edge.FirstStop));
+									var secondNodeCluster = clusters.FirstOrDefault(x => x.Contains(edge.SecondStop));
+
+									if (firstNodeCluster == secondNodeCluster)
+									{
+										continue;
+									}
+
+									if (edge.Length <= 250.0d)
+									{
+										if (firstNodeCluster != null && secondNodeCluster != null)
+										{
+											clusters.Remove(secondNodeCluster);
+											firstNodeCluster.AddRange(secondNodeCluster);
+										}
+
+										if (firstNodeCluster == null && secondNodeCluster == null)
+										{
+											clusters.Add(new List<RouteStop> { edge.FirstStop, edge.SecondStop });
+										}
+
+										if (firstNodeCluster != null)
+										{
+											firstNodeCluster.Add(edge.SecondStop);
+										}
+
+										if (secondNodeCluster != null)
+										{
+											secondNodeCluster.Add(edge.FirstStop);
+										}
+									}
+									else
+									{
+										if (firstNodeCluster != null && secondNodeCluster != null)
+										{
+											continue;
+										}
+
+										if (firstNodeCluster == null && secondNodeCluster == null)
+										{
+											clusters.Add(new List<RouteStop> { edge.FirstStop });
+											clusters.Add(new List<RouteStop> { edge.SecondStop });
+										}
+
+										if (firstNodeCluster != null)
+										{
+											clusters.Add(new List<RouteStop> { edge.SecondStop });
+										}
+
+										if (secondNodeCluster != null)
+										{
+											clusters.Add(new List<RouteStop> { edge.FirstStop });
+										}
+									}
+								}
+							}
+							else
+							{
+								clusters.Add(routeStopList);
+							}
+
+							foreach (var cluster in clusters) 
+							{
+								var vm = new RouteStopsListItemViewModel(stopsGroup.Key, cluster);
+								vm.CalculateDistanceCommand.Execute(location);
+
+								_allStops.Add(vm);
+							}
 						}
 
 						_allStops = _allStops.OrderBy(vm => vm.DistanceInMeters).ToList();
@@ -183,7 +282,7 @@ namespace bstrkr.mvvm.viewmodels
 					this.Filter(this.FilterSting);
 				});
 			} 
-			catch (Exception e) 
+			catch (Exception e)
 			{
 				Insights.Report(e, Xamarin.Insights.Severity.Warning);
 			}
@@ -191,6 +290,15 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = false);
 			}
+		}
+
+		private class RouteStopsGraphEdge
+		{
+			public RouteStop FirstStop { get; set; }
+
+			public RouteStop SecondStop { get; set; }
+
+			public double Length { get; set; }
 		}
 	}
 }
