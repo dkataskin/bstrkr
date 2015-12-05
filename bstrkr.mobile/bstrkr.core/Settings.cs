@@ -1,7 +1,7 @@
 ﻿using System;
 
-using Refractored.Xam.Settings.Abstractions;
-using Refractored.Xam.Settings;
+using Plugin.Settings.Abstractions;
+using Plugin.Settings;
 
 namespace bstrkr.core
 {

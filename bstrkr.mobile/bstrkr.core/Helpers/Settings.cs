@@ -1,8 +1,8 @@
 // Helpers/Settings.cs
-using Refractored.Xam.Settings;
-using Refractored.Xam.Settings.Abstractions;
+using Plugin.Settings;
+using Plugin.Settings.Abstractions;
 
-namespace bstrkr.mvvm.Helpers
+namespace bstrkr.core.Helpers
 {
   /// <summary>
   /// This is the Settings static class that can be used in your Core solution or in any
@@ -31,11 +31,11 @@ namespace bstrkr.mvvm.Helpers
     {
       get
       {
-        return AppSettings.GetValueOrDefault(SettingsKey, SettingsDefault);
+        return AppSettings.GetValueOrDefault<string>(SettingsKey, SettingsDefault);
       }
       set
       {
-        AppSettings.AddOrUpdateValue(SettingsKey, value);
+        AppSettings.AddOrUpdateValue<string>(SettingsKey, value);
       }
     }
 
