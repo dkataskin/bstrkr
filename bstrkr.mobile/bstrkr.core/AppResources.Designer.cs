@@ -47,159 +47,9 @@ namespace bstrkr.core {
             }
         }
         
-        public static string all_route_stops_view_title {
+        public static string about_view_title {
             get {
-                return ResourceManager.GetString("all_route_stops_view_title", resourceCulture);
-            }
-        }
-        
-        public static string vehicle_forecast_no_data {
-            get {
-                return ResourceManager.GetString("vehicle_forecast_no_data", resourceCulture);
-            }
-        }
-        
-        public static string kilometers_short {
-            get {
-                return ResourceManager.GetString("kilometers_short", resourceCulture);
-            }
-        }
-        
-        public static string bus_route_title_format {
-            get {
-                return ResourceManager.GetString("bus_route_title_format", resourceCulture);
-            }
-        }
-        
-        public static string ok {
-            get {
-                return ResourceManager.GetString("ok", resourceCulture);
-            }
-        }
-        
-        public static string minibus_vehicle_type_title {
-            get {
-                return ResourceManager.GetString("minibus_vehicle_type_title", resourceCulture);
-            }
-        }
-        
-        public static string route_vehicle_arrives_st_format {
-            get {
-                return ResourceManager.GetString("route_vehicle_arrives_st_format", resourceCulture);
-            }
-        }
-        
-        public static string tramway_route_title_format {
-            get {
-                return ResourceManager.GetString("tramway_route_title_format", resourceCulture);
-            }
-        }
-        
-        public static string routes_view_title {
-            get {
-                return ResourceManager.GetString("routes_view_title", resourceCulture);
-            }
-        }
-        
-        public static string route_stop_view_title_format {
-            get {
-                return ResourceManager.GetString("route_stop_view_title_format", resourceCulture);
-            }
-        }
-        
-        public static string route_stop_forecast_no_data {
-            get {
-                return ResourceManager.GetString("route_stop_forecast_no_data", resourceCulture);
-            }
-        }
-        
-        public static string route_vehicles_no_data {
-            get {
-                return ResourceManager.GetString("route_vehicles_no_data", resourceCulture);
-            }
-        }
-        
-        public static string select_location_btn {
-            get {
-                return ResourceManager.GetString("select_location_btn", resourceCulture);
-            }
-        }
-        
-        public static string tramway_vehicle_type_title {
-            get {
-                return ResourceManager.GetString("tramway_vehicle_type_title", resourceCulture);
-            }
-        }
-        
-        public static string cancel {
-            get {
-                return ResourceManager.GetString("cancel", resourceCulture);
-            }
-        }
-        
-        public static string minibus_route_title_format {
-            get {
-                return ResourceManager.GetString("minibus_route_title_format", resourceCulture);
-            }
-        }
-        
-        public static string no {
-            get {
-                return ResourceManager.GetString("no", resourceCulture);
-            }
-        }
-        
-        public static string unknown_location_dialog_text {
-            get {
-                return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
-            }
-        }
-        
-        public static string route_vehicle_arrives_arrives_format {
-            get {
-                return ResourceManager.GetString("route_vehicle_arrives_arrives_format", resourceCulture);
-            }
-        }
-        
-        public static string route_view_from_stop_label {
-            get {
-                return ResourceManager.GetString("route_view_from_stop_label", resourceCulture);
-            }
-        }
-        
-        public static string troll_route_title_format {
-            get {
-                return ResourceManager.GetString("troll_route_title_format", resourceCulture);
-            }
-        }
-        
-        public static string route_view_route_name_label {
-            get {
-                return ResourceManager.GetString("route_view_route_name_label", resourceCulture);
-            }
-        }
-        
-        public static string animate_markers_label {
-            get {
-                return ResourceManager.GetString("animate_markers_label", resourceCulture);
-            }
-        }
-        
-        public static string no_thanks {
-            get {
-                return ResourceManager.GetString("no_thanks", resourceCulture);
-            }
-        }
-        
-        public static string locating_countdown_format {
-            get {
-                return ResourceManager.GetString("locating_countdown_format", resourceCulture);
-            }
-        }
-        
-        public static string current_area_label {
-            get {
-                return ResourceManager.GetString("current_area_label", resourceCulture);
+                return ResourceManager.GetString("about_view_title", resourceCulture);
             }
         }
         
@@ -209,93 +59,15 @@ namespace bstrkr.core {
             }
         }
         
-        public static string bus_vehicle_type_title {
+        public static string routes_view_title {
             get {
-                return ResourceManager.GetString("bus_vehicle_type_title", resourceCulture);
+                return ResourceManager.GetString("routes_view_title", resourceCulture);
             }
         }
         
-        public static string yes {
+        public static string route_stops_view_title {
             get {
-                return ResourceManager.GetString("yes", resourceCulture);
-            }
-        }
-        
-        public static string about_view_title {
-            get {
-                return ResourceManager.GetString("about_view_title", resourceCulture);
-            }
-        }
-        
-        public static string show_vehicle_on_map_confirm_format {
-            get {
-                return ResourceManager.GetString("show_vehicle_on_map_confirm_format", resourceCulture);
-            }
-        }
-        
-        public static string select {
-            get {
-                return ResourceManager.GetString("select", resourceCulture);
-            }
-        }
-        
-        public static string umbrella_route_title_format {
-            get {
-                return ResourceManager.GetString("umbrella_route_title_format", resourceCulture);
-            }
-        }
-        
-        public static string troll_vehicle_type_title {
-            get {
-                return ResourceManager.GetString("troll_vehicle_type_title", resourceCulture);
-            }
-        }
-        
-        public static string meters_short {
-            get {
-                return ResourceManager.GetString("meters_short", resourceCulture);
-            }
-        }
-        
-        public static string preferences_view_title {
-            get {
-                return ResourceManager.GetString("preferences_view_title", resourceCulture);
-            }
-        }
-        
-        public static string licenses_view_title {
-            get {
-                return ResourceManager.GetString("licenses_view_title", resourceCulture);
-            }
-        }
-        
-        public static string unknown_location_no_data {
-            get {
-                return ResourceManager.GetString("unknown_location_no_data", resourceCulture);
-            }
-        }
-        
-        public static string locations_dialog_title {
-            get {
-                return ResourceManager.GetString("locations_dialog_title", resourceCulture);
-            }
-        }
-        
-        public static string no_vehicle_forecast {
-            get {
-                return ResourceManager.GetString("no_vehicle_forecast", resourceCulture);
-            }
-        }
-        
-        public static string route_view_to_stop_label {
-            get {
-                return ResourceManager.GetString("route_view_to_stop_label", resourceCulture);
-            }
-        }
-        
-        public static string unknown_location_dialog_title {
-            get {
-                return ResourceManager.GetString("unknown_location_dialog_title", resourceCulture);
+                return ResourceManager.GetString("route_stops_view_title", resourceCulture);
             }
         }
         
@@ -305,15 +77,27 @@ namespace bstrkr.core {
             }
         }
         
-        public static string stops_dialog_title {
+        public static string all_route_stops_view_title {
             get {
-                return ResourceManager.GetString("stops_dialog_title", resourceCulture);
+                return ResourceManager.GetString("all_route_stops_view_title", resourceCulture);
             }
         }
         
-        public static string route_stops_view_search_hint {
+        public static string preferences_view_title {
             get {
-                return ResourceManager.GetString("route_stops_view_search_hint", resourceCulture);
+                return ResourceManager.GetString("preferences_view_title", resourceCulture);
+            }
+        }
+        
+        public static string route_stop_view_title_format {
+            get {
+                return ResourceManager.GetString("route_stop_view_title_format", resourceCulture);
+            }
+        }
+        
+        public static string licenses_view_title {
+            get {
+                return ResourceManager.GetString("licenses_view_title", resourceCulture);
             }
         }
         
@@ -323,9 +107,225 @@ namespace bstrkr.core {
             }
         }
         
-        public static string route_stops_view_title {
+        public static string unknown_location_dialog_title {
             get {
-                return ResourceManager.GetString("route_stops_view_title", resourceCulture);
+                return ResourceManager.GetString("unknown_location_dialog_title", resourceCulture);
+            }
+        }
+        
+        public static string locations_dialog_title {
+            get {
+                return ResourceManager.GetString("locations_dialog_title", resourceCulture);
+            }
+        }
+        
+        public static string stops_dialog_title {
+            get {
+                return ResourceManager.GetString("stops_dialog_title", resourceCulture);
+            }
+        }
+        
+        public static string unknown_location_dialog_text {
+            get {
+                return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);
+            }
+        }
+        
+        public static string unknown_location_no_data {
+            get {
+                return ResourceManager.GetString("unknown_location_no_data", resourceCulture);
+            }
+        }
+        
+        public static string troll_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("troll_vehicle_type_title", resourceCulture);
+            }
+        }
+        
+        public static string bus_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("bus_vehicle_type_title", resourceCulture);
+            }
+        }
+        
+        public static string minibus_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("minibus_vehicle_type_title", resourceCulture);
+            }
+        }
+        
+        public static string tramway_vehicle_type_title {
+            get {
+                return ResourceManager.GetString("tramway_vehicle_type_title", resourceCulture);
+            }
+        }
+        
+        public static string troll_route_title_format {
+            get {
+                return ResourceManager.GetString("troll_route_title_format", resourceCulture);
+            }
+        }
+        
+        public static string bus_route_title_format {
+            get {
+                return ResourceManager.GetString("bus_route_title_format", resourceCulture);
+            }
+        }
+        
+        public static string minibus_route_title_format {
+            get {
+                return ResourceManager.GetString("minibus_route_title_format", resourceCulture);
+            }
+        }
+        
+        public static string tramway_route_title_format {
+            get {
+                return ResourceManager.GetString("tramway_route_title_format", resourceCulture);
+            }
+        }
+        
+        public static string umbrella_route_title_format {
+            get {
+                return ResourceManager.GetString("umbrella_route_title_format", resourceCulture);
+            }
+        }
+        
+        public static string no_thanks {
+            get {
+                return ResourceManager.GetString("no_thanks", resourceCulture);
+            }
+        }
+        
+        public static string yes {
+            get {
+                return ResourceManager.GetString("yes", resourceCulture);
+            }
+        }
+        
+        public static string no {
+            get {
+                return ResourceManager.GetString("no", resourceCulture);
+            }
+        }
+        
+        public static string ok {
+            get {
+                return ResourceManager.GetString("ok", resourceCulture);
+            }
+        }
+        
+        public static string select {
+            get {
+                return ResourceManager.GetString("select", resourceCulture);
+            }
+        }
+        
+        public static string cancel {
+            get {
+                return ResourceManager.GetString("cancel", resourceCulture);
+            }
+        }
+        
+        public static string route_vehicle_arrives_st_format {
+            get {
+                return ResourceManager.GetString("route_vehicle_arrives_st_format", resourceCulture);
+            }
+        }
+        
+        public static string route_vehicle_arrives_arrives_format {
+            get {
+                return ResourceManager.GetString("route_vehicle_arrives_arrives_format", resourceCulture);
+            }
+        }
+        
+        public static string no_vehicle_forecast {
+            get {
+                return ResourceManager.GetString("no_vehicle_forecast", resourceCulture);
+            }
+        }
+        
+        public static string route_vehicles_no_data {
+            get {
+                return ResourceManager.GetString("route_vehicles_no_data", resourceCulture);
+            }
+        }
+        
+        public static string vehicle_forecast_no_data {
+            get {
+                return ResourceManager.GetString("vehicle_forecast_no_data", resourceCulture);
+            }
+        }
+        
+        public static string route_stop_forecast_no_data {
+            get {
+                return ResourceManager.GetString("route_stop_forecast_no_data", resourceCulture);
+            }
+        }
+        
+        public static string route_view_route_name_label {
+            get {
+                return ResourceManager.GetString("route_view_route_name_label", resourceCulture);
+            }
+        }
+        
+        public static string route_view_from_stop_label {
+            get {
+                return ResourceManager.GetString("route_view_from_stop_label", resourceCulture);
+            }
+        }
+        
+        public static string route_view_to_stop_label {
+            get {
+                return ResourceManager.GetString("route_view_to_stop_label", resourceCulture);
+            }
+        }
+        
+        public static string route_stops_view_search_hint {
+            get {
+                return ResourceManager.GetString("route_stops_view_search_hint", resourceCulture);
+            }
+        }
+        
+        public static string meters_short {
+            get {
+                return ResourceManager.GetString("meters_short", resourceCulture);
+            }
+        }
+        
+        public static string kilometers_short {
+            get {
+                return ResourceManager.GetString("kilometers_short", resourceCulture);
+            }
+        }
+        
+        public static string locating_countdown_format {
+            get {
+                return ResourceManager.GetString("locating_countdown_format", resourceCulture);
+            }
+        }
+        
+        public static string animate_markers_label {
+            get {
+                return ResourceManager.GetString("animate_markers_label", resourceCulture);
+            }
+        }
+        
+        public static string select_location_btn {
+            get {
+                return ResourceManager.GetString("select_location_btn", resourceCulture);
+            }
+        }
+        
+        public static string current_area_label {
+            get {
+                return ResourceManager.GetString("current_area_label", resourceCulture);
+            }
+        }
+        
+        public static string show_vehicle_on_map_confirm_format {
+            get {
+                return ResourceManager.GetString("show_vehicle_on_map_confirm_format", resourceCulture);
             }
         }
     }

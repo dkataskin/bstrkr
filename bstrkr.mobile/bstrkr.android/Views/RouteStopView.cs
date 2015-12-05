@@ -32,8 +32,7 @@ namespace bstrkr.android.views
 			var vm = this.DataContext as RouteStopViewModel;
 			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = string.Format(
 													AppResources.route_stop_view_title_format,
-													vm.Name,
-													vm.Description);
+													vm.Name);
 
 			var view = this.BindingInflate(Resource.Layout.fragment_routestop_view, null);
 			var refresher = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swiperefresh);

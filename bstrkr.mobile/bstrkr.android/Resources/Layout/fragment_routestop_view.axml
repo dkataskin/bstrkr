@@ -1,29 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="?android:attr/windowBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:clickable="true">
-    <bstrkr.android.views.MvxSwipeRefreshLayout
-        android:id="@+id/swiperefresh"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        local:MvxBind="Refreshing IsBusy">
-        <Mvx.MvxListView
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:src="@drawable/busstop_icon"
+                style="@style/ListHeaderIcon" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tv_routestop_name"
+                style="@style/ListPrimaryTitle"
+                local:MvxBind="Text Name" />
+            <TextView
+                android:id="@+id/tv_routestop_description"
+                style="@style/ListSecondaryTitle"
+                local:MvxBind="Text Description"
+                android:layout_below="@id/tv_routestop_name" />
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/list_item_h_divider" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="?android:attr/windowBackground"
+        android:clickable="true">
+        <bstrkr.android.views.MvxSwipeRefreshLayout
+            android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            local:MvxBind="ItemsSource Forecast; ItemClick ShowVehicleOnMapCommand"
-            local:MvxItemTemplate="@layout/item_stop_forecast" />
-    </bstrkr.android.views.MvxSwipeRefreshLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        local:MvxBind="Text [route_stop_forecast_no_data]; Visibility Visibility(NoData)" />
-</FrameLayout>
+            local:MvxBind="Refreshing IsBusy">
+            <Mvx.MvxListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                local:MvxBind="ItemsSource Forecast; ItemClick ShowVehicleOnMapCommand"
+                local:MvxItemTemplate="@layout/item_stop_forecast" />
+        </bstrkr.android.views.MvxSwipeRefreshLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            local:MvxBind="Text [route_stop_forecast_no_data]; Visibility Visibility(NoData)" />
+    </FrameLayout>
+</LinearLayout>

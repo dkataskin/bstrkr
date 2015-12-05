@@ -34,7 +34,7 @@
     <value>Preferences</value>
   </data>
 	<data name="route_stop_view_title_format" xml:space="preserve">
-    <value>{0} ({1})</value>
+    <value>{0}</value>
   </data>
 	<data name="licenses_view_title" xml:space="preserve">
     <value>Licenses</value>
