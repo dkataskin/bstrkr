@@ -7,6 +7,6 @@ namespace bstrkr.core
 		Bus,
 		MiniBus,
 		Trolley,
-		Tram,
+		Tram
 	}
 }

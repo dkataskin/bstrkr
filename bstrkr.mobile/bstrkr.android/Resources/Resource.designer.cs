@@ -2396,8 +2396,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0018
 			public const int bottom = 2131361816;
 			
-			// aapt resource value: 0x7f0a0075
-			public const int busyIndicator = 2131361909;
+			// aapt resource value: 0x7f0a0071
+			public const int busyIndicator = 2131361905;
 			
 			// aapt resource value: 0x7f0a0051
 			public const int buttonPanel = 2131361873;
@@ -2552,8 +2552,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a009a
 			public const int mapView = 2131361946;
 			
-			// aapt resource value: 0x7f0a0072
-			public const int map_view_header = 2131361906;
+			// aapt resource value: 0x7f0a0073
+			public const int map_view_header = 2131361907;
 			
 			// aapt resource value: 0x7f0a008d
 			public const int media_actions = 2131361933;
@@ -2729,8 +2729,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0084
 			public const int subtitle = 2131361924;
 			
-			// aapt resource value: 0x7f0a0071
-			public const int swiperefresh = 2131361905;
+			// aapt resource value: 0x7f0a0072
+			public const int swiperefresh = 2131361906;
 			
 			// aapt resource value: 0x7f0a002a
 			public const int tabMode = 2131361834;
@@ -2780,11 +2780,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0076
 			public const int tv_routename = 2131361910;
 			
-			// aapt resource value: 0x7f0a0074
-			public const int tv_routestop_description = 2131361908;
+			// aapt resource value: 0x7f0a0075
+			public const int tv_routestop_description = 2131361909;
 			
-			// aapt resource value: 0x7f0a0073
-			public const int tv_routestop_name = 2131361907;
+			// aapt resource value: 0x7f0a0074
+			public const int tv_routestop_name = 2131361908;
 			
 			// aapt resource value: 0x7f0a007b
 			public const int tv_routestop_name1 = 2131361915;

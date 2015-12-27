@@ -12,6 +12,7 @@ using bstrkr.providers.postprocessors;
 
 using RestSharp.Portable;
 using RestSharp.Portable.Deserializers;
+using RestSharp.Portable.HttpClient;
 
 using Xamarin;
 
@@ -26,7 +27,7 @@ namespace bstrkr.core.providers.bus13
 		private const string VehicleForecastResource = "getVehicleForecasts.php";
 		private const string RouteStopForecastResource = "getStationForecasts.php";
 		private const string RouteNodesResource = "getRouteNodes.php";
-		private const string RouteIdFormatStr = "{0}-0";
+		private const string RouteIdFormatStr = "{0}-{1}";
 		private const string LocationParam = "city";
 		private const string TimestampParam = "curk";
 		private const string RouteIdsParam = "rids";
@@ -105,8 +106,8 @@ namespace bstrkr.core.providers.bus13
 						RouteIdsParam, 
 						string.Join(
 							",", 
-							routes.Select(x => string.Join(",", x.Ids.Select(id => string.Format(RouteIdFormatStr, id))))),
-						ParameterType.QueryString);
+							routes.Select(this.GetRouteKey).ToList(),
+							ParameterType.QueryString));
 
 			request.AddParameter("lat0", this.CoordToInt(rect.NorthEast.Latitude), ParameterType.QueryString);
 			request.AddParameter("lng0", this.CoordToInt(rect.NorthEast.Longitude), ParameterType.QueryString);
@@ -121,7 +122,6 @@ namespace bstrkr.core.providers.bus13
 									 .ConfigureAwait(false);
 
 			var updates = new List<Bus13VehicleLocationUpdate>();
-
 			if (response.Anims != null)
 			{
 				foreach (var rawUpdate in response.Anims)
@@ -168,7 +168,7 @@ namespace bstrkr.core.providers.bus13
 
 			if (forecast != null && forecast.Any())
 			{
-				return new VehicleForecast(vehicle, forecast.Select(this.ParseVehicleForecast).ToList());
+				return new VehicleForecast(vehicle, forecast.Select(x => this.ParseVehicleForecast(x, vehicle.Type)).ToList());
 			}
 
 			return new VehicleForecast(vehicle, new List<VehicleForecastItem>());
@@ -220,6 +220,22 @@ namespace bstrkr.core.providers.bus13
 			return request.AddParameter(RandomParam, _random.Value.NextDouble(), ParameterType.QueryString);
 		}
 
+		private string GetRouteKey(Route route)
+		{
+			var routeType = 0;
+			if (route.VehicleType == VehicleTypes.Tram)
+			{
+				routeType = 1;
+			}
+			
+			if (route.VendorInfo == null)
+			{
+				return string.Format(RouteIdFormatStr, route.Id, routeType);
+			};
+
+			return string.Format(RouteIdFormatStr, (route.VendorInfo as Bus13Route).Id, routeType);
+		}
+
 		private IEnumerable<Route> ParseRoutes(IEnumerable<Bus13Route> bus13Routes)
 		{
 			if (bus13Routes == null)
@@ -228,37 +244,96 @@ namespace bstrkr.core.providers.bus13
 			}
 
 			var routes = new List<Route>();
-			var groupedRoutes = bus13Routes.GroupBy(x => new { Num = x.Num, Type = x.Type });
-			foreach (var routeGroup in groupedRoutes) 
+			foreach (var bus13Route in bus13Routes) 
 			{
-				var routeSource = routeGroup.First();
 				var route = new Route(
-									routeSource.Id,
-									routeGroup.Select(x => x.Id).ToList(),
-									routeSource.Name,
-									routeSource.Num,
+									GenerateId(bus13Route),
+									bus13Route.Name,
+									bus13Route.Num,
+									this.ParseVehicleType(bus13Route.Type),
 						            new List<RouteStop>(),
-									new List<GeoPoint>(),
-									new List<VehicleTypes> { this.ParseVehicleType(routeSource.Type) });
+									new List<GeoPoint>());
+				route.VendorInfo = bus13Route;
 
-				route.FirstStop = this.ApplyPostProcessor(
-												new RouteStop(
-														routeSource.FromStId.ToString(), 
-														routeSource.FromSt,
-														string.Empty,
-														GeoPoint.Empty));
+				route.FirstStop = this.ParseRouteStop(
+											bus13Route.FromStId, 
+											bus13Route.FromSt,
+											string.Empty,
+											route.VehicleType,
+											GeoPoint.Empty);
 
-				route.LastStop = this.ApplyPostProcessor(
-												new RouteStop(
-														routeSource.ToStId.ToString(),
-														routeSource.ToSt,
-														string.Empty,
-														GeoPoint.Empty));
+				route.LastStop = this.ParseRouteStop(
+											bus13Route.ToStId,
+											bus13Route.ToSt,
+											string.Empty,
+											route.VehicleType,
+											GeoPoint.Empty);
 
 				routes.Add(route);
 			}
 
 			return routes;
+		}
+
+		private string GenerateId(Bus13Route sourceRoute)
+		{
+			if (sourceRoute == null)
+			{
+				return string.Empty;
+			}
+
+			return string.Format("{0}_{1}_{2}", sourceRoute.Id, sourceRoute.Num, sourceRoute.Type);
+		}
+
+		private string GenerateId(Bus13RouteStop sourceStop)
+		{
+			if (sourceStop == null)
+			{
+				return string.Empty;
+			}
+
+			return string.Format("{0}_{1}", sourceStop.Id, sourceStop.Type);
+		}
+
+		private RouteStop ParseRouteStop(int id, string name, string description, VehicleTypes vehicleType, GeoPoint location)
+		{
+			var bus13RouteStop = new Bus13RouteStop 
+			{
+				Id = id,
+				Name = name,
+				Descr = description,
+				Type = this.ConvertVehicleTypeToTransportType(vehicleType).ToString(),
+				Lat = Convert.ToInt32(location.Latitude * 1000000),
+				Lng = Convert.ToInt32(location.Longitude * 1000000)
+			};
+
+			var routeStop = new RouteStop(this.GenerateId(bus13RouteStop), name, description, location);
+			routeStop.VendorInfo = bus13RouteStop;
+
+			return this.ApplyPostProcessor(routeStop);
+		}
+
+		private RouteStop ParseRouteStop(Bus13RouteStop sourceRouteStop)
+		{
+			var routeStop = new RouteStop(
+						this.GenerateId(sourceRouteStop), 
+						sourceRouteStop.Name, 
+						sourceRouteStop.Descr,
+						this.ParsePoint(sourceRouteStop.Lat, sourceRouteStop.Lng));
+
+			routeStop.VendorInfo = sourceRouteStop;
+
+			return this.ApplyPostProcessor(routeStop);
+		}
+
+		private int ConvertVehicleTypeToTransportType(VehicleTypes vehicleTypes)
+		{
+			if (vehicleTypes == VehicleTypes.Tram)
+			{
+				return 1;
+			}
+
+			return 0;
 		}
 
 		private IEnumerable<RouteStop> ParseRouteStops(IEnumerable<Bus13RouteStop> bus13RouteStops)
@@ -268,19 +343,7 @@ namespace bstrkr.core.providers.bus13
 				return new List<RouteStop>();
 			}
 
-			var routeStops = new List<RouteStop>();
-			foreach (var bus13RouteStop in bus13RouteStops)
-			{
-				var routeStop = new RouteStop(
-										bus13RouteStop.Id.ToString(), 
-						                bus13RouteStop.Name, 
-						                bus13RouteStop.Descr,
-						                this.ParsePoint(bus13RouteStop.Lat, bus13RouteStop.Lng));
-
-				routeStops.Add(routeStop);
-			}
-
-			return routeStops;
+			return bus13RouteStops.Select(x => this.ParseRouteStop(x)).ToList();
 		}
 
 		private Bus13VehicleLocationUpdate ParseVehicleLocationUpdate(Bus13VehicleLocation bus13Vehicle)
@@ -293,7 +356,13 @@ namespace bstrkr.core.providers.bus13
 				Type = this.ParseVehicleType(bus13Vehicle.RType),
 				RouteInfo = new VehicleRouteInfo
 				{
-					RouteId = bus13Vehicle.RId.ToString(),
+					RouteId = this.GenerateId(
+									new Bus13Route 
+									{ 
+										Id = bus13Vehicle.RId.ToString(),
+										Num = bus13Vehicle.RNum,
+										Type = bus13Vehicle.RType 
+									}),
 					RouteNumber = bus13Vehicle.RNum,
 					DisplayName = this.GetRouteDisplayName(bus13Vehicle.RNum, this.ParseVehicleType(bus13Vehicle.RType))
 				}
@@ -319,33 +388,30 @@ namespace bstrkr.core.providers.bus13
 			return locationUpdate;
 		}
 
-		private VehicleForecastItem ParseVehicleForecast(Bus13VehicleForecastItem item)
+		private VehicleForecastItem ParseVehicleForecast(Bus13VehicleForecastItem item, VehicleTypes vehicleType)
 		{
-			var routeStop = this.ApplyPostProcessor(
-											new RouteStop(
-													item.StId.ToString(), 
-													item.StName, 
-													item.StDescr, 
-													this.ParsePoint(item.Lat0, item.Lng0)));
-
+			var routeStop = this.ParseRouteStop(item.StId, item.StName, item.StDescr, vehicleType, GeoPoint.Empty);
+			
 			return new VehicleForecastItem(routeStop, item.Arrt);
 		}
 
 		private RouteStopForecastItem ParseRouteStopForecast(Bus13RouteStopForecastItem item)
 		{
+			var bus13Route = new Bus13Route { Id = item.RId.ToString(), Num = item.RNum, Type = item.RType };
 			var forecastItem = new RouteStopForecastItem();
 			forecastItem.ArrivesInSeconds = item.Arrt;
 			forecastItem.CurrentRouteStopName = item.Where;
 			forecastItem.LastRouteStopName = item.LastSt;
 			forecastItem.VehicleId = item.VehId;
 			forecastItem.Route = new Route(
-										item.RId.ToString(), 
-										new[] { item.RId.ToString() },
+										this.GenerateId(bus13Route), 
 										item.RNum,
 										item.RNum,
+										this.ParseVehicleType(item.RType),
 										new List<RouteStop>(),
-										new List<GeoPoint>(),
-										new List<VehicleTypes> { this.ParseVehicleType(item.RType) });
+										new List<GeoPoint>());
+
+			forecastItem.Route.VendorInfo = bus13Route;
 
 			return forecastItem;
 		}

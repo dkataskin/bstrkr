@@ -82,7 +82,7 @@ namespace bstrkr.android.views
 			if (_animationRunner == null)
 			{
 				_animationRunner = new MapMarkerAnimationRunner(this.MapView, this.Marker);
-				_animationRunner.PositionValueUpdated += (s, a) => this.ViewModel.PositionAnimation = (GeoPoint)a.Value;
+				_animationRunner.PositionValueUpdated += (s, a) => this.ViewModel.LocationAnimated = (GeoPoint)a.Value;
 			}
 
 			if (this.ViewModel.AnimateMovement)

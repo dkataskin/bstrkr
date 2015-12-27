@@ -22,6 +22,8 @@ namespace bstrkr.core
 
 		public string Description { get; private set; }
 
+		public object VendorInfo { get; set; }
+
 		public override string ToString()
 		{
 			return string.Format(

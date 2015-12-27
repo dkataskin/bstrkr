@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -32,7 +31,6 @@ namespace bstrkr.core.providers.bus13
 		private readonly IBus13RouteDataService _dataService;
 		private readonly IDictionary<string, Bus13VehicleLocationUpdate> _locationState = new Dictionary<string, Bus13VehicleLocationUpdate>();
 		private readonly IDictionary<string, Route> _routesCache = new Dictionary<string, Route>();
-		private readonly IDictionary<string, Route> _allRoutesCache = new Dictionary<string, Route>();
 
 		private bool _isRunning;
 		private UpdateRoutineState _updateRoutineState;
@@ -137,14 +135,6 @@ namespace bstrkr.core.providers.bus13
 				foreach (var route in routes)
 				{
 					_routesCache[route.Id] = route;
-					_allRoutesCache[route.Id] = route;
-					if (route.Ids != null)
-					{
-						foreach (var routeId in route.Ids)
-						{
-							_allRoutesCache[routeId] = route;
-						}
-					}
 				}
 			}
 
@@ -156,7 +146,7 @@ namespace bstrkr.core.providers.bus13
 			try
 			{
 				var routes = await this.GetRoutesAsync();
-				return routes.FirstOrDefault(x => x.Ids.Contains(routeId));
+				return routes.FirstOrDefault(x => x.Id.Equals(routeId));
 			} 
 			catch (Exception e)
 			{
@@ -188,13 +178,13 @@ namespace bstrkr.core.providers.bus13
 
 		public async Task<IEnumerable<Vehicle>> GetRouteVehiclesAsync(IEnumerable<Route> routes)
 		{
-			var ids = routes.SelectMany(r => r.Ids).ToList();
+			var ids = routes.Select(r => r.Id).ToList();
 			lock(_locationState)
 			{
 				if (_locationState.Keys.Any())
 				{
 					return _locationState.Values.Select(v => v.Vehicle)
-												.Where(v => v.RouteInfo != null && ids.Any(id => id.Equals(v.RouteInfo.RouteId)))
+												.Where(v => v.RouteInfo != null && ids.Contains(v.RouteInfo.RouteId))
 												.ToList();
 				}
 			}
@@ -202,17 +192,13 @@ namespace bstrkr.core.providers.bus13
 			var response = await _dataService.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, 0);
 			return response.Updates
 						   .Select(x => x.Vehicle)
-						   .Where(v => v.RouteInfo != null && ids.Any(id => id.Equals(v.RouteInfo.RouteId)))
+						   .Where(v => v.RouteInfo != null && ids.Contains(v.RouteInfo.RouteId))
 						   .ToList();
 		}
 
 		public async Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle)
 		{
-			var forecast = await _dataService.GetVehicleForecastAsync(vehicle).ConfigureAwait(false);
-
-			this.RaiseVehicleForecastReceivedEvent(vehicle.Id, forecast);
-
-			return forecast;
+			return await _dataService.GetVehicleForecastAsync(vehicle).ConfigureAwait(false);
 		}
 
 		public async Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId)
@@ -222,14 +208,13 @@ namespace bstrkr.core.providers.bus13
 			{
 				foreach(var forecastItem in forecast.Items)
 				{
-					if (_allRoutesCache.ContainsKey(forecastItem.Route.Id))
+					if (_routesCache.ContainsKey(forecastItem.Route.Id))
 					{
-						forecastItem.ParentRoute = _allRoutesCache[forecastItem.Route.Id];
+						forecastItem.Route = _routesCache[forecastItem.Route.Id];
 					}
 				}
 			}
 
-			this.RaiseRouteStopForecastReceivedEvent(routeStopId, forecast);
 			return forecast;
 		}
 
@@ -365,22 +350,6 @@ namespace bstrkr.core.providers.bus13
 			if (this.VehicleLocationsUpdated != null)
 			{
 				this.VehicleLocationsUpdated(this, new VehicleLocationsUpdatedEventArgs(vehicleLocations));
-			}
-		}
-
-		private void RaiseRouteStopForecastReceivedEvent(string routeStopId, RouteStopForecast forecast)
-		{
-			if (this.RouteStopForecastReceived != null)
-			{
-				this.RouteStopForecastReceived(this, new RouteStopForecastReceivedEventArgs(routeStopId, forecast));
-			}
-		}
-
-		private void RaiseVehicleForecastReceivedEvent(string vehicleId, VehicleForecast forecast)
-		{
-			if (this.VehicleForecastReceived != null)
-			{
-				this.VehicleForecastReceived(this, new VehicleForecastReceivedEventArgs(vehicleId, forecast));
 			}
 		}
 

@@ -13,7 +13,5 @@ namespace bstrkr.core
 		public string LastRouteStopName { get; set; }
 
 		public Route Route { get; set; }
-
-		public Route ParentRoute { get; set; }
 	}
 }

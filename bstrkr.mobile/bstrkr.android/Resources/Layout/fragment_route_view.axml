@@ -45,16 +45,18 @@
         </LinearLayout>
     <!-- divider -->
         <View
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:background="@color/list_item_h_divider" />
     </LinearLayout>
     <FrameLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="fill_parent">
         <Mvx.MvxListView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:divider="@null"
             android:dividerHeight="0dp"
             local:MvxBind="ItemsSource Vehicles; ItemClick ShowVehicleOnMapCommand"
@@ -73,8 +75,8 @@
             android:indeterminateBehavior="repeat"
             local:MvxBind="Visibility Visibility(IsBusy)" />
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"

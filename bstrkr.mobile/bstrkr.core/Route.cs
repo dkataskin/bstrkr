@@ -11,29 +11,19 @@ namespace bstrkr.core
 	{
 		public Route(
 				string id,
-				IEnumerable<string> ids,
-				string name, 
+				string name,
 				string number,
+				VehicleTypes vehicleType,
 				IEnumerable<RouteStop> stops,
-				IEnumerable<GeoPoint> nodes,
-				IEnumerable<VehicleTypes> vehicleTypes)
+				IEnumerable<GeoPoint> nodes)
 		{
 			this.Id = id;
 			this.Name = name;
 			this.Number = number;
 
-			if (ids == null || !ids.Any())
-			{
-				this.Ids = new ReadOnlyCollection<string>(new List<string> { id });
-			}
-			else
-			{
-				this.Ids = new ReadOnlyCollection<string>(ids.ToList());
-			}
-
 			this.Stops = new ReadOnlyCollection<RouteStop>(stops.ToList());
 			this.Nodes = new ReadOnlyCollection<GeoPoint>(nodes.ToList());
-			this.VehicleTypes = new ReadOnlyCollection<VehicleTypes>(vehicleTypes.ToList());
+			this.VehicleType = vehicleType;
 		}
 
 		public string Id { get; private set; }
@@ -42,17 +32,17 @@ namespace bstrkr.core
 
 		public string Number { get; private set; }
 
-		public IReadOnlyList<string> Ids { get; private set; }
-
 		public IReadOnlyList<RouteStop> Stops { get; private set; }
 
 		public IReadOnlyList<GeoPoint> Nodes { get; private set; }
 
-		public IReadOnlyList<VehicleTypes> VehicleTypes { get; private set; }
+		public VehicleTypes VehicleType { get; private set; }
 
 		public RouteStop FirstStop { get; set; }
 
 		public RouteStop LastStop { get; set; }
+
+		public object VendorInfo { get; set; }
 
 		public override string ToString()
 		{
@@ -60,7 +50,7 @@ namespace bstrkr.core
 					"[Route: Id={0}, Name={1}, Type={2}, First Stop={3}, Last Stop={4}]", 
 					this.Id,
 					this.Name,
-					this.VehicleTypes == null ? "none" : string.Join(":", this.VehicleTypes.Select(x => x.ToString()).ToArray()),
+					this.VehicleType.ToString(),
 					this.FirstStop,
 					this.LastStop);
 		}
