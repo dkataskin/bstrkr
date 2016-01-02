@@ -24,7 +24,6 @@ namespace bstrkr.core.providers.bus13
 	public class Bus13LiveDataProvider : ILiveDataProvider
 	{
 		private readonly object _lockObject = new object();
-		private readonly object _updaterLockObject = new object();
 		private readonly string _endpoint;
 		private readonly string _location;
 		private readonly TimeSpan _updateInterval;
@@ -201,9 +200,9 @@ namespace bstrkr.core.providers.bus13
 			return await _dataService.GetVehicleForecastAsync(vehicle).ConfigureAwait(false);
 		}
 
-		public async Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId)
+		public async Task<RouteStopForecast> GetRouteStopForecastAsync(RouteStop routeStop)
 		{
-			var forecast = await _dataService.GetRouteStopForecastAsync(routeStopId);
+			var forecast = await _dataService.GetRouteStopForecastAsync(routeStop);
 			lock(_routesCache)
 			{
 				foreach(var forecastItem in forecast.Items)

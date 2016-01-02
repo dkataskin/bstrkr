@@ -96,28 +96,12 @@ namespace bstrkr.mvvm.viewmodels
 					string routeId, 
 					string routeName, 
 					int routeNumber, 
-					string routeIds,
 					VehicleTypes vehicleType)
 		{
-			string[] ids = null;
-			if (!string.IsNullOrEmpty(routeIds))
-			{
-				ids = routeIds.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-			}
-
 			this.RouteId = routeId;
 			this.Number = routeNumber;
 			this.Name = routeName;
 			this.VehicleType = vehicleType;
-
-			this.Route = new Route(
-							routeId, 
-							ids, 
-							routeName, 
-							string.Empty, 
-							new List<RouteStop>(), 
-							new List<GeoPoint>(),
-							new List<VehicleTypes> { vehicleType });
 		}
 
 		public override void Start()
@@ -130,12 +114,20 @@ namespace bstrkr.mvvm.viewmodels
 			if (provider != null)
 			{
 				provider.GetRouteAsync(this.RouteId)
-						.ContinueWith(this.SetRoute)
-						.ConfigureAwait(false);
-				
-				provider.GetRouteVehiclesAsync(new[] { this.Route })
-						.ContinueWith(this.ShowRouteVehicles)
-						.ConfigureAwait(false);
+						.ContinueWith(getRouteTask =>
+						{
+							if (getRouteTask.Status == TaskStatus.RanToCompletion && getRouteTask.Result != null)
+							{
+								this.Route = getRouteTask.Result;
+								provider.GetRouteVehiclesAsync(new[] { this.Route }).ContinueWith(this.ShowRouteVehicles);
+							} 
+							else
+							{
+								this.Route = null;
+								this.NoData = true;
+								this.IsBusy = false;
+							}
+						});
 			}
 		}
 

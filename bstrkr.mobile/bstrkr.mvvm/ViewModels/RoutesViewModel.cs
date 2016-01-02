@@ -95,7 +95,7 @@ namespace bstrkr.mvvm.viewmodels
 								{
 									Id = route.Id,
 									Name = route.Name,
-									VehicleType = route.VehicleTypes.First(),
+									VehicleType = route.VehicleType,
 									Route = route
 								});
 							}
@@ -115,15 +115,15 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ShowRouteDetails(RoutesListItemViewModel routeVM)
 		{
-			var ids = string.Join(",", routeVM.Route.Ids);
-
+			//var ids = string.Join(",", routeVM.Route.Ids);
+			var ids = routeVM.Id;
 			this.ShowViewModel<RouteVehiclesViewModel>(new 
 			{ 
 				routeId = routeVM.Id, 
 				routeName = routeVM.Name,
 				routeNumber = routeVM.Route.Number,
 				routeIds = ids,
-				vehicleType = routeVM.Route.VehicleTypes.First()
+				vehicleType = routeVM.Route.VehicleType
 			});
 		}
 	}

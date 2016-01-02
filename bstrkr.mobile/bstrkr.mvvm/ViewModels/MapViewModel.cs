@@ -225,8 +225,8 @@ namespace bstrkr.mvvm.viewmodels
 				_liveDataProvider.VehicleLocationsUpdateStarted -= this.OnVehicleLocationsUpdateStarted;
 				_liveDataProvider.VehicleLocationsUpdateFailed -= this.OnVehicleLocationsUpdateFailed;
 				_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
-				_liveDataProvider.RouteStopForecastReceived -= this.OnRouteStopForecastReceived;
-				_liveDataProvider.VehicleForecastReceived -= this.OnVehicleForecastReceived;
+				//_liveDataProvider.RouteStopForecastReceived -= this.OnRouteStopForecastReceived;
+				//_liveDataProvider.VehicleForecastReceived -= this.OnVehicleForecastReceived;
 			}
 
 			_stops.Clear();
@@ -248,8 +248,8 @@ namespace bstrkr.mvvm.viewmodels
 				_liveDataProvider.VehicleLocationsUpdateStarted += this.OnVehicleLocationsUpdateStarted;
 				_liveDataProvider.VehicleLocationsUpdateFailed += this.OnVehicleLocationsUpdateFailed;
 				_liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
-				_liveDataProvider.RouteStopForecastReceived += this.OnRouteStopForecastReceived;
-				_liveDataProvider.VehicleForecastReceived += this.OnVehicleForecastReceived;
+//				_liveDataProvider.RouteStopForecastReceived += this.OnRouteStopForecastReceived;
+//				_liveDataProvider.VehicleForecastReceived += this.OnVehicleForecastReceived;
 				_liveDataProvider.GetRouteStopsAsync()
 								 .ContinueWith(this.ShowRouteStops)
 								 .ConfigureAwait(false);

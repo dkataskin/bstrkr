@@ -313,7 +313,7 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			var vm = Mvx.IocConstruct<VehicleForecastListItemViewModel>();
-			vm.VehicleType = _route.VehicleTypes.First();
+			vm.VehicleType = _route.VehicleType;
 			vm.UpdateFromForecastItem(forecastItem);
 
 			return vm;

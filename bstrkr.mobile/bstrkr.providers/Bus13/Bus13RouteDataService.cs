@@ -174,11 +174,19 @@ namespace bstrkr.core.providers.bus13
 			return new VehicleForecast(vehicle, new List<VehicleForecastItem>());
 		}
 
-		public async Task<RouteStopForecast> GetRouteStopForecastAsync(string routeStopId)
+		public async Task<RouteStopForecast> GetRouteStopForecastAsync(RouteStop routeStop)
 		{
+			var bus13RouteStop = routeStop.VendorInfo as Bus13RouteStop;
+			if (bus13RouteStop == null)
+			{
+				int id = 0;
+				int.TryParse(routeStop.Id, out id);
+				bus13RouteStop = new Bus13RouteStop { Id = id, Type = "0" };
+			}
+
 			var request = this.GetRequestBase(RouteStopForecastResource);
-			request.AddParameter("sid", routeStopId, ParameterType.QueryString);
-			request.AddParameter("type", 0, ParameterType.QueryString);
+			request.AddParameter("sid", bus13RouteStop.Id, ParameterType.QueryString);
+			request.AddParameter("type", bus13RouteStop.Type, ParameterType.QueryString);
 			request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
 
 			var client = this.GetRestClient();
@@ -187,10 +195,10 @@ namespace bstrkr.core.providers.bus13
 
 			if (forecast != null && forecast.Any())
 			{
-				return new RouteStopForecast(routeStopId, forecast.Select(this.ParseRouteStopForecast).ToList());
+				return new RouteStopForecast(routeStop.Id, forecast.Select(this.ParseRouteStopForecast).ToList());
 			}
 
-			return new RouteStopForecast(routeStopId, new List<RouteStopForecastItem>());
+			return new RouteStopForecast(routeStop.Id, new List<RouteStopForecastItem>());
 		}
 
 		private RestClient GetRestClient()

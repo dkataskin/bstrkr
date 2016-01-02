@@ -131,10 +131,29 @@ namespace bstrkr.mvvm.viewmodels
 				if (provider != null)
 				{
 					this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
-					provider.GetRouteStopForecastAsync(this.RouteStopId)
-							.ContinueWith(this.ShowForecast)
-							.ConfigureAwait(false);
-				}
+					provider.GetRouteStopsAsync()
+							.ContinueWith(task =>
+					{
+						if (task.Status != TaskStatus.RanToCompletion || task.Result == null)
+						{
+							this.NoData = true;
+							return;
+						}
+
+						var routeStop = task.Result.FirstOrDefault(x => x.Id == this.RouteStopId);
+						if (routeStop != null)
+						{
+							provider.GetRouteStopForecastAsync(routeStop)
+									.ContinueWith(this.ShowForecast)
+									.ConfigureAwait(false);
+						} 
+							else
+						{
+							this.NoData = true;
+						}
+								
+					});
+				};
 			}
 		}
 
@@ -203,12 +222,11 @@ namespace bstrkr.mvvm.viewmodels
 			return new RouteStopForecastViewModel 
 			{
 				VehicleId = item.VehicleId,
-				VehicleType = item.Route.VehicleTypes.First(),
+				VehicleType = item.Route.VehicleType,
 				ArrivesInSeconds = item.ArrivesInSeconds,
 				CurrentlyAt = item.CurrentRouteStopName,
-				RouteDisplayName = _routeInfoToTitleConverter.Convert(item.Route.Number, item.Route.VehicleTypes.First()),
+				RouteDisplayName = _routeInfoToTitleConverter.Convert(item.Route.Number, item.Route.VehicleType),
 				Route = item.Route,
-				ParentRoute = item.ParentRoute,
 				LastStop = item.LastRouteStopName
 			};
 		}

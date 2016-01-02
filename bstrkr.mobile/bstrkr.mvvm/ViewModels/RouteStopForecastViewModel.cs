@@ -45,8 +45,6 @@ namespace bstrkr.mvvm.viewmodels
 
 		public Route Route { get; set; }
 
-		public Route ParentRoute { get; set; }
-
 		private void Countdown()
 		{
 			var isActive = this.IsActive;
