@@ -49,7 +49,10 @@
     <value>Locations</value>
   </data>
 	<data name="stops_dialog_title" xml:space="preserve">
-    <value>Route stops</value>
+    <value>Select route stop</value>
+  </data>
+  	<data name="routes_dialog_title" xml:space="preserve">
+    <value>Select route direction</value>
   </data>
 	<data name="unknown_location_dialog_text" xml:space="preserve">
     <value>Sorry, but it looks like we can't show you public transportation on the map, we don't have data for your area. It might be though that we detected your location wrong. Would you like to select from one of the available locations?</value>

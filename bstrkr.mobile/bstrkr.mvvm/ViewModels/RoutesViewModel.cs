@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
-using Cirrious.MvvmCross.ViewModels;
-
-using Xamarin;
+using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.core.services.location;
+using bstrkr.mvvm.navigation;
 using bstrkr.providers;
-using System.Threading.Tasks;
+
+using Cirrious.MvvmCross.ViewModels;
+
+using Newtonsoft.Json;
+
+using Xamarin;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -137,13 +140,32 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ShowRouteDetails(RoutesListItemViewModel routeVM)
 		{
-			this.ShowViewModel<RouteVehiclesViewModel>(new 
-			{ 
-				routeId = routeVM.Routes.First().Id, 
-				routeName = routeVM.Name,
-				routeNumber = routeVM.Routes.First().Number,
-				vehicleType = routeVM.VehicleType
-			});
+			if (routeVM.Routes.Count > 1)
+			{
+				var routeListNavParam = new RouteListNavParam();
+				foreach (var route in routeVM.Routes)
+				{
+					routeListNavParam.Routes.Add(
+								new RouteListItem(
+											route.Id, 
+											route.Name,
+											route.Number,
+											string.Format("{0} — {1}", route.FirstStop.Name, route.LastStop.Name),
+											route.VehicleType));
+				}
+
+				this.ShowViewModel<SetRouteViewModel>(new { routes = JsonConvert.SerializeObject(routeListNavParam) });
+			}
+			else
+			{
+				this.ShowViewModel<RouteVehiclesViewModel>(new 
+				{ 
+					routeId = routeVM.Routes.First().Id, 
+					routeName = routeVM.Name,
+					routeNumber = routeVM.Routes.First().Number,
+					vehicleType = routeVM.VehicleType
+				});
+			}
 		}
 	}
 }

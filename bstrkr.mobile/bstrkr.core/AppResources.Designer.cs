@@ -125,6 +125,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string routes_dialog_title {
+            get {
+                return ResourceManager.GetString("routes_dialog_title", resourceCulture);
+            }
+        }
+        
         public static string unknown_location_dialog_text {
             get {
                 return ResourceManager.GetString("unknown_location_dialog_text", resourceCulture);

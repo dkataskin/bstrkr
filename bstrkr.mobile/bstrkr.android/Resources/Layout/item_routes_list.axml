@@ -39,6 +39,7 @@
                 style="@style/ListItemSubtleSmall"
                 android:layout_width="fill_parent"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
                 android:singleLine="true"
                 local:MvxBind="Text RouteStops"
                 android:layout_below="@id/tv_route_display_name" />

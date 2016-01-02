@@ -373,6 +373,7 @@ namespace bstrkr.android.views
 			customPresenter.Register(typeof(AboutViewModel), this);
 			customPresenter.Register(typeof(MapViewModel), this);
 			customPresenter.Register(typeof(SetRouteStopViewModel), this);
+			customPresenter.Register(typeof(SetRouteViewModel), this);
 			customPresenter.Register(typeof(RouteVehiclesViewModel), this);
 			customPresenter.Register(typeof(RouteStopViewModel), this);
 			customPresenter.Register(typeof(VehicleForecastViewModel), this);
@@ -423,6 +424,13 @@ namespace bstrkr.android.views
 			if (request.ViewModelType == typeof(SetRouteStopViewModel))
 			{
 				var dialog = new SetRouteStopView();
+				dialog.ViewModel = loaderService.LoadViewModel(request, null);
+				dialog.Show(this.FragmentManager, null);
+			}
+
+			if (request.ViewModelType == typeof(SetRouteViewModel))
+			{
+				var dialog = new SetRouteView();
 				dialog.ViewModel = loaderService.LoadViewModel(request, null);
 				dialog.Show(this.FragmentManager, null);
 			}

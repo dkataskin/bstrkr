@@ -231,6 +231,7 @@
     <Compile Include="Views\ScrollChildSwipeRefreshLayout.cs" />
     <Compile Include="Views\MvxSwipeRefreshLayout.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Views\SetRouteView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
