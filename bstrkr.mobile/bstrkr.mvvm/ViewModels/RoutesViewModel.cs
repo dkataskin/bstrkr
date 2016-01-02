@@ -119,7 +119,11 @@ namespace bstrkr.mvvm.viewmodels
 			foreach (var routeGroup in routes.GroupBy(r => new { r.Number, r.VehicleType }))
 			{
 				var firstRoute = routeGroup.First();
-				_routes.Add(new RoutesListItemViewModel(routeGroup.ToList(), firstRoute.Name, routeGroup.Key.VehicleType));
+				_routes.Add(new RoutesListItemViewModel(
+									routeGroup.ToList(), 
+									firstRoute.Name, 
+									routeGroup.Key.Number, 
+									routeGroup.Key.VehicleType));
 			}
 		}
 

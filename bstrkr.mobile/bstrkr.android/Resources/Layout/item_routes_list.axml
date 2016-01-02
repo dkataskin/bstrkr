@@ -40,7 +40,7 @@
                 android:layout_width="fill_parent"
                 android:layout_marginRight="10dp"
                 android:singleLine="true"
-                local:MvxBind="Text RouteToFirstLastStops(Route)"
+                local:MvxBind="Text RouteStops"
                 android:layout_below="@id/tv_route_display_name" />
         </RelativeLayout>
     <!-- divider -->
