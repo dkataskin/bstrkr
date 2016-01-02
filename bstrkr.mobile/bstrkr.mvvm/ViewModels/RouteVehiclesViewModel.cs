@@ -11,12 +11,13 @@ using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.providers;
 
+using Chance.MvvmCross.Plugins.UserInteraction;
+
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using Chance.MvvmCross.Plugins.UserInteraction;
 
 namespace bstrkr.mvvm.viewmodels
 {

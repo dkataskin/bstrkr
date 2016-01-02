@@ -11,40 +11,33 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class RoutesListItemViewModel : BusTrackerViewModelBase
 	{
-		private string _id;
 		private string _name;
 		private VehicleTypes _vehicleType;
-		private Route _route;
+		private ReadOnlyObservableCollection<Route> _routes;
 
-		public string Id
+		public RoutesListItemViewModel(IEnumerable<Route> routes, string name, VehicleTypes vehicleType)
 		{
-			get { return _id; }
-			set
-			{
-				if (_id != value)
-				{
-					_id = value;
-					this.RaisePropertyChanged(() => this.Id);
-				}
-			}
+			this.Routes = new ReadOnlyObservableCollection<Route>(new ObservableCollection<Route>(routes));
+			this.Name = name;
+			this.VehicleType = vehicleType;
 		}
 
 		public string Name 
 		{ 
 			get { return _name; } 
-			set { this.RaiseAndSetIfChanged(ref _name, value, () => this.Name); } 
+			private set { this.RaiseAndSetIfChanged(ref _name, value, () => this.Name); } 
 		}
 
 		public VehicleTypes VehicleType
 		{
 			get { return _vehicleType; }
-			set { this.RaiseAndSetIfChanged(ref _vehicleType, value, () => this.VehicleType); }
+			private set { this.RaiseAndSetIfChanged(ref _vehicleType, value, () => this.VehicleType); }
 		}
 
-		public Route Route 
+		public ReadOnlyObservableCollection<Route> Routes 
 		{ 
-			get { return _route; }
-			set { this.RaiseAndSetIfChanged(ref _route, value, () => this.Route); } 
+			get { return _routes; }
+			private set { this.RaiseAndSetIfChanged(ref _routes, value, () => this.Routes); } 
 		}
 	}
 }

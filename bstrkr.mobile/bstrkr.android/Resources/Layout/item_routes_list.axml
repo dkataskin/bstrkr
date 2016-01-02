@@ -27,7 +27,7 @@
             <TextView
                 android:id="@+id/tv_route_display_name"
                 style="@style/ListItemBold"
-                local:MvxBind="Text RouteNumberToString(Route.Number)" />
+                local:MvxBind="Text RouteNumberToString(Number)" />
             <TextView
                 android:id="@+id/tv_vehicle_type"
                 style="@style/ListItemRegularSmall"

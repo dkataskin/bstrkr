@@ -10,6 +10,7 @@ using Xamarin;
 using bstrkr.core;
 using bstrkr.core.services.location;
 using bstrkr.providers;
+using System.Threading.Tasks;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -20,6 +21,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private string _areaId;
 		private bool _unknownArea;
+		private RoutesListItemViewModel _selectedRoute;
 
 		public RoutesViewModel(ILiveDataProviderFactory providerFactory)
 		{
@@ -29,6 +31,10 @@ namespace bstrkr.mvvm.viewmodels
 			this.RefreshCommand = new MvxCommand<bool>(this.Refresh);
 			this.ShowRouteVehiclesCommand = new MvxCommand<RoutesListItemViewModel>(this.ShowRouteDetails, vm => !this.IsBusy);
 		}
+
+		public MvxCommand<bool> RefreshCommand { get; private set; }
+
+		public MvxCommand<RoutesListItemViewModel> ShowRouteVehiclesCommand { get; private set; }
 
 		public bool UnknownArea
 		{
@@ -49,9 +55,11 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<RoutesListItemViewModel> Routes { get; private set; }
 
-		public MvxCommand<bool> RefreshCommand { get; private set; }
-
-		public MvxCommand<RoutesListItemViewModel> ShowRouteVehiclesCommand { get; private set; }
+		public RoutesListItemViewModel SelectedRoute 
+		{ 
+			get { return _selectedRoute; }
+			set { this.RaiseAndSetIfChanged(ref _selectedRoute, value, () => this.SelectedRoute); }
+		}
 
 		protected override void OnIsBusyChanged()
 		{
@@ -73,6 +81,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			if (provider.Area.Id.Equals(_areaId) && !noCache)
 			{
+				this.UpdateSelectedRoute();
 				return;
 			}
 
@@ -85,22 +94,14 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				try 
 				{
-					this.Dispatcher.RequestMainThreadAction(() =>
+					if (task.Status == TaskStatus.RanToCompletion && task.Result != null)
 					{
-						if (task.Result != null)
+						this.Dispatcher.RequestMainThreadAction(() =>
 						{
-							foreach (var route in task.Result) 
-							{
-								_routes.Add(new RoutesListItemViewModel
-								{
-									Id = route.Id,
-									Name = route.Name,
-									VehicleType = route.VehicleType,
-									Route = route
-								});
-							}
-						}
-					});
+							this.CreateViewModels(task.Result);
+							this.UpdateSelectedRoute();
+						});
+					}
 				} 
 				catch (Exception e) 
 				{
@@ -113,17 +114,31 @@ namespace bstrkr.mvvm.viewmodels
 			}).ConfigureAwait(false);
 		}
 
+		private void CreateViewModels(IEnumerable<Route> routes)
+		{
+			foreach (var routeGroup in routes.GroupBy(r => new { r.Number, r.VehicleType }))
+			{
+				var firstRoute = routeGroup.First();
+				_routes.Add(new RoutesListItemViewModel(routeGroup.ToList(), firstRoute.Name, routeGroup.Key.VehicleType));
+			}
+		}
+
+		private void UpdateSelectedRoute()
+		{
+			if (this.SelectedRoute != null)
+			{
+				this.SelectedRoute = _routes.FirstOrDefault(r => r.Id.Equals(this.SelectedRoute.Id));
+			}
+		}
+
 		private void ShowRouteDetails(RoutesListItemViewModel routeVM)
 		{
-			//var ids = string.Join(",", routeVM.Route.Ids);
-			var ids = routeVM.Id;
 			this.ShowViewModel<RouteVehiclesViewModel>(new 
 			{ 
-				routeId = routeVM.Id, 
+				routeId = routeVM.Routes.First().Id, 
 				routeName = routeVM.Name,
-				routeNumber = routeVM.Route.Number,
-				routeIds = ids,
-				vehicleType = routeVM.Route.VehicleType
+				routeNumber = routeVM.Routes.First().Number,
+				vehicleType = routeVM.VehicleType
 			});
 		}
 	}

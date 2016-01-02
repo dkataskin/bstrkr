@@ -35,7 +35,7 @@ namespace bstrkr.core.providers.bus13
 		private const string RouteTypeParam = "type";
 		private const string RandomParam = "_";
 		private const string InfoParam = "info";
-		private const string InfoParamValue = "0123";
+		private const string InfoParamValue = "01234";
 
 		private readonly Lazy<Random> _random = new Lazy<Random>();
 		private readonly IEnumerable<IRouteStopsDataPostProcessor> _routeStopPostProcessors;
@@ -106,8 +106,8 @@ namespace bstrkr.core.providers.bus13
 						RouteIdsParam, 
 						string.Join(
 							",", 
-							routes.Select(this.GetRouteKey).ToList(),
-							ParameterType.QueryString));
+							routes.Select(this.GetRouteKey).ToList()),
+							ParameterType.QueryString);
 
 			request.AddParameter("lat0", this.CoordToInt(rect.NorthEast.Latitude), ParameterType.QueryString);
 			request.AddParameter("lng0", this.CoordToInt(rect.NorthEast.Longitude), ParameterType.QueryString);

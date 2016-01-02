@@ -1,5 +1,7 @@
+using System.Globalization;
 using System.Reflection;
 using System.Resources;
+
 using System.Threading;
 
 using Android.Content;
@@ -15,6 +17,7 @@ using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.core.services.resources;
 using bstrkr.mvvm;
+using bstrkr.mvvm.bindings;
 using bstrkr.mvvm.views;
 using bstrkr.providers;
 
@@ -35,15 +38,15 @@ namespace bstrkr.android
     {
         public Setup(Context applicationContext) : base(applicationContext)
         {
-			Insights.Initialize("your key here", applicationContext);
         }
 
 		protected override void InitializeFirstChance()
 		{
 			Mvx.LazyConstructAndRegisterSingleton<IConfigManager, ConfigManager>();
 			Mvx.LazyConstructAndRegisterSingleton<ILocationService, LocationService>();
-			Mvx.LazyConstructAndRegisterSingleton<IAppResourceManager, AndroidAppResourceManager>();
+			Mvx.LazyConstructAndRegisterSingleton<IAreaPositioningService, AreaPositioningService>();
 			Mvx.LazyConstructAndRegisterSingleton<IBusTrackerLocationService, BusTrackerLocationService>();
+			Mvx.LazyConstructAndRegisterSingleton<IAppResourceManager, AndroidAppResourceManager>();
 			Mvx.LazyConstructAndRegisterSingleton<ILiveDataProviderFactory, DefaultLiveDataProviderFactory>();
 			Mvx.RegisterSingleton<ICustomPresenter>(new CustomPresenter());
 
@@ -63,12 +66,12 @@ namespace bstrkr.android
 		protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
 		{
 			registry.RegisterCustomBindingFactory<MonoDroidGoogleMapsView>(
-																	"Zoom", 
-																	mapView => new MapViewZoomTargetBinding(mapView));
+																"Zoom", 
+																mapView => new MapViewZoomTargetBinding(mapView));
 
 			registry.RegisterCustomBindingFactory<MonoDroidGoogleMapsView>(
-																	"VisibleRegion",
-																	mapView => new MapViewVisibleRegionTargetBinding(mapView));
+																"VisibleRegion",
+																mapView => new MapViewVisibleRegionTargetBinding(mapView));
 
 			base.FillTargetFactories(registry);
 		}

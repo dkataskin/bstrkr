@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         local:MvxBind="Refreshing IsBusy">
         <Mvx.MvxListView
-            local:MvxBind="ItemsSource Routes; ItemClick ShowRouteVehiclesCommand"
+            local:MvxBind="ItemsSource Routes; ItemClick ShowRouteVehiclesCommand; SelectedItem SelectedRoute"
             local:MvxItemTemplate="@layout/item_routes_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
