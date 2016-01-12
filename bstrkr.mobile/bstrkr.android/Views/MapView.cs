@@ -23,6 +23,7 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
+using bstrkr.core.spatial;
 
 namespace bstrkr.android.views
 {
@@ -34,6 +35,7 @@ namespace bstrkr.android.views
 		private VehicleMarkerManager _vehicleMarkerManager;
 		private RouteStopMarkerManager _routeStopMarkerManager;
 		private MapLocationManager _mapLocationManager;
+		private Marker _myLocationMarker;
 
 		public MapView()
 		{
@@ -51,8 +53,15 @@ namespace bstrkr.android.views
 			var view = this.BindingInflate(Resource.Layout.fragment_map_view, null);
 
 			var mapOptions = new GoogleMapOptions()
+				.InvokeTiltGesturesEnabled(false)
+				.InvokeCompassEnabled(true)
+				.InvokeRotateGesturesEnabled(true)
+				.InvokeUseViewLifecycleInFragment(false)
+				.InvokeZoomControlsEnabled(true)
+				.InvokeZoomGesturesEnabled(true)
+				.InvokeZOrderOnTop(true)
 				.InvokeCamera(new CameraPosition(new LatLng(54.180109f, 45.177947f), 14.0f, 0, 0));
-			
+
 			_mapFragment = MapFragment.NewInstance(mapOptions);
 			var transaction = this.FragmentManager.BeginTransaction();
 			transaction.Add(Resource.Id.content_frame, _mapFragment);
@@ -98,7 +107,28 @@ namespace bstrkr.android.views
 
 		public void OnMapReady(GoogleMap map)
 		{
+			map.MyLocationButtonClick += (s, a) =>
+			{
+				if (_myLocationMarker != null)
+				{
+					var point = _myLocationMarker.Position.ToGeoPoint();
+					this.MapViewModel.UpdateMapCenterCommand.Execute(new Tuple<GeoPoint, bool>(point, true));
+				}
+			};
+				
 			var locationProvider = Mvx.Resolve<ILocationService>();
+
+			var lastLocation = locationProvider.GetLastLocation();
+			if (!lastLocation.Equals(GeoPoint.Empty))
+			{
+				var myLocationMarkerOptions = new MarkerOptions();
+				myLocationMarkerOptions.SetIcon(BitmapDescriptorFactory.FromResource(Resource.Drawable.my_location));
+				myLocationMarkerOptions.Flat(true);
+				myLocationMarkerOptions.SetPosition(lastLocation.ToLatLng());
+				_myLocationMarker = map.AddMarker(myLocationMarkerOptions);
+			}
+
+			locationProvider.LocationUpdated += this.OnLocationUpdated;
 			map.SetLocationSource(locationProvider as ILocationSource);
 
 			if (_mapViewWrapper == null)
@@ -130,7 +160,7 @@ namespace bstrkr.android.views
 					this.MapViewModel.ClearSelectionCommand.Execute();
 				};
 
-				_mapViewWrapper.CameraLocationChanged += (s, a) => this.MapViewModel.MoveMapCenterCommand.Execute(a.Location);
+				_mapViewWrapper.CameraLocationChanged += (s, a) => this.MapViewModel.UpdateMapCenterCommand.Execute(new Tuple<GeoPoint, bool>(a.Location, false));
 			}
 
 			if (_vehicleMarkerManager == null)
@@ -185,5 +215,14 @@ namespace bstrkr.android.views
 				this.MapClicked(this, EventArgs.Empty);
 			}
    		}
+
+		private void OnLocationUpdated(object source, LocationUpdatedEventArgs args)
+		{
+			var marker = _myLocationMarker;
+			if (marker != null)
+			{
+				marker.Position = args.Location.ToLatLng();
+			}
+		}
 	}
 }

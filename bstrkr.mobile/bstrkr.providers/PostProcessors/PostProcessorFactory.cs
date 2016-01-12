@@ -15,7 +15,7 @@ namespace bstrkr.providers.postprocessors
 		{
 			if (string.Equals(context.CurrentUIThreeLetterISOName, RuCultureISOName, StringComparison.OrdinalIgnoreCase))
 			{
-				return new[] { new RouteStopNameTranslatorProcessor() };
+				return new[] { new QuotesTranslatorProcessor() };
 			}
 
 			return new List<IRouteStopsDataPostProcessor>();

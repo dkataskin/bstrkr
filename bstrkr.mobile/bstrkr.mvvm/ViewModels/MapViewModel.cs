@@ -93,7 +93,17 @@ namespace bstrkr.mvvm.viewmodels
 													message => this.ForceVehicleLocationsUpdate());
 
 			this.ChangeMapViewportCommand = new MvxCommand<float>(this.ChangeMapViewport);
-			this.MoveMapCenterCommand = new MvxCommand<GeoPoint>(newMapCenter => _mapCenter = newMapCenter);
+			this.UpdateMapCenterCommand = new MvxCommand<Tuple<GeoPoint, bool>>(tuple =>
+			{
+				if (tuple.Item2)
+				{
+					this.MapCenter = tuple.Item1;
+				}
+				else
+				{
+					_mapCenter = tuple.Item1;
+				}
+			});
 		}
 
 		public MvxCommand<string> SelectRouteStopCommand { get; private set; }
@@ -104,7 +114,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand<float> ChangeMapViewportCommand { get; private set; }
 
-		public MvxCommand<GeoPoint> MoveMapCenterCommand { get; private set; }
+		public MvxCommand<Tuple<GeoPoint, bool>> UpdateMapCenterCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
 		{ 

@@ -7,7 +7,7 @@ using bstrkr.core;
 
 namespace bstrkr.providers.postprocessors
 {
-	public class RouteStopNameTranslatorProcessor : IRouteStopsDataPostProcessor
+	public class QuotesTranslatorProcessor : IRouteStopsDataPostProcessor
 	{
 		private const char QuoteToReplace = '"';
 		private const char LeftQuote = '«';

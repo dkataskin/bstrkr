@@ -459,10 +459,6 @@
       <Project>{158E30FA-BA5F-46E1-A4D2-B4A985C31858}</Project>
       <Name>bstrkr.core.android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\bstrkr.providers\bstrkr.providers.csproj">
-      <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
-      <Name>bstrkr.providers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\bstrkr.core\bstrkr.core.csproj">
       <Project>{105E5C7F-04F5-497A-8559-1A8EC6B4EBFC}</Project>
       <Name>bstrkr.core</Name>
@@ -470,6 +466,10 @@
     <ProjectReference Include="..\bstrkr.mvvm\bstrkr.mvvm.csproj">
       <Project>{861E953B-14A8-4FCB-B69C-FAB7FEF2A828}</Project>
       <Name>bstrkr.mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\bstrkr.providers\bstrkr.providers.csproj">
+      <Project>{FCD27C16-D592-46E6-9F83-2982C7DE3C12}</Project>
+      <Name>bstrkr.providers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
