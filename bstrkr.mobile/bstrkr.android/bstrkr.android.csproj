@@ -225,9 +225,7 @@
     <Compile Include="Views\CustomTextView.cs" />
     <Compile Include="Views\SetLocationView.cs" />
     <Compile Include="Views\InitView.cs" />
-    <Compile Include="Util\BubbleDrawable.cs" />
     <Compile Include="Util\IconGenerator.cs" />
-    <Compile Include="Util\RotationLayout.cs" />
     <Compile Include="Views\ScrollChildSwipeRefreshLayout.cs" />
     <Compile Include="Views\MvxSwipeRefreshLayout.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -432,7 +430,6 @@
     <AndroidResource Include="Resources\Layout\page_init_view.axml" />
     <AndroidResource Include="Resources\Layout\toolbar.axml" />
     <AndroidResource Include="Resources\Menu\main_menu.xml" />
-    <AndroidResource Include="Resources\Drawable-xxhdpi\bottom_shadow.9.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\ic_action_refresh.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\ic_action_refresh.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_action_refresh.png" />
@@ -441,15 +438,11 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\my_location.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\my_location.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\my_location.png" />
-    <AndroidResource Include="Resources\Drawable\arrowvertical.png" />
-    <AndroidResource Include="Resources\Drawable-xhdpi\bubble_mask.9.png">
-      <Link>Resources\Drawable\bubble_mask.9.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-xhdpi\bubble_shadow.9.png">
-      <Link>Resources\Drawable\bubble_shadow.9.png</Link>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Drawable-xxhdpi\bubble_mask.9.png" />
     <AndroidResource Include="Resources\Layout\text_bubble.xml" />
+    <AndroidResource Include="Resources\Drawable-mdpi\bubble.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\bubble.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\bubble.9.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\bubble.9.png" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
