@@ -21,6 +21,7 @@ namespace bstrkr.mvvm.viewmodels
 		private long _lastUpdate = 0;
 		private GeoPoint _positionAnimation;
 		private bool _animateMovement;
+		private bool _isInView;
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
@@ -54,7 +55,7 @@ namespace bstrkr.mvvm.viewmodels
 		public string VehicleId
 		{
 			get { return this.Model == null ? string.Empty : this.Model.Id; }
-		}
+		} 
 
 		public VehicleTypes VehicleType
 		{
@@ -89,10 +90,16 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _positionAnimation, value, () => this.LocationAnimated); }
 		}
 
-		public bool AnimateMovement 
+		public bool AnimateMovement
 		{ 
 			get { return _animateMovement; } 
 			set { this.RaiseAndSetIfChanged(ref _animateMovement, value, () => this.AnimateMovement); } 
+		}
+
+		public bool IsInView
+		{
+			get { return _isInView; }
+			set { this.RaiseAndSetIfChanged(ref _isInView, value, () => this.IsInView); }
 		}
 
 		public void UpdateLocation(VehicleLocationUpdate update)

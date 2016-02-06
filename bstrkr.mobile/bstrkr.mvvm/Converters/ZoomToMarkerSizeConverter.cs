@@ -14,7 +14,6 @@ namespace bstrkr.mvvm.converters
 	{
 		private readonly IList<Tuple<float, MapMarkerSizes>> _map = new List<Tuple<float, MapMarkerSizes>>
 		{
-			new Tuple<float, MapMarkerSizes>(16.0f, MapMarkerSizes.Big),
 			new Tuple<float, MapMarkerSizes>(12.0f, MapMarkerSizes.Medium)
 		};
 
