@@ -75,6 +75,11 @@ namespace bstrkr.core.android.services.location
 		{
 			var lastLocation = LocationServices.FusedLocationApi.GetLastLocation(_googleAPIClient);
 
+			if (lastLocation == null)
+			{
+				return GeoPoint.Empty;
+			}
+
 			return new GeoPoint(lastLocation.Latitude, lastLocation.Longitude);
 		}
 

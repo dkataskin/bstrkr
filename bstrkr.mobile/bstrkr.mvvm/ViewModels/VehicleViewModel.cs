@@ -154,6 +154,11 @@ namespace bstrkr.mvvm.viewmodels
 			this.SetLocation(update.Vehicle.Location);
 		}
 
+		public override string ToString()
+		{
+			return string.Format("[VehicleVM: Id={0}, Type={1}, CarPlate={2}, RouteNumber={3}, Location={4}]", VehicleId, VehicleType, CarPlate, RouteNumber, Location);
+		}
+
 		protected override object GetIcon()
 		{
 			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize, this.IsSelected);

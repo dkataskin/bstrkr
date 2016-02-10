@@ -26,6 +26,8 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -43,6 +45,7 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly MvxSubscriptionToken _updateVehicleLocationsSubscriptionToken;
 		private readonly BusTrackerConfig _config;
 
+		private readonly IDictionary<string, VehicleViewModel> _allVehicles = new Dictionary<string, VehicleViewModel>();
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
 
@@ -55,10 +58,11 @@ namespace bstrkr.mvvm.viewmodels
 		private GeoRect _visibleRegion;
 		private bool _detectedArea = false;
 		private float _zoom;
-		private float _viewportOffset = 1.0f;
 		private RouteStop _routeStop;
 		private VehicleViewModel _selectedVehicle;
 		private RouteStopMapViewModel _selectedRouteStop;
+		private ISubject<VehiclesViewPortUpdate> _viewPortUpdateSubject;
+		private IDisposable _subscription;
 
 		public MapViewModel(
 					IBusTrackerLocationService locationService,
@@ -92,7 +96,6 @@ namespace bstrkr.mvvm.viewmodels
 			_updateVehicleLocationsSubscriptionToken = _messenger.Subscribe<VehicleLocationsUpdateRequestMessage>(
 													message => this.ForceVehicleLocationsUpdate());
 
-			this.ChangeMapViewportCommand = new MvxCommand<float>(this.ChangeMapViewport);
 			this.UpdateMapCenterCommand = new MvxCommand<Tuple<GeoPoint, bool>>(tuple =>
 			{
 				if (tuple.Item2)
@@ -104,6 +107,11 @@ namespace bstrkr.mvvm.viewmodels
 					_mapCenter = tuple.Item1;
 				}
 			});
+
+
+			_viewPortUpdateSubject = new Subject<VehiclesViewPortUpdate>();
+			_subscription = _viewPortUpdateSubject.Throttle(TimeSpan.FromMilliseconds(200))
+								  				  .Subscribe(this.UpdateVehiclesInTheViewPort);
 		}
 
 		public MvxCommand<string> SelectRouteStopCommand { get; private set; }
@@ -111,8 +119,6 @@ namespace bstrkr.mvvm.viewmodels
 		public MvxCommand<string> SelectVehicleCommand { get; private set; }
 
 		public MvxCommand ClearSelectionCommand { get; private set; }
-
-		public MvxCommand<float> ChangeMapViewportCommand { get; private set; }
 
 		public MvxCommand<Tuple<GeoPoint, bool>> UpdateMapCenterCommand { get; private set; }
 
@@ -144,7 +150,17 @@ namespace bstrkr.mvvm.viewmodels
 		public GeoRect VisibleRegion
 		{
 			get { return _visibleRegion; }
-			set { this.RaiseAndSetIfChanged(ref _visibleRegion, value, () => this.VisibleRegion); }
+			set 
+			{ 
+				this.RaiseAndSetIfChanged(ref _visibleRegion, value, () => this.VisibleRegion);
+
+				_viewPortUpdateSubject.OnNext(new VehiclesViewPortUpdate
+				{
+					VehicleUpdates = new List<VehicleLocationUpdate>(),
+					VisibleRegion = this.VisibleRegion,
+					Zoom = this.Zoom
+				});
+			}
 		}
 
 		public bool DetectedArea
@@ -214,14 +230,6 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				_liveDataProvider.Stop();
 			}
-		}
-
-		private void ChangeMapViewport(float viewportOffset)
-		{
-			var diff =  (viewportOffset - _viewportOffset) * (VisibleRegion.NorthEast.Latitude - VisibleRegion.SouthWest.Latitude);
-			this.MapCenter = new GeoPoint(this.MapCenter.Latitude + diff / 2.0f, this.MapCenter.Longitude);
-
-			_viewportOffset = viewportOffset;
 		}
 
 		private void ChangeArea(Area area, GeoPoint centerPosition)
@@ -326,21 +334,14 @@ namespace bstrkr.mvvm.viewmodels
 			try
 			{
 				MvxTrace.Trace("vehicle locations received, count={0}", args.VehicleLocations.Count);
-
-				lock(_vehicles)
-				{
-					this.Dispatcher.RequestMainThreadAction(() =>
-						_vehicles.Merge(
-							args.VehicleLocations, 
-							vehicleVM => vehicleVM.VehicleId,
-							update => update.Vehicle.Id, 
-							this.CreateVehicleVM,
-							this.UpdateVehicleVM,
-							MergeMode.Update));
-				}
-
 				_messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Finished));
 
+				_viewPortUpdateSubject.OnNext(new VehiclesViewPortUpdate
+				{
+					VehicleUpdates = args.VehicleLocations,
+					VisibleRegion = this.VisibleRegion,
+					Zoom = this.Zoom
+				});
 			} 
 			catch (Exception e)
 			{
@@ -419,7 +420,7 @@ namespace bstrkr.mvvm.viewmodels
 												null, 
 												requestedBy);
 
-			this.CenterMap(_viewportOffset, _selectedRouteStop.Location.Position);
+			this.CenterMap(_selectedRouteStop.Location.Position);
 		}
 
 		private void SelectVehicle(string vehicleId)
@@ -462,7 +463,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
 
-			this.CenterMap(_viewportOffset, _selectedVehicle.Location.Position);
+			this.CenterMap(_selectedVehicle.Location.Position);
 		}
 
 		private void OnZoomChanged(float zoom)
@@ -544,20 +545,9 @@ namespace bstrkr.mvvm.viewmodels
 			this.SetMarkersSelectionState(MapMarkerSelectionStates.NoSelection);
 		}
 
-		private void CenterMap(float viewportOffset, GeoPoint location)
+		private void CenterMap(GeoPoint location)
 		{
-			if (viewportOffset > 0 && viewportOffset < 1)
-			{
-				var dx = (VisibleRegion.NorthEast.Latitude - VisibleRegion.SouthWest.Latitude);
-				var diff = (viewportOffset / 2.0f) * dx;
-				this.MapCenter = new GeoPoint(
-									location.Latitude - diff, 
-									location.Longitude);
-			}
-			else
-			{
-				this.MapCenter = location;
-			}
+			this.MapCenter = location;
 		}
 
 		private void OnVehicleLocationsUpdateStarted(object sender, EventArgs EventArgs)
@@ -625,6 +615,80 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				provider.UpdateVehicleLocationsAsync();
 			};
+		}
+
+		private void UpdateVehiclesInTheViewPort(VehiclesViewPortUpdate update)
+		{
+			MvxTrace.Trace("Updating vehicles in the viewport... ");
+
+			try
+			{
+				foreach (var vehicleUpdate in update.VehicleUpdates) 
+				{
+					if (_allVehicles.ContainsKey(vehicleUpdate.Vehicle.Id))
+					{
+						this.UpdateVehicleVM(_allVehicles[vehicleUpdate.Vehicle.Id], vehicleUpdate);
+					}
+					else
+					{
+						_allVehicles[vehicleUpdate.Vehicle.Id] = this.CreateVehicleVM(vehicleUpdate);
+					}
+				}
+
+				var visibleVehicles = new Dictionary<string, VehicleViewModel>();
+				foreach (var keyValuePair in _allVehicles)
+				{
+					if (update.VisibleRegion.ContainsPoint(keyValuePair.Value.Location.Position))
+					{
+						visibleVehicles.Add(keyValuePair.Key, keyValuePair.Value);
+					}
+				}
+
+				MvxTrace.Trace("{0} visible vehicles, {1} current vehicles are visible", visibleVehicles.Count, this.Vehicles.Count);
+
+				var vehiclesToRemove = new List<VehicleViewModel>();
+				foreach (var vehicle in this.Vehicles)
+				{
+					if (visibleVehicles.ContainsKey(vehicle.VehicleId))
+					{
+						visibleVehicles.Remove(vehicle.VehicleId);
+					}
+					else
+					{
+						vehiclesToRemove.Add(vehicle);
+						visibleVehicles.Remove(vehicle.VehicleId);
+					}
+				}
+
+				this.ViewDispatcher.RequestMainThreadAction(() =>
+				{
+					MvxTrace.Trace("{0} vehicles should be removed, {1} added", vehiclesToRemove.Count, visibleVehicles.Count);
+
+					foreach (var vehicle in vehiclesToRemove)
+					{
+						MvxTrace.Trace("Removing vehicle id = {0}", vehicle.VehicleId);
+						_vehicles.Remove(vehicle);
+					}
+
+					foreach (var vehicle in visibleVehicles.Values)
+					{
+						_vehicles.Add(vehicle);
+					}
+				});
+			} 
+			catch (Exception ex)
+			{
+				Insights.Report(ex, Insights.Severity.Error);
+			}
+		}
+
+		private class VehiclesViewPortUpdate
+		{
+			public IEnumerable<VehicleLocationUpdate> VehicleUpdates { get; set; }
+
+			public GeoRect VisibleRegion { get; set; }
+
+			public float Zoom { get; set; }
 		}
 	}
 }

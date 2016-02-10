@@ -12,6 +12,7 @@ using bstrkr.core.android.extensions;
 using bstrkr.core.consts;
 using bstrkr.core.map;
 using bstrkr.core.services.location;
+using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
@@ -23,7 +24,6 @@ using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 using Xamarin;
-using bstrkr.core.spatial;
 
 namespace bstrkr.android.views
 {
@@ -84,15 +84,6 @@ namespace bstrkr.android.views
 			if (this.MapViewModel != null)
 			{
 				this.MapViewModel.Stop();
-			}
-		}
-
-		public void OnMapViewportChanged(float visibleRegionOffset)
-		{
-			var mapViewModel = this.ViewModel as MapViewModel;
-			if (mapViewModel != null)
-			{
-				mapViewModel.ChangeMapViewportCommand.Execute(visibleRegionOffset);
 			}
 		}
 

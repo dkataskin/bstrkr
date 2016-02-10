@@ -10,7 +10,7 @@ using bstrkr.core.spatial;
 using bstrkr.providers;
 using bstrkr.providers.bus13.data;
 
-using Cirrious.CrossCore.Platform;
+//using Cirrious.CrossCore.Platform;
 
 using Newtonsoft.Json.Linq;
 
@@ -66,7 +66,7 @@ namespace bstrkr.core.providers.bus13
 				{
 					_isRunning = true;
 
-					MvxTrace.Trace(() => "started retrieving routes");
+//					MvxTrace.Trace(() => "started retrieving routes");
 					this.CreateStartTask();
 				}
 			}
@@ -231,7 +231,7 @@ namespace bstrkr.core.providers.bus13
 				var routes = task.Result.ToList();
 				if (routes.Any())
 				{
-					MvxTrace.Trace("{0} routes retrieved", routes.Count);
+//					MvxTrace.Trace("{0} routes retrieved", routes.Count);
 
 					if (_cancellationTokenSource != null)
 					{
@@ -246,7 +246,7 @@ namespace bstrkr.core.providers.bus13
 			}
 			else
 			{
-				MvxTrace.Trace("an exception occured while retrieving routes: {0}", task.Exception);
+//				MvxTrace.Trace("an exception occured while retrieving routes: {0}", task.Exception);
 				Insights.Report(task.Exception, Xamarin.Insights.Severity.Warning);
 
 				Task.Delay(TimeSpan.FromSeconds(5)).Wait();

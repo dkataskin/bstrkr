@@ -64,7 +64,6 @@ namespace bstrkr.android.views
 		private BusTrackerActionBarDrawerToggle _drawerToggle;
 		private MvxListView _drawerList;
 		private MenuSection _currentSection;
-		private IDisposable _slidingSubscription;
 
 		private bool _enableDrawerOnNextNavigation;
 
@@ -230,21 +229,13 @@ namespace bstrkr.android.views
 			panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
 			panel.SlidingEnabled = true;
 
-			_slidingSubscription = Observable.FromEvent<SlidingUpPanelSlideEventArgs>(
-									  ev => panel.PanelSlide += (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args), 
-									  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
-									  .Throttle(TimeSpan.FromMilliseconds(200))
-									  .Subscribe(this.OnPanelSlided);
+//			_slidingSubscription = Observable.FromEvent<SlidingUpPanelSlideEventArgs>(
+//									  ev => panel.PanelSlide += (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args), 
+//									  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
+//									  .Throttle(TimeSpan.FromMilliseconds(200))
+//									  .Subscribe(this.OnPanelSlided);
 
 			this.CloseSlidingPanel();
-		}
-
-		private void OnPanelSlided(SlidingUpPanelSlideEventArgs args)
-		{
-			var map = this.FragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
-			map.OnMapViewportChanged(args.SlideOffset);
-
-			Mvx.Trace("panel slided, offset {0:F2}", args.SlideOffset);
 		}
 
 		public override void OnConfigurationChanged(Configuration newConfig)
