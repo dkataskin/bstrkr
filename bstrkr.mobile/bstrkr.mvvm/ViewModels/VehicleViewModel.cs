@@ -102,6 +102,12 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _isInView, value, () => this.IsInView); }
 		}
 
+		public ReadOnlyObservableCollection<PathSegment> Path 
+		{ 
+			get; 
+			private set; 
+		}
+
 		public void UpdateLocation(VehicleLocationUpdate update)
 		{
 			var animList = new List<PathSegment>();

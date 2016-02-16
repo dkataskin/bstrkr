@@ -16,16 +16,14 @@ namespace bstrkr.core.android.views
 		private readonly object _lockObject = new object();
 		private readonly Queue<PathSegment> _animationQueue = new Queue<PathSegment>();
 		private readonly Marker _marker;
-		private readonly IMapView _mapView;
 
 		private AnimatorSet _animatorSet = new AnimatorSet();
 
 		private LatLng _prevPosition;
 		private int _count;
 
-		public MapMarkerAnimationRunner(IMapView mapView, Marker marker)
+		public MapMarkerAnimationRunner(Marker marker)
 		{
-			_mapView = mapView;
 			_marker = marker;
 		}
 
@@ -125,49 +123,29 @@ namespace bstrkr.core.android.views
 			{
 				if (!_animatorSet.IsRunning)
 				{
-					var visibleRegion = _mapView.VisibleRegion;
-					var latLngBounds = new LatLngBounds(
-						visibleRegion.SouthWest.ToLatLng(),
-						visibleRegion.NorthEast.ToLatLng());
 					GeoLocation targetLocation = GeoLocation.Empty;
 					PathSegment pathSegment = null;
-					var animate = false;
-					var startPositionIsInView = false;
-					var finalPositionIsInView = false;
 
-					while(!animate && _animationQueue.Count > 0)
+					while(_animationQueue.Count > 0)
 					{
 						pathSegment = _animationQueue.Dequeue();
-
-						startPositionIsInView = latLngBounds.Contains(_marker.Position);
-						finalPositionIsInView = latLngBounds.Contains(pathSegment.FinalLocation.ToLatLng());
-
-						animate = startPositionIsInView || finalPositionIsInView;
-
 						targetLocation = pathSegment.FinalLocation;
 					}
 
-					if (animate)
-					{
-						var positionAnimator = ObjectAnimator.OfObject(
-																_marker, 
-																"Position", 
-																new MarkerPositionEvaluator(),
-																pathSegment.FinalLocation.ToLatLng());
+					var positionAnimator = ObjectAnimator.OfObject(
+						_marker, 
+						"Position", 
+						new MarkerPositionEvaluator(),
+						pathSegment.FinalLocation.ToLatLng());
 
-						positionAnimator.AddListener(this);
-						positionAnimator.AddUpdateListener(this);
-						positionAnimator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
+					positionAnimator.AddListener(this);
+					positionAnimator.AddUpdateListener(this);
+					positionAnimator.SetDuration(Convert.ToInt64(pathSegment.Duration.TotalMilliseconds));
 
-						_animatorSet = new AnimatorSet();
-						_animatorSet.AddListener(this);
-						_animatorSet.Play(positionAnimator);
-						_animatorSet.Start();
-					}
-					else if (!GeoLocation.Empty.Equals(targetLocation))
-					{
-						_marker.Position = targetLocation.ToLatLng();
-					}
+					_animatorSet = new AnimatorSet();
+					_animatorSet.AddListener(this);
+					_animatorSet.Play(positionAnimator);
+					_animatorSet.Start();
 				}
 			}
 		}

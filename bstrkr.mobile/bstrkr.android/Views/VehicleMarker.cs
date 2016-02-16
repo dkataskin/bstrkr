@@ -14,6 +14,7 @@ using bstrkr.core.android.extensions;
 using bstrkr.core.android.views;
 using bstrkr.core.spatial;
 using bstrkr.core.utils;
+using bstrkr.mvvm;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
@@ -23,8 +24,10 @@ using Cirrious.CrossCore.Core;
 
 namespace bstrkr.android.views
 {
-	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker
+	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker, ICleanable
 	{
+		private readonly object _lockObject = new object();
+
 		private MapMarkerAnimationRunner _animationRunner;
 
 		public VehicleMarker(VehicleViewModel vehicleVM)
@@ -46,6 +49,15 @@ namespace bstrkr.android.views
 				.Flat(true)
 				.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
 				.SetRotation(Convert.ToSingle(this.ViewModel.Location.Heading));
+		}
+
+		public void CleanUp()
+		{
+			lock(_lockObject)
+			{
+				_animationRunner.StopAllAnimations();
+				_animationRunner.PositionValueUpdated -= this.OnPositionValueUpdated;
+			}
 		}
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -74,25 +86,33 @@ namespace bstrkr.android.views
 
 		private void OnPathUpdated(object sender, VehiclePathUpdatedEventArgs args)
 		{
-			if (_animationRunner == null && this.Marker == null)
+			lock(_lockObject)
 			{
-				return;
-			}
+				if (_animationRunner == null && this.Marker == null)
+				{
+					return;
+				}
 
-			if (_animationRunner == null)
-			{
-				_animationRunner = new MapMarkerAnimationRunner(this.MapView, this.Marker);
-				_animationRunner.PositionValueUpdated += (s, a) => this.ViewModel.LocationAnimated = (GeoPoint)a.Value;
-			}
+				if (_animationRunner == null)
+				{
+					_animationRunner = new MapMarkerAnimationRunner(this.MapView, this.Marker);
+					_animationRunner.PositionValueUpdated += this.OnPositionValueUpdated;
+				}
 
-			if (this.ViewModel.AnimateMovement)
-			{
-				_animationRunner.QueueAnimation(args.PathSegments);
+				if (this.ViewModel.AnimateMovement)
+				{
+					_animationRunner.QueueAnimation(args.PathSegments);
+				}
+				else
+				{
+					_animationRunner.StopAllAnimations();
+				}
 			}
-			else
-			{
-				_animationRunner.StopAllAnimations();
-			}
+		}
+
+		private void OnPositionValueUpdated(object sender, AnimationValueUpdatedEventArgs a)
+		{
+			this.ViewModel.LocationAnimated = (GeoPoint)a.Value;
 		}
 	}
 }

@@ -666,12 +666,13 @@ namespace bstrkr.mvvm.viewmodels
 
 					foreach (var vehicle in vehiclesToRemove)
 					{
-						MvxTrace.Trace("Removing vehicle id = {0}", vehicle.VehicleId);
+						vehicle.IsInView = false;
 						_vehicles.Remove(vehicle);
 					}
 
 					foreach (var vehicle in visibleVehicles.Values)
 					{
+						vehicle.IsInView = true;
 						_vehicles.Add(vehicle);
 					}
 				});
