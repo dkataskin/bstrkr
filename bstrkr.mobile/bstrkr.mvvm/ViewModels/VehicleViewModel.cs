@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Threading.Tasks;
 
 using bstrkr.core;
@@ -32,6 +33,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
+			_pathReadOnly = new ReadOnlyObservableCollection<PathSegment>(_path);
 			this.AnimateMovement = Settings.AnimateMarkers;
 		}
 
@@ -156,6 +158,8 @@ namespace bstrkr.mvvm.viewmodels
 
 			_lastUpdate = update.LastUpdated.Ticks;
 			this.SetLocation(update.Vehicle.Location);
+
+			this.ScheduleAnimation();
 		}
 
 		public override string ToString()
@@ -175,6 +179,35 @@ namespace bstrkr.mvvm.viewmodels
 				this.Model.Location = location;
 				this.RaisePropertyChanged(() => this.Location);
 			}
+		}
+
+		private void ScheduleAnimation()
+		{
+			lock(_animationLockObject)
+			{
+				if (this.Path.Count > 0)
+				{
+					var segment = this.Path.First();
+					if (this.IsInView)
+					{
+					}
+					else
+					{
+						Scheduler.Default.Schedule(segment.Duration, () => this.AnimateSegment(segment));
+					}
+				}
+			}
+		}
+
+		private void AnimateSegment(PathSegment segment)
+		{
+			lock(_animationLockObject)
+			{
+				this.LocationAnimated = segment.FinalLocation.Position;
+				_path.Remove(segment);
+			}
+
+			this.ScheduleAnimation();
 		}
 	}
 }

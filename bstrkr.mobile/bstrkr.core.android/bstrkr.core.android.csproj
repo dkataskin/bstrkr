@@ -120,6 +120,7 @@
     <Compile Include="Views\AnimationValueUpdatedEventArgs.cs" />
     <Compile Include="Views\MvxAppCompatEventSourceActivity.cs" />
     <Compile Include="Views\MvxAppCompatAcitivity.cs" />
+    <Compile Include="Services\Animation\TimerAnimationRunner.cs" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
@@ -133,6 +134,7 @@
     <Folder Include="Views\" />
     <Folder Include="Views\Adapters\" />
     <Folder Include="Presenters\" />
+    <Folder Include="Services\Animation\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
