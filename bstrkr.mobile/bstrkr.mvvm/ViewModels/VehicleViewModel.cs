@@ -18,6 +18,13 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
 	{
+		private const float SegmentTravelTime = 15.0f;
+
+		private readonly object _animationLockObject = new object();
+
+		private readonly ObservableCollection<PathSegment> _path;
+		private readonly ReadOnlyObservableCollection<PathSegment> _pathReadOnly;
+
 		private long _lastUpdate = 0;
 		private GeoPoint _positionAnimation;
 		private bool _animateMovement;
@@ -27,8 +34,6 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			this.AnimateMovement = Settings.AnimateMarkers;
 		}
-
-		public event EventHandler<VehiclePathUpdatedEventArgs> PathUpdated;
 
 		public override Vehicle Model
 		{
@@ -102,57 +107,50 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _isInView, value, () => this.IsInView); }
 		}
 
-		public ReadOnlyObservableCollection<PathSegment> Path 
-		{ 
-			get; 
-			private set; 
-		}
+		public ReadOnlyObservableCollection<PathSegment> Path { get { return _pathReadOnly; } }
 
-		public void UpdateLocation(VehicleLocationUpdate update)
+		public void Update(VehicleLocationUpdate update)
 		{
-			var animList = new List<PathSegment>();
-			if (_lastUpdate > 0)
+			lock(_animationLockObject)
 			{
-				var totalTime = 15.0f;
-
-				if (update.Waypoints != null && update.Waypoints.Waypoints.Any())
+				if (_lastUpdate > 0)
 				{
-					animList.Add(
-						new PathSegment 
-					{
-						Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[0].Fraction * totalTime),
-						StartLocation = this.Location,
-						FinalLocation = update.Waypoints.Waypoints[0].Location
-					});
+					var totalTime = SegmentTravelTime;
 
-					for (int i = 0; i < update.Waypoints.Waypoints.Count - 1; i++)
+					if (update.Waypoints != null && update.Waypoints.Waypoints.Any())
 					{
-						animList.Add(
-							new PathSegment 
-						{
-							Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[i + 1].Fraction * totalTime),
-							StartLocation = update.Waypoints.Waypoints[i].Location,
-							FinalLocation = update.Waypoints.Waypoints[i + 1].Location
-						});
-					};
-				}
-				else
-				{
-					if (!this.Location.Equals(GeoLocation.Empty))
-					{
-						animList.Add(
+						_path.Add(
 							new PathSegment 
 							{
-								Duration = TimeSpan.FromSeconds(totalTime),
+								Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[0].Fraction * totalTime),
 								StartLocation = this.Location,
-								FinalLocation = update.Vehicle.Location
+								FinalLocation = update.Waypoints.Waypoints[0].Location
 							});
-					}
-				}
 
-				if (animList.Any())
-				{
-					this.RaisePathUpdatedEvent(animList);
+						for (int i = 0; i < update.Waypoints.Waypoints.Count - 1; i++)
+						{
+							_path.Add(
+								new PathSegment 
+								{
+									Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[i + 1].Fraction * totalTime),
+									StartLocation = update.Waypoints.Waypoints[i].Location,
+									FinalLocation = update.Waypoints.Waypoints[i + 1].Location
+								});
+						};
+					}
+					else
+					{
+						if (!this.Location.Equals(GeoLocation.Empty))
+						{
+							_path.Add(
+								new PathSegment 
+								{
+									Duration = TimeSpan.FromSeconds(totalTime),
+									StartLocation = this.Location,
+									FinalLocation = update.Vehicle.Location
+								});
+						}
+					}
 				}
 			}
 
@@ -176,14 +174,6 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				this.Model.Location = location;
 				this.RaisePropertyChanged(() => this.Location);
-			}
-		}
-
-		private void RaisePathUpdatedEvent(IList<PathSegment> pathSegments)
-		{
-			if (this.PathUpdated != null)
-			{
-				this.PathUpdated(this, new VehiclePathUpdatedEventArgs { PathSegments = pathSegments });
 			}
 		}
 	}

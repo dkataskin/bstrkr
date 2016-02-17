@@ -139,6 +139,11 @@ namespace bstrkr.mvvm.maps
 			var marker = _markers[item];
 			_mapView.RemoveMarker(marker);
 
+			if (marker is ICleanable)
+			{
+				(marker as ICleanable).CleanUp();
+			}
+
 			_markers.Remove(item);
 		}
 

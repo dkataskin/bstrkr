@@ -380,7 +380,7 @@ namespace bstrkr.mvvm.viewmodels
 		private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
 		{
 			vehicleVM.AnimateMovement = this.GetAnimateMarkerMovementFlag(this.Zoom);
-			vehicleVM.UpdateLocation(locationUpdate);
+			vehicleVM.Update(locationUpdate);
 		}
 
 		private void SelectRouteStop(string routeStopId)
