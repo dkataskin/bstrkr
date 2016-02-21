@@ -26,6 +26,9 @@ namespace bstrkr.android.views
 {
 	public class VehicleMarker : GoogleMapsMarkerBase, IVehicleMarker, ICleanable
 	{
+		private const string VehicleMarkerKey = "vehicle";
+		private const string TitleMarkerKey = "title";
+
 		private readonly object _lockObject = new object();
 
 //		private MapMarkerAnimationRunner _animationRunner;
@@ -38,16 +41,32 @@ namespace bstrkr.android.views
 
 		public VehicleViewModel ViewModel { get; private set; }
 
-		public override MarkerOptions GetOptions()
+		public override IList<MarkerOptions> GetOptions()
 		{
-			return new MarkerOptions()
-				.Anchor(0.5f, 0.5f)
-				.SetPosition(this.ViewModel.Location.ToLatLng())
-				.SetTitle(this.ViewModel.RouteNumber)
-				.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
-				.Flat(true)
-				.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
-				.SetRotation(Convert.ToSingle(this.ViewModel.Location.Heading));
+			return new Dictionary<string, MarkerOptions>
+			{
+				{ 
+					VehicleMarkerKey, 
+					new MarkerOptions()
+						.Anchor(0.5f, 0.5f)
+						.SetPosition(this.ViewModel.Location.ToLatLng())
+						.SetTitle(this.ViewModel.RouteNumber)
+						.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
+						.Flat(true)
+						.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
+						.SetRotation(Convert.ToSingle(this.ViewModel.Location.Heading)) 
+				},
+				{ 
+					TitleMarkerKey, 
+					new MarkerOptions()
+						.Anchor(0.0f, 0.5f)
+						.SetPosition(this.ViewModel.Location.ToLatLng())
+						.SetTitle(this.ViewModel.RouteNumber)
+						.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
+						.Flat(false)
+						.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
+				}
+			};
 		}
 
 		public void CleanUp()
@@ -61,25 +80,31 @@ namespace bstrkr.android.views
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
-			if (this.Marker == null)
+			if (!this.Markers.Any())
 			{
 				return;
 			}
 
 			if (args.PropertyName.Equals("Location") && (!this.ViewModel.AnimateMovement || GeoPoint.Empty.Equals(this.Location)))
 			{
-				this.Marker.Position = this.ViewModel.Location.ToLatLng();
-				this.Marker.Rotation = this.ViewModel.Location.Heading;
+				foreach (var marker in this.Markers.Values)
+				{
+					marker.Position = this.ViewModel.Location.ToLatLng();
+					marker.Rotation = this.ViewModel.Location.Heading;
+				}
 			}
 
-			if (args.PropertyName.Equals("Icon"))
-			{
-				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
-			}
+//			if (args.PropertyName.Equals("Icon"))
+//			{
+//				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
+//			}
 
 			if (args.PropertyName.Equals("SelectionState"))
 			{
-				this.Marker.Alpha = this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState);
+				foreach (var marker in this.Markers.Values)
+				{
+					marker.Alpha = this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState);
+				}
 			}
 		}
 

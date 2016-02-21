@@ -40,8 +40,6 @@
     <Compile Include="Views\IMapMarker.cs" />
     <Compile Include="Maps\MapMarkerManager.cs" />
     <Compile Include="Maps\IMapMarkerManager.cs" />
-    <Compile Include="Views\IBusStopMarker.cs" />
-    <Compile Include="ViewModels\MapMarkerViewModelBase.cs" />
     <Compile Include="Views\IRouteStopMarker.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\MenuSection.cs" />
@@ -98,6 +96,12 @@
     <Compile Include="Navigation\RouteListNavParam.cs" />
     <Compile Include="Navigation\RouteListItem.cs" />
     <Compile Include="Maps\IMarkerLocationAnimationRunner.cs" />
+    <Compile Include="ViewModels\MapMarkerCompositeViewModelBase.cs" />
+    <Compile Include="ViewModels\MapMarkerViewModel.cs" />
+    <Compile Include="GoogleMapsMarkerBase.cs" />
+    <Compile Include="Consts.cs" />
+    <Compile Include="ViewModels\RouteStopMapMarkerViewModel.cs" />
+    <Compile Include="ViewModels\VehicleMapMarkerViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

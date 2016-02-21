@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using bstrkr.core;
 using bstrkr.core.map;
@@ -9,21 +10,28 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteStopMapViewModel : MapMarkerViewModelBase<RouteStop>
+	public class RouteStopMapViewModel : MapMarkerCompositeViewModelBase<RouteStop>
 	{
-		public RouteStopMapViewModel(IAppResourceManager resourceManager) : base(resourceManager)
-		{
-		}
-
 		public override GeoLocation Location
 		{
 			get { return this.Model == null ? GeoLocation.Empty : this.Model.Location; }
 			set	{ }
 		}
 
-		protected override object GetIcon()
+//		protected override object GetIcon()
+//		{
+//			return _resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
+//		}
+
+		protected override IEnumerable<MapMarkerViewModel> GetMapMarkerViewModels(RouteStop model)
 		{
-			return _resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
+			return new[]
+			{
+				new MapMarkerViewModel
+				{
+					
+				}
+			}
 		}
 	}
 }

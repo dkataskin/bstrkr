@@ -17,7 +17,7 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class VehicleViewModel : MapMarkerViewModelBase<Vehicle>
+	public class VehicleViewModel : MapMarkerCompositeViewModelBase<Vehicle>
 	{
 		private const float SegmentTravelTime = 15.0f;
 
@@ -35,28 +35,6 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_pathReadOnly = new ReadOnlyObservableCollection<PathSegment>(_path);
 			this.AnimateMovement = Settings.AnimateMarkers;
-		}
-
-		public override Vehicle Model
-		{
-			get 
-			{
-				return base.Model;
-			}
-
-			set
-			{
-				if (base.Model != value)
-				{
-					base.Model = value;
-
-					this.RaisePropertyChanged(() => this.VehicleId);
-					this.RaisePropertyChanged(() => this.VehicleType);
-					this.RaisePropertyChanged(() => this.CarPlate);
-					this.RaisePropertyChanged(() => this.Location);
-					this.RaisePropertyChanged(() => this.Icon);
-				}
-			}
 		}
 
 		public string VehicleId
@@ -162,15 +140,30 @@ namespace bstrkr.mvvm.viewmodels
 			this.ScheduleAnimation();
 		}
 
+		public override void Setup(Vehicle model)
+		{
+			base.Setup(model);
+
+			this.RaisePropertyChanged(() => this.VehicleId);
+			this.RaisePropertyChanged(() => this.VehicleType);
+			this.RaisePropertyChanged(() => this.CarPlate);
+			this.RaisePropertyChanged(() => this.Location);
+		}
+
+		protected override IEnumerable<MapMarkerViewModel> GetMapMarkerViewModels(Vehicle model)
+		{
+			return null;
+		}
+
 		public override string ToString()
 		{
 			return string.Format("[VehicleVM: Id={0}, Type={1}, CarPlate={2}, RouteNumber={3}, Location={4}]", VehicleId, VehicleType, CarPlate, RouteNumber, Location);
 		}
 
-		protected override object GetIcon()
-		{
-			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize, this.IsSelected);
-		}
+//		protected override object GetIcon()
+//		{
+//			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize, this.IsSelected);
+//		}
 
 		private void SetLocation(GeoLocation location)
 		{

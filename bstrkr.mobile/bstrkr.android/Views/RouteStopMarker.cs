@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 using Android.Gms.Maps.Model;
@@ -9,7 +10,7 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.android.views
 {
-	public class RouteStopMarker : GoogleMapsMarkerBase, IRouteStopMarker
+	public class RouteStopMarker : GoogleMapsSimpleMarkerBase, IRouteStopMarker
 	{
 		public RouteStopMarker(RouteStopMapViewModel routeStopVM)
 		{
@@ -19,15 +20,14 @@ namespace bstrkr.android.views
 
 		public RouteStopMapViewModel ViewModel { get; private set; }
 
-		public override MarkerOptions GetOptions()
+		public override MarkerOptions GetSingleMarkerOptions()
 		{
-			return new MarkerOptions()
-				.Anchor(0.5f, 0.5f)
-				.SetPosition(this.ViewModel.Location.ToLatLng())
-				.SetTitle(this.ViewModel.Model.Name)
-				.SetSnippet(this.ViewModel.Model.Description)
-				.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
-				.Flat(false);
+			return new MarkerOptions().Anchor(0.5f, 0.5f)
+									  .SetPosition(this.ViewModel.Location.ToLatLng())
+								      .SetTitle(this.ViewModel.Model.Name)
+									  .SetSnippet(this.ViewModel.Model.Description)
+									  .SetIcon(this.ViewModel.Icon as BitmapDescriptor)
+									  .Flat(false);
 		}
 
 		private void OnVMPropertyChanged(object sender, PropertyChangedEventArgs args)

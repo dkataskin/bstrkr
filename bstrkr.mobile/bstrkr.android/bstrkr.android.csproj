@@ -229,6 +229,7 @@
     <Compile Include="Views\ScrollChildSwipeRefreshLayout.cs" />
     <Compile Include="Views\MvxSwipeRefreshLayout.cs" />
     <Compile Include="Views\SetRouteView.cs" />
+    <Compile Include="Views\GoogleMapsSimpleMarkerBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

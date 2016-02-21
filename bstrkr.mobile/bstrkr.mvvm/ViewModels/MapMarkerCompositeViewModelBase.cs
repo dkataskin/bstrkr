@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using bstrkr.core.map;
 using bstrkr.core.services.resources;
@@ -9,31 +10,28 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public abstract class MapMarkerViewModelBase<T> : MvxViewModel where T : class
+	public abstract class MapMarkerCompositeViewModelBase<TModel> : MvxViewModel where TModel : class
 	{
-		protected IAppResourceManager _resourceManager;
+		private readonly ObservableCollection<MapMarkerViewModel> _markers = new ObservableCollection<MapMarkerViewModel>();
+		private readonly ReadOnlyObservableCollection<MapMarkerViewModel> _markersReadOnly;
 
 		private MapMarkerSizes _markerSize;
-		private object _icon;
+
 		private GeoLocation _location;
 		private bool _isVisible = true;
 		private bool _isSelected = false;
 		private MapMarkerSelectionStates _selectionState = MapMarkerSelectionStates.NoSelection;
 
-		private T _model;
+		private TModel _model;
 
-		public MapMarkerViewModelBase(IAppResourceManager resourceManager)
+		public MapMarkerCompositeViewModelBase()
 		{
-			_resourceManager = resourceManager;
-			this.Icon = this.GetIcon();
+			_markersReadOnly = new ReadOnlyObservableCollection<MapMarkerViewModel>(_markers);
 		}
 
 		public virtual MapMarkerSizes MarkerSize
 		{
-			get 
-			{
-				return _markerSize;
-			}
+			get { return _markerSize; }
 
 			set
 			{
@@ -41,11 +39,6 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_markerSize = value;
 					this.RaisePropertyChanged(() => this.MarkerSize);
-					this.Icon = this.GetIcon();
-				}
-				else if (this.Icon == null)
-				{
-					this.Icon = this.GetIcon();
 				}
 			}
 		}
@@ -67,16 +60,10 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		public virtual T Model
+		public virtual TModel Model
 		{
 			get { return _model; }
-			set { this.RaiseAndSetIfChanged(ref _model, value, () => this.Model); }
-		}
-
-		public virtual object Icon
-		{
-			get { return _icon; }
-			private set { this.RaiseAndSetIfChanged(ref _icon, value, () => this.Icon); }
+			private set { this.RaiseAndSetIfChanged(ref _model, value, () => this.Model); }
 		}
 
 		public virtual bool IsVisible
@@ -108,11 +95,22 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_isSelected = value;
 					this.RaisePropertyChanged(() => this.IsSelected);
-					this.Icon = this.GetIcon();
 				}
 			}
 		}
 
-		protected abstract object GetIcon();
+		public ReadOnlyObservableCollection<MapMarkerViewModel> Markers { get { return _markersReadOnly; }}
+
+		public virtual void Setup(TModel model)
+		{
+			foreach (var marker in this.GetMapMarkerViewModels(model))
+			{
+				_markers.Add(marker);
+			}
+
+			this.Model = model;
+		}
+
+		protected abstract IEnumerable<MapMarkerViewModel> GetMapMarkerViewModels(TModel model);
 	}
 }
