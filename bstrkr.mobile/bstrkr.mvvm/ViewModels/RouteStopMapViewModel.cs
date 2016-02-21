@@ -7,6 +7,7 @@ using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
 
 using Cirrious.MvvmCross.ViewModels;
+using Cirrious.CrossCore;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -18,20 +19,9 @@ namespace bstrkr.mvvm.viewmodels
 			set	{ }
 		}
 
-//		protected override object GetIcon()
-//		{
-//			return _resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
-//		}
-
 		protected override IEnumerable<MapMarkerViewModel> GetMapMarkerViewModels(RouteStop model)
 		{
-			return new[]
-			{
-				new MapMarkerViewModel
-				{
-					
-				}
-			}
+			return new[] { Mvx.Resolve<RouteStopMapMarkerViewModel>() };
 		}
 	}
 }

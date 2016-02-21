@@ -98,10 +98,10 @@
     <Compile Include="Maps\IMarkerLocationAnimationRunner.cs" />
     <Compile Include="ViewModels\MapMarkerCompositeViewModelBase.cs" />
     <Compile Include="ViewModels\MapMarkerViewModel.cs" />
-    <Compile Include="GoogleMapsMarkerBase.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="ViewModels\RouteStopMapMarkerViewModel.cs" />
     <Compile Include="ViewModels\VehicleMapMarkerViewModel.cs" />
+    <Compile Include="ViewModels\VehicleTitleMapMarkerViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

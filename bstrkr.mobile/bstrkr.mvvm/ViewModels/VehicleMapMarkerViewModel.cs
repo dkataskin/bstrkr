@@ -1,27 +1,23 @@
 ﻿using System;
 
+using bstrkr.core.services.resources;
+using bstrkr.core;
+
 namespace bstrkr.mvvm.viewmodels
 {
 	public class VehicleMapMarkerViewModel : MapMarkerViewModel
 	{
-		public VehicleMapMarkerViewModel()
+		public VehicleMapMarkerViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
 		}
 
-		#region implemented abstract members of MapMarkerViewModel
+		public VehicleTypes Type { get; set; }
 
-		protected override object GetIcon()
+		protected override object GetIcon(IAppResourceManager resourceManager)
 		{
-			throw new NotImplementedException();
+			return resourceManager.GetVehicleMarker(this.Type, this.Size, this.IsSelected);
 		}
 
-		public override string Key {
-			get {
-				throw new NotImplementedException();
-			}
-		}
-
-		#endregion
+		public override string Key { get { return Consts.VehicleMarkerKey; } }
 	}
 }
-

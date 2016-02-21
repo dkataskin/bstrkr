@@ -14,6 +14,7 @@ using bstrkr.mvvm.maps;
 using bstrkr.mvvm.views;
 
 using Cirrious.MvvmCross.ViewModels;
+using Cirrious.CrossCore;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -31,7 +32,7 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _animateMovement;
 		private bool _isInView;
 
-		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
+		public VehicleViewModel()
 		{
 			_pathReadOnly = new ReadOnlyObservableCollection<PathSegment>(_path);
 			this.AnimateMovement = Settings.AnimateMarkers;
@@ -152,18 +153,26 @@ namespace bstrkr.mvvm.viewmodels
 
 		protected override IEnumerable<MapMarkerViewModel> GetMapMarkerViewModels(Vehicle model)
 		{
-			return null;
+			var vehicleMarkerVM = Mvx.Resolve<VehicleMapMarkerViewModel>();
+			vehicleMarkerVM.Type = model.Type;
+			vehicleMarkerVM.Size = this.MarkerSize;
+			vehicleMarkerVM.IsVisible = this.IsVisible;
+			vehicleMarkerVM.Setup();
+
+			var vehicleTitleMarkerVM = Mvx.Resolve<VehicleTitleMapMarkerViewModel>();
+			vehicleTitleMarkerVM.Type = model.Type;
+			vehicleTitleMarkerVM.RouteNumber = model.RouteInfo.DisplayName;
+			vehicleTitleMarkerVM.Size = this.MarkerSize;
+			vehicleTitleMarkerVM.IsVisible = this.IsVisible;
+			vehicleTitleMarkerVM.Setup();
+
+			return new MapMarkerViewModel[] { vehicleMarkerVM, vehicleTitleMarkerVM };
 		}
 
 		public override string ToString()
 		{
 			return string.Format("[VehicleVM: Id={0}, Type={1}, CarPlate={2}, RouteNumber={3}, Location={4}]", VehicleId, VehicleType, CarPlate, RouteNumber, Location);
 		}
-
-//		protected override object GetIcon()
-//		{
-//			return this.Model == null ? null : _resourceManager.GetVehicleMarker(this.Model.Type, this.MarkerSize, this.IsSelected);
-//		}
 
 		private void SetLocation(GeoLocation location)
 		{

@@ -20,7 +20,6 @@ namespace bstrkr.mvvm.viewmodels
 		public MapMarkerViewModel(IAppResourceManager resourceManager)
 		{
 			_resourceManager = resourceManager;
-			this.Icon = this.GetIcon(_resourceManager);
 		}
 
 		public virtual object Icon
@@ -86,6 +85,11 @@ namespace bstrkr.mvvm.viewmodels
 		}
 
 		public abstract string Key { get; }
+
+		public virtual void Setup()
+		{
+			this.Icon = this.GetIcon(_resourceManager);
+		}
 
 		protected abstract object GetIcon(IAppResourceManager resourceManager);
 	}
