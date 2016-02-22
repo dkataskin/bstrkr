@@ -1,46 +1,46 @@
 ﻿using System;
+using System.Collections.Generic;
 
+using bstrkr.core.map;
 using bstrkr.core.services.resources;
+using bstrkr.core.spatial;
 
 using Cirrious.MvvmCross.ViewModels;
-using bstrkr.core.map;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public abstract class MapMarkerViewModel : MvxViewModel
+	public abstract class MapMarkerViewModelBase<T> : MvxViewModel where T : class
 	{
-		private readonly IAppResourceManager _resourceManager;
+		protected IAppResourceManager _resourceManager;
 
+		private MapMarkerSizes _markerSize;
 		private object _icon;
-		private MapMarkerSizes _size;
+		private GeoLocation _location;
 		private bool _isVisible = true;
 		private bool _isSelected = false;
 		private MapMarkerSelectionStates _selectionState = MapMarkerSelectionStates.NoSelection;
 
-		public MapMarkerViewModel(IAppResourceManager resourceManager)
+		private T _model;
+
+		public MapMarkerViewModelBase(IAppResourceManager resourceManager)
 		{
 			_resourceManager = resourceManager;
+			this.Icon = this.GetIcon(resourceManager);
 		}
 
-		public virtual object Icon
-		{
-			get { return _icon; }
-			private set { this.RaiseAndSetIfChanged(ref _icon, value, () => this.Icon); }
-		}
-
-		public virtual MapMarkerSizes Size
+		public virtual MapMarkerSizes MarkerSize
 		{
 			get 
 			{
-				return _size;
+				return _markerSize;
 			}
 
 			set
 			{
-				if (_size != value)
+				if (_markerSize != value)
 				{
-					_size = value;
-					this.RaisePropertyChanged(() => this.Size);
+					_markerSize = value;
+					this.RaisePropertyChanged(() => this.MarkerSize);
 					this.Icon = this.GetIcon(_resourceManager);
 				}
 				else if (this.Icon == null)
@@ -48,6 +48,35 @@ namespace bstrkr.mvvm.viewmodels
 					this.Icon = this.GetIcon(_resourceManager);
 				}
 			}
+		}
+
+		public virtual GeoLocation Location
+		{
+			get 
+			{ 
+				return _location;
+			}
+
+			set
+			{
+				if (!GeoLocation.Equals(_location, value))
+				{
+					_location = value;
+					this.RaisePropertyChanged(() => this.Location);
+				}
+			}
+		}
+
+		public virtual T Model
+		{
+			get { return _model; }
+			set { this.RaiseAndSetIfChanged(ref _model, value, () => this.Model); }
+		}
+
+		public virtual object Icon
+		{
+			get { return _icon; }
+			private set { this.RaiseAndSetIfChanged(ref _icon, value, () => this.Icon); }
 		}
 
 		public virtual bool IsVisible
@@ -82,13 +111,6 @@ namespace bstrkr.mvvm.viewmodels
 					this.Icon = this.GetIcon(_resourceManager);
 				}
 			}
-		}
-
-		public abstract string Key { get; }
-
-		public virtual void Setup()
-		{
-			this.Icon = this.GetIcon(_resourceManager);
 		}
 
 		protected abstract object GetIcon(IAppResourceManager resourceManager);
