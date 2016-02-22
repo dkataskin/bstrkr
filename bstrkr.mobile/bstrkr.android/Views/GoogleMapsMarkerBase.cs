@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
 using System.Linq;
 
 using Android.Gms.Maps.Model;
@@ -9,15 +11,20 @@ using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
-using System.Collections.Concurrent;
 
 namespace bstrkr.android.views
 {
 	public abstract class GoogleMapsMarkerBase : IMapMarker
 	{
 		private readonly ConcurrentDictionary<string, Marker> _markers = new ConcurrentDictionary<string, Marker>();
+		private readonly ReadOnlyDictionary<string, Marker> _markersReadOnly;
 
-		public virtual IReadOnlyDictionary<string, Marker> Markers { get { return _markers; } }
+		public GoogleMapsMarkerBase()
+		{
+			_markersReadOnly = new ReadOnlyDictionary<string, Marker>(_markers);
+		}
+
+		public IReadOnlyDictionary<string, Marker> Markers { get { return _markersReadOnly; } }
 
 		public virtual IMapView MapView { get; set; }
 

@@ -10,7 +10,7 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.android.views
 {
-	public class RouteStopMarker : GoogleMapsSimpleMarkerBase, IRouteStopMarker
+	public class RouteStopMarker : GoogleMapsSimpleMarkerBase
 	{
 		public RouteStopMarker(RouteStopMapViewModel routeStopVM)
 		{

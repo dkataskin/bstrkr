@@ -41,7 +41,7 @@ namespace bstrkr.android.views
 
 		public VehicleViewModel ViewModel { get; private set; }
 
-		public override IList<MarkerOptions> GetOptions()
+		public override IDictionary<string, MarkerOptions> GetOptions()
 		{
 			return new Dictionary<string, MarkerOptions>
 			{
