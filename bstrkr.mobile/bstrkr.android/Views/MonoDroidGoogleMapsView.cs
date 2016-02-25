@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using System.Linq;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 
@@ -74,20 +75,33 @@ namespace bstrkr.android.views
 			var markerBase = marker as GoogleMapsMarkerBase;
 			marker.MapView = this;
 
-			markerBase.Marker = _map.AddMarker(markerBase.GetOptions());
-			_markers[markerBase.Marker.Id] = marker;
+			foreach (var keyValuePair in markerBase.GetOptions())
+			{
+				markerBase.AttachMarker(keyValuePair.Key, _map.AddMarker(keyValuePair.Value));
+			}
+
+			foreach (var mapMarker in markerBase.Markers)
+			{
+				_markers[mapMarker.Value.Id] = marker;
+			}
 		}
 
 		public void RemoveMarker(IMapMarker marker)
 		{
 			marker.MapView = null;
 			var markerBase = marker as GoogleMapsMarkerBase;
-			if (_markers.ContainsKey(markerBase.Marker.Id))
-			{
-				_markers.Remove(markerBase.Marker.Id);
-			}
 
-			markerBase.Marker.Remove();
+			foreach (var markerKey in markerBase.Markers.Keys.ToList())
+			{
+				var mapId = markerBase.Markers[markerKey].Id;
+				if (_markers.ContainsKey(mapId))
+				{
+					_markers.Remove(mapId);
+				}
+
+				markerBase.Markers[markerKey].Remove();
+				markerBase.DetachMarker(markerKey);
+			}
 		}
 
 		private void OnCameraChange(object sender, GoogleMap.CameraChangeEventArgs args)

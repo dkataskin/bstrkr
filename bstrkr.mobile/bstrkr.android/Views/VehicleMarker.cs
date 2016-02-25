@@ -62,7 +62,7 @@ namespace bstrkr.android.views
 						.Anchor(0.0f, 0.5f)
 						.SetPosition(this.ViewModel.Location.ToLatLng())
 						.SetTitle(this.ViewModel.RouteNumber)
-						.SetIcon(this.ViewModel.Icon as BitmapDescriptor)
+						.SetIcon(this.ViewModel.TitleIcon as BitmapDescriptor)
 						.Flat(false)
 						.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
 				}

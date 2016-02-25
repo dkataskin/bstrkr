@@ -1,18 +1,17 @@
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
-
 using System.Threading;
 
 using Android.Content;
 
+using bstrkr.android.services.resources;
 using bstrkr.android.views;
 using bstrkr.core;
 using bstrkr.core.android.config;
 using bstrkr.core.android.presenters;
 using bstrkr.core.android.services;
 using bstrkr.core.android.services.location;
-using bstrkr.core.android.services.resources;
 using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.core.services.resources;

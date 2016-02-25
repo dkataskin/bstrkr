@@ -14,9 +14,7 @@ namespace bstrkr.android.views
 {
 	public abstract class GoogleMapsSimpleMarkerBase : GoogleMapsMarkerBase
 	{
-		private Marker _marker;
-
-		public Marker Marker { get { return _marker; } }
+		public Marker Marker { get; private set; }
 
 		public abstract MarkerOptions GetSingleMarkerOptions();
 
@@ -26,6 +24,18 @@ namespace bstrkr.android.views
 			{ 
 				{ "main", this.GetSingleMarkerOptions() }
 			};
+		}
+
+		public override void AttachMarker(string key, Marker marker)
+		{
+			base.AttachMarker(key, marker);
+			this.Marker = marker;
+		}
+
+		public override void DetachMarker(string key)
+		{
+			base.DetachMarker(key);
+			this.Marker = null;
 		}
 	}
 }

@@ -33,7 +33,12 @@ namespace bstrkr.android.views
 			get 
 			{
 				var marker = _markers.Values.FirstOrDefault();
-				marker == null ? GeoPoint.Empty : marker.Position.ToGeoPoint();
+				if (marker == null)
+				{
+					return GeoPoint.Empty;
+				}
+
+				return marker.Position.ToGeoPoint();
 			}
 
 			set
@@ -46,6 +51,37 @@ namespace bstrkr.android.views
 		}
 
 		public abstract IDictionary<string, MarkerOptions> GetOptions();
+
+		public virtual void AttachMarker(string key, Marker marker)
+		{
+			if (string.IsNullOrEmpty(key))
+			{
+				throw new ArgumentException("Key must not be null or empty.", "key");
+			}
+
+			if (_markers.ContainsKey(key))
+			{
+				throw new Exception("Marker with specified key has already been attached.");
+			}
+
+			_markers.AddOrUpdate(key, marker, (key1, oldValue) => oldValue);
+		}
+
+		public virtual void DetachMarker(string key)
+		{
+			if (string.IsNullOrEmpty(key))
+			{
+				throw new ArgumentException("Key must not be null or empty.", "key");
+			}
+
+			if (_markers.ContainsKey(key))
+			{
+				throw new Exception("Marker with specified key has not been attached.");
+			}
+
+			Marker marker;
+			_markers.TryRemove(key, out marker);
+		}
 
 		protected float ConvertSelectionStateToAlpha(MapMarkerSelectionStates selectionState)
 		{

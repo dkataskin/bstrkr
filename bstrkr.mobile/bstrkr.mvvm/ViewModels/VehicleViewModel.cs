@@ -27,12 +27,13 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly ObservableCollection<PathSegment> _path;
 		private readonly ReadOnlyObservableCollection<PathSegment> _pathReadOnly;
 
+		private object _titleIcon;
 		private long _lastUpdate = 0;
 		private GeoPoint _positionAnimation;
 		private bool _animateMovement;
 		private bool _isInView;
 
-		public VehicleViewModel(IAppResourceManager resourceManager) : base (resourceManager)
+		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
 			_pathReadOnly = new ReadOnlyObservableCollection<PathSegment>(_path);
 			this.AnimateMovement = Settings.AnimateMarkers;
@@ -112,6 +113,12 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<PathSegment> Path { get { return _pathReadOnly; } }
 
+		public object TitleIcon
+		{
+			get { return _titleIcon; }
+			set { this.RaiseAndSetIfChanged(ref _titleIcon, value, () => this.TitleIcon); }
+		}
+
 		public void Update(VehicleLocationUpdate update)
 		{
 			lock(_animationLockObject)
@@ -168,9 +175,11 @@ namespace bstrkr.mvvm.viewmodels
 			return string.Format("[VehicleVM: Id={0}, Type={1}, CarPlate={2}, RouteNumber={3}, Location={4}]", VehicleId, VehicleType, CarPlate, RouteNumber, Location);
 		}
 
-		protected override object GetIcon(IAppResourceManager resourceManager)
+		protected override void SetIcons(IAppResourceManager resourceManager)
 		{
-			return resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
+			this.Icon = resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
+
+			this.TitleIcon = resourceManager.GetVehicleTitleMarker(this.VehicleType, this.Model?.RouteInfo?.DisplayName);
 		}
 
 		private void SetLocation(GeoLocation location)

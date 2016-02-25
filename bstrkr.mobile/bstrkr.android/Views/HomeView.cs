@@ -49,6 +49,9 @@ using Cirrious.MvvmCross.ViewModels;
 using SmoothProgressBarSharp;
 
 using Xamarin;
+using bstrkr.core.services.resources;
+using bstrkr.android.services.resources;
+using bstrkr.android.util;
 
 namespace bstrkr.android.views
 {
@@ -234,6 +237,9 @@ namespace bstrkr.android.views
 //									  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
 //									  .Throttle(TimeSpan.FromMilliseconds(200))
 //									  .Subscribe(this.OnPanelSlided);
+
+			var appResourcesManager = Mvx.Resolve<IAppResourceManager>() as AndroidAppResourceManager;
+			appResourcesManager.IconGenerator = new IconGenerator(this.BaseContext);
 
 			this.CloseSlidingPanel();
 		}

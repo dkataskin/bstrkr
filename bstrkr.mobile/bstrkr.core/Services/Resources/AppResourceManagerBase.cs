@@ -34,6 +34,8 @@ namespace bstrkr.core.services.resources
 			return this.GetImageFromCache(key);
 		}
 
+		public abstract object GetVehicleTitleMarker(VehicleTypes type, string title);
+
 		private object GetImageFromCache(string key)
 		{
 			lock(_cache)

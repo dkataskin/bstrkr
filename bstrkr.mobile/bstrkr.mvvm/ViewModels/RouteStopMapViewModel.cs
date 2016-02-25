@@ -21,9 +21,9 @@ namespace bstrkr.mvvm.viewmodels
 			set	{ }
 		}
 
-		protected override object GetIcon(IAppResourceManager resourceManager)
+		protected override void SetIcons(IAppResourceManager resourceManager)
 		{
-			return resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
+			this.Icon = resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
 		}
 	}
 }

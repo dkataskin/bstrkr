@@ -351,16 +351,25 @@ namespace bstrkr.mvvm.viewmodels
 
 		private VehicleViewModel CreateVehicleVM(VehicleLocationUpdate locationUpdate)
 		{
-			var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
-			vehicleVM.Model = locationUpdate.Vehicle;
-			vehicleVM.MarkerSize = _markerSize;
-
-			if (_selectedRouteStop != null || _selectedVehicle != null)
+			try
 			{
-				vehicleVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
-			}
 
-			return vehicleVM;
+				var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
+				vehicleVM.Model = locationUpdate.Vehicle;
+				vehicleVM.MarkerSize = _markerSize;
+
+				if (_selectedRouteStop != null || _selectedVehicle != null)
+				{
+					vehicleVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
+				}
+
+				return vehicleVM;
+			} 
+			catch (Exception e)
+			{
+				Insights.Report(e, Insights.Severity.Warning);
+				return null;
+			}
 		}
 
 		private RouteStopMapViewModel CreateRouteStopVM(RouteStop routeStop)
@@ -631,7 +640,11 @@ namespace bstrkr.mvvm.viewmodels
 					}
 					else
 					{
-						_allVehicles[vehicleUpdate.Vehicle.Id] = this.CreateVehicleVM(vehicleUpdate);
+						var vm = this.CreateVehicleVM(vehicleUpdate);
+						if (vm != null)
+						{
+							_allVehicles[vehicleUpdate.Vehicle.Id] = this.CreateVehicleVM(vehicleUpdate);
+						}
 					}
 				}
 

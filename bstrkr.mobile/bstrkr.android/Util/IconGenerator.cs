@@ -20,7 +20,8 @@ namespace bstrkr.android.util
 
 			_container = (ViewGroup) LayoutInflater.From(_context).Inflate(Resource.Layout.text_bubble, null);
 			_textView = (TextView) _container.FindViewById(Resource.Id.text);
-			_textView.SetTextAppearance(Resource.Style.Bubble_TextAppearance_Dark);
+
+			_textView.SetTextAppearance(_context, Resource.Style.Bubble_TextAppearance_Dark);
 		}
 
 		public Bitmap MakeIcon(string text) 
