@@ -24,7 +24,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private readonly object _animationLockObject = new object();
 
-		private readonly ObservableCollection<PathSegment> _path;
+		private readonly ObservableCollection<PathSegment> _path = new ObservableCollection<PathSegment>();
 		private readonly ReadOnlyObservableCollection<PathSegment> _pathReadOnly;
 
 		private object _titleIcon;
@@ -52,6 +52,8 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					base.Model = value;
 
+					this.SetIcons(this.ResourceManager);
+
 					this.RaisePropertyChanged(() => this.VehicleId);
 					this.RaisePropertyChanged(() => this.VehicleType);
 					this.RaisePropertyChanged(() => this.CarPlate);
@@ -78,7 +80,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public string RouteNumber
 		{
-			get { return (this.Model == null || this.Model.RouteInfo == null) ? string.Empty : this.Model.RouteInfo.DisplayName; }
+			get { return this.Model?.RouteInfo?.DisplayName; }
 		}
 
 		public override GeoLocation Location
@@ -177,9 +179,8 @@ namespace bstrkr.mvvm.viewmodels
 
 		protected override void SetIcons(IAppResourceManager resourceManager)
 		{
-			this.Icon = resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
-
-			this.TitleIcon = resourceManager.GetVehicleTitleMarker(this.VehicleType, this.Model?.RouteInfo?.DisplayName);
+			this.Icon = resourceManager.GetVehicleMarker(this.VehicleType, this.MarkerSize, this.IsSelected);
+			this.TitleIcon = resourceManager.GetVehicleTitleMarker(this.VehicleType, this.Model?.RouteInfo?.RouteNumber);
 		}
 
 		private void SetLocation(GeoLocation location)

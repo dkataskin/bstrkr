@@ -11,8 +11,6 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public abstract class MapMarkerViewModelBase<T> : MvxViewModel where T : class
 	{
-		protected IAppResourceManager _resourceManager;
-
 		private MapMarkerSizes _markerSize;
 		private object _icon;
 		private GeoLocation _location;
@@ -24,7 +22,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MapMarkerViewModelBase(IAppResourceManager resourceManager)
 		{
-			_resourceManager = resourceManager;
+			this.ResourceManager = resourceManager;
 		}
 
 		public virtual MapMarkerSizes MarkerSize
@@ -40,11 +38,11 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_markerSize = value;
 					this.RaisePropertyChanged(() => this.MarkerSize);
-					this.SetIcons(_resourceManager);
+					this.SetIcons(this.ResourceManager);
 				}
 				else if (this.Icon == null)
 				{
-					this.SetIcons(_resourceManager);
+					this.SetIcons(this.ResourceManager);
 				}
 			}
 		}
@@ -107,10 +105,12 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					_isSelected = value;
 					this.RaisePropertyChanged(() => this.IsSelected);
-					this.SetIcons(_resourceManager);
+					this.SetIcons(this.ResourceManager);
 				}
 			}
 		}
+
+		protected IAppResourceManager ResourceManager { get; set; }
 
 		protected abstract void SetIcons(IAppResourceManager resourceManager);
 	}

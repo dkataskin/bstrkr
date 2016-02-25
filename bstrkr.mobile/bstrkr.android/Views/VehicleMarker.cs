@@ -7,6 +7,7 @@ using System.Linq;
 using Android.Animation;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
+using Android.Graphics;
 using Android.Views.Animations;
 
 using bstrkr.core;
@@ -59,10 +60,10 @@ namespace bstrkr.android.views
 				{ 
 					TitleMarkerKey, 
 					new MarkerOptions()
-						.Anchor(0.0f, 0.5f)
+						.Anchor(0.5f, 0.0f)
 						.SetPosition(this.ViewModel.Location.ToLatLng())
 						.SetTitle(this.ViewModel.RouteNumber)
-						.SetIcon(this.ViewModel.TitleIcon as BitmapDescriptor)
+						.SetIcon(BitmapDescriptorFactory.FromBitmap(this.ViewModel.TitleIcon as Bitmap))
 						.Flat(false)
 						.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
 				}
@@ -94,10 +95,15 @@ namespace bstrkr.android.views
 				}
 			}
 
-//			if (args.PropertyName.Equals("Icon"))
-//			{
-//				this.Marker.SetIcon(this.ViewModel.Icon as BitmapDescriptor);
-//			}
+			if (args.PropertyName.Equals("Icon"))
+			{
+				this.UpdateIcon(VehicleMarkerKey, this.ViewModel.Icon as BitmapDescriptor);
+			}
+
+			if (args.PropertyName.Equals("TitleIcon"))
+			{
+				this.UpdateIcon(TitleMarkerKey, BitmapDescriptorFactory.FromBitmap(this.ViewModel.Icon as Bitmap));
+			}
 
 			if (args.PropertyName.Equals("SelectionState"))
 			{

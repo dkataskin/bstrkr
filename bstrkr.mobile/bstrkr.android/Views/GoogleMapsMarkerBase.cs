@@ -11,6 +11,7 @@ using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+using Xamarin;
 
 namespace bstrkr.android.views
 {
@@ -74,13 +75,34 @@ namespace bstrkr.android.views
 				throw new ArgumentException("Key must not be null or empty.", "key");
 			}
 
-			if (_markers.ContainsKey(key))
+			if (!_markers.ContainsKey(key))
 			{
 				throw new Exception("Marker with specified key has not been attached.");
 			}
 
 			Marker marker;
 			_markers.TryRemove(key, out marker);
+		}
+
+		protected virtual void UpdateIcon(string key, BitmapDescriptor icon)
+		{
+			if (string.IsNullOrEmpty(key))
+			{
+				throw new ArgumentException("Key must not be null or empty.", "key");
+			}
+
+			try
+			{
+				Marker marker;
+				if (_markers.TryGetValue(key, out marker))
+				{
+					marker.SetIcon(icon);
+				}	
+			} 
+			catch (Exception e)
+			{
+				Insights.Report(e, Insights.Severity.Warning);
+			}
 		}
 
 		protected float ConvertSelectionStateToAlpha(MapMarkerSelectionStates selectionState)
