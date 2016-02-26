@@ -60,7 +60,7 @@ namespace bstrkr.android.views
 				{ 
 					TitleMarkerKey, 
 					new MarkerOptions()
-						.Anchor(0.5f, 0.0f)
+						.Anchor(0.5f, 1.0f)
 						.SetPosition(this.ViewModel.Location.ToLatLng())
 						.SetTitle(this.ViewModel.RouteNumber)
 						.SetIcon(BitmapDescriptorFactory.FromBitmap(this.ViewModel.TitleIcon as Bitmap))
