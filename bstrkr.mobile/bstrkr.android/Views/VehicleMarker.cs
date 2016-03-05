@@ -30,14 +30,11 @@ namespace bstrkr.android.views
 		private const string VehicleMarkerKey = "vehicle";
 		private const string TitleMarkerKey = "title";
 
-		private readonly object _lockObject = new object();
-
-//		private MapMarkerAnimationRunner _animationRunner;
-
 		public VehicleMarker(VehicleViewModel vehicleVM)
 		{
 			this.ViewModel = vehicleVM;
 			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
+			this.ViewModel.PositionAnimator = new MarkerPositionAnimationRunner(this.Markers.Values);
 		}
 
 		public VehicleViewModel ViewModel { get; private set; }
@@ -113,36 +110,5 @@ namespace bstrkr.android.views
 				}
 			}
 		}
-
-//		private void OnPathUpdated(object sender, VehiclePathUpdatedEventArgs args)
-//		{
-//			lock(_lockObject)
-//			{
-//				if (_animationRunner == null && this.Marker == null)
-//				{
-//					return;
-//				}
-//
-//				if (_animationRunner == null)
-//				{
-//					_animationRunner = new MapMarkerAnimationRunner(this.MapView, this.Marker);
-//					_animationRunner.PositionValueUpdated += this.OnPositionValueUpdated;
-//				}
-//
-//				if (this.ViewModel.AnimateMovement)
-//				{
-//					_animationRunner.QueueAnimation(args.PathSegments);
-//				}
-//				else
-//				{
-//					_animationRunner.StopAllAnimations();
-//				}
-//			}
-//		}
-//
-//		private void OnPositionValueUpdated(object sender, AnimationValueUpdatedEventArgs a)
-//		{
-//			this.ViewModel.LocationAnimated = (GeoPoint)a.Value;
-//		}
 	}
 }

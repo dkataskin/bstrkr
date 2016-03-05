@@ -11,6 +11,7 @@ using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.viewmodels;
 using bstrkr.mvvm.views;
+
 using Xamarin;
 
 namespace bstrkr.android.views
@@ -18,6 +19,7 @@ namespace bstrkr.android.views
 	public abstract class GoogleMapsMarkerBase : IMapMarker
 	{
 		private readonly ConcurrentDictionary<string, Marker> _markers = new ConcurrentDictionary<string, Marker>();
+
 		private readonly ReadOnlyDictionary<string, Marker> _markersReadOnly;
 
 		public GoogleMapsMarkerBase()

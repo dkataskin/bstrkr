@@ -115,11 +115,10 @@
     <Compile Include="Views\BusTrackerActionBarDrawerToggle.cs" />
     <Compile Include="Extensions\GeoLocationExtensions.cs" />
     <Compile Include="Views\MarkerPositionEvaluator.cs" />
-    <Compile Include="Views\MapMarkerAnimationRunner.cs" />
     <Compile Include="Views\AnimationValueUpdatedEventArgs.cs" />
     <Compile Include="Views\MvxAppCompatEventSourceActivity.cs" />
     <Compile Include="Views\MvxAppCompatAcitivity.cs" />
-    <Compile Include="Services\Animation\TimerAnimationRunner.cs" />
+    <Compile Include="Services\Animation\MarkerPositionAnimationRunner.cs" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

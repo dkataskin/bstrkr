@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.core.map;
+using bstrkr.core.services.animation;
 using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
 using bstrkr.core.utils;
 using bstrkr.mvvm.maps;
 using bstrkr.mvvm.views;
 
-using Cirrious.MvvmCross.ViewModels;
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -22,16 +23,17 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private const float SegmentTravelTime = 15.0f;
 
-		private readonly object _animationLockObject = new object();
-
+		private readonly object _animationLock = new object();
 		private readonly ObservableCollection<PathSegment> _path = new ObservableCollection<PathSegment>();
 		private readonly ReadOnlyObservableCollection<PathSegment> _pathReadOnly;
 
+		private IMarkerPositionAnimator _positionAnimator;
 		private object _titleIcon;
 		private long _lastUpdate = 0;
 		private GeoPoint _positionAnimation;
 		private bool _animateMovement;
 		private bool _isInView;
+		private bool _isTitleVisible = true;
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
@@ -121,9 +123,28 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _titleIcon, value, () => this.TitleIcon); }
 		}
 
+		public bool IsTitleVisible 
+		{
+			get { return _isTitleVisible; }
+			set { this.RaiseAndSetIfChanged(ref _isTitleVisible, value, () => this.IsTitleVisible); }
+		}
+
+		public IMarkerPositionAnimator PositionAnimator 
+		{ 
+			get { return _positionAnimator; }
+			set
+			{
+				_positionAnimator = value;
+				if (value != null)
+				{
+					_positionAnimator.FinishedPlaying += this.OnAnimatorFinishedPlaying;
+				};
+			}
+		}
+
 		public void Update(VehicleLocationUpdate update)
 		{
-			lock(_animationLockObject)
+			lock(_animationLock)
 			{
 				if (_lastUpdate > 0)
 				{
@@ -194,13 +215,14 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ScheduleAnimation()
 		{
-			lock(_animationLockObject)
+			lock(_animationLock)
 			{
 				if (this.Path.Count > 0)
 				{
 					var segment = this.Path.First();
 					if (this.IsInView)
 					{
+						this.PositionAnimator.Animate(segment);
 					}
 					else
 					{
@@ -212,13 +234,21 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void AnimateSegment(PathSegment segment)
 		{
-			lock(_animationLockObject)
+			lock(_animationLock)
 			{
 				this.LocationAnimated = segment.FinalLocation.Position;
 				_path.Remove(segment);
 			}
 
 			this.ScheduleAnimation();
+		}
+
+		private void OnAnimatorFinishedPlaying(object sender, PositionAnimatorEventArgs args)
+		{
+			lock(_animationLock)
+			{
+				_path.Remove(args.PathSegment);
+			}
 		}
 	}
 }
