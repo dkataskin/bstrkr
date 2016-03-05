@@ -24,8 +24,7 @@ namespace bstrkr.mvvm.viewmodels
 		private const float SegmentTravelTime = 15.0f;
 
 		private readonly object _animationLock = new object();
-		private readonly ObservableCollection<PathSegment> _path = new ObservableCollection<PathSegment>();
-		private readonly ReadOnlyObservableCollection<PathSegment> _pathReadOnly;
+		private readonly Queue<PathSegment> _path = new Queue<PathSegment>();
 
 		private IMarkerPositionAnimator _positionAnimator;
 		private object _titleIcon;
@@ -34,10 +33,10 @@ namespace bstrkr.mvvm.viewmodels
 		private bool _animateMovement;
 		private bool _isInView;
 		private bool _isTitleVisible = true;
+		private bool _isAnimationRunning = false;
 
 		public VehicleViewModel(IAppResourceManager resourceManager) : base(resourceManager)
 		{
-			_pathReadOnly = new ReadOnlyObservableCollection<PathSegment>(_path);
 			this.AnimateMovement = Settings.AnimateMarkers;
 		}
 
@@ -115,8 +114,6 @@ namespace bstrkr.mvvm.viewmodels
 			set { this.RaiseAndSetIfChanged(ref _isInView, value, () => this.IsInView); }
 		}
 
-		public ReadOnlyObservableCollection<PathSegment> Path { get { return _pathReadOnly; } }
-
 		public object TitleIcon
 		{
 			get { return _titleIcon; }
@@ -152,7 +149,7 @@ namespace bstrkr.mvvm.viewmodels
 
 					if (update.Waypoints != null && update.Waypoints.Waypoints.Any())
 					{
-						_path.Add(
+						_path.Enqueue(
 							new PathSegment 
 							{
 								Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[0].Fraction * totalTime),
@@ -162,7 +159,7 @@ namespace bstrkr.mvvm.viewmodels
 
 						for (int i = 0; i < update.Waypoints.Waypoints.Count - 1; i++)
 						{
-							_path.Add(
+							_path.Enqueue(
 								new PathSegment 
 								{
 									Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[i + 1].Fraction * totalTime),
@@ -175,7 +172,7 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						if (!this.Location.Equals(GeoLocation.Empty))
 						{
-							_path.Add(
+							_path.Enqueue(
 								new PathSegment 
 								{
 									Duration = TimeSpan.FromSeconds(totalTime),
@@ -190,7 +187,7 @@ namespace bstrkr.mvvm.viewmodels
 			_lastUpdate = update.LastUpdated.Ticks;
 			this.SetLocation(update.Vehicle.Location);
 
-			this.ScheduleAnimation();
+			this.RunAnimation();
 		}
 
 		public override string ToString()
@@ -213,20 +210,24 @@ namespace bstrkr.mvvm.viewmodels
 			}
 		}
 
-		private void ScheduleAnimation()
+		private void RunAnimation()
 		{
 			lock(_animationLock)
 			{
-				if (this.Path.Count > 0)
+				if (!_isAnimationRunning)
 				{
-					var segment = this.Path.First();
-					if (this.IsInView)
+					var pathSegment = _path.Dequeue();
+					if (pathSegment != null)
 					{
-						this.PositionAnimator.Animate(segment);
-					}
-					else
-					{
-						Scheduler.Default.Schedule(segment.Duration, () => this.AnimateSegment(segment));
+						_isAnimationRunning = true;
+						if (this.IsInView)
+						{
+							this.PositionAnimator.Animate(pathSegment);
+						}
+						else
+						{
+							Scheduler.Default.Schedule(pathSegment.Duration, () => this.AnimateSegment(pathSegment));
+						}
 					}
 				}
 			}
@@ -237,18 +238,20 @@ namespace bstrkr.mvvm.viewmodels
 			lock(_animationLock)
 			{
 				this.LocationAnimated = segment.FinalLocation.Position;
-				_path.Remove(segment);
+				_isAnimationRunning = false;
 			}
 
-			this.ScheduleAnimation();
+			this.RunAnimation();
 		}
 
 		private void OnAnimatorFinishedPlaying(object sender, PositionAnimatorEventArgs args)
 		{
 			lock(_animationLock)
 			{
-				_path.Remove(args.PathSegment);
+				_isAnimationRunning = false;
 			}
+
+			this.RunAnimation();
 		}
 	}
 }
