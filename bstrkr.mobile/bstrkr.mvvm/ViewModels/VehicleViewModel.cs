@@ -214,7 +214,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			lock(_animationLock)
 			{
-				if (!_isAnimationRunning)
+				if (!_isAnimationRunning && _path.Count > 0)
 				{
 					var pathSegment = _path.Dequeue();
 					if (pathSegment != null)
@@ -222,7 +222,7 @@ namespace bstrkr.mvvm.viewmodels
 						_isAnimationRunning = true;
 						if (this.IsInView)
 						{
-							this.PositionAnimator.Animate(pathSegment);
+							this.ViewDispatcher.RequestMainThreadAction(() => this.PositionAnimator.Animate(pathSegment));
 						}
 						else
 						{
@@ -237,7 +237,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			lock(_animationLock)
 			{
-				this.LocationAnimated = segment.FinalLocation.Position;
+				this.ViewDispatcher.RequestMainThreadAction(() => this.LocationAnimated = segment.FinalLocation.Position);
 				_isAnimationRunning = false;
 			}
 

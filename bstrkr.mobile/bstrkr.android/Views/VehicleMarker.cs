@@ -34,7 +34,7 @@ namespace bstrkr.android.views
 		{
 			this.ViewModel = vehicleVM;
 			this.ViewModel.PropertyChanged += this.OnVMPropertyChanged;
-			this.ViewModel.PositionAnimator = new MarkerPositionAnimationRunner(this.Markers.Values);
+			this.ViewModel.PositionAnimator = new MarkerPositionAnimationRunner(this.MarkersFlat);
 		}
 
 		public VehicleViewModel ViewModel { get; private set; }

@@ -19,15 +19,19 @@ namespace bstrkr.android.views
 	public abstract class GoogleMapsMarkerBase : IMapMarker
 	{
 		private readonly ConcurrentDictionary<string, Marker> _markers = new ConcurrentDictionary<string, Marker>();
-
+		private readonly IList<Marker> _markersFlat = new List<Marker>();
+		private readonly ReadOnlyCollection<Marker> _markersFlatReadOnly;
 		private readonly ReadOnlyDictionary<string, Marker> _markersReadOnly;
 
 		public GoogleMapsMarkerBase()
 		{
 			_markersReadOnly = new ReadOnlyDictionary<string, Marker>(_markers);
+			_markersFlatReadOnly = new ReadOnlyCollection<Marker>(_markersFlat);
 		}
 
 		public IReadOnlyDictionary<string, Marker> Markers { get { return _markersReadOnly; } }
+
+		public IReadOnlyCollection<Marker> MarkersFlat { get { return _markersFlatReadOnly; } }
 
 		public virtual IMapView MapView { get; set; }
 
@@ -68,6 +72,7 @@ namespace bstrkr.android.views
 			}
 
 			_markers.AddOrUpdate(key, marker, (key1, oldValue) => oldValue);
+			_markersFlat.Add(marker);
 		}
 
 		public virtual void DetachMarker(string key)
@@ -84,6 +89,10 @@ namespace bstrkr.android.views
 
 			Marker marker;
 			_markers.TryRemove(key, out marker);
+			if (marker != null)
+			{
+				_markersFlat.Remove(marker);
+			}
 		}
 
 		protected virtual void UpdateIcon(string key, BitmapDescriptor icon)
