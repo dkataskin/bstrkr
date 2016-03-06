@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Android.Animation;
 using Android.Gms.Maps.Model;
@@ -8,7 +9,6 @@ using bstrkr.core.android.extensions;
 using bstrkr.core.services.animation;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.views;
-using System.Linq;
 
 namespace bstrkr.core.android.views
 {
@@ -112,7 +112,10 @@ namespace bstrkr.core.android.views
 				var rotation = Convert.ToSingle(Math.Atan2(deltaY, deltaX) * (180 / Math.PI));
 				foreach (var marker in _markers)
 				{
-					marker.Rotation = rotation;
+					if (marker.Flat)
+					{
+						marker.Rotation = rotation;
+					}
 				}
 
 				_prevPosition = curValue;
