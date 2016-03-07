@@ -9,6 +9,8 @@ namespace bstrkr.core.config
 
 		public float ShowRouteStopsZoomThreshold { get; set; }
 
+		public float ShowVehicleTitlesZoomThreshold { get; set; }
+
 		public float AnimateMarkersMovementZoomThreshold { get; set; }
 	}
 }

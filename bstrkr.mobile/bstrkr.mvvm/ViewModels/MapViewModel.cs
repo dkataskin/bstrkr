@@ -4,12 +4,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.core.collections;
 using bstrkr.core.config;
-
 using bstrkr.core.map;
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
@@ -26,8 +27,6 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 using Xamarin;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -153,13 +152,10 @@ namespace bstrkr.mvvm.viewmodels
 			set 
 			{ 
 				this.RaiseAndSetIfChanged(ref _visibleRegion, value, () => this.VisibleRegion);
-
-				_viewPortUpdateSubject.OnNext(new VehiclesViewPortUpdate
+				if (!_visibleRegion.Equals(value))
 				{
-					VehicleUpdates = new List<VehicleLocationUpdate>(),
-					VisibleRegion = this.VisibleRegion,
-					Zoom = this.Zoom
-				});
+					_viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(this.VisibleRegion, this.Zoom));
+				}
 			}
 		}
 
@@ -336,12 +332,7 @@ namespace bstrkr.mvvm.viewmodels
 				MvxTrace.Trace("vehicle locations received, count={0}", args.VehicleLocations.Count);
 				_messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Finished));
 
-				_viewPortUpdateSubject.OnNext(new VehiclesViewPortUpdate
-				{
-					VehicleUpdates = args.VehicleLocations,
-					VisibleRegion = this.VisibleRegion,
-					Zoom = this.Zoom
-				});
+				_viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(args.VehicleLocations, this.VisibleRegion, this.Zoom));
 			} 
 			catch (Exception e)
 			{
@@ -694,6 +685,34 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				Insights.Report(ex, Insights.Severity.Error);
 			}
+		}
+
+		private VehiclesViewPortUpdate GenerateUpdateFrom(GeoRect visibleRegionUpdate, float zoom)
+		{
+			return new VehiclesViewPortUpdate
+			{
+				VehicleUpdates = new List<VehicleLocationUpdate>(),
+				VisibleRegion = this.ExpandVisibleRegion(visibleRegionUpdate, zoom),
+				Zoom = zoom
+			};
+		}
+
+		private VehiclesViewPortUpdate GenerateUpdateFrom(
+												IReadOnlyCollection<VehicleLocationUpdate> vehicleLocationUpdates,
+												GeoRect visibleRegionUpdate,
+												float zoom)
+		{
+			return new VehiclesViewPortUpdate
+			{
+				VehicleUpdates = vehicleLocationUpdates,
+				VisibleRegion = this.ExpandVisibleRegion(visibleRegionUpdate, zoom),
+				Zoom = zoom
+			};
+		}
+
+		private GeoRect ExpandVisibleRegion(GeoRect visibleRegion, float zoom)
+		{
+			return GeoRect.EarthWide;
 		}
 
 		private class VehiclesViewPortUpdate

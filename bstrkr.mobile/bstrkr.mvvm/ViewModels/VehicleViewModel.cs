@@ -217,18 +217,16 @@ namespace bstrkr.mvvm.viewmodels
 				if (!_isAnimationRunning && _path.Count > 0)
 				{
 					var pathSegment = _path.Dequeue();
-					if (pathSegment != null)
+					if (this.IsInView)
 					{
-						_isAnimationRunning = true;
-						if (this.IsInView)
-						{
-							this.ViewDispatcher.RequestMainThreadAction(() => this.PositionAnimator.Animate(pathSegment));
-						}
-						else
-						{
-							Scheduler.Default.Schedule(pathSegment.Duration, () => this.AnimateSegment(pathSegment));
-						}
+						this.ViewDispatcher.RequestMainThreadAction(() => this.PositionAnimator.Animate(pathSegment));
 					}
+					else
+					{
+						Scheduler.Default.Schedule(pathSegment.Duration, () => this.AnimateSegment(pathSegment));
+					}
+
+					_isAnimationRunning = true;
 				}
 			}
 		}
