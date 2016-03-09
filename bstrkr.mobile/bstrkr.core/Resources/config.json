@@ -58,5 +58,6 @@
     }
   ],
   "showRouteStopsZoomThreshold": 14,
-  "animateMarkersMovementZoomThreshold": 13
+  "animateMarkersMovementZoomThreshold": 13,
+  "showVehicleTitlesZoomThreshold" : 13
 }

@@ -83,12 +83,15 @@ namespace bstrkr.android.views
 				return;
 			}
 
-			if (args.PropertyName.Equals("Location") && (!this.ViewModel.AnimateMovement || GeoPoint.Empty.Equals(this.Location)))
+			if (args.PropertyName.Equals("LocationAnimated") && GeoPoint.Empty.Equals(this.Location))
 			{
 				foreach (var marker in this.Markers.Values)
 				{
 					marker.Position = this.ViewModel.Location.ToLatLng();
-					marker.Rotation = this.ViewModel.Location.Heading;
+					if (marker.Flat)
+					{
+						marker.Rotation = this.ViewModel.Location.Heading;
+					}
 				}
 			}
 

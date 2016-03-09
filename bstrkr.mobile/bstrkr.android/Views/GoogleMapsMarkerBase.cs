@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 using System.Linq;
 
 using Android.Gms.Maps.Model;

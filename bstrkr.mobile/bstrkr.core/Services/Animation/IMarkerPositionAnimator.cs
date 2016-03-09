@@ -8,6 +8,10 @@ namespace bstrkr.core.services.animation
 	{
 		void Animate(PathSegment segment);
 
-		event EventHandler<PositionAnimatorEventArgs> FinishedPlaying;
+		void Cancel();
+
+		event EventHandler<PositionAnimationPlaybackEventArgs> FinishedPlaying;
+
+		event EventHandler<PositionAnimationValueChangedEventArgs> ValueChanged;
 	}
 }

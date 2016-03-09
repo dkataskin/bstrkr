@@ -15,7 +15,7 @@ namespace bstrkr.core.android.views
 	public class MarkerPositionAnimationRunner : Java.Lang.Object, 
 												 Android.Animation.Animator.IAnimatorListener,
 												 Android.Animation.ValueAnimator.IAnimatorUpdateListener,
-												 IMarkerPositionAnimator
+	IMarkerPositionAnimator
 	{
 		private readonly object _lockObject = new object();
 		private readonly IEnumerable<Marker> _markers;
@@ -44,7 +44,7 @@ namespace bstrkr.core.android.views
 
 		public event EventHandler<AnimationValueUpdatedEventArgs> PositionValueUpdated;
 
-		public event EventHandler<PositionAnimatorEventArgs> FinishedPlaying;
+		public event EventHandler<PositionAnimationPlaybackEventArgs> FinishedPlaying;
 
 		public void Animate(PathSegment segment)
 		{
@@ -75,6 +75,19 @@ namespace bstrkr.core.android.views
 
 					_animatorSet.PlayTogether(animators.ToArray());
 					_animatorSet.Start();
+				}
+			}
+		}
+
+		public event EventHandler<PositionAnimationValueChangedEventArgs> ValueChanged;
+
+		public void Cancel()
+		{
+			lock(_lockObject)
+			{
+				if (_animatorSet != null)
+				{
+					_animatorSet.Cancel();
 				}
 			}
 		}
@@ -146,7 +159,7 @@ namespace bstrkr.core.android.views
 		{
 			if (this.FinishedPlaying != null)
 			{
-				this.FinishedPlaying(this, new PositionAnimatorEventArgs(pathSegment));
+				this.FinishedPlaying(this, new PositionAnimationPlaybackEventArgs(pathSegment));
 			}
 		}
 	}

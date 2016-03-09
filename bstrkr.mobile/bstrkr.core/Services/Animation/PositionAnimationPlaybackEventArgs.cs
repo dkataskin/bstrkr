@@ -4,9 +4,9 @@ using bstrkr.core;
 
 namespace bstrkr.core.services.animation
 {
-	public class PositionAnimatorEventArgs : EventArgs
+	public class PositionAnimationPlaybackEventArgs : EventArgs
 	{
-		public PositionAnimatorEventArgs(PathSegment segment)
+		public PositionAnimationPlaybackEventArgs(PathSegment segment)
 		{
 			this.PathSegment = segment;
 		}

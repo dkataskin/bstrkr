@@ -231,6 +231,7 @@
     <Compile Include="Views\SetRouteView.cs" />
     <Compile Include="Views\GoogleMapsSimpleMarkerBase.cs" />
     <Compile Include="Services\Resources\AndroidAppResourceManager.cs" />
+    <Compile Include="Util\PermissionsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

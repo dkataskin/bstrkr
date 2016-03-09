@@ -29,7 +29,7 @@ namespace bstrkr.mvvm.viewmodels
 		private IMarkerPositionAnimator _positionAnimator;
 		private object _titleIcon;
 		private long _lastUpdate = 0;
-		private GeoPoint _positionAnimation;
+		private GeoPoint _locationAnimated;
 		private bool _animateMovement;
 		private bool _isInView;
 		private bool _isTitleVisible = true;
@@ -98,20 +98,33 @@ namespace bstrkr.mvvm.viewmodels
 
 		public GeoPoint LocationAnimated
 		{
-			get { return _positionAnimation; }
-			set { this.RaiseAndSetIfChanged(ref _positionAnimation, value, () => this.LocationAnimated); }
+			get { return _locationAnimated; }
+			set { this.RaiseAndSetIfChanged(ref _locationAnimated, value, () => this.LocationAnimated); }
 		}
 
 		public bool AnimateMovement
 		{ 
 			get { return _animateMovement; } 
-			set { this.RaiseAndSetIfChanged(ref _animateMovement, value, () => this.AnimateMovement); } 
+			set 
+			{ 
+				lock(_animationLock)
+				{
+					this.RaiseAndSetIfChanged(ref _animateMovement, value, () => this.AnimateMovement);
+				}
+			}
 		}
 
 		public bool IsInView
 		{
 			get { return _isInView; }
-			set { this.RaiseAndSetIfChanged(ref _isInView, value, () => this.IsInView); }
+			set 
+			{ 
+				if (_isInView != value)
+				{
+					_isInView = value;
+					this.RaisePropertyChanged(() => this.IsInView);
+				}
+			}
 		}
 
 		public object TitleIcon
@@ -135,6 +148,7 @@ namespace bstrkr.mvvm.viewmodels
 				if (value != null)
 				{
 					_positionAnimator.FinishedPlaying += this.OnAnimatorFinishedPlaying;
+					_positionAnimator.ValueChanged += (s, a) => _locationAnimated = a.Value;
 				};
 			}
 		}
@@ -217,7 +231,7 @@ namespace bstrkr.mvvm.viewmodels
 				if (!_isAnimationRunning && _path.Count > 0)
 				{
 					var pathSegment = _path.Dequeue();
-					if (this.IsInView)
+					if (this.IsInView && this.AnimateMovement)
 					{
 						this.ViewDispatcher.RequestMainThreadAction(() => this.PositionAnimator.Animate(pathSegment));
 					}
@@ -227,6 +241,10 @@ namespace bstrkr.mvvm.viewmodels
 					}
 
 					_isAnimationRunning = true;
+				}
+				else if (_path.Count == 0)
+				{
+					this.ViewDispatcher.RequestMainThreadAction(() => this.LocationAnimated = this.Location.Position);
 				}
 			}
 		}
@@ -242,7 +260,7 @@ namespace bstrkr.mvvm.viewmodels
 			this.RunAnimation();
 		}
 
-		private void OnAnimatorFinishedPlaying(object sender, PositionAnimatorEventArgs args)
+		private void OnAnimatorFinishedPlaying(object sender, PositionAnimationPlaybackEventArgs args)
 		{
 			lock(_animationLock)
 			{

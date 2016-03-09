@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Gms.Common;
 using Android.Gms.Common.Apis;
 using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Locations;
 using Android.OS;
+using Android.Support.V4.Content;
 
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
-
 using Cirrious.CrossCore.Droid;
 using Cirrious.CrossCore.Exceptions;
 
@@ -54,6 +56,24 @@ namespace bstrkr.core.android.services.location
 
 		public void StartUpdating()
 		{
+			if ((int)Build.VERSION.SdkInt >= 23)
+			{
+//				const string permission = Manifest.Permission.AccessFineLocation;
+//				if (CheckSelfPermission(permission) == (int)Permission.Granted)
+//				{
+//					
+//				}
+//
+//				if (ShouldShowRequestPermissionRationale(permission))
+//				{
+//					//Explain to the user why we need to read the contacts
+//					Snackbar.Make(layout, "Location access is required to show coffee shops nearby.", Snackbar.LengthIndefinite)
+//						.SetAction("OK", v => RequestPermissions(PermissionsLocation, RequestLocationId))
+//						.Show();
+//					return;
+//				}
+			}
+
 			var apiAvailability = GoogleApiAvailability.Instance;
 			var returnCode = apiAvailability.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
 			if (returnCode != ConnectionResult.Success)
@@ -217,6 +237,28 @@ namespace bstrkr.core.android.services.location
 			{
 				this.LocationUpdated(this, new LocationUpdatedEventArgs(lat, lon));
 			}
+		}
+
+		private async Task GetLocationPermissionAsync()
+		{
+			// Check to see if any permission in our group is available, if one, then all are
+			const string permission = Manifest.Permission.AccessFineLocation;
+			if (CheckSelfPermission(permission) == (int)Permission.Granted)
+			{
+				await GetLocationAsync();
+				return;
+			}
+
+			if (ShouldShowRequestPermissionRationale(permission))
+			{
+				//Explain to the user why we need to read the contacts
+				Snackbar.Make(layout, "Location access is required to show coffee shops nearby.", Snackbar.LengthIndefinite)
+					.SetAction("OK", v => RequestPermissions(PermissionsLocation, RequestLocationId))
+					.Show();
+				return;
+			}
+
+			RequestPermissions(PermissionsLocation, RequestLocationId);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -34,6 +35,9 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		private const string UpdateVehicleLocationsTaskId = "UpdateVehicleLocations";
 		private const double MaxDistanceFromBusStop = 500.0;
+
+		private readonly ZoomToVisibleRegionExpandRatioConverter _zoomToVisibleRegionExpandRatioConverter = new ZoomToVisibleRegionExpandRatioConverter();
+		private readonly ZoomToMarkerSizeConverter _zoomToMarkerSizeConverter = new ZoomToMarkerSizeConverter();
 
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly ILiveDataProviderFactory _providerFactory;
@@ -468,8 +472,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnZoomChanged(float zoom)
 		{
-			var converter = new ZoomToMarkerSizeConverter();
-			var markerSize = (MapMarkerSizes)converter.Convert(zoom, typeof(MapMarkerSizes), null, null);
+			var markerSize = (MapMarkerSizes)_zoomToMarkerSizeConverter.Convert(zoom, typeof(MapMarkerSizes), null, null);
 			if (_markerSize != markerSize)
 			{
 				_markerSize = markerSize;
@@ -480,6 +483,7 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						vm.MarkerSize = _markerSize;
 						vm.AnimateMovement = this.GetAnimateMarkerMovementFlag(zoom);
+						vm.IsTitleVisible = zoom > _config.ShowVehicleTitlesZoomThreshold;
 					}
 				}
 			}
@@ -642,7 +646,7 @@ namespace bstrkr.mvvm.viewmodels
 				var visibleVehicles = new Dictionary<string, VehicleViewModel>();
 				foreach (var keyValuePair in _allVehicles)
 				{
-					if (update.VisibleRegion.ContainsPoint(keyValuePair.Value.Location.Position))
+					if (update.VisibleRegion.ContainsPoint(keyValuePair.Value.LocationAnimated))
 					{
 						visibleVehicles.Add(keyValuePair.Key, keyValuePair.Value);
 					}
@@ -664,6 +668,7 @@ namespace bstrkr.mvvm.viewmodels
 					}
 				}
 
+				var animateMovement = this.GetAnimateMarkerMovementFlag(update.Zoom);
 				this.ViewDispatcher.RequestMainThreadAction(() =>
 				{
 					MvxTrace.Trace("{0} vehicles should be removed, {1} added", vehiclesToRemove.Count, visibleVehicles.Count);
@@ -671,12 +676,14 @@ namespace bstrkr.mvvm.viewmodels
 					foreach (var vehicle in vehiclesToRemove)
 					{
 						vehicle.IsInView = false;
+						vehicle.AnimateMovement = false;
 						_vehicles.Remove(vehicle);
 					}
 
 					foreach (var vehicle in visibleVehicles.Values)
 					{
 						vehicle.IsInView = true;
+						vehicle.AnimateMovement = animateMovement;
 						_vehicles.Add(vehicle);
 					}
 				});
@@ -712,7 +719,24 @@ namespace bstrkr.mvvm.viewmodels
 
 		private GeoRect ExpandVisibleRegion(GeoRect visibleRegion, float zoom)
 		{
-			return GeoRect.EarthWide;
+			var ratio = (float)_zoomToVisibleRegionExpandRatioConverter.Convert(
+														            zoom,
+														            typeof(float),
+														            null,
+														            CultureInfo.InvariantCulture);
+			
+			if (ratio == 1.0f)
+			{
+				return visibleRegion;
+			}
+
+			var dLat = ratio * Math.Abs(visibleRegion.NorthEast.Latitude - visibleRegion.SouthWest.Latitude) / 2.0f;
+			var dLon = ratio * Math.Abs(visibleRegion.NorthEast.Longitude - visibleRegion.SouthWest.Longitude) / 2.0f;
+
+			var northEast = new GeoPoint(visibleRegion.NorthEast.Latitude + dLat, visibleRegion.NorthEast.Longitude + dLon);
+			var southWest = new GeoPoint(visibleRegion.SouthWest.Latitude - dLat, visibleRegion.SouthWest.Longitude - dLon);
+				
+			return new GeoRect(northEast, southWest);
 		}
 
 		private class VehiclesViewPortUpdate
