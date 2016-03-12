@@ -17,7 +17,9 @@ using Android.Support.V4.Content;
 
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;
+
 using Cirrious.CrossCore.Droid;
+using Cirrious.CrossCore.Droid.Platform;
 using Cirrious.CrossCore.Exceptions;
 
 namespace bstrkr.core.android.services.location
@@ -30,18 +32,22 @@ namespace bstrkr.core.android.services.location
 								   Android.Locations.ILocationListener,
 								   ILocationSource
 	{
+		private const int InstallGooglePlayServicesId = 1000;
+
 		private readonly float _displacement = 30;
 
 		private readonly IMvxAndroidGlobals _androidGlobals;
+		private readonly IMvxAndroidCurrentTopActivity _topActivity;
 
 		private LocationRequest _locationRequest;
 		private GoogleApiClient _googleAPIClient;
 		private LocationManager _locationManager;
 		private ILocationSourceOnLocationChangedListener _mapsListener;
 
-		public LocationService(IMvxAndroidGlobals androidGlobals)
+		public LocationService(IMvxAndroidGlobals androidGlobals, IMvxAndroidCurrentTopActivity topActivity)
 		{
 			_androidGlobals = androidGlobals;
+			_topActivity = topActivity;
 
 			_locationRequest = LocationRequest.Create();
 			_locationRequest.SetSmallestDisplacement(_displacement);
@@ -56,35 +62,18 @@ namespace bstrkr.core.android.services.location
 
 		public void StartUpdating()
 		{
-			if ((int)Build.VERSION.SdkInt >= 23)
-			{
-//				const string permission = Manifest.Permission.AccessFineLocation;
-//				if (CheckSelfPermission(permission) == (int)Permission.Granted)
-//				{
-//					
-//				}
-//
-//				if (ShouldShowRequestPermissionRationale(permission))
-//				{
-//					//Explain to the user why we need to read the contacts
-//					Snackbar.Make(layout, "Location access is required to show coffee shops nearby.", Snackbar.LengthIndefinite)
-//						.SetAction("OK", v => RequestPermissions(PermissionsLocation, RequestLocationId))
-//						.Show();
-//					return;
-//				}
-			}
-
 			var apiAvailability = GoogleApiAvailability.Instance;
-			var returnCode = apiAvailability.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
-			if (returnCode != ConnectionResult.Success)
+			var queryResult = apiAvailability.IsGooglePlayServicesAvailable(_androidGlobals.ApplicationContext);
+			if (queryResult != ConnectionResult.Success)
 			{
-				if (apiAvailability.IsUserResolvableError(returnCode))
+				if (apiAvailability.IsUserResolvableError(queryResult))
 				{
-					//apiAvailability.ShowErrorDialogFragment(_androidGlobals.ApplicationContext.acti)
+					apiAvailability.ShowErrorDialogFragment(_topActivity.Activity, queryResult, InstallGooglePlayServicesId);
 				}
 				else
 				{
-					throw new MvxException("Google Play Services are not available");
+					// throw new MvxException("Google Play Services are not available");
+					return;
 				}
 			}
 
@@ -237,28 +226,6 @@ namespace bstrkr.core.android.services.location
 			{
 				this.LocationUpdated(this, new LocationUpdatedEventArgs(lat, lon));
 			}
-		}
-
-		private async Task GetLocationPermissionAsync()
-		{
-			// Check to see if any permission in our group is available, if one, then all are
-			const string permission = Manifest.Permission.AccessFineLocation;
-			if (CheckSelfPermission(permission) == (int)Permission.Granted)
-			{
-				await GetLocationAsync();
-				return;
-			}
-
-			if (ShouldShowRequestPermissionRationale(permission))
-			{
-				//Explain to the user why we need to read the contacts
-				Snackbar.Make(layout, "Location access is required to show coffee shops nearby.", Snackbar.LengthIndefinite)
-					.SetAction("OK", v => RequestPermissions(PermissionsLocation, RequestLocationId))
-					.Show();
-				return;
-			}
-
-			RequestPermissions(PermissionsLocation, RequestLocationId);
 		}
 	}
 }

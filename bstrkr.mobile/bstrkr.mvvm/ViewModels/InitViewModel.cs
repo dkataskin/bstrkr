@@ -34,9 +34,12 @@ namespace bstrkr.mvvm.viewmodels
 			_areaPositioningService.AreaLocatingFailed += this.OnAreaLocatingFailed;
 
 			this.SelectManuallyCommand = new MvxCommand(this.SelectManually);
+			this.DetectLocationCommand = new MvxCommand(this.DetectLocation);
 		}
 
 		public MvxCommand SelectManuallyCommand { get; private set; }
+
+		public MvxCommand DetectLocationCommand { get; private set; }
 
 		public int LocatingSec
 		{
@@ -44,10 +47,8 @@ namespace bstrkr.mvvm.viewmodels
 			private set { this.RaiseAndSetIfChanged(ref _locatingSec, value, () => this.LocatingSec); }
 		}
 
-		public override void Start()
+		private void DetectLocation()
 		{
-			base.Start();
-
 			_token = _tokenSource.Token;
 			this.Countdown(_token);
 
