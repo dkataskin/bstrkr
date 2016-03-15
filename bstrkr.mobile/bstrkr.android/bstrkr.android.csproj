@@ -450,6 +450,7 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\bubble.9.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\bottom_shadow.9.png" />
     <AndroidResource Include="Resources\Menu\nav_menu.xml" />
+    <AndroidResource Include="Resources\Layout\drawer_header.xml" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

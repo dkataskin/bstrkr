@@ -105,7 +105,7 @@ namespace bstrkr.android.views
 
 						this.SupportActionBar.Title = homeViewModel.Title;
 
-						_navigationView.SetItemChecked(0, true);
+						_navigationView.SetCheckedItem(0);
 
 						var map = this.FragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
 						if (map.ViewModel == null)
@@ -159,7 +159,7 @@ namespace bstrkr.android.views
 						var aboutViewModel = loaderService.LoadViewModel(request, null) as AboutViewModel;
 						Mvx.Resolve<IUserInteraction>().Alert(
 												aboutViewModel.AboutText,
-												() => _navigationView.SetItemChecked(position, true),
+												() => _navigationView.SetCheckedItem(position),
 												AppResources.about_view_title,
 												AppResources.ok);
 
@@ -188,7 +188,7 @@ namespace bstrkr.android.views
 								   	.Commit();
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
-				_navigationView.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
+				_navigationView.SetCheckedItem(homeViewModel.MenuItems.IndexOf(menuItem));
 
 				_drawer.CloseDrawer(_navigationView);
 
@@ -311,7 +311,7 @@ namespace bstrkr.android.views
 			this.SetSupportActionBar(toolbar);
 
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-			_navigationView = this.FindViewById<MvxListView>(Resource.Id.nav_view);
+			_navigationView = this.FindViewById<NavigationView>(Resource.Id.nav_view);
 			_navigationView.NavigationItemSelected += this.OnNavigationItemSelected;
 			_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
@@ -575,11 +575,10 @@ namespace bstrkr.android.views
 			{
 				case Android.Resource.Id.Home:
 					_drawer.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
-					return true;
 					break;
 			}
 
-			return base.OnOptionsItemSelected(args.MenuItem);
+			base.OnOptionsItemSelected(args.MenuItem);
 		}
     }
 }
