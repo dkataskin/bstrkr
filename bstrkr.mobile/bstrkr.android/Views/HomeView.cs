@@ -12,11 +12,14 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Views;
 using Android.Widget;
 
+using bstrkr.android.services.resources;
+using bstrkr.android.util;
 using bstrkr.core;
 using bstrkr.core.android;
 using bstrkr.core.android.extensions;
@@ -26,6 +29,7 @@ using bstrkr.core.android.views;
 using bstrkr.core.consts;
 using bstrkr.core.context;
 using bstrkr.core.services.location;
+using bstrkr.core.services.resources;
 using bstrkr.core.utils;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.maps;
@@ -49,9 +53,6 @@ using Cirrious.MvvmCross.ViewModels;
 using SmoothProgressBarSharp;
 
 using Xamarin;
-using bstrkr.core.services.resources;
-using bstrkr.android.services.resources;
-using bstrkr.android.util;
 
 namespace bstrkr.android.views
 {
@@ -65,7 +66,7 @@ namespace bstrkr.android.views
     {
 		private DrawerLayout _drawer;
 		private BusTrackerActionBarDrawerToggle _drawerToggle;
-		private MvxListView _drawerList;
+		private NavigationView _navigationView;
 		private MenuSection _currentSection;
 
 		private bool _enableDrawerOnNextNavigation;
@@ -104,7 +105,7 @@ namespace bstrkr.android.views
 
 						this.SupportActionBar.Title = homeViewModel.Title;
 
-						_drawerList.SetItemChecked(0, true);
+						_navigationView.SetItemChecked(0, true);
 
 						var map = this.FragmentManager.FindFragmentById(Resource.Id.mapView) as MapView;
 						if (map.ViewModel == null)
@@ -158,7 +159,7 @@ namespace bstrkr.android.views
 						var aboutViewModel = loaderService.LoadViewModel(request, null) as AboutViewModel;
 						Mvx.Resolve<IUserInteraction>().Alert(
 												aboutViewModel.AboutText,
-												() => _drawerList.SetItemChecked(position, true),
+												() => _navigationView.SetItemChecked(position, true),
 												AppResources.about_view_title,
 												AppResources.ok);
 
@@ -187,15 +188,15 @@ namespace bstrkr.android.views
 								   	.Commit();
 
 				var menuItem = homeViewModel.MenuItems.First(x => x.Id == (int)section);
-				_drawerList.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
+				_navigationView.SetItemChecked(homeViewModel.MenuItems.IndexOf(menuItem), true);
 
-				_drawer.CloseDrawer(_drawerList);
+				_drawer.CloseDrawer(_navigationView);
 
 				return true;
 			}
 			finally
 			{
-				_drawer.CloseDrawer(_drawerList); 
+				_drawer.CloseDrawer(_navigationView); 
 			}
 		}
 
@@ -232,12 +233,6 @@ namespace bstrkr.android.views
 			panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
 			panel.SlidingEnabled = true;
 
-//			_slidingSubscription = Observable.FromEvent<SlidingUpPanelSlideEventArgs>(
-//									  ev => panel.PanelSlide += (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args), 
-//									  ev => panel.PanelSlide -= (object sender, SlidingUpPanelSlideEventArgs args) => ev.Invoke(args))
-//									  .Throttle(TimeSpan.FromMilliseconds(200))
-//									  .Subscribe(this.OnPanelSlided);
-
 			var appResourcesManager = Mvx.Resolve<IAppResourceManager>() as AndroidAppResourceManager;
 			appResourcesManager.IconGenerator = new IconGenerator(this.BaseContext);
 
@@ -252,7 +247,7 @@ namespace bstrkr.android.views
 
 		public override bool OnPrepareOptionsMenu(IMenu menu)
 		{
-			var drawerOpen = _drawer.IsDrawerOpen(_drawerList);
+			var drawerOpen = _drawer.IsDrawerOpen(_navigationView);
 
 			//when open don't show anything
 			for (int i = 0; i < menu.Size(); i++)
@@ -313,11 +308,11 @@ namespace bstrkr.android.views
 			this.SetContentView(Resource.Layout.page_home_view);
 
 			var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-			SetSupportActionBar(toolbar);
+			this.SetSupportActionBar(toolbar);
 
 			_drawer = this.FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-			_drawerList = this.FindViewById<MvxListView>(Resource.Id.left_drawer);
-
+			_navigationView = this.FindViewById<MvxListView>(Resource.Id.nav_view);
+			_navigationView.NavigationItemSelected += this.OnNavigationItemSelected;
 			_drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
 			//DrawerToggle is the animation that happens with the indicator next to the
@@ -572,6 +567,19 @@ namespace bstrkr.android.views
 			{
 				panel.CollapsePane();
 			}
+		}
+
+		private void OnNavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs args)
+		{
+			switch (args.MenuItem.ItemId) 
+			{
+				case Android.Resource.Id.Home:
+					_drawer.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+					return true;
+					break;
+			}
+
+			return base.OnOptionsItemSelected(args.MenuItem);
 		}
     }
 }
