@@ -451,6 +451,26 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\bottom_shadow.9.png" />
     <AndroidResource Include="Resources\Menu\nav_menu.xml" />
     <AndroidResource Include="Resources\Layout\drawer_header.xml" />
+    <AndroidResource Include="Resources\Drawable-hdpi\menu_item_about.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\menu_item_map.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\menu_item_routes.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\menu_item_settings.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\menu_item_stops.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\menu_item_about.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\menu_item_map.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\menu_item_routes.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\menu_item_settings.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\menu_item_stops.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\menu_item_about.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\menu_item_map.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\menu_item_routes.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\menu_item_settings.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\menu_item_stops.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_about.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_map.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_routes.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_settings.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_stops.png" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -245,19 +245,6 @@ namespace bstrkr.android.views
 			_drawerToggle.OnConfigurationChanged(newConfig);
 		}
 
-		public override bool OnPrepareOptionsMenu(IMenu menu)
-		{
-			var drawerOpen = _drawer.IsDrawerOpen(_navigationView);
-
-			//when open don't show anything
-			for (int i = 0; i < menu.Size(); i++)
-			{
-				menu.GetItem(i).SetVisible(!drawerOpen);
-			}
-
-			return base.OnPrepareOptionsMenu(menu);
-		}
-
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
 			if (_drawerToggle.OnOptionsItemSelected(item))

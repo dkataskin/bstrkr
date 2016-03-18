@@ -35,7 +35,7 @@ namespace bstrkr.mvvm.viewmodels
 		public HomeViewModel(IMvxMessenger messenger, IBusTrackerLocationService busTrackerLocationService)
 		{
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
-			this.SelectMenuItemCommand = new MvxCommand<MenuViewModel>(this.SelectMenuItem);
+			this.SelectMenuItemCommand = new MvxCommand<MenuSection>(this.SelectMenuItem);
 
 			_messenger = messenger;
 
@@ -51,7 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
-		public MvxCommand<MenuViewModel> SelectMenuItemCommand { get; private set; }
+		public MvxCommand<MenuSection> SelectMenuItemCommand { get; private set; }
 
 		public string Title 
 		{
@@ -113,41 +113,41 @@ namespace bstrkr.mvvm.viewmodels
 			};
 		}
 
-		private void SelectMenuItem(MenuViewModel item)
+		private void SelectMenuItem(MenuSection menuSection)
 		{
-			switch (item.Section)
+			switch (menuSection)
 			{
 				case MenuSection.Map:
-					this.ShowViewModel<MapViewModel>(new { item.Id });
+					this.ShowViewModel<MapViewModel>();
 					_selectedMenuSection = MenuSection.Map;
 					break;
 
 				case MenuSection.Routes:
-					this.ShowViewModel<RoutesViewModel>(new { item.Id });
+					this.ShowViewModel<RoutesViewModel>();
 					_selectedMenuSection = MenuSection.Routes;
 					this.IsBusy = false;
 					break;
 
 				case MenuSection.RouteStops:
-					this.ShowViewModel<RouteStopsViewModel>(new { item.Id });
+					this.ShowViewModel<RouteStopsViewModel>();
 					_selectedMenuSection = MenuSection.RouteStops;
 					this.IsBusy = false;
 					break;
 
 				case MenuSection.Preferences:
-					this.ShowViewModel<PreferencesViewModel>(new { item.Id });
+					this.ShowViewModel<PreferencesViewModel>();
 					_selectedMenuSection = MenuSection.Preferences;
 					this.IsBusy = false;
 					break;
 
 				case MenuSection.Licenses:
-					this.ShowViewModel<LicensesViewModel>(new { item.Id });
+					this.ShowViewModel<LicensesViewModel>();
 					_selectedMenuSection = MenuSection.Licenses;
 					this.IsBusy = false;
 					break;
 
 				case MenuSection.About:
-					this.ShowViewModel<AboutViewModel>(new { item.Id });
+					this.ShowViewModel<AboutViewModel>();
 					_selectedMenuSection = MenuSection.About;
 					this.IsBusy = false;
 					break;
