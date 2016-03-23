@@ -2798,8 +2798,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a0048
 			public const int action_mode_close_button = 2131361864;
 			
-			// aapt resource value: 0x7f0a00c7
-			public const int action_search = 2131361991;
+			// aapt resource value: 0x7f0a00c9
+			public const int action_search = 2131361993;
 			
 			// aapt resource value: 0x7f0a0049
 			public const int activity_chooser_view_content = 2131361865;
@@ -3008,8 +3008,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a00c0
 			public const int menu_refresh = 2131361984;
 			
-			// aapt resource value: 0x7f0a00c6
-			public const int menu_showonmap = 2131361990;
+			// aapt resource value: 0x7f0a00c8
+			public const int menu_showonmap = 2131361992;
 			
 			// aapt resource value: 0x7f0a0034
 			public const int middle = 2131361844;
@@ -3089,8 +3089,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0a002e
 			public const int multiply = 2131361838;
 			
+			// aapt resource value: 0x7f0a00c7
+			public const int nav_about = 2131361991;
+			
 			// aapt resource value: 0x7f0a00c2
 			public const int nav_map = 2131361986;
+			
+			// aapt resource value: 0x7f0a00c6
+			public const int nav_preferences = 2131361990;
 			
 			// aapt resource value: 0x7f0a00c4
 			public const int nav_routes = 2131361988;

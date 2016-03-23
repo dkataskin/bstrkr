@@ -496,7 +496,7 @@ namespace bstrkr.android.views
 		private void ShowMap()
 		{
 			var homeViewModel = this.ViewModel as HomeViewModel;
-			homeViewModel.SelectMenuItemCommand.Execute(homeViewModel.MenuItems[0]);
+			homeViewModel.SelectMenuItemCommand.Execute(MenuSection.Map);
 		}
 
 		private bool CloseSlidingPanel()
@@ -558,10 +558,31 @@ namespace bstrkr.android.views
 
 		private void OnNavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs args)
 		{
+			var homeViewModel = this.ViewModel as HomeViewModel;
 			switch (args.MenuItem.ItemId) 
 			{
 				case Android.Resource.Id.Home:
 					_drawer.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+					break;
+
+				case Resource.Id.nav_map:
+					homeViewModel.SelectMenuItemCommand.Execute(MenuSection.Map);
+					break;
+
+				case Resource.Id.nav_routes:
+					homeViewModel.SelectMenuItemCommand.Execute(MenuSection.Routes);
+					break;
+
+				case Resource.Id.nav_stops:
+					homeViewModel.SelectMenuItemCommand.Execute(MenuSection.RouteStops);
+					break;
+
+				case Resource.Id.nav_preferences:
+					homeViewModel.SelectMenuItemCommand.Execute(MenuSection.Preferences);
+					break;
+
+				case Resource.Id.nav_about:
+					homeViewModel.SelectMenuItemCommand.Execute(MenuSection.About);
 					break;
 			}
 
