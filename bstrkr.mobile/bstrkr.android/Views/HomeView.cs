@@ -496,6 +496,7 @@ namespace bstrkr.android.views
 		private void ShowMap()
 		{
 			var homeViewModel = this.ViewModel as HomeViewModel;
+			_navigationView.SetCheckedItem(homeViewModel.MenuItems.IndexOf(homeViewModel.MenuItems.First(x => x.Section == MenuSection.Map)));
 			homeViewModel.SelectMenuItemCommand.Execute(MenuSection.Map);
 		}
 

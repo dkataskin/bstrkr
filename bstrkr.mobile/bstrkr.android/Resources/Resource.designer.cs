@@ -2362,8 +2362,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f020080
 			public const int drawer_shadow_light = 2130837632;
 			
-			// aapt resource value: 0x7f0200fd
-			public const int header_shadow = 2130837757;
+			// aapt resource value: 0x7f0200fe
+			public const int header_shadow = 2130837758;
 			
 			// aapt resource value: 0x7f020081
 			public const int ic_action_refresh = 2130837633;
@@ -2665,8 +2665,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0200e4
 			public const int my_location = 2130837732;
 			
-			// aapt resource value: 0x7f0200fc
-			public const int notification_template_icon_bg = 2130837756;
+			// aapt resource value: 0x7f0200fd
+			public const int notification_template_icon_bg = 2130837757;
 			
 			// aapt resource value: 0x7f0200e5
 			public const int places_ic_clear = 2130837733;
@@ -2736,6 +2736,9 @@ namespace bstrkr.android
 			
 			// aapt resource value: 0x7f0200fb
 			public const int vehicletypes_trolley = 2130837755;
+			
+			// aapt resource value: 0x7f0200fc
+			public const int vershi_logo = 2130837756;
 			
 			static Drawable()
 			{

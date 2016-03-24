@@ -471,6 +471,10 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_routes.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_settings.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\menu_item_stops.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\vershi_logo.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\vershi_logo.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\vershi_logo.png" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\vershi_logo.png" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
