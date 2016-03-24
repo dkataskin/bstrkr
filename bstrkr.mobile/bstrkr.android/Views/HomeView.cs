@@ -154,16 +154,9 @@ namespace bstrkr.android.views
 						break;
 
 					case MenuSection.About:
-						var menuItem1 = homeViewModel.MenuItems.First(x => x.Id == (int)_currentSection);
-						var position = homeViewModel.MenuItems.IndexOf(menuItem1);
-						var aboutViewModel = loaderService.LoadViewModel(request, null) as AboutViewModel;
-						Mvx.Resolve<IUserInteraction>().Alert(
-												aboutViewModel.AboutText,
-												() => _navigationView.SetCheckedItem(position),
-												AppResources.about_view_title,
-												AppResources.ok);
-
-						return true;
+						fragment = this.FindFragment<AboutView>() ?? new AboutView();
+						_currentSection = section;
+						break;
 				}
 
 				IMvxFragmentView mvxFragmentView = null;

@@ -1220,32 +1220,32 @@ namespace bstrkr.android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f090069
-			public const int abc_background_cache_hint_selector_material_dark = 2131296361;
-			
-			// aapt resource value: 0x7f09006a
-			public const int abc_background_cache_hint_selector_material_light = 2131296362;
-			
 			// aapt resource value: 0x7f09006b
-			public const int abc_color_highlight_material = 2131296363;
+			public const int abc_background_cache_hint_selector_material_dark = 2131296363;
+			
+			// aapt resource value: 0x7f09006c
+			public const int abc_background_cache_hint_selector_material_light = 2131296364;
+			
+			// aapt resource value: 0x7f09006d
+			public const int abc_color_highlight_material = 2131296365;
 			
 			// aapt resource value: 0x7f090009
 			public const int abc_input_method_navigation_guard = 2131296265;
 			
-			// aapt resource value: 0x7f09006c
-			public const int abc_primary_text_disable_only_material_dark = 2131296364;
-			
-			// aapt resource value: 0x7f09006d
-			public const int abc_primary_text_disable_only_material_light = 2131296365;
-			
 			// aapt resource value: 0x7f09006e
-			public const int abc_primary_text_material_dark = 2131296366;
+			public const int abc_primary_text_disable_only_material_dark = 2131296366;
 			
 			// aapt resource value: 0x7f09006f
-			public const int abc_primary_text_material_light = 2131296367;
+			public const int abc_primary_text_disable_only_material_light = 2131296367;
 			
 			// aapt resource value: 0x7f090070
-			public const int abc_search_url_text = 2131296368;
+			public const int abc_primary_text_material_dark = 2131296368;
+			
+			// aapt resource value: 0x7f090071
+			public const int abc_primary_text_material_light = 2131296369;
+			
+			// aapt resource value: 0x7f090072
+			public const int abc_search_url_text = 2131296370;
 			
 			// aapt resource value: 0x7f09000a
 			public const int abc_search_url_text_normal = 2131296266;
@@ -1256,11 +1256,17 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f09000c
 			public const int abc_search_url_text_selected = 2131296268;
 			
-			// aapt resource value: 0x7f090071
-			public const int abc_secondary_text_material_dark = 2131296369;
+			// aapt resource value: 0x7f090073
+			public const int abc_secondary_text_material_dark = 2131296371;
 			
-			// aapt resource value: 0x7f090072
-			public const int abc_secondary_text_material_light = 2131296370;
+			// aapt resource value: 0x7f090074
+			public const int abc_secondary_text_material_light = 2131296372;
+			
+			// aapt resource value: 0x7f09006a
+			public const int about_text_second_title = 2131296362;
+			
+			// aapt resource value: 0x7f090069
+			public const int about_text_title = 2131296361;
 			
 			// aapt resource value: 0x7f09000d
 			public const int accent_material_dark = 2131296269;
@@ -1316,8 +1322,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090051
 			public const int common_action_bar_splitter = 2131296337;
 			
-			// aapt resource value: 0x7f090073
-			public const int common_google_signin_btn_text_dark = 2131296371;
+			// aapt resource value: 0x7f090075
+			public const int common_google_signin_btn_text_dark = 2131296373;
 			
 			// aapt resource value: 0x7f090052
 			public const int common_google_signin_btn_text_dark_default = 2131296338;
@@ -1331,8 +1337,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090053
 			public const int common_google_signin_btn_text_dark_pressed = 2131296339;
 			
-			// aapt resource value: 0x7f090074
-			public const int common_google_signin_btn_text_light = 2131296372;
+			// aapt resource value: 0x7f090076
+			public const int common_google_signin_btn_text_light = 2131296374;
 			
 			// aapt resource value: 0x7f090056
 			public const int common_google_signin_btn_text_light_default = 2131296342;
@@ -1346,8 +1352,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090057
 			public const int common_google_signin_btn_text_light_pressed = 2131296343;
 			
-			// aapt resource value: 0x7f090075
-			public const int common_plus_signin_btn_text_dark = 2131296373;
+			// aapt resource value: 0x7f090077
+			public const int common_plus_signin_btn_text_dark = 2131296375;
 			
 			// aapt resource value: 0x7f090049
 			public const int common_plus_signin_btn_text_dark_default = 2131296329;
@@ -1361,8 +1367,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f09004a
 			public const int common_plus_signin_btn_text_dark_pressed = 2131296330;
 			
-			// aapt resource value: 0x7f090076
-			public const int common_plus_signin_btn_text_light = 2131296374;
+			// aapt resource value: 0x7f090078
+			public const int common_plus_signin_btn_text_light = 2131296376;
 			
 			// aapt resource value: 0x7f09004d
 			public const int common_plus_signin_btn_text_light_default = 2131296333;
@@ -1559,11 +1565,11 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f090040
 			public const int switch_thumb_disabled_material_light = 2131296320;
 			
-			// aapt resource value: 0x7f090077
-			public const int switch_thumb_material_dark = 2131296375;
+			// aapt resource value: 0x7f090079
+			public const int switch_thumb_material_dark = 2131296377;
 			
-			// aapt resource value: 0x7f090078
-			public const int switch_thumb_material_light = 2131296376;
+			// aapt resource value: 0x7f09007a
+			public const int switch_thumb_material_light = 2131296378;
 			
 			// aapt resource value: 0x7f090041
 			public const int switch_thumb_normal_material_dark = 2131296321;
