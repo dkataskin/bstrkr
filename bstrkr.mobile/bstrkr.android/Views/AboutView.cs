@@ -21,9 +21,9 @@ namespace bstrkr.android.views
 
 			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = AppResources.licenses_view_title;
+			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = AppResources.about_view_title;
 
-			return this.BindingInflate(Resource.Layout.fragment_licenses_view, null);
+			return this.BindingInflate(Resource.Layout.fragment_about_view, null);
 		}
 
 		public override void OnPrepareOptionsMenu(IMenu menu)
