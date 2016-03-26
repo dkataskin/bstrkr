@@ -21,4 +21,19 @@
   	<data name="unknown_location_no_data" xml:space="preserve">
     	<value>К сожалению, у нас нет данных для вашего города, попробуйте выбрать один из доступных в настройках.</value>
   	</data>
+  	 <data name="about_design_text" xml:space="preserve">
+    <value>Дизайн</value>
+    </data>
+     <data name="vasiliy_moskaev" xml:space="preserve">
+    <value>Василий Москаев</value>
+    </data>
+     <data name="andrey_ivanov" xml:space="preserve">
+    <value>Андрей Иванов</value>
+    </data>
+     <data name="dmitriy_kataskin" xml:space="preserve">
+    <value>Дмитрий Катаскин</value>
+    </data>
+     <data name="about_programming_text" xml:space="preserve">
+    <value>Идея и код</value>
+    </data>
 </root>
