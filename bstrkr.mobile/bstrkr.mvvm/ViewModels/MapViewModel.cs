@@ -243,8 +243,6 @@ namespace bstrkr.mvvm.viewmodels
 				_liveDataProvider.VehicleLocationsUpdateStarted -= this.OnVehicleLocationsUpdateStarted;
 				_liveDataProvider.VehicleLocationsUpdateFailed -= this.OnVehicleLocationsUpdateFailed;
 				_liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
-				//_liveDataProvider.RouteStopForecastReceived -= this.OnRouteStopForecastReceived;
-				//_liveDataProvider.VehicleForecastReceived -= this.OnVehicleForecastReceived;
 			}
 
 			_stops.Clear();
@@ -353,7 +351,7 @@ namespace bstrkr.mvvm.viewmodels
 				vehicleVM.Model = locationUpdate.Vehicle;
 				vehicleVM.MarkerSize = _markerSize;
 
-				if (_selectedRouteStop != null || _selectedVehicle != null)
+				if (_selectedVehicle != null)
 				{
 					vehicleVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
 				}
@@ -373,7 +371,7 @@ namespace bstrkr.mvvm.viewmodels
 			stopVM.Model = routeStop;
 			stopVM.MarkerSize = MapMarkerSizes.Medium;
 
-			if (_selectedRouteStop != null || _selectedVehicle != null)
+			if (_selectedRouteStop != null)
 			{
 				stopVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
 			}
@@ -411,7 +409,7 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedRouteStop = routeStopVM;
 			_selectedRouteStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
 
-			this.SetMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null, new[] { _selectedRouteStop.Model.Id });
+			this.SetRouteStopMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedRouteStop.Model.Id });
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			this.ShowViewModel<RouteStopViewModel>(
@@ -451,7 +449,7 @@ namespace bstrkr.mvvm.viewmodels
 			_selectedVehicle = vehicleVM;
 			_selectedVehicle.SelectionState = MapMarkerSelectionStates.SelectionSelected;
 
-			this.SetMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedVehicle.Model.Id }, null);
+			this.SetVehicleMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedVehicle.Model.Id });
 
 			var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
 			var navParams = new 
@@ -502,10 +500,32 @@ namespace bstrkr.mvvm.viewmodels
 			return Settings.AnimateMarkers && zoom > _config.AnimateMarkersMovementZoomThreshold;
 		}
 
-		private void SetMarkersSelectionState(
-						MapMarkerSelectionStates selectionState,
-						IEnumerable<string> excludeVehicles = null,
-						IEnumerable<string> excludeStops = null)
+		private void SetRouteStopMarkersSelectionState(
+									MapMarkerSelectionStates selectionState,
+									IEnumerable<string> excludeStops = null)
+		{
+			lock(_stops)
+			{
+				foreach (var stop in _stops)
+				{
+					if (excludeStops != null)
+					{
+						if (!excludeStops.Any(v => v.Equals(stop.Model.Id)))
+						{
+							stop.SelectionState = selectionState;
+						}
+					}
+					else
+					{
+						stop.SelectionState = selectionState;
+					}
+				}
+			}
+		}
+
+		private void SetVehicleMarkersSelectionState(
+									MapMarkerSelectionStates selectionState,
+									IEnumerable<string> excludeVehicles = null)
 		{
 			lock(_vehicles)
 			{
@@ -524,24 +544,15 @@ namespace bstrkr.mvvm.viewmodels
 					}
 				}
 			}
+		}
 
-			lock(_stops)
-			{
-				foreach (var stop in _stops)
-				{
-					if (excludeStops != null)
-					{
-						if (!excludeStops.Any(v => v.Equals(stop.Model.Id)))
-						{
-							stop.SelectionState = selectionState;
-						}
-					}
-					else
-					{
-						stop.SelectionState = selectionState;
-					}
-				}
-			}
+		private void SetMarkersSelectionState(
+						MapMarkerSelectionStates selectionState,
+						IEnumerable<string> excludeVehicles = null,
+						IEnumerable<string> excludeStops = null)
+		{
+			this.SetRouteStopMarkersSelectionState(selectionState, excludeStops);
+			this.SetVehicleMarkersSelectionState(selectionState, excludeVehicles);
 		}
 
 		private void ClearSelection()
@@ -562,54 +573,6 @@ namespace bstrkr.mvvm.viewmodels
 		private void OnVehicleLocationsUpdateFailed(object sender, EventArgs EventArgs)
 		{
 			_messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Failed));
-		}
-
-		private void OnRouteStopForecastReceived(object sender, RouteStopForecastReceivedEventArgs args)
-		{
-			var selectedRouteStop = _selectedRouteStop;
-			if (selectedRouteStop != null && selectedRouteStop.Model.Id.Equals(args.RouteStopId) &&
-				args.Forecast != null && args.Forecast.Items != null && args.Forecast.Items.Any())
-			{
-				var vehicleIds = args.Forecast.Items.Select(x => x.VehicleId).ToList();
-				lock(_vehicles)
-				{
-					foreach(var vehicle in _vehicles)
-					{
-						if (vehicleIds.Contains(vehicle.VehicleId))
-						{
-							vehicle.SelectionState = MapMarkerSelectionStates.SelectionSelected;
-						}
-						else
-						{
-							vehicle.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
-						}
-					}
-				}
-			}
-		}
-
-		private void OnVehicleForecastReceived(object sender, VehicleForecastReceivedEventArgs args)
-		{
-			var selectedVehile = _selectedVehicle;
-			if (selectedVehile != null && selectedVehile.VehicleId.Equals(args.VehicleId) &&
-				args.Forecast != null && args.Forecast.Items != null && args.Forecast.Items.Any())
-			{
-				var routeStopIds = args.Forecast.Items.Select(x => x.RouteStop.Id).ToList();
-				lock(_stops)
-				{
-					foreach(var routeStop in _stops)
-					{
-						if (routeStopIds.Contains(routeStop.Model.Id))
-						{
-							routeStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
-						}
-						else
-						{
-							routeStop.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
-						}
-					}
-				}
-			}
 		}
 
 		private void ForceVehicleLocationsUpdate()
