@@ -61,6 +61,7 @@ namespace bstrkr.android.views
 						.SetPosition(this.ViewModel.Location.ToLatLng())
 						.SetTitle(this.ViewModel.RouteNumber)
 						.SetIcon(BitmapDescriptorFactory.FromBitmap(this.ViewModel.TitleIcon as Bitmap))
+						.Visible(this.ViewModel.IsTitleVisible)
 						.Flat(false)
 						.SetAlpha(this.ConvertSelectionStateToAlpha(this.ViewModel.SelectionState))
 				}
@@ -103,6 +104,15 @@ namespace bstrkr.android.views
 			if (args.PropertyName.Equals("TitleIcon"))
 			{
 				this.UpdateIcon(TitleMarkerKey, BitmapDescriptorFactory.FromBitmap(this.ViewModel.Icon as Bitmap));
+			}
+
+			if (args.PropertyName.Equals("IsTitleVisible"))
+			{
+				var marker = this.TryGetMarker(TitleMarkerKey);
+				if (marker != null)
+				{
+					marker.Visible = this.ViewModel.IsTitleVisible;	
+				}
 			}
 
 			if (args.PropertyName.Equals("SelectionState"))

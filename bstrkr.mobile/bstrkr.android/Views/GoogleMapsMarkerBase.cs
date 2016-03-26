@@ -94,6 +94,13 @@ namespace bstrkr.android.views
 			}
 		}
 
+		public virtual Marker TryGetMarker(string key)
+		{
+			Marker marker;
+			_markers.TryGetValue(key, out marker);
+			return marker;
+		}
+
 		protected virtual void UpdateIcon(string key, BitmapDescriptor icon)
 		{
 			if (string.IsNullOrEmpty(key))

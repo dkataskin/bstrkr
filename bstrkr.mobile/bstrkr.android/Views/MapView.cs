@@ -176,7 +176,7 @@ namespace bstrkr.android.views
 
 			set.Bind(_vehicleMarkerManager)
 			   .For(m => m.ItemsSource)
-			   .To(vm => vm.Vehicles);
+			   .To(vm => vm.VisibleVehicles);
 			
 			set.Bind(_routeStopMarkerManager)
 			   .For(m => m.ItemsSource)

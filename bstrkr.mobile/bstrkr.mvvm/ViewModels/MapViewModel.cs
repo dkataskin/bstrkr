@@ -48,12 +48,13 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly MvxSubscriptionToken _updateVehicleLocationsSubscriptionToken;
 		private readonly BusTrackerConfig _config;
 
-		private readonly IDictionary<string, VehicleViewModel> _allVehicles = new Dictionary<string, VehicleViewModel>();
+		private readonly IDictionary<string, VehicleViewModel> _vehicleIdToVM = new Dictionary<string, VehicleViewModel>();
 		private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
+		private readonly ObservableCollection<VehicleViewModel> _visibleVehicles = new ObservableCollection<VehicleViewModel>();
 		private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
 
-		private ReadOnlyObservableCollection<VehicleViewModel> _vehiclesReadOnly = 
-			new ReadOnlyObservableCollection<VehicleViewModel>(new ObservableCollection<VehicleViewModel>());
+		private ReadOnlyObservableCollection<VehicleViewModel> _vehiclesReadOnly;
+		private ReadOnlyObservableCollection<VehicleViewModel> _visibleVehiclesReadOnly;
 
 		private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
 		private ILiveDataProvider _liveDataProvider;
@@ -73,6 +74,9 @@ namespace bstrkr.mvvm.viewmodels
 					IConfigManager configManager,
 					IMvxMessenger messenger)
 		{
+			_vehiclesReadOnly = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
+			_visibleVehiclesReadOnly = new ReadOnlyObservableCollection<VehicleViewModel>(_visibleVehicles);
+
 			_providerFactory = providerFactory;
 			_configManager = configManager;
 			_messenger = messenger;
@@ -125,15 +129,9 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand<Tuple<GeoPoint, bool>> UpdateMapCenterCommand { get; private set; }
 
-		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles 
-		{ 
-			get { return _vehiclesReadOnly; } 
-			private set
-			{
-				_vehiclesReadOnly = value;
-				this.RaisePropertyChanged(() => this.Vehicles);
-			}
-		}
+		public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get { return _vehiclesReadOnly; } }
+
+		public ReadOnlyObservableCollection<VehicleViewModel> VisibleVehicles { get { return _visibleVehiclesReadOnly; } }
 
 		public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
 
@@ -248,7 +246,9 @@ namespace bstrkr.mvvm.viewmodels
 			_stops.Clear();
 			lock(_vehicles)
 			{
+				_vehicleIdToVM.Clear();
 				_vehicles.Clear();
+				_visibleVehicles.Clear();
 			}
 
 			this.InitializeStartLiveDataProvider(_providerFactory);
@@ -292,24 +292,8 @@ namespace bstrkr.mvvm.viewmodels
 
 						this.SelectClosestRouteStop(this.MapCenter);
 					};
-
-					lock(_vehicles)
-					{
-						this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
-					}
 				});
 			}
-			else
-			{
-				this.Dispatcher.RequestMainThreadAction(() =>
-				{
-					lock(_vehicles)
-					{
-						this.Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
-					}
-				});
-			}
-
 		}
 
 		private void SelectClosestRouteStop(GeoPoint location)
@@ -350,6 +334,8 @@ namespace bstrkr.mvvm.viewmodels
 				var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
 				vehicleVM.Model = locationUpdate.Vehicle;
 				vehicleVM.MarkerSize = _markerSize;
+				vehicleVM.AnimateMovement = this.IsAnimationEnabled(this.Zoom);
+				vehicleVM.IsTitleVisible = this.IsVehicleTitleMarkerVisible(this.Zoom);
 
 				if (_selectedVehicle != null)
 				{
@@ -381,7 +367,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
 		{
-			vehicleVM.AnimateMovement = this.GetAnimateMarkerMovementFlag(this.Zoom);
+			vehicleVM.AnimateMovement = this.IsAnimationEnabled(this.Zoom);
 			vehicleVM.Update(locationUpdate);
 		}
 
@@ -434,9 +420,9 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			VehicleViewModel vehicleVM;
-			lock(_vehicles)
+			lock(_visibleVehicles)
 			{
-				vehicleVM = _vehicles.FirstOrDefault(x => x.Model.Id.Equals(vehicleId));
+				vehicleVM = _visibleVehicles.FirstOrDefault(x => x.Model.Id.Equals(vehicleId));
 			}
 
 			if (vehicleVM == null)
@@ -470,19 +456,18 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void OnZoomChanged(float zoom)
 		{
-			var markerSize = (MapMarkerSizes)_zoomToMarkerSizeConverter.Convert(zoom, typeof(MapMarkerSizes), null, null);
-			if (_markerSize != markerSize)
+			_markerSize = (MapMarkerSizes)_zoomToMarkerSizeConverter.Convert(
+																		  zoom,
+																		  typeof(MapMarkerSizes),
+																		  null,
+																		  CultureInfo.InvariantCulture);
+			lock(_visibleVehicles)
 			{
-				_markerSize = markerSize;
-
-				lock(_vehicles)
+				foreach (var vm in _visibleVehicles)
 				{
-					foreach (var vm in _vehicles)
-					{
-						vm.MarkerSize = _markerSize;
-						vm.AnimateMovement = this.GetAnimateMarkerMovementFlag(zoom);
-						vm.IsTitleVisible = zoom > _config.ShowVehicleTitlesZoomThreshold;
-					}
+					vm.MarkerSize = _markerSize;
+					vm.AnimateMovement = this.IsAnimationEnabled(zoom);
+					vm.IsTitleVisible = this.IsVehicleTitleMarkerVisible(zoom);
 				}
 			}
 
@@ -490,14 +475,24 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				foreach (var routeStop in _stops)
 				{
-					routeStop.IsVisible = zoom > _config.ShowRouteStopsZoomThreshold;
+					routeStop.IsVisible = this.IsRouteStopVisible(zoom);
 				}
 			}
 		}
 
-		private bool GetAnimateMarkerMovementFlag(float zoom)
+		private bool IsAnimationEnabled(float zoom)
 		{
 			return Settings.AnimateMarkers && zoom > _config.AnimateMarkersMovementZoomThreshold;
+		}
+
+		private bool IsVehicleTitleMarkerVisible(float zoom)
+		{
+			return zoom > _config.ShowVehicleTitlesZoomThreshold;
+		}
+
+		private bool IsRouteStopVisible(float zoom)
+		{
+			return zoom > _config.ShowRouteStopsZoomThreshold;
 		}
 
 		private void SetRouteStopMarkersSelectionState(
@@ -527,9 +522,9 @@ namespace bstrkr.mvvm.viewmodels
 									MapMarkerSelectionStates selectionState,
 									IEnumerable<string> excludeVehicles = null)
 		{
-			lock(_vehicles)
+			lock(_visibleVehicles)
 			{
-				foreach (var vehicle in _vehicles)
+				foreach (var vehicle in _visibleVehicles)
 				{
 					if (excludeVehicles != null)
 					{
@@ -592,22 +587,23 @@ namespace bstrkr.mvvm.viewmodels
 			{
 				foreach (var vehicleUpdate in update.VehicleUpdates) 
 				{
-					if (_allVehicles.ContainsKey(vehicleUpdate.Vehicle.Id))
+					if (_vehicleIdToVM.ContainsKey(vehicleUpdate.Vehicle.Id))
 					{
-						this.UpdateVehicleVM(_allVehicles[vehicleUpdate.Vehicle.Id], vehicleUpdate);
+						this.UpdateVehicleVM(_vehicleIdToVM[vehicleUpdate.Vehicle.Id], vehicleUpdate);
 					}
 					else
 					{
 						var vm = this.CreateVehicleVM(vehicleUpdate);
 						if (vm != null)
 						{
-							_allVehicles[vehicleUpdate.Vehicle.Id] = this.CreateVehicleVM(vehicleUpdate);
+							_vehicles.Add(vm);
+							_vehicleIdToVM[vehicleUpdate.Vehicle.Id] = this.CreateVehicleVM(vehicleUpdate);
 						}
 					}
 				}
 
 				var visibleVehicles = new Dictionary<string, VehicleViewModel>();
-				foreach (var keyValuePair in _allVehicles)
+				foreach (var keyValuePair in _vehicleIdToVM)
 				{
 					if (update.VisibleRegion.ContainsPoint(keyValuePair.Value.LocationAnimated))
 					{
@@ -618,20 +614,17 @@ namespace bstrkr.mvvm.viewmodels
 				MvxTrace.Trace("{0} visible vehicles, {1} current vehicles are visible", visibleVehicles.Count, this.Vehicles.Count);
 
 				var vehiclesToRemove = new List<VehicleViewModel>();
-				foreach (var vehicle in this.Vehicles)
+				foreach (var vehicle in this.VisibleVehicles)
 				{
-					if (visibleVehicles.ContainsKey(vehicle.VehicleId))
-					{
-						visibleVehicles.Remove(vehicle.VehicleId);
-					}
-					else
+					if (!visibleVehicles.ContainsKey(vehicle.VehicleId))
 					{
 						vehiclesToRemove.Add(vehicle);
-						visibleVehicles.Remove(vehicle.VehicleId);
 					}
+
+					visibleVehicles.Remove(vehicle.VehicleId);
 				}
 
-				var animateMovement = this.GetAnimateMarkerMovementFlag(update.Zoom);
+				var animateMovement = this.IsAnimationEnabled(update.Zoom);
 				this.ViewDispatcher.RequestMainThreadAction(() =>
 				{
 					MvxTrace.Trace("{0} vehicles should be removed, {1} added", vehiclesToRemove.Count, visibleVehicles.Count);
@@ -640,14 +633,14 @@ namespace bstrkr.mvvm.viewmodels
 					{
 						vehicle.IsInView = false;
 						vehicle.AnimateMovement = false;
-						_vehicles.Remove(vehicle);
+						_visibleVehicles.Remove(vehicle);
 					}
 
 					foreach (var vehicle in visibleVehicles.Values)
 					{
 						vehicle.IsInView = true;
 						vehicle.AnimateMovement = animateMovement;
-						_vehicles.Add(vehicle);
+						_visibleVehicles.Add(vehicle);
 					}
 				});
 			} 
