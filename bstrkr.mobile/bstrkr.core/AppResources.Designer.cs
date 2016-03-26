@@ -334,5 +334,35 @@ namespace bstrkr.core {
                 return ResourceManager.GetString("show_vehicle_on_map_confirm_format", resourceCulture);
             }
         }
+        
+        public static string about_design_text {
+            get {
+                return ResourceManager.GetString("about_design_text", resourceCulture);
+            }
+        }
+        
+        public static string vasiliy_moskaev {
+            get {
+                return ResourceManager.GetString("vasiliy_moskaev", resourceCulture);
+            }
+        }
+        
+        public static string andrey_ivanov {
+            get {
+                return ResourceManager.GetString("andrey_ivanov", resourceCulture);
+            }
+        }
+        
+        public static string dmitriy_kataskin {
+            get {
+                return ResourceManager.GetString("dmitriy_kataskin", resourceCulture);
+            }
+        }
+        
+        public static string about_programming_text {
+            get {
+                return ResourceManager.GetString("about_programming_text", resourceCulture);
+            }
+        }
     }
 }

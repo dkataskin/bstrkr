@@ -159,4 +159,19 @@
 	<data name="show_vehicle_on_map_confirm_format" xml:space="preserve">
     <value>Show it on map?</value>
     </data>
+    	<data name="about_design_text" xml:space="preserve">
+    <value>Design</value>
+    </data>
+     <data name="vasiliy_moskaev" xml:space="preserve">
+    <value>Vasiliy Moskaev</value>
+    </data>
+     <data name="andrey_ivanov" xml:space="preserve">
+    <value>Andrey Ivanov</value>
+    </data>
+     <data name="dmitriy_kataskin" xml:space="preserve">
+    <value>Dmitriy Kataskin</value>
+    </data>
+     <data name="about_programming_text" xml:space="preserve">
+    <value>Idea and programming</value>
+    </data>
 </root>

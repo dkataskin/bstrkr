@@ -10,9 +10,26 @@
         android:src="@drawable/vershi_logo"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
         android:layout_gravity="center" />
+    <TextView
+        style="@style/AboutSecondary"
+        android:layout_marginTop="50dp"
+        local:MvxBind="Text [about_design_text]" />
+    <TextView
+        style="@style/AboutPrimary"
+        local:MvxBind="Text [vasiliy_moskaev]" />
+    <TextView
+        style="@style/AboutPrimary"
+        local:MvxBind="Text [andrey_ivanov]" />
+    <TextView
+        style="@style/AboutSecondary"
+        android:layout_marginTop="50dp"
+        local:MvxBind="Text [about_programming_text]" />
+    <TextView
+        style="@style/AboutPrimary"
+        local:MvxBind="Text [dmitriy_kataskin]" />
 </LinearLayout>

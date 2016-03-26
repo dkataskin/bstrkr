@@ -3974,6 +3974,12 @@ namespace bstrkr.android
 		public partial class Style
 		{
 			
+			// aapt resource value: 0x7f060167
+			public const int AboutPrimary = 2131100007;
+			
+			// aapt resource value: 0x7f060168
+			public const int AboutSecondary = 2131100008;
+			
 			// aapt resource value: 0x7f0600a5
 			public const int AlertDialog_AppCompat = 2131099813;
 			
@@ -4409,14 +4415,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f060001
 			public const int Base_Widget_Design_TabLayout = 2131099649;
 			
-			// aapt resource value: 0x7f06016a
-			public const int Bubble_TextAppearance_Dark = 2131100010;
+			// aapt resource value: 0x7f06016c
+			public const int Bubble_TextAppearance_Dark = 2131100012;
+			
+			// aapt resource value: 0x7f06016d
+			public const int Bubble_TextAppearance_Light = 2131100013;
 			
 			// aapt resource value: 0x7f06016b
-			public const int Bubble_TextAppearance_Light = 2131100011;
-			
-			// aapt resource value: 0x7f060169
-			public const int BusTrackerProgressBar = 2131100009;
+			public const int BusTrackerProgressBar = 2131100011;
 			
 			// aapt resource value: 0x7f06015e
 			public const int BusTrackerTheme = 2131099998;
@@ -4424,14 +4430,14 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f06015d
 			public const int BusTrackerTheme_Base = 2131099997;
 			
-			// aapt resource value: 0x7f060167
-			public const int ListHeaderIcon = 2131100007;
+			// aapt resource value: 0x7f060169
+			public const int ListHeaderIcon = 2131100009;
 			
 			// aapt resource value: 0x7f060164
 			public const int ListItemBold = 2131100004;
 			
-			// aapt resource value: 0x7f060168
-			public const int ListItemIcon = 2131100008;
+			// aapt resource value: 0x7f06016a
+			public const int ListItemIcon = 2131100010;
 			
 			// aapt resource value: 0x7f060162
 			public const int ListItemRegular = 2131100002;
