@@ -330,7 +330,6 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			try
 			{
-
 				var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
 				vehicleVM.Model = locationUpdate.Vehicle;
 				vehicleVM.MarkerSize = _markerSize;
@@ -420,9 +419,9 @@ namespace bstrkr.mvvm.viewmodels
 			}
 
 			VehicleViewModel vehicleVM;
-			lock(_visibleVehicles)
+			lock(_vehicles)
 			{
-				vehicleVM = _visibleVehicles.FirstOrDefault(x => x.Model.Id.Equals(vehicleId));
+				vehicleVM = _vehicles.FirstOrDefault(x => x.Model.Id.Equals(vehicleId));
 			}
 
 			if (vehicleVM == null)
@@ -461,9 +460,9 @@ namespace bstrkr.mvvm.viewmodels
 																		  typeof(MapMarkerSizes),
 																		  null,
 																		  CultureInfo.InvariantCulture);
-			lock(_visibleVehicles)
+			lock(_vehicles)
 			{
-				foreach (var vm in _visibleVehicles)
+				foreach (var vm in _vehicles)
 				{
 					vm.MarkerSize = _markerSize;
 					vm.AnimateMovement = this.IsAnimationEnabled(zoom);
@@ -522,9 +521,9 @@ namespace bstrkr.mvvm.viewmodels
 									MapMarkerSelectionStates selectionState,
 									IEnumerable<string> excludeVehicles = null)
 		{
-			lock(_visibleVehicles)
+			lock(_vehicles)
 			{
-				foreach (var vehicle in _visibleVehicles)
+				foreach (var vehicle in _vehicles)
 				{
 					if (excludeVehicles != null)
 					{

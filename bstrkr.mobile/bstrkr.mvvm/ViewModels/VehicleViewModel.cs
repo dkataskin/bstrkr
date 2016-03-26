@@ -53,12 +53,14 @@ namespace bstrkr.mvvm.viewmodels
 				{
 					base.Model = value;
 
+					this.LocationAnimated = this.Location.Position;
 					this.SetIcons(this.ResourceManager);
 
 					this.RaisePropertyChanged(() => this.VehicleId);
 					this.RaisePropertyChanged(() => this.VehicleType);
 					this.RaisePropertyChanged(() => this.CarPlate);
 					this.RaisePropertyChanged(() => this.Location);
+					this.RaisePropertyChanged(() => this.LocationAnimated);
 					this.RaisePropertyChanged(() => this.Icon);
 				}
 			}
