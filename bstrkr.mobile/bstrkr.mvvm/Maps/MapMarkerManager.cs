@@ -97,26 +97,23 @@ namespace bstrkr.mvvm.maps
 			switch (args.Action)
 			{
 				case NotifyCollectionChangedAction.Add:
-					this.LockMarkers(() => this.AddMarkers(args.NewItems));
+					this.AddMarkers(args.NewItems);
 					break;
 
 				case NotifyCollectionChangedAction.Remove:
-					this.LockMarkers(() => this.RemoveMarkers(args.OldItems));
+					this.RemoveMarkers(args.OldItems);
 					break;
 
 				case NotifyCollectionChangedAction.Replace:
-					this.LockMarkers(() =>
-					{
-						this.RemoveMarkers(args.OldItems);
-						this.AddMarkers(args.NewItems);
-					});
+					this.RemoveMarkers(args.OldItems);
+					this.AddMarkers(args.NewItems);
 					break;
 
 				case NotifyCollectionChangedAction.Move:
 					break;
 
 				case NotifyCollectionChangedAction.Reset:
-					this.LockMarkers(() => this.ReloadAllMarkers());
+					this.ReloadAllMarkers();
 					break;
 
 				default:
@@ -136,15 +133,23 @@ namespace bstrkr.mvvm.maps
 
 		protected virtual void RemoveMarkerFor(object item)
 		{
-			var marker = _markers[item];
-			_mapView.RemoveMarker(marker);
-
-			if (marker is ICleanable)
+			try
 			{
-				(marker as ICleanable).CleanUp();
-			}
 
-			_markers.Remove(item);
+				var marker = _markers[item];
+				_mapView.RemoveMarker(marker);
+
+				if (marker is ICleanable)
+				{
+					(marker as ICleanable).CleanUp();
+				}
+
+				_markers.Remove(item);
+			} 
+			catch (Exception ex)
+			{
+				MvxTrace.Warning("An error occurred while removing marker: {0}", ex);
+			}
 		}
 
 		protected virtual void AddMarkers(IEnumerable newItems)
@@ -161,14 +166,6 @@ namespace bstrkr.mvvm.maps
 			_markers[item] = marker;
 
 			_mapView.AddMarker(marker);
-		}
-
-		private void LockMarkers(Action action)
-		{
-			lock(_markers)
-			{
-				action.Invoke();
-			}
 		}
 	}
 }

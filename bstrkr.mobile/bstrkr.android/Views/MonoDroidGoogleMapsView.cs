@@ -9,6 +9,7 @@ using bstrkr.android.views;
 using bstrkr.core.android.extensions;
 using bstrkr.core.spatial;
 using bstrkr.mvvm.views;
+using Cirrious.CrossCore.Platform;
 
 namespace bstrkr.android.views
 {
@@ -99,8 +100,18 @@ namespace bstrkr.android.views
 					_markers.Remove(mapId);
 				}
 
-				markerBase.Markers[markerKey].Remove();
-				markerBase.DetachMarker(markerKey);
+				try
+				{
+					markerBase.Markers[markerKey].Remove();
+				} 
+				catch (Exception ex)
+				{
+					MvxTrace.Warning("An error occurred while removing marker id = {0}", mapId);
+				}
+				finally
+				{
+					markerBase.DetachMarker(markerKey);
+				}
 			}
 		}
 

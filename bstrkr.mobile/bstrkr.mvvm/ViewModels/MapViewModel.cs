@@ -596,7 +596,7 @@ namespace bstrkr.mvvm.viewmodels
 						if (vm != null)
 						{
 							_vehicles.Add(vm);
-							_vehicleIdToVM[vehicleUpdate.Vehicle.Id] = this.CreateVehicleVM(vehicleUpdate);
+							_vehicleIdToVM[vehicleUpdate.Vehicle.Id] = vm;
 						}
 					}
 				}
