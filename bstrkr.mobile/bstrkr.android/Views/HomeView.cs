@@ -220,16 +220,34 @@ namespace bstrkr.android.views
 			base.OnPostCreate(savedInstanceState);
 			_drawerToggle.SyncState();
 
-			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
+			this.SetUpSlidingPanel();
+			this.SetUpCitiesSpinner();
+			this.SetUpIconGenerator();
+			this.CloseSlidingPanel();
+		}
 
+		private void SetUpSlidingPanel()
+		{
+			var panel = this.FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
 			panel.AnchorPoint = 0.4f;
 			panel.CoveredFadeColor = new Android.Graphics.Color(0x00FFFFFF);
 			panel.SlidingEnabled = true;
+		}
 
+		private void SetUpCitiesSpinner()
+		{
+			var spinner = FindViewById<Spinner>(Resource.Id.city);
+//			spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
+			var adapter = new ArrayAdapter();
+//
+//			adapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
+//			spinner.Adapter = adapter;
+		}
+
+		private void SetUpIconGenerator()
+		{
 			var appResourcesManager = Mvx.Resolve<IAppResourceManager>() as AndroidAppResourceManager;
 			appResourcesManager.IconGenerator = new IconGenerator(this.BaseContext);
-
-			this.CloseSlidingPanel();
 		}
 
 		public override void OnConfigurationChanged(Configuration newConfig)

@@ -476,6 +476,7 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\vershi_logo.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\vershi_logo.png" />
     <AndroidResource Include="Resources\Layout\fragment_about_view.axml" />
+    <AndroidResource Include="Resources\Drawable\saransk.jpg" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

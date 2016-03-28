@@ -29,7 +29,7 @@
       "endpoint": "http://bus46.ru/php/"
     },
 	{
-	  "id": "cheboksari",
+	  "id": "cheboksary",
       "name": "Чебоксары",
       "latitude": 56.1139949,
       "longitude": 47.2663844,
@@ -43,7 +43,7 @@
       "endpoint": "http://bus68.ru/php/"
     },
 	{
-	  "id": "orel",
+	  "id": "oryol",
       "name": "Орел",
       "latitude": 52.9783477,
       "longitude": 36.1129104,

@@ -174,4 +174,28 @@
      <data name="about_programming_text" xml:space="preserve">
     <value>Idea and programming</value>
     </data>
+    <data name="city_saransk_name" xml:space="preserve">
+    	<value>Saransk</value>
+    </data>
+    <data name="city_barnaul_name" xml:space="preserve">
+    	<value>Barnaul</value>
+    </data>
+    <data name="city_ryazan_name" xml:space="preserve">
+    	<value>Ryazan</value>
+    </data>
+    <data name="city_kursk_name" xml:space="preserve">
+    	<value>Kursk</value>
+    </data>
+    <data name="city_cheboksary_name" xml:space="preserve">
+    	<value>Cheboksary</value>
+    </data>
+    <data name="city_tambov_name" xml:space="preserve">
+    	<value>Tambov</value>
+    </data>
+    <data name="city_oryol_name" xml:space="preserve">
+    	<value>Oryol</value>
+    </data>
+    <data name="city_novgorod_name" xml:space="preserve">
+    	<value>Novgorod</value>
+    </data>
 </root>

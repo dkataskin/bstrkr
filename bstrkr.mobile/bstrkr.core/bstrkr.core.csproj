@@ -60,9 +60,6 @@
     <Compile Include="Area.cs" />
     <Compile Include="Services\Resources\IAppResourceManager.cs" />
     <Compile Include="Services\Resources\AppResourceManagerBase.cs" />
-    <Compile Include="AppResources.Designer.cs">
-      <DependentUpon>AppResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="LicensesInfo.cs" />
     <None Include="Resources\Licenses\MVVMCross.txt" />
     <None Include="Resources\Licenses\RestSharp.txt" />
@@ -99,6 +96,9 @@
     <Compile Include="Services\Animation\IMarkerPositionAnimator.cs" />
     <Compile Include="Services\Animation\PositionAnimationPlaybackEventArgs.cs" />
     <Compile Include="Services\Animation\PositionAnimationPlaybackEventArgs %28copy%29.cs" />
+    <Compile Include="AppResources.ru.Designer.cs">
+      <DependentUpon>AppResources.ru.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -149,7 +149,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AppResources.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResources.ru.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

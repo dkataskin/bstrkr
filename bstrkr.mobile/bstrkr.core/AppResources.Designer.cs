@@ -364,5 +364,53 @@ namespace bstrkr.core {
                 return ResourceManager.GetString("about_programming_text", resourceCulture);
             }
         }
+        
+        public static string city_saransk_name {
+            get {
+                return ResourceManager.GetString("city_saransk_name", resourceCulture);
+            }
+        }
+        
+        public static string city_barnaul_name {
+            get {
+                return ResourceManager.GetString("city_barnaul_name", resourceCulture);
+            }
+        }
+        
+        public static string city_ryazan_name {
+            get {
+                return ResourceManager.GetString("city_ryazan_name", resourceCulture);
+            }
+        }
+        
+        public static string city_kursk_name {
+            get {
+                return ResourceManager.GetString("city_kursk_name", resourceCulture);
+            }
+        }
+        
+        public static string city_cheboksary_name {
+            get {
+                return ResourceManager.GetString("city_cheboksary_name", resourceCulture);
+            }
+        }
+        
+        public static string city_tambov_name {
+            get {
+                return ResourceManager.GetString("city_tambov_name", resourceCulture);
+            }
+        }
+        
+        public static string city_oryol_name {
+            get {
+                return ResourceManager.GetString("city_oryol_name", resourceCulture);
+            }
+        }
+        
+        public static string city_novgorod_name {
+            get {
+                return ResourceManager.GetString("city_novgorod_name", resourceCulture);
+            }
+        }
     }
 }

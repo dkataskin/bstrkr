@@ -11,6 +11,7 @@ using bstrkr.mvvm.messages;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
+using bstrkr.core.config;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -19,6 +20,9 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IBusTrackerLocationService _locationService;
 		private readonly IMvxMessenger _messenger;
 		private readonly MvxSubscriptionToken _taskChangedMessagesSubscription;
+		private readonly IConfigManager _configManager;
+		private readonly IList<string> _cities = new List<string>();
+		private readonly IReadOnlyList<string> _citiesReadOnly;
 		private readonly IDictionary<Type, MenuSection> _menuSection2ViewModel = new Dictionary<Type, MenuSection>
 		{
 			{ typeof(MapViewModel), MenuSection.Map },
@@ -32,17 +36,22 @@ namespace bstrkr.mvvm.viewmodels
 		private MenuSection _selectedMenuSection;
 		private string _title = AppResources.map_view_title;
 
-		public HomeViewModel(IMvxMessenger messenger, IBusTrackerLocationService busTrackerLocationService)
+		public HomeViewModel(
+					IMvxMessenger messenger, 
+					IBusTrackerLocationService busTrackerLocationService,
+					IConfigManager configManager)
 		{
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
 			this.SelectMenuItemCommand = new MvxCommand<MenuSection>(this.SelectMenuItem);
 
 			_messenger = messenger;
-
+			_configManager = configManager;
 			_locationService = busTrackerLocationService;
 			_locationService.AreaChanged += (s, a) => this.UpdateTitle(a.Area);
 
 			_taskChangedMessagesSubscription = _messenger.Subscribe<BackgroundTaskStateChangedMessage>(this.OnBackgroundTaskStateChanged);
+
+			_citiesReadOnly = new ReadOnlyCollection<string>(_cities);
 
 			this.UpdateVehicleLocationsCommand = new MvxCommand(this.UpdateVehicleLocations);
 		}
@@ -50,6 +59,8 @@ namespace bstrkr.mvvm.viewmodels
 		public MvxCommand UpdateVehicleLocationsCommand { get; private set; }
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
+
+		public IReadOnlyList<string> Cities { get { return _citiesReadOnly; } }
 
 		public MvxCommand<MenuSection> SelectMenuItemCommand { get; private set; }
 
@@ -73,7 +84,17 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			base.Start();
 
+			this.SetCities();
 			this.UpdateTitle(_locationService.CurrentArea);
+		}
+
+		private void SetCities()
+		{
+			var config = _configManager.GetConfig();
+			foreach (var area in config.Areas)
+			{
+				_cities.Add(this[string.Format("city_{0}_name", area.Id)]);
+			}
 		}
 
 		private ObservableCollection<MenuViewModel> CreateMenuViewModels()
