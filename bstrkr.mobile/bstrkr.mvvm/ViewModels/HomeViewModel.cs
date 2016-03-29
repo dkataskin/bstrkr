@@ -12,6 +12,7 @@ using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using bstrkr.core.config;
+using System.Linq;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -21,8 +22,8 @@ namespace bstrkr.mvvm.viewmodels
 		private readonly IMvxMessenger _messenger;
 		private readonly MvxSubscriptionToken _taskChangedMessagesSubscription;
 		private readonly IConfigManager _configManager;
-		private readonly IList<string> _cities = new List<string>();
-		private readonly IReadOnlyList<string> _citiesReadOnly;
+		private readonly IList<AreaViewModel> _areas = new List<AreaViewModel>();
+		private readonly IReadOnlyList<AreaViewModel> _areasReadOnly;
 		private readonly IDictionary<Type, MenuSection> _menuSection2ViewModel = new Dictionary<Type, MenuSection>
 		{
 			{ typeof(MapViewModel), MenuSection.Map },
@@ -51,7 +52,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			_taskChangedMessagesSubscription = _messenger.Subscribe<BackgroundTaskStateChangedMessage>(this.OnBackgroundTaskStateChanged);
 
-			_citiesReadOnly = new ReadOnlyCollection<string>(_cities);
+			_areasReadOnly = new ReadOnlyCollection<AreaViewModel>(_areas);
 
 			this.UpdateVehicleLocationsCommand = new MvxCommand(this.UpdateVehicleLocations);
 		}
@@ -60,7 +61,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
-		public IReadOnlyList<string> Cities { get { return _citiesReadOnly; } }
+		public IReadOnlyList<string> Cities { get { return _areasReadOnly; } }
 
 		public MvxCommand<MenuSection> SelectMenuItemCommand { get; private set; }
 
@@ -84,16 +85,20 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			base.Start();
 
-			this.SetCities();
+			this.FillAreas();
 			this.UpdateTitle(_locationService.CurrentArea);
 		}
 
-		private void SetCities()
+		private void FillAreas()
 		{
-			var config = _configManager.GetConfig();
-			foreach (var area in config.Areas)
+			var areaVMs = _configManager.GetConfig()
+									    .Areas
+									    .Select(a => new AreaViewModel(a.Id, this[string.Format("city_{0}_name", a.Id)]))
+									    .ToList();
+
+			foreach (var vm in areaVMs)
 			{
-				_cities.Add(this[string.Format("city_{0}_name", area.Id)]);
+				_areas.Add(vm);
 			}
 		}
 
