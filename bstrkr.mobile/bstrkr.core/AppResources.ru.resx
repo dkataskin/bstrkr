@@ -15,12 +15,129 @@
 	<data name="about_view_title" xml:space="preserve">
     	<value>О программе</value>
   	</data>
-  	<data name="unknown_location_no_data" xml:space="preserve">
-    	<value>Похоже у нас нет данных о движении траспорта для города в котором вы находитесь. А может, мы определили его неверно, такое случается, попробуйте выбрать один из доступных городов из списка.</value>
+  	<data name="map_view_title" xml:space="preserve">
+    	<value>Карта</value>
   	</data>
-  	<data name="unknown_location_no_data" xml:space="preserve">
-    	<value>К сожалению, у нас нет данных для вашего города, попробуйте выбрать один из доступных в настройках.</value>
+  	<data name="routes_view_title" xml:space="preserve">
+    	<value>Маршруты</value>
   	</data>
+	<data name="route_stops_view_title" xml:space="preserve">
+    	<value>Остановки</value>
+  	</data>
+	<data name="close_route_stops_view_title" xml:space="preserve">
+    <value>Ближайшие остановки</value>
+  </data>
+  	<data name="all_route_stops_view_title" xml:space="preserve">
+    <value>Все остановки</value>
+  </data>
+	<data name="preferences_view_title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+	<data name="route_stop_view_title_format" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+	<data name="licenses_view_title" xml:space="preserve">
+    <value>Лицензии</value>
+  </data>
+  	<data name="unknown_location_dialog_title" xml:space="preserve">
+    <value>Местоположение</value>
+  </data>
+	<data name="locations_dialog_title" xml:space="preserve">
+    <value>Города</value>
+  </data>
+  	<data name="stops_dialog_title" xml:space="preserve">
+    <value>Выберите остановку</value>
+  </data>
+  	<data name="routes_dialog_title" xml:space="preserve">
+    <value>Выберите маршрут</value>
+  </data>
+     <data name="unknown_location_dialog_text" xml:space="preserve">
+    	<value>Похоже у нас нет данных о движении траспорта для города, в котором вы находитесь. А, может, мы определили его неверно, такое случается, попробуйте выбрать один из доступных городов из списка.</value>
+  	</data>
+    <data name="unknown_location_no_data" xml:space="preserve">
+    	<value>Похоже у нас нет данных о движении траспорта для города, в котором вы находитесь. Попробуйте выбрать один из доступных городов из списка.</value>
+  	</data>
+  		<data name="troll_vehicle_type_title" xml:space="preserve">
+    <value>троллейбус</value>
+  </data>
+	<data name="bus_vehicle_type_title" xml:space="preserve">
+    <value>автобус</value>
+  </data>
+	<data name="minibus_vehicle_type_title" xml:space="preserve">
+    <value>маршрутка</value>
+  </data>
+	<data name="tramway_vehicle_type_title" xml:space="preserve">
+    <value>трамвай</value>
+  </data>
+	<data name="troll_route_title_format" xml:space="preserve">
+    <value>троллейбус №{0}</value>
+  </data>
+	<data name="bus_route_title_format" xml:space="preserve">
+    <value>автобус №{0}</value>
+  </data>
+	<data name="minibus_route_title_format" xml:space="preserve">
+    <value>маршрутка №{0}</value>
+  </data>
+	<data name="tramway_route_title_format" xml:space="preserve">
+    <value>трамвай №{0}</value>
+  </data>
+	<data name="no_thanks" xml:space="preserve">
+    <value>Спасибо, но нет</value>
+  </data>
+	<data name="yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+	<data name="no" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+	<data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+	<data name="select" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+	<data name="cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+	<data name="route_vehicle_arrives_st_format" xml:space="preserve">
+    <value>ост. {0}</value>
+  </data>
+	<data name="route_vehicle_arrives_arrives_format" xml:space="preserve">
+    <value>{0:D2}:{1:D2}</value>
+  </data>
+	<data name="no_vehicle_forecast" xml:space="preserve">
+    <value>нет данных</value>
+  </data>
+	<data name="route_vehicles_no_data" xml:space="preserve">
+    <value>Похоже, по нашим данным, транспорта на этом маршруте сейчас нет.</value>
+  </data>
+	<data name="vehicle_forecast_no_data" xml:space="preserve">
+    <value>Не удалось получить прогноз, возможно, этот транспорт не на маршруте.</value>
+  </data>
+	<data name="route_stop_forecast_no_data" xml:space="preserve">
+    <value>Похоже, ни один траспорт не приедет на эту остановку.</value>
+  </data>
+	<data name="route_stops_view_search_hint" xml:space="preserve">
+    <value>Имя остановки</value>
+  </data>
+	<data name="meters_short" xml:space="preserve">
+    <value>м</value>
+  </data>
+	<data name="kilometers_short" xml:space="preserve">
+    <value>км</value>
+  </data>
+	<data name="locating_countdown_format" xml:space="preserve">
+    <value>00:{0:D2} Определяем местоположение...</value>
+  </data>
+	<data name="animate_markers_label" xml:space="preserve">
+    <value>Анимировать движение маркеров</value>
+  </data>
+	<data name="select_location_btn" xml:space="preserve">
+    <value>Выбрать город вручную</value>
+  </data>
+	<data name="show_vehicle_on_map_confirm_format" xml:space="preserve">
+    <value>Показать на карте?</value>
+    </data>
   	 <data name="about_design_text" xml:space="preserve">
     <value>Дизайн</value>
     </data>
@@ -37,27 +154,27 @@
     <value>Идея и код</value>
     </data>
         <data name="city_saransk_name" xml:space="preserve">
-    	<value>Saransk</value>
+    	<value>Саранск</value>
     </data>
     <data name="city_barnaul_name" xml:space="preserve">
-    	<value>Barnaul</value>
+    	<value>Барнаул</value>
     </data>
     <data name="city_ryazan_name" xml:space="preserve">
-    	<value>Ryazan</value>
+    	<value>Рязань</value>
     </data>
     <data name="city_kursk_name" xml:space="preserve">
-    	<value>Kursk</value>
+    	<value>Курск</value>
     </data>
     <data name="city_cheboksary_name" xml:space="preserve">
-    	<value>Cheboksary</value>
+    	<value>Чебоксары</value>
     </data>
     <data name="city_tambov_name" xml:space="preserve">
-    	<value>Tambov</value>
+    	<value>Тамбов</value>
     </data>
     <data name="city_oryol_name" xml:space="preserve">
-    	<value>Oryol</value>
+    	<value>Орел</value>
     </data>
     <data name="city_novgorod_name" xml:space="preserve">
-    	<value>Novgorod</value>
+    	<value>Новгород</value>
     </data>
 </root>

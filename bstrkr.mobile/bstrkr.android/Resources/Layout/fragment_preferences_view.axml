@@ -11,27 +11,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_area_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            local:MvxBind="Text [current_area_label]" />
-        <MvxSpinner
-            android:id="@+id/sp_area_value"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
-            android:textSize="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/tv_area_label"
-            local:MvxItemTemplate="@layout/item_area_spinner"
-            local:MvxDropDownItemTemplate="@layout/item_area_spinnerdropdown"
-            local:MvxBind="ItemsSource Areas; SelectedItem SelectedArea" />
         <CheckBox
             android:id="@+id/checkbox_animation"
             android:layout_width="match_parent"

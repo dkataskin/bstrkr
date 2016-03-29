@@ -101,12 +101,6 @@ namespace bstrkr.core {
             }
         }
         
-        public static string about_view_text {
-            get {
-                return ResourceManager.GetString("about_view_text", resourceCulture);
-            }
-        }
-        
         public static string unknown_location_dialog_title {
             get {
                 return ResourceManager.GetString("unknown_location_dialog_title", resourceCulture);
@@ -191,12 +185,6 @@ namespace bstrkr.core {
             }
         }
         
-        public static string umbrella_route_title_format {
-            get {
-                return ResourceManager.GetString("umbrella_route_title_format", resourceCulture);
-            }
-        }
-        
         public static string no_thanks {
             get {
                 return ResourceManager.GetString("no_thanks", resourceCulture);
@@ -269,24 +257,6 @@ namespace bstrkr.core {
             }
         }
         
-        public static string route_view_route_name_label {
-            get {
-                return ResourceManager.GetString("route_view_route_name_label", resourceCulture);
-            }
-        }
-        
-        public static string route_view_from_stop_label {
-            get {
-                return ResourceManager.GetString("route_view_from_stop_label", resourceCulture);
-            }
-        }
-        
-        public static string route_view_to_stop_label {
-            get {
-                return ResourceManager.GetString("route_view_to_stop_label", resourceCulture);
-            }
-        }
-        
         public static string route_stops_view_search_hint {
             get {
                 return ResourceManager.GetString("route_stops_view_search_hint", resourceCulture);
@@ -320,12 +290,6 @@ namespace bstrkr.core {
         public static string select_location_btn {
             get {
                 return ResourceManager.GetString("select_location_btn", resourceCulture);
-            }
-        }
-        
-        public static string current_area_label {
-            get {
-                return ResourceManager.GetString("current_area_label", resourceCulture);
             }
         }
         

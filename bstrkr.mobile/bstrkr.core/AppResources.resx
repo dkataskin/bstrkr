@@ -39,12 +39,6 @@
 	<data name="licenses_view_title" xml:space="preserve">
     <value>Licenses</value>
   </data>
-	<data name="about_view_title" xml:space="preserve">
-    <value>About</value>
-  </data>
-	<data name="about_view_text" xml:space="preserve">
-    <value>BusTracker v{0} © Vershi, Dmitriy Kataskin 2014-2016</value>
-  </data>
 	<data name="unknown_location_dialog_title" xml:space="preserve">
     <value>Location</value>
   </data>
@@ -87,9 +81,6 @@
 	<data name="tramway_route_title_format" xml:space="preserve">
     <value>tramway №{0}</value>
   </data>
-	<data name="umbrella_route_title_format" xml:space="preserve">
-    <value>Route {0}</value>
-  </data>
 	<data name="no_thanks" xml:space="preserve">
     <value>No, Thanks</value>
   </data>
@@ -126,15 +117,6 @@
 	<data name="route_stop_forecast_no_data" xml:space="preserve">
     <value>Looks like nothing is going to arrive to this stop.</value>
   </data>
-	<data name="route_view_route_name_label" xml:space="preserve">
-    <value>Route:</value>
-  </data>
-	<data name="route_view_from_stop_label" xml:space="preserve">
-    <value>From:</value>
-  </data>
-	<data name="route_view_to_stop_label" xml:space="preserve">
-    <value>To:</value>
-  </data>
 	<data name="route_stops_view_search_hint" xml:space="preserve">
     <value>Route stop name</value>
   </data>
@@ -152,9 +134,6 @@
   </data>
 	<data name="select_location_btn" xml:space="preserve">
     <value>Select location</value>
-  </data>
-	<data name="current_area_label" xml:space="preserve">
-    <value>Selected area:</value>
   </data>
 	<data name="show_vehicle_on_map_confirm_format" xml:space="preserve">
     <value>Show it on map?</value>
