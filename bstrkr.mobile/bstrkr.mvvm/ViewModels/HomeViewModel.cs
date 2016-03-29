@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 using bstrkr.core;
+using bstrkr.core.config;
 using bstrkr.core.services.location;
 using bstrkr.mvvm.messages;
 
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
-using bstrkr.core.config;
-using System.Linq;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -61,7 +61,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
-		public IReadOnlyList<string> Cities { get { return _areasReadOnly; } }
+		public IReadOnlyList<AreaViewModel> Areas { get { return _areasReadOnly; } }
 
 		public MvxCommand<MenuSection> SelectMenuItemCommand { get; private set; }
 

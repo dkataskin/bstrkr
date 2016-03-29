@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/sp_area_value"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium"
             local:MvxBind="Checked AnimateMarkers; Text [animate_markers_label]" />

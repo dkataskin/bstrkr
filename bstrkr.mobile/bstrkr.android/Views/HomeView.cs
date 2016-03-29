@@ -75,6 +75,8 @@ namespace bstrkr.android.views
 
 		private static IDictionary<Type, string> _frag2tag = new Dictionary<Type, string>();
 
+		protected HomeViewModel HomeViewModel { get { return this.ViewModel as HomeViewModel; } }
+
 		public bool Show(MvxViewModelRequest request)
 		{
 			try
@@ -238,10 +240,13 @@ namespace bstrkr.android.views
 		{
 			var spinner = FindViewById<Spinner>(Resource.Id.city);
 //			spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
-			var adapter = new ArrayAdapter();
-//
-//			adapter.SetDropDownViewResource (Android.Resource.Layout.SimpleSpinnerDropDownItem);
-//			spinner.Adapter = adapter;
+			var adapter = new ArrayAdapter<AreaViewModel>(
+												this.BaseContext,
+												Resource.Layout.item_area_spinner,
+												this.HomeViewModel.Areas.ToArray());
+
+			adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			spinner.Adapter = adapter;
 		}
 
 		private void SetUpIconGenerator()
