@@ -238,7 +238,8 @@ namespace bstrkr.android.views
 
 		private void SetUpCitiesSpinner()
 		{
-			var spinner = FindViewById<Spinner>(Resource.Id.city);
+			var headerView = _navigationView.GetHeaderView(0);
+			var spinner = headerView.FindViewById<Spinner>(Resource.Id.city);
 //			spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
 			var adapter = new ArrayAdapter<AreaViewModel>(
 												this.BaseContext,
