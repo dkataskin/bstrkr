@@ -243,10 +243,11 @@ namespace bstrkr.android.views
 //			spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
 			var adapter = new ArrayAdapter<AreaViewModel>(
 												this.BaseContext,
-												Resource.Layout.item_area_spinner,
+//												Resource.Layout.item_area_spinner,
+												Resource.Layout.support_simple_spinner_dropdown_item,
 												this.HomeViewModel.Areas.ToArray());
 
-			adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			adapter.SetDropDownViewResource(Resource.Layout.support_simple_spinner_dropdown_item);
 			spinner.Adapter = adapter;
 		}
 

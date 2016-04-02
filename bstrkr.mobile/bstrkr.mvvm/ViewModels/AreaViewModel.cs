@@ -16,7 +16,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		public override string ToString()
 		{
-			return string.Format("[AreaViewModel: AreaId={0}, Name={1}]", AreaId, Name);
+			return this.Name;
 		}
 	}
 }

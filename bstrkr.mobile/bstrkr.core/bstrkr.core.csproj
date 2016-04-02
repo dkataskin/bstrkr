@@ -96,8 +96,8 @@
     <Compile Include="Services\Animation\IMarkerPositionAnimator.cs" />
     <Compile Include="Services\Animation\PositionAnimationPlaybackEventArgs.cs" />
     <Compile Include="Services\Animation\PositionAnimationPlaybackEventArgs %28copy%29.cs" />
-    <Compile Include="AppResources.ru.Designer.cs">
-      <DependentUpon>AppResources.ru.resx</DependentUpon>
+    <Compile Include="AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
