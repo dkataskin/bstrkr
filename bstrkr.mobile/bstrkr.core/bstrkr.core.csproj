@@ -60,7 +60,6 @@
     <Compile Include="Area.cs" />
     <Compile Include="Services\Resources\IAppResourceManager.cs" />
     <Compile Include="Services\Resources\AppResourceManagerBase.cs" />
-    <Compile Include="LicensesInfo.cs" />
     <None Include="Resources\Licenses\MVVMCross.txt" />
     <None Include="Resources\Licenses\RestSharp.txt" />
     <None Include="Resources\Licenses\Newtonsoft.Json.txt" />
@@ -99,6 +98,8 @@
     <Compile Include="AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="LicenseInfo.cs" />
+    <Compile Include="LicensesInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

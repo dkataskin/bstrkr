@@ -265,7 +265,6 @@
     <AndroidResource Include="Resources\Values\Styles.xml" />
     <AndroidResource Include="Resources\Layout\fragment_routes_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_preferences_view.axml" />
-    <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
     <AndroidResource Include="Resources\Values\colors.xml" />
     <AndroidResource Include="Resources\Layout\item_licenses_list.axml" />
     <AndroidResource Include="Resources\Layout\item_stops_list.axml" />
@@ -476,6 +475,7 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\vershi_logo.png" />
     <AndroidResource Include="Resources\Layout\fragment_about_view.axml" />
     <AndroidResource Include="Resources\Drawable\saransk.jpg" />
+    <AndroidResource Include="Resources\Layout\page_licenses_view.axml" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
@@ -516,18 +516,12 @@
     <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
       <Link>Assets\config.json</Link>
     </AndroidAsset>
-    <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\MVVMCross.txt">
-      <Link>Assets\Licenses\MVVMCross.txt</Link>
+    <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
+      <Link>Assets\config.json</Link>
     </AndroidAsset>
-    <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\Newtonsoft.Json.txt">
-      <Link>Assets\Licenses\Newtonsoft.Json.txt</Link>
-    </AndroidAsset>
-    <AndroidAsset Include="..\bstrkr.core\Resources\Licenses\RestSharp.txt">
-      <Link>Assets\Licenses\RestSharp.txt</Link>
-    </AndroidAsset>
+    <AndroidAsset Include="Assets\licenses.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Licenses\" />
     <Folder Include="Resources\Menu\" />
     <Folder Include="Resources\Xml\" />
     <Folder Include="Resources\Values\" />

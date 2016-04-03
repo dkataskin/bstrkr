@@ -1,21 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace bstrkr.core
 {
-	public class LicenseInfo
+	public class LicensesInfo
 	{
-		public LicenseInfo()
-		{
-		}
-
-		public LicenseInfo(string name, string license)
-		{
-			this.Name = name;
-			this.License = license;
-		}
-
-		public string Name { get; set; }
-
-		public string License { get; set; }
+		public List<LicenseInfo> ThirdPartyStuff { get; set; }
 	}
 }

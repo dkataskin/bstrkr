@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 
 using bstrkr.core;
+using bstrkr.core.consts;
 using bstrkr.mvvm.viewmodels;
 
 using Cirrious.CrossCore.Platform;
-using bstrkr.core.consts;
+
+using Newtonsoft.Json;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -13,20 +15,8 @@ namespace bstrkr.mvvm.viewmodels
 	{
 		public LicensesViewModel(IMvxResourceLoader resourceLoader)
 		{
-			this.Licenses = new List<LicenseInfo> 
-			{
-				new LicenseInfo(
-						"MvvmCross", 
-						resourceLoader.GetTextResource(string.Format("{0}/MVVMCross.txt", AppConsts.LicensesPath))),
-
-				new LicenseInfo(
-						"RestSharp", 
-						resourceLoader.GetTextResource(string.Format("{0}/RestSharp.txt", AppConsts.LicensesPath))),
-
-				new LicenseInfo(
-						"Json.NET", 
-						resourceLoader.GetTextResource(string.Format("{0}/Newtonsoft.Json.txt", AppConsts.LicensesPath))),
-			};
+			this.Licenses = JsonConvert.DeserializeObject<LicensesInfo>(resourceLoader.GetTextResource("licenses.json"))
+									   .ThirdPartyStuff;
 		}
 
 		public List<LicenseInfo> Licenses { get; private set; }
