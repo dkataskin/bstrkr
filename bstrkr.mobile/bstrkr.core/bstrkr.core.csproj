@@ -60,9 +60,6 @@
     <Compile Include="Area.cs" />
     <Compile Include="Services\Resources\IAppResourceManager.cs" />
     <Compile Include="Services\Resources\AppResourceManagerBase.cs" />
-    <None Include="Resources\Licenses\MVVMCross.txt" />
-    <None Include="Resources\Licenses\RestSharp.txt" />
-    <None Include="Resources\Licenses\Newtonsoft.Json.txt" />
     <Compile Include="Context\BusTrackerAppContext.cs" />
     <Compile Include="Services\Location\LocationErrorEventArgs.cs" />
     <None Include="Resources\Images\bus_b.png" />
@@ -116,7 +113,6 @@
     <Folder Include="Map\" />
     <Folder Include="Utils\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Resources\Licenses\" />
     <Folder Include="Context\" />
     <Folder Include="Services\Animation\" />
   </ItemGroup>

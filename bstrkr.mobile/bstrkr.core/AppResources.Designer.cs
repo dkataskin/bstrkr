@@ -329,6 +329,12 @@ namespace bstrkr.core {
             }
         }
         
+        public static string about_licenses_text {
+            get {
+                return ResourceManager.GetString("about_licenses_text", resourceCulture);
+            }
+        }
+        
         public static string city_saransk_name {
             get {
                 return ResourceManager.GetString("city_saransk_name", resourceCulture);
