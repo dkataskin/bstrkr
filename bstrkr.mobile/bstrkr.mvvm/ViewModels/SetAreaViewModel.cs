@@ -1,13 +1,14 @@
 ﻿using System;
-
 using System.Collections.ObjectModel;
-
-using Cirrious.MvvmCross.ViewModels;
+using System.Linq;
 
 using bstrkr.core;
 using bstrkr.core.config;
+using bstrkr.core.consts;
 using bstrkr.core.services.location;
 using bstrkr.mvvm.viewmodels;
+
+using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -19,9 +20,12 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			_locationService = locationService;
 
-			var config = configManager.GetConfig();
-
-			this.Areas = new ObservableCollection<Area>(config.Areas);
+			var areaVMs = configManager.GetConfig()
+									   .Areas
+									   .Select(a => new AreaViewModel(a, this[string.Format(AppConsts.AreaLocalizedNameStringKeyFormat, a.Id)]))
+									   .ToList();
+			
+			this.Areas = new ObservableCollection<AreaViewModel>(areaVMs);
 
 			this.SelectAreaCommand = new MvxCommand<int>(this.SelectAreaManually);
 			this.CancelCommand = new MvxCommand(this.Cancel);
@@ -31,13 +35,13 @@ namespace bstrkr.mvvm.viewmodels
 
 		public MvxCommand CancelCommand { get; private set; }
 
-		public ObservableCollection<Area> Areas { get; private set; }
+		public ObservableCollection<AreaViewModel> Areas { get; private set; }
 
 		private void SelectAreaManually(int index)
 		{
 			if (index >= 0)
 			{
-				_locationService.SelectArea(this.Areas[index]);
+				_locationService.SelectArea(this.Areas[index].Area);
 				this.ShowViewModel<HomeViewModel>();
 			}
 		}

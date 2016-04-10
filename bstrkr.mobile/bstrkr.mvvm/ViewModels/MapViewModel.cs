@@ -232,7 +232,7 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void ChangeArea(Area area, GeoPoint centerPosition)
 		{
-			MvxTrace.Trace("Area changed to {0}", area != null ? area.Name : string.Empty);
+			MvxTrace.Trace("Area changed to {0}", area != null ? area.Id : string.Empty);
 
 			this.MapCenter = centerPosition;
 			if (_liveDataProvider != null)

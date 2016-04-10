@@ -15,22 +15,14 @@ namespace bstrkr.mvvm.viewmodels
 {
 	public class PreferencesViewModel : BusTrackerViewModelBase
 	{
-		private readonly IConfigManager _configManager;
-		private readonly IMvxMessenger _messenger;
-
 		private bool _animateMarkers;
 
-		public PreferencesViewModel(IConfigManager configManager, IMvxMessenger messenger)
+		public PreferencesViewModel()
 		{
-			_configManager = configManager;
-			_messenger = messenger;
-
 			this.SavePreferencesCommand = new MvxCommand(this.SavePreferences);
 		}
 
 		public MvxCommand SavePreferencesCommand { get; private set; }
-
-		public ReadOnlyObservableCollection<Area> Areas { get; private set; }
 
 		public bool AnimateMarkers 
 		{ 

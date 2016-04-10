@@ -10,6 +10,6 @@ namespace bstrkr.core.consts
 		public const double MaxDistanceFromCityCenter = 50.0f;
 		public const double MaxDistanceFromBusStop = 300.0f;
 
-		public static string LicensesPath = "Licenses";
+		public const string AreaLocalizedNameStringKeyFormat = "city_{0}_name";
 	}
 }

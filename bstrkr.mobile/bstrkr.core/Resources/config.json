@@ -2,56 +2,48 @@
   "areas": [
     {
 	  "id": "saransk",
-      "name": "Саранск",
       "latitude": 54.1813447,
       "longitude": 45.1818003,
       "endpoint": "http://bus13.ru/php/"
     },
     {
 	  "id": "barnaul",
-      "name": "Барнаул",
       "latitude": 53.3544413,
       "longitude": 83.7725069,
       "endpoint": "http://www.traffic22.ru/php/"
     },
     {
 	  "id": "ryazan",
-      "name": "Рязань",
       "latitude": 54.6137424,
       "longitude": 39.7211313,
       "endpoint": "http://bus62.ru/php/"
     },
 	{
 	  "id": "kursk",
-      "name": "Курск",
       "latitude": 51.7563926,
       "longitude": 36.1851959,
       "endpoint": "http://bus46.ru/php/"
     },
 	{
 	  "id": "cheboksary",
-      "name": "Чебоксары",
       "latitude": 56.1139949,
       "longitude": 47.2663844,
       "endpoint": "http://bus62.ru/cheboksari/php/"
     },
 	{
 	  "id": "tambov",
-      "name": "Тамбов",
       "latitude": 52.7263163,
       "longitude": 41.459416,
       "endpoint": "http://bus68.ru/php/"
     },
 	{
 	  "id": "oryol",
-      "name": "Орел",
       "latitude": 52.9783477,
       "longitude": 36.1129104,
       "endpoint": "http://bu57.ru/php/"
     },
 	{
 	  "id": "novgorod",
-      "name": "Новгород",
       "latitude": 58.5276176,
       "longitude": 31.2597131,
       "endpoint": "http://bus62.ru/novgorod/php/"

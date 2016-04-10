@@ -13,12 +13,14 @@ using bstrkr.mvvm.messages;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
+using bstrkr.core.consts;
 
 namespace bstrkr.mvvm.viewmodels
 {
 	public class HomeViewModel : BusTrackerViewModelBase
     {
 		private readonly IBusTrackerLocationService _locationService;
+		private readonly IAreaPositioningService _areaPositioningService;
 		private readonly IMvxMessenger _messenger;
 		private readonly MvxSubscriptionToken _taskChangedMessagesSubscription;
 		private readonly IConfigManager _configManager;
@@ -34,12 +36,14 @@ namespace bstrkr.mvvm.viewmodels
 			{ typeof(LicensesViewModel), MenuSection.Licenses }
 		};
 
+		private AreaViewModel _currentArea;
 		private MenuSection _selectedMenuSection;
 		private string _title = AppResources.map_view_title;
 
 		public HomeViewModel(
 					IMvxMessenger messenger, 
 					IBusTrackerLocationService busTrackerLocationService,
+					IAreaPositioningService areaPositioningService,
 					IConfigManager configManager)
 		{
 			this.MenuItems = new ReadOnlyObservableCollection<MenuViewModel>(this.CreateMenuViewModels());
@@ -47,6 +51,7 @@ namespace bstrkr.mvvm.viewmodels
 
 			_messenger = messenger;
 			_configManager = configManager;
+			_areaPositioningService = areaPositioningService;
 			_locationService = busTrackerLocationService;
 			_locationService.AreaChanged += (s, a) => this.UpdateTitle(a.Area);
 
@@ -55,13 +60,49 @@ namespace bstrkr.mvvm.viewmodels
 			_areasReadOnly = new ReadOnlyCollection<AreaViewModel>(_areas);
 
 			this.UpdateVehicleLocationsCommand = new MvxCommand(this.UpdateVehicleLocations);
+			this.SelectAreaCommand = new MvxCommand<int>(this.SelectArea);
 		}
 
 		public MvxCommand UpdateVehicleLocationsCommand { get; private set; }
 
+		public MvxCommand<int> SelectAreaCommand { get; private set; }
+
 		public ReadOnlyObservableCollection<MenuViewModel> MenuItems { get; private set; }
 
 		public IReadOnlyList<AreaViewModel> Areas { get { return _areasReadOnly; } }
+
+		public AreaViewModel CurrentArea 
+		{ 
+			get { return _currentArea; } 
+			private set
+			{
+				if (_currentArea != value)
+				{
+					_currentArea = value;
+					this.RaisePropertyChanged(() => this.CurrentArea);
+					this.RaisePropertyChanged(() => this.CurrentAreaIndex);
+				}
+			}
+		}
+
+		public int CurrentAreaIndex
+		{
+			get 
+			{
+				if (this.CurrentArea == null)
+				{
+					return -1;
+				}
+
+				var area = _areas.FirstOrDefault(x => x.Area.Id.Equals(this.CurrentArea.Id));
+				if (area == null)
+				{
+					return -1;
+				}
+
+				return _areas.IndexOf(area);
+			}
+		}
 
 		public MvxCommand<MenuSection> SelectMenuItemCommand { get; private set; }
 
@@ -93,7 +134,7 @@ namespace bstrkr.mvvm.viewmodels
 		{
 			var areaVMs = _configManager.GetConfig()
 									    .Areas
-									    .Select(a => new AreaViewModel(a.Id, this[string.Format("city_{0}_name", a.Id)]))
+										.Select(a => new AreaViewModel(a, this[string.Format(AppConsts.AreaLocalizedNameStringKeyFormat, a.Id)]))
 									    .ToList();
 
 			foreach (var vm in areaVMs)
@@ -182,7 +223,19 @@ namespace bstrkr.mvvm.viewmodels
 
 		private void UpdateTitle(Area area)
 		{
-			this.Title = area == null ? AppResources.map_view_title : area.Name;
+			if (area == null)
+			{
+				this.CurrentArea = null;
+				this.Title = AppResources.map_view_title;
+			}
+			else
+			{
+				this.CurrentArea = _areas.FirstOrDefault(a => a.Id.Equals(area.Id));
+				if (this.CurrentArea != null)
+				{
+					this.Title = this.CurrentArea.Name;
+				}
+			}
 		}
 
 		private void OnBackgroundTaskStateChanged(BackgroundTaskStateChangedMessage message)
@@ -196,6 +249,14 @@ namespace bstrkr.mvvm.viewmodels
 		private void UpdateVehicleLocations()
 		{
 			_messenger.Publish(new VehicleLocationsUpdateRequestMessage(this));
+		}
+
+		private void SelectArea(int areaIndex)
+		{
+			if (areaIndex != this.CurrentAreaIndex && areaIndex >= 0 && areaIndex < _areas.Count)
+			{
+				_areaPositioningService.SelectArea(_areas[areaIndex].Area);
+			}
 		}
     }
 }

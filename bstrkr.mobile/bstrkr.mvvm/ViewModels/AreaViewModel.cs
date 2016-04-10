@@ -1,16 +1,18 @@
 ﻿using System;
 
+using bstrkr.core;
+
 namespace bstrkr.mvvm.viewmodels
 {
 	public class AreaViewModel : BusTrackerViewModelBase
 	{
-		public AreaViewModel(string areaId, string name)
+		public AreaViewModel(Area area, string name)
 		{
-			this.AreaId = areaId;
+			this.Area = area;
 			this.Name = name;
 		}
 
-		public string AreaId { get; private set; }
+		public Area Area { get; private set; }
 
 		public string Name { get; private set; }
 

@@ -238,7 +238,7 @@ namespace bstrkr.android.views
 		{
 			var headerView = _navigationView.GetHeaderView(0);
 			var spinner = headerView.FindViewById<Spinner>(Resource.Id.city);
-//			spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
+			spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(OnAreaSpinnerItemSelected);
 			var adapter = new ArrayAdapter<AreaViewModel>(
 												this.BaseContext,
 //												Resource.Layout.item_area_spinner,
@@ -247,6 +247,13 @@ namespace bstrkr.android.views
 
 			adapter.SetDropDownViewResource(Resource.Layout.support_simple_spinner_dropdown_item);
 			spinner.Adapter = adapter;
+
+			spinner.SetSelection(this.HomeViewModel.CurrentAreaIndex);
+		}
+
+		private void OnAreaSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs args)
+		{
+			this.HomeViewModel.SelectAreaCommand.Execute(args.Position);
 		}
 
 		private void SetUpIconGenerator()
