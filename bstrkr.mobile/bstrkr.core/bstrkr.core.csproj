@@ -133,4 +133,7 @@
       <LastGenOutput>AppResources.ru.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Resources\licenses.json" />
+  </ItemGroup>
 </Project>

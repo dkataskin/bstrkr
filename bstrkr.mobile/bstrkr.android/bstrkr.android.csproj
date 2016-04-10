@@ -518,7 +518,9 @@
     <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
       <Link>Assets\config.json</Link>
     </AndroidAsset>
-    <AndroidAsset Include="Assets\licenses.json" />
+    <AndroidAsset Include="..\bstrkr.core\Resources\licenses.json">
+      <Link>Assets\licenses.json</Link>
+    </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Menu\" />

@@ -32,4 +32,8 @@
     <TextView
         style="@style/AboutPrimary"
         local:MvxBind="Text [dmitriy_kataskin]" />
+    <TextView
+        style="@style/LinkText"
+        android:layout_marginTop="50dp"
+        local:MvxBind="Text [about_licenses_text]; Click ShowLicensesCommand" />
 </LinearLayout>

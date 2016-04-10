@@ -4,7 +4,7 @@ namespace bstrkr.core
 {
 	public class LicenseInfo
 	{
-		public string What { get; set; }
+		public string IntProperty { get; set; }
 
 		public string Author { get; set; }
 

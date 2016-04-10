@@ -1,0 +1,11 @@
+﻿{
+	"thirdPartyStuff" : [
+		{ "intproperty": "MvvmCross", "author": "", "license": "MS-PL License" },
+		{ "intproperty": "Stateless", "author": "Nicholas Blumhardt", "license": "Apache License, Version 2.0" },
+		{ "intproperty": "RestSharp", "author": "", "license": "Apache License, Version 2.0" },
+		{ "intproperty": "Json.NET", "author": "James Newton-King", "license": "The MIT License (MIT)" },
+		{ "intproperty": "SlidingUpPanel", "author": "Tomasz Cielecki", "license": "Apache License, Version 2.0" },
+		{ "intproperty": "SmoothProgressBarSharp", "author": "Tomasz Cielecki", "license": "THE BEER-WARE LICENSE (Revision 42)" },
+		{ "intproperty": "Xamarin Settings Plugin", "author": "James Montemagno", "license": "The MIT License (MIT)s" },
+	]
+}

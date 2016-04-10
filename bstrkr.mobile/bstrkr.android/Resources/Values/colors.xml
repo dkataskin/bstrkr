@@ -25,5 +25,6 @@
     <color name="progressbar_color_4">#32987A</color>
 
     <color name="about_text_title">#ff171717</color>
-    <color name="about_text_second_title">#ff0c8bdc</color>
+    <color name="about_text_second_title">#ff171717</color>
+    <color name="link_foreground">#ff0c8bdc</color>
 </resources>

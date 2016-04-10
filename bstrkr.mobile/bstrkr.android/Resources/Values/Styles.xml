@@ -88,6 +88,14 @@
     <item name="android:layout_gravity">center</item>
   </style>
 
+   <!-- LinkText -->
+  <style name="LinkText" parent="@android:style/TextAppearance.Medium">
+	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textColor">@color/link_foreground</item>
+    <item name="android:layout_gravity">center</item>
+  </style>
+
   <!-- ListHeaderIcon -->
   <style name="ListHeaderIcon">
   	<item name="android:layout_gravity">center_vertical</item>

@@ -4,24 +4,19 @@
     android:id="@+id/licensesView"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp">
     <TextView
-        android:id="@android:id/text1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:singleLine="true"
-        style="?android:attr/listSeparatorTextViewStyle"
-        local:MvxBind="Text Name" />
+        android:id="@+id/textIntProperty"
+        style="@style/AboutPrimary"
+        local:MvxBind="Text IntProperty" />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        local:MvxBind="Text License"
-        android:singleLine="false" />
+        android:id="@+id/textAuthor"
+        style="@style/AboutSecondary"
+        local:MvxBind="Text Author; Visibility Visibility(Author)" />
+    <TextView
+        android:id="@+id/textLicense"
+        style="@style/AboutSecondary"
+        local:MvxBind="Text License" />
 </LinearLayout>
