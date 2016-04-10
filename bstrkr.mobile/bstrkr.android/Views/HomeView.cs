@@ -492,6 +492,20 @@ namespace bstrkr.android.views
 					this.DisableDrawer();
 				}
 			}
+
+			if (request.ViewModelType == typeof(LicensesViewModel))
+			{
+				var licensesView = new LicensesView();
+				licensesView.ViewModel = loaderService.LoadViewModel(request, null);
+				_frag2tag[typeof(LicensesView)] = "licenses_view";
+
+				this.FragmentManager.BeginTransaction()
+					.Replace(Resource.Id.content_frame, licensesView, "licenses_view")
+					.AddToBackStack(null)
+					.Commit();
+
+				this.DisableDrawer();
+			}
 		}
 
 		private void DisableDrawer()
