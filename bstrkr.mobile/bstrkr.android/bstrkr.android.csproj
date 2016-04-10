@@ -191,7 +191,8 @@
       <HintPath>..\packages\FubarCoder.RestSharp.Portable.Encodings.3.1.3\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\RestSharp.Portable.Encodings.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Insights">
-      <HintPath>..\packages\Xamarin.Insights.1.12.0\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Insights.1.12.3\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -475,11 +476,12 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\vershi_logo.png" />
     <AndroidResource Include="Resources\Layout\fragment_about_view.axml" />
     <AndroidResource Include="Resources\Drawable\saransk.jpg" />
-    <AndroidResource Include="Resources\Layout\page_licenses_view.axml" />
+    <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Insights.1.12.0\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.12.0\build\MonoAndroid10\Xamarin.Insights.targets')" />
+  <Import Project="..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets')" />
   <ItemGroup>
     <ProjectReference Include="..\bstrkr.core.android\bstrkr.core.android.csproj">
       <Project>{158E30FA-BA5F-46E1-A4D2-B4A985C31858}</Project>
@@ -513,9 +515,6 @@
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
-      <Link>Assets\config.json</Link>
-    </AndroidAsset>
     <AndroidAsset Include="..\bstrkr.core\Resources\config.json">
       <Link>Assets\config.json</Link>
     </AndroidAsset>

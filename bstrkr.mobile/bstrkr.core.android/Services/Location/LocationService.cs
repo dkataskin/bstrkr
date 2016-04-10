@@ -13,7 +13,7 @@ using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Locations;
 using Android.OS;
-using Android.Support.V4.Content;
+//using Android.Support.V4.Content;
 
 using bstrkr.core.services.location;
 using bstrkr.core.spatial;

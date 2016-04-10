@@ -52,8 +52,6 @@ using Cirrious.MvvmCross.ViewModels;
 
 using SmoothProgressBarSharp;
 
-using Xamarin;
-
 namespace bstrkr.android.views
 {
 	[Activity(Label = "Home", 
