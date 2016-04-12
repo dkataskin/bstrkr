@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,264 +14,257 @@ using bstrkr.providers;
 
 using Chance.MvvmCross.Plugins.UserInteraction;
 
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteStopViewModel : BusTrackerViewModelBase, ICleanable
-	{
-		private readonly object _lockObject = new object();
-		private readonly ILiveDataProviderFactory _liveDataProviderFactory;
-		private readonly RouteInfoToTitleConverter _routeInfoToTitleConverter = new RouteInfoToTitleConverter();
-		private readonly ObservableCollection<RouteStopForecastViewModel> _forecast = new ObservableCollection<RouteStopForecastViewModel>();
-		private readonly IObservable<long> _intervalObservable;
-		private readonly IMvxMessenger _messenger;
-		private readonly IUserInteraction _userInteraction;
+    public class RouteStopViewModel : BusTrackerViewModelBase, ICleanable
+    {
+        private readonly object _lockObject = new object();
+        private readonly ILiveDataProviderFactory _liveDataProviderFactory;
+        private readonly RouteInfoToTitleConverter _routeInfoToTitleConverter = new RouteInfoToTitleConverter();
+        private readonly ObservableCollection<RouteStopForecastViewModel> _forecast = new ObservableCollection<RouteStopForecastViewModel>();
+        private readonly IObservable<long> _intervalObservable;
+        private readonly IMvxMessenger _messenger;
+        private readonly IUserInteraction _userInteraction;
 
-		private IDisposable _intervalSubscription;
+        private IDisposable _intervalSubscription;
 
-		private string _routeStopId;
-		private string _name;
-		private string _description;
-		private bool _noData;
+        private string _routeStopId;
+        private string _name;
+        private string _description;
+        private bool _noData;
 
-		private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _cancellationTokenSource;
 
-		public RouteStopViewModel(
-						ILiveDataProviderFactory liveDataProvider, 
-						IMvxMessenger messenger,
-						IUserInteraction userInteraction)
-		{
-			_messenger = messenger;
-			_userInteraction = userInteraction;
-			_liveDataProviderFactory = liveDataProvider;
-			_intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
+        public RouteStopViewModel(
+                        ILiveDataProviderFactory liveDataProvider,
+                        IMvxMessenger messenger,
+                        IUserInteraction userInteraction)
+        {
+            _messenger = messenger;
+            _userInteraction = userInteraction;
+            _liveDataProviderFactory = liveDataProvider;
+            _intervalObservable = Observable.Interval(TimeSpan.FromMilliseconds(1000));
 
-			this.Forecast = new ReadOnlyObservableCollection<RouteStopForecastViewModel>(_forecast);
+            this.Forecast = new ReadOnlyObservableCollection<RouteStopForecastViewModel>(_forecast);
 
-			this.ShowOnMapCommand = new MvxCommand(this.ShowOnMap);
-			this.ShowVehicleOnMapCommand = new MvxCommand<RouteStopForecastViewModel>(this.ShowVehicleOnMap);
-			this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
-		}
+            this.ShowOnMapCommand = new MvxCommand(this.ShowOnMap);
+            this.ShowVehicleOnMapCommand = new MvxCommand<RouteStopForecastViewModel>(this.ShowVehicleOnMap);
+            this.RefreshCommand = new MvxCommand(this.Refresh, () => !this.IsBusy);
+        }
 
-		public MvxCommand RefreshCommand { get; private set; }
+        public MvxCommand RefreshCommand { get; private set; }
 
-		public MvxCommand ShowOnMapCommand { get; private set; }
+        public MvxCommand ShowOnMapCommand { get; private set; }
 
-		public MvxCommand<RouteStopForecastViewModel> ShowVehicleOnMapCommand { get; private set;}
+        public MvxCommand<RouteStopForecastViewModel> ShowVehicleOnMapCommand { get; private set; }
 
-		public string RouteStopId 
-		{
-			get { return _routeStopId; }
-			private set { this.RaiseAndSetIfChanged(ref _routeStopId, value, () => this.RouteStopId); }
-		}
+        public string RouteStopId
+        {
+            get { return _routeStopId; }
+            private set { this.RaiseAndSetIfChanged(ref _routeStopId, value, () => this.RouteStopId); }
+        }
 
-		public string Name 
-		{
-			get { return _name; }
-			private set { this.RaiseAndSetIfChanged(ref _name, value, () => this.Name); }
-		}
+        public string Name
+        {
+            get { return _name; }
+            private set { this.RaiseAndSetIfChanged(ref _name, value, () => this.Name); }
+        }
 
-		public string Description 
-		{
-			get { return _description; }
-			private set { this.RaiseAndSetIfChanged(ref _description, value, () => this.Description); }
-		}
+        public string Description
+        {
+            get { return _description; }
+            private set { this.RaiseAndSetIfChanged(ref _description, value, () => this.Description); }
+        }
 
-		public bool NoData
-		{
-			get { return _noData; }
-			private set { this.RaiseAndSetIfChanged(ref _noData, value, () => this.NoData); }
-		}
+        public bool NoData
+        {
+            get { return _noData; }
+            private set { this.RaiseAndSetIfChanged(ref _noData, value, () => this.NoData); }
+        }
 
-		public ReadOnlyObservableCollection<RouteStopForecastViewModel> Forecast { get; private set; }
+        public ReadOnlyObservableCollection<RouteStopForecastViewModel> Forecast { get; private set; }
 
-		public void Init(string id, string name, string description)
-		{
-			this.RouteStopId = id;
-			this.Name = name;
-			this.Description = description;
+        public void Init(string id, string name, string description)
+        {
+            this.RouteStopId = id;
+            this.Name = name;
+            this.Description = description;
 
-			_cancellationTokenSource = new CancellationTokenSource();
-		}
+            _cancellationTokenSource = new CancellationTokenSource();
+        }
 
-		public override void Start()
-		{
-			base.Start();
-			this.Refresh();
-		}
+        public override void Start()
+        {
+            base.Start();
+            this.Refresh();
+        }
 
-		public void CleanUp()
-		{
-			lock(_lockObject)
-			{
-				if (_intervalSubscription != null)
-				{
-					_intervalSubscription.Dispose();
-				}
+        public void CleanUp()
+        {
+            lock (_lockObject)
+            {
+                _intervalSubscription?.Dispose();
 
-				_cancellationTokenSource.Cancel();
-			}
-		}
+                _cancellationTokenSource.Cancel();
+            }
+        }
 
-		private void Refresh()
-		{
-			lock(_lockObject)
-			{
-				if (_cancellationTokenSource.IsCancellationRequested)
-				{
-					return;
-				}
+        private void Refresh()
+        {
+            lock (_lockObject)
+            {
+                if (_cancellationTokenSource.IsCancellationRequested)
+                {
+                    return;
+                }
 
-				var provider = _liveDataProviderFactory.GetCurrentProvider();
-				if (provider != null)
-				{
-					this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
-					provider.GetRouteStopsAsync()
-							.ContinueWith(task =>
-					{
-						if (task.Status != TaskStatus.RanToCompletion || task.Result == null)
-						{
-							this.NoData = true;
-							return;
-						}
+                var provider = _liveDataProviderFactory.GetCurrentProvider();
+                if (provider != null)
+                {
+                    this.Dispatcher.RequestMainThreadAction(() => this.IsBusy = true);
+                    provider.GetRouteStopsAsync()
+                            .ContinueWith(task =>
+                    {
+                        if (task.Status != TaskStatus.RanToCompletion || task.Result == null)
+                        {
+                            this.NoData = true;
+                            return;
+                        }
 
-						var routeStop = task.Result.FirstOrDefault(x => x.Id == this.RouteStopId);
-						if (routeStop != null)
-						{
-							provider.GetRouteStopForecastAsync(routeStop)
-									.ContinueWith(this.ShowForecast)
-									.ConfigureAwait(false);
-						} 
-							else
-						{
-							this.NoData = true;
-						}
-								
-					});
-				};
-			}
-		}
+                        var routeStop = task.Result.FirstOrDefault(x => x.Id == this.RouteStopId);
+                        if (routeStop != null)
+                        {
+                            provider.GetRouteStopForecastAsync(routeStop)
+                                    .ContinueWith(this.ShowForecast)
+                                    .ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            this.NoData = true;
+                        }
 
-		private void ShowForecast(Task<RouteStopForecast> task)
-		{
-			if (task.Status == TaskStatus.RanToCompletion)
-			{
-				var forecast = task.Result;
-				if (forecast != null && forecast.Items.Any())
-				{
-					this.Dispatcher.RequestMainThreadAction(() =>
-					{
-						lock(_lockObject)
-						{
-							if (_cancellationTokenSource.IsCancellationRequested)
-							{
-								return;
-							}
+                    });
+                };
+            }
+        }
 
-							if (_intervalSubscription != null)
-							{
-								_intervalSubscription.Dispose();
-							}
+        private void ShowForecast(Task<RouteStopForecast> task)
+        {
+            if (task.Status == TaskStatus.RanToCompletion)
+            {
+                var forecast = task.Result;
+                if (forecast != null && forecast.Items.Any())
+                {
+                    this.Dispatcher.RequestMainThreadAction(() =>
+                    {
+                        lock (_lockObject)
+                        {
+                            if (_cancellationTokenSource.IsCancellationRequested)
+                            {
+                                return;
+                            }
 
-							_forecast.Merge(
-										forecast.Items,
-										vm => vm.VehicleId,
-										forecastItem => forecastItem.VehicleId,
-										this.CreateFromForecastItem,
-										this.UpdateFromForecastItem,
-										MergeMode.Full);
+                            _intervalSubscription?.Dispose();
 
-							_forecast.Clear();
-							foreach(var forecastItem in forecast.Items)
-							{
-								_forecast.Add(this.CreateFromForecastItem(forecastItem));
-							}
+                            _forecast.Merge(
+                                        forecast.Items,
+                                        vm => vm.VehicleId,
+                                        forecastItem => forecastItem.VehicleId,
+                                        this.CreateFromForecastItem,
+                                        this.UpdateFromForecastItem,
+                                        MergeMode.Full);
 
-							_intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
+                            _forecast.Clear();
+                            foreach (var forecastItem in forecast.Items)
+                            {
+                                _forecast.Add(this.CreateFromForecastItem(forecastItem));
+                            }
 
-							this.NoData = false;
-							this.IsBusy = false;
-						}
-					});
-				}
-				else
-				{
-					this.Dispatcher.RequestMainThreadAction(() =>
-					{
-						lock(_lockObject)
-						{
-							_forecast.Clear();
-							this.IsBusy = false;
-							this.NoData = true;
-						}
-					});
-				}
-			}
+                            _intervalSubscription = _intervalObservable.Subscribe(this.OnNextInterval);
 
-			Task.Delay(TimeSpan.FromSeconds(20), _cancellationTokenSource.Token)
-				.ContinueWith(delayTask => this.Refresh());
-		}
+                            this.NoData = false;
+                            this.IsBusy = false;
+                        }
+                    });
+                }
+                else
+                {
+                    this.Dispatcher.RequestMainThreadAction(() =>
+                    {
+                        lock (_lockObject)
+                        {
+                            _forecast.Clear();
+                            this.IsBusy = false;
+                            this.NoData = true;
+                        }
+                    });
+                }
+            }
 
-		private RouteStopForecastViewModel CreateFromForecastItem(RouteStopForecastItem item)
-		{
-			return new RouteStopForecastViewModel 
-			{
-				VehicleId = item.VehicleId,
-				VehicleType = item.Route.VehicleType,
-				ArrivesInSeconds = item.ArrivesInSeconds,
-				CurrentlyAt = item.CurrentRouteStopName,
-				RouteDisplayName = _routeInfoToTitleConverter.Convert(item.Route.Number, item.Route.VehicleType),
-				Route = item.Route,
-				LastStop = item.LastRouteStopName
-			};
-		}
+            Task.Delay(TimeSpan.FromSeconds(20), _cancellationTokenSource.Token)
+                .ContinueWith(delayTask => this.Refresh());
+        }
 
-		private void UpdateFromForecastItem(RouteStopForecastViewModel vm, RouteStopForecastItem item)
-		{
-			vm.ArrivesInSeconds = item.ArrivesInSeconds;
-			vm.CurrentlyAt = item.CurrentRouteStopName;
-		}
+        private RouteStopForecastViewModel CreateFromForecastItem(RouteStopForecastItem item)
+        {
+            return new RouteStopForecastViewModel
+            {
+                VehicleId = item.VehicleId,
+                VehicleType = item.Route.VehicleType,
+                ArrivesInSeconds = item.ArrivesInSeconds,
+                CurrentlyAt = item.CurrentRouteStopName,
+                RouteDisplayName = _routeInfoToTitleConverter.Convert(item.Route.Number, item.Route.VehicleType),
+                Route = item.Route,
+                LastStop = item.LastRouteStopName
+            };
+        }
 
-		private void OnNextInterval(long interval)
-		{
-			this.Dispatcher.RequestMainThreadAction(() =>
-			{
-				lock (_lockObject)
-				{
-					var vmsToRemove = new List<RouteStopForecastViewModel>();
-					foreach (var vm in this.Forecast) 
-					{
-						vm.CountdownCommand.Execute();
-						if (vm.ArrivesInSeconds == 0)
-						{
-							vmsToRemove.Add(vm);
-						}
-					}
+        private void UpdateFromForecastItem(RouteStopForecastViewModel vm, RouteStopForecastItem item)
+        {
+            vm.ArrivesInSeconds = item.ArrivesInSeconds;
+            vm.CurrentlyAt = item.CurrentRouteStopName;
+        }
 
-					foreach (var vmToRemove in vmsToRemove) 
-					{
-						_forecast.Remove(vmToRemove);
-					}
-				}
-			});
-		}
+        private void OnNextInterval(long interval)
+        {
+            this.Dispatcher.RequestMainThreadAction(() =>
+            {
+                lock (_lockObject)
+                {
+                    var vmsToRemove = new List<RouteStopForecastViewModel>();
+                    foreach (var vm in this.Forecast)
+                    {
+                        vm.CountdownCommand.Execute();
+                        if (vm.ArrivesInSeconds == 0)
+                        {
+                            vmsToRemove.Add(vm);
+                        }
+                    }
 
-		private void ShowOnMap()
-		{
-			_messenger.Publish<ShowRouteStopForecastOnMapMessage>(new ShowRouteStopForecastOnMapMessage(this, this.RouteStopId));
-		}
+                    foreach (var vmToRemove in vmsToRemove)
+                    {
+                        _forecast.Remove(vmToRemove);
+                    }
+                }
+            });
+        }
 
-		private void ShowVehicleOnMap(RouteStopForecastViewModel routeStopForecastViewModel)
-		{
-			_userInteraction.Confirm(
-				AppResources.show_vehicle_on_map_confirm_format,
-				() => _messenger.Publish<ShowVehicleForecastOnMapMessage>(new ShowVehicleForecastOnMapMessage(this, routeStopForecastViewModel.VehicleId)),
-				string.Empty,
-				AppResources.yes,
-				AppResources.no);
-		}
-	}
+        private void ShowOnMap()
+        {
+            _messenger.Publish(new ShowRouteStopForecastOnMapMessage(this, this.RouteStopId));
+        }
+
+        private void ShowVehicleOnMap(RouteStopForecastViewModel routeStopForecastViewModel)
+        {
+            _userInteraction.Confirm(
+                AppResources.show_vehicle_on_map_confirm_format,
+                () => _messenger.Publish(new ShowVehicleForecastOnMapMessage(this, routeStopForecastViewModel.VehicleId)),
+                string.Empty,
+                AppResources.yes,
+                AppResources.no);
+        }
+    }
 }

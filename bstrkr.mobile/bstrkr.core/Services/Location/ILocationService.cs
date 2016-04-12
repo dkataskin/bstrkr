@@ -4,16 +4,16 @@ using bstrkr.core.spatial;
 
 namespace bstrkr.core.services.location
 {
-	public interface ILocationService
-	{
-		event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
+    public interface ILocationService
+    {
+        event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
 
-		event EventHandler<LocationErrorEventArgs> LocatingFailed;
+        event EventHandler<LocationErrorEventArgs> LocatingFailed;
 
-		void StartUpdating();
+        void StartUpdating();
 
-		GeoPoint GetLastLocation();
+        GeoPoint GetLastLocation();
 
-		void StopUpdating();
-	}
+        void StopUpdating();
+    }
 }

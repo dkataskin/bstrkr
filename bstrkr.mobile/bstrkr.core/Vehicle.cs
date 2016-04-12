@@ -1,19 +1,17 @@
-﻿using System;
-
-using bstrkr.core.spatial;
+﻿using bstrkr.core.spatial;
 
 namespace bstrkr.core
 {
-	public class Vehicle
-	{
-		public string Id { get; set; }
+    public class Vehicle
+    {
+        public string Id { get; set; }
 
-		public string CarPlate { get; set; }
+        public string CarPlate { get; set; }
 
-		public GeoLocation Location { get; set; }
+        public GeoLocation Location { get; set; }
 
-		public VehicleRouteInfo RouteInfo { get; set; }
+        public VehicleRouteInfo RouteInfo { get; set; }
 
-		public VehicleTypes Type { get; set; }
-	}
+        public VehicleTypes Type { get; set; }
+    }
 }

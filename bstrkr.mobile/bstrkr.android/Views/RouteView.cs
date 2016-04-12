@@ -1,11 +1,7 @@
-﻿using System;
-
-using Android.OS;
+﻿using Android.OS;
 using Android.Runtime;
 using Android.Views;
 
-using bstrkr.core;
-using bstrkr.core.android;
 using bstrkr.core.android.views;
 using bstrkr.mvvm;
 using bstrkr.mvvm.converters;
@@ -16,43 +12,40 @@ using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 
 namespace bstrkr.android.views
 {
-	[Register("bstrkr.android.views.RouteView")]
-	public class RouteView : MvxFragment
-	{
-		public RouteView()
-		{
-			this.RetainInstance = true;
-		}
+    [Register("bstrkr.android.views.RouteView")]
+    public class RouteView : MvxFragment
+    {
+        public RouteView()
+        {
+            this.RetainInstance = true;
+        }
 
-		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-		{
-			this.SetHasOptionsMenu(true);
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            this.SetHasOptionsMenu(true);
 
-			var ignored = base.OnCreateView(inflater, container, savedInstanceState);
+            var ignored = base.OnCreateView(inflater, container, savedInstanceState);
 
-			var routeNumberConverter = new RouteInfoToTitleConverter();
-			var dataContext = this.DataContext as RouteVehiclesViewModel;
-		
-			(this.Activity as MvxAppCompatActivity).SupportActionBar.Title = 
-				routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
+            var routeNumberConverter = new RouteInfoToTitleConverter();
+            var dataContext = this.DataContext as RouteVehiclesViewModel;
 
-			return this.BindingInflate(Resource.Layout.fragment_route_view, null);
-		}
+            (this.Activity as MvxAppCompatActivity).SupportActionBar.Title =
+                routeNumberConverter.Convert(dataContext.Number.ToString(), dataContext.VehicleType);
 
-		public override void OnPrepareOptionsMenu(IMenu menu)
-		{
-			menu.Clear();
-			base.OnPrepareOptionsMenu(menu);
-		}
+            return this.BindingInflate(Resource.Layout.fragment_route_view, null);
+        }
 
-		public override void OnDestroyView()
-		{
-			base.OnDestroyView();
+        public override void OnPrepareOptionsMenu(IMenu menu)
+        {
+            menu.Clear();
+            base.OnPrepareOptionsMenu(menu);
+        }
 
-			if (this.DataContext != null && this.DataContext is ICleanable)
-			{
-				(this.DataContext as ICleanable).CleanUp();
-			}
-		}
-	}
+        public override void OnDestroyView()
+        {
+            base.OnDestroyView();
+
+            (this.DataContext as ICleanable)?.CleanUp();
+        }
+    }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-
-using bstrkr.core.spatial;
+﻿using bstrkr.core.spatial;
 
 namespace bstrkr.core.utils
 {
-	public interface IGeoPointInterpolator
-	{
-		GeoPoint Interpolate(float fraction, GeoPoint a, GeoPoint b);
-	}
+    public interface IGeoPointInterpolator
+    {
+        GeoPoint Interpolate(float fraction, GeoPoint a, GeoPoint b);
+    }
 }

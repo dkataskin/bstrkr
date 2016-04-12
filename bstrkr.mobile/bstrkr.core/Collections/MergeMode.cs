@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace bstrkr.core.collections
+﻿namespace bstrkr.core.collections
 {
-	public enum MergeMode
-	{
-		Full,
-		Update
-	}
+    public enum MergeMode
+    {
+        Full,
+        Update
+    }
 }

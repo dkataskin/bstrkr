@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace bstrkr.core
+﻿namespace bstrkr.core
 {
-	public enum VehicleTypes
-	{
-		Bus,
-		MiniBus,
-		Trolley,
-		Tram
-	}
+    public enum VehicleTypes
+    {
+        Bus,
+        MiniBus,
+        Trolley,
+        Tram
+    }
 }

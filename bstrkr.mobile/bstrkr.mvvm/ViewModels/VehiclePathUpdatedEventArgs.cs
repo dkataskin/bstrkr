@@ -5,8 +5,8 @@ using bstrkr.core;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class VehiclePathUpdatedEventArgs : EventArgs
-	{
-		public IList<PathSegment> PathSegments { get; set; }
-	}
+    public class VehiclePathUpdatedEventArgs : EventArgs
+    {
+        public IList<PathSegment> PathSegments { get; set; }
+    }
 }

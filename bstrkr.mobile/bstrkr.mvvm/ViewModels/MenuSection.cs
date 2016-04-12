@@ -1,15 +1,13 @@
-﻿using System;
-
-namespace bstrkr.mvvm.viewmodels
+﻿namespace bstrkr.mvvm.viewmodels
 {
-	public enum MenuSection
-	{
-		Unknown,
-		Map,
-		Routes,
-		RouteStops,
-		Preferences,
-		Licenses,
-		About
-	}
+    public enum MenuSection
+    {
+        Unknown,
+        Map,
+        Routes,
+        RouteStops,
+        Preferences,
+        Licenses,
+        About
+    }
 }

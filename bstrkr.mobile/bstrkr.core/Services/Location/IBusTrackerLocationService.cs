@@ -1,22 +1,21 @@
 ﻿using System;
 
-using bstrkr.core;
 using bstrkr.core.spatial;
 
 namespace bstrkr.core.services.location
 {
-	public interface IBusTrackerLocationService
-	{
-		event EventHandler<AreaChangedEventArgs> AreaChanged;
+    public interface IBusTrackerLocationService
+    {
+        event EventHandler<AreaChangedEventArgs> AreaChanged;
 
-		Area CurrentArea { get; }
+        Area CurrentArea { get; }
 
-		bool DetectedArea { get; }
+        bool DetectedArea { get; }
 
-		GeoPoint GetLastLocation();
+        GeoPoint GetLastLocation();
 
-		void Start();
+        void Start();
 
-		void Stop();
-	}
+        void Stop();
+    }
 }

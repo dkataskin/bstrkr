@@ -6,34 +6,34 @@ using bstrkr.core;
 
 namespace bstrkr.providers
 {
-	public interface ILiveDataProvider
-	{
-		Area Area { get; }
+    public interface ILiveDataProvider
+    {
+        Area Area { get; }
 
-		event EventHandler<EventArgs> VehicleLocationsUpdateStarted;
+        event EventHandler<EventArgs> VehicleLocationsUpdateStarted;
 
-		event EventHandler<EventArgs> VehicleLocationsUpdateFailed;
+        event EventHandler<EventArgs> VehicleLocationsUpdateFailed;
 
-		event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
+        event EventHandler<VehicleLocationsUpdatedEventArgs> VehicleLocationsUpdated;
 
-		Task<IEnumerable<Route>> GetRoutesAsync(bool noCache = false);
+        Task<IEnumerable<Route>> GetRoutesAsync(bool noCache = false);
 
-		Task<Route> GetRouteAsync(string routeId);
+        Task<Route> GetRouteAsync(string routeId);
 
-		Task<IEnumerable<RouteStop>> GetRouteStopsAsync();
+        Task<IEnumerable<RouteStop>> GetRouteStopsAsync();
 
-		Task<IEnumerable<Vehicle>> GetVehiclesAsync();
+        Task<IEnumerable<Vehicle>> GetVehiclesAsync();
 
-		Task<IEnumerable<Vehicle>> GetRouteVehiclesAsync(IEnumerable<Route> routes);
+        Task<IEnumerable<Vehicle>> GetRouteVehiclesAsync(IEnumerable<Route> routes);
 
-		Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle);
+        Task<VehicleForecast> GetVehicleForecastAsync(Vehicle vehicle);
 
-		Task<RouteStopForecast> GetRouteStopForecastAsync(RouteStop routeStop);
+        Task<RouteStopForecast> GetRouteStopForecastAsync(RouteStop routeStop);
 
-		void Start();
+        void Start();
 
-		Task UpdateVehicleLocationsAsync();
+        Task UpdateVehicleLocationsAsync();
 
-		void Stop();
-	}
+        void Stop();
+    }
 }

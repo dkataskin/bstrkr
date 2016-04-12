@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace bstrkr.core.android.views
+﻿namespace bstrkr.core.android.views
 {
-	public delegate void ActionBarDrawerChangedEventHandler(object s, ActionBarDrawerEventArgs e);
+    public delegate void ActionBarDrawerChangedEventHandler(object s, ActionBarDrawerEventArgs e);
 }

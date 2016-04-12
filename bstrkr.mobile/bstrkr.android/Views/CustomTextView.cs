@@ -8,43 +8,33 @@ using Android.Graphics;
 
 namespace bstrkr.android.views
 {
-	[Register("bstrkr.android.views.CustomTextView")]
-	public class CustomTextView : TextView
-	{
-		public CustomTextView(Context context, IAttributeSet attrs)
-			: base(context, attrs)
-		{
-		}
+    [Register("bstrkr.android.views.CustomTextView")]
+    public class CustomTextView : TextView
+    {
+        public CustomTextView(Context context, IAttributeSet attrs)
+            : base(context, attrs)
+        {
+        }
 
-		public CustomTextView(Context context)
-			: base(context)
-		{
-		}
+        public CustomTextView(Context context)
+            : base(context)
+        {
+        }
 
-		protected CustomTextView(IntPtr javaReference, JniHandleOwnership transfer)
-			: base(javaReference, transfer)
-		{
-		}
+        protected CustomTextView(IntPtr javaReference, JniHandleOwnership transfer)
+            : base(javaReference, transfer)
+        {
+        }
 
-		public bool IsBold
-		{
-			get 
-			{ 
-				return this.Typeface.IsBold;
-			}
+        public bool IsBold
+        {
+            get
+            {
+                return this.Typeface.IsBold;
+            }
 
-			set
-			{
-				if (value)
-				{
-					this.SetTypeface(null, TypefaceStyle.Bold);
-				}
-				else
-				{
-					this.SetTypeface(null, TypefaceStyle.Normal);
-				}
-			}
-		}
-	}
+            set { this.SetTypeface(null, value ? TypefaceStyle.Bold : TypefaceStyle.Normal); }
+        }
+    }
 }
 

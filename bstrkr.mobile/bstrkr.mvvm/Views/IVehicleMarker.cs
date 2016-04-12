@@ -1,11 +1,9 @@
-﻿using System;
-
-using bstrkr.mvvm.viewmodels;
+﻿using bstrkr.mvvm.viewmodels;
 
 namespace bstrkr.mvvm.views
 {
-	public interface IVehicleMarker : IMapMarker
-	{
-		VehicleViewModel ViewModel { get; }
-	}
+    public interface IVehicleMarker : IMapMarker
+    {
+        VehicleViewModel ViewModel { get; }
+    }
 }

@@ -1,24 +1,21 @@
 ﻿using System;
 
-using bstrkr.core;
-using bstrkr.core.spatial;
-
 namespace bstrkr.core.services.location
 {
-	public interface IAreaPositioningService
-	{
-		event EventHandler<EventArgs> AreaLocated;
+    public interface IAreaPositioningService
+    {
+        event EventHandler<EventArgs> AreaLocated;
 
-		event EventHandler<EventArgs> AreaLocatingFailed;
+        event EventHandler<EventArgs> AreaLocatingFailed;
 
-		Area Area { get; }
+        Area Area { get; }
 
-		bool DetectedArea { get; }
+        bool DetectedArea { get; }
 
-		void Start();
+        void Start();
 
-		void Stop();
+        void Stop();
 
-		void SelectArea(Area area);
-	}
+        void SelectArea(Area area);
+    }
 }

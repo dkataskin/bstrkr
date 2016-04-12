@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<integer-array name="progressbar_colors">
-        <item>@color/progressbar_color_1</item>
-        <item>@color/progressbar_color_2</item>
-        <item>@color/progressbar_color_3</item>
-        <item>@color/progressbar_color_4</item>
-    </integer-array>
+  <integer-array name="progressbar_colors">
+    <item>@color/progressbar_color_1</item>
+    <item>@color/progressbar_color_2</item>
+    <item>@color/progressbar_color_3</item>
+    <item>@color/progressbar_color_4</item>
+  </integer-array>
 
-	<color name="white">#ffffffff</color>
-	<color name="black">#ff000000</color>
-	<color name="transparent">#00000000</color>
-	<color name="background_dark">#ff000000</color>
-	<color name="background_light">#ffffffff</color>
+  <color name="white">#ffffffff</color>
+  <color name="black">#ff000000</color>
+  <color name="transparent">#00000000</color>
+  <color name="background_dark">#ff000000</color>
+  <color name="background_light">#ffffffff</color>
 
-	<color name="text_primary">#ff494949</color>
-	<color name="text_secondary">#ffbababa</color>
-	<color name="list_item_h_divider">#ffe3e3e1</color>
-	<color name="list_header_background">#bfffffff</color>
-	<color name="list_background">#ffffffff</color>
+  <color name="text_primary">#ff494949</color>
+  <color name="text_secondary">#ffbababa</color>
+  <color name="list_item_h_divider">#ffe3e3e1</color>
+  <color name="list_header_background">#bfffffff</color>
+  <color name="list_background">#ffffffff</color>
 
-	<color name="progressbar_color_1">#338FDB</color>
-	<color name="progressbar_color_2">#EE1449</color>
-    <color name="progressbar_color_3">#F39728</color>
-    <color name="progressbar_color_4">#32987A</color>
+  <color name="progressbar_color_1">#338FDB</color>
+  <color name="progressbar_color_2">#EE1449</color>
+  <color name="progressbar_color_3">#F39728</color>
+  <color name="progressbar_color_4">#32987A</color>
 
-    <color name="about_text_title">#ff171717</color>
-    <color name="about_text_second_title">#ff171717</color>
-    <color name="link_foreground">#ff0c8bdc</color>
+  <color name="about_text_title">#ff171717</color>
+  <color name="about_text_second_title">#ff171717</color>
+  <color name="link_foreground">#ff0c8bdc</color>
 </resources>

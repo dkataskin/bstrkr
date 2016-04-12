@@ -1,29 +1,24 @@
-﻿using System;
-
-using bstrkr.core;
-using bstrkr.core.map;
+﻿using bstrkr.core;
 using bstrkr.core.services.resources;
 using bstrkr.core.spatial;
 
-using Cirrious.MvvmCross.ViewModels;
-
 namespace bstrkr.mvvm.viewmodels
 {
-	public class RouteStopMapViewModel : MapMarkerViewModelBase<RouteStop>
-	{
-		public RouteStopMapViewModel(IAppResourceManager resourceManager) : base(resourceManager)
-		{
-		}
+    public class RouteStopMapViewModel : MapMarkerViewModelBase<RouteStop>
+    {
+        public RouteStopMapViewModel(IAppResourceManager resourceManager) : base(resourceManager)
+        {
+        }
 
-		public override GeoLocation Location
-		{
-			get { return this.Model == null ? GeoLocation.Empty : this.Model.Location; }
-			set	{ }
-		}
+        public override GeoLocation Location
+        {
+            get { return this.Model?.Location ?? GeoLocation.Empty; }
+            set { }
+        }
 
-		protected override void SetIcons(IAppResourceManager resourceManager)
-		{
-			this.Icon = resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
-		}
-	}
+        protected override void SetIcons(IAppResourceManager resourceManager)
+        {
+            this.Icon = resourceManager.GetRouteStopMarker(this.MarkerSize, this.IsSelected);
+        }
+    }
 }

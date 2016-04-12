@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace bstrkr.mvvm.viewmodels
+﻿namespace bstrkr.mvvm.viewmodels
 {
-	public class SelectRouteStopViewModel : BusTrackerViewModelBase
-	{
-	}
+    public class SelectRouteStopViewModel : BusTrackerViewModelBase
+    {
+    }
 }

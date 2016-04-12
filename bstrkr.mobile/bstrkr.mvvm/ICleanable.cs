@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace bstrkr.mvvm
+﻿namespace bstrkr.mvvm
 {
-	public interface ICleanable
-	{
-		void CleanUp();
-	}
+    public interface ICleanable
+    {
+        void CleanUp();
+    }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace bstrkr.mvvm.viewmodels
+﻿namespace bstrkr.mvvm.viewmodels
 {
-	public enum MapMarkerSelectionStates
-	{
-		NoSelection,
-		SelectionSelected,
-		SelectionNotSelected
-	}
+    public enum MapMarkerSelectionStates
+    {
+        NoSelection,
+        SelectionSelected,
+        SelectionNotSelected
+    }
 }

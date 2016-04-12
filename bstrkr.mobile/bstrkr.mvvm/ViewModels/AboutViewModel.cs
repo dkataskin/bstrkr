@@ -1,19 +1,14 @@
-﻿using System;
-
-using bstrkr.core;
-using bstrkr.core.context;
-
-using Cirrious.MvvmCross.ViewModels;
+﻿using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.mvvm.viewmodels
 {
-	public class AboutViewModel : BusTrackerViewModelBase
-	{
-		public AboutViewModel()
-		{
-			this.ShowLicensesCommand = new MvxCommand(() => this.ShowViewModel<LicensesViewModel>());
-		}
+    public class AboutViewModel : BusTrackerViewModelBase
+    {
+        public AboutViewModel()
+        {
+            this.ShowLicensesCommand = new MvxCommand(() => this.ShowViewModel<LicensesViewModel>());
+        }
 
-		public MvxCommand ShowLicensesCommand { get; private set; }
-	}
+        public MvxCommand ShowLicensesCommand { get; private set; }
+    }
 }

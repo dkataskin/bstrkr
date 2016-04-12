@@ -8,31 +8,31 @@ using Android.Graphics;
 
 namespace bstrkr.android.views
 {
-	[Register("bstrkr.android.views.CustomImageView")]
-	public class CustomImageView : ImageView
-	{
-		public CustomImageView(Context context, IAttributeSet attrs)
-			: base(context, attrs)
-		{
-		}
+    [Register("bstrkr.android.views.CustomImageView")]
+    public class CustomImageView : ImageView
+    {
+        public CustomImageView(Context context, IAttributeSet attrs)
+            : base(context, attrs)
+        {
+        }
 
-		public CustomImageView(Context context)
-			: base(context)
-		{
-		}
+        public CustomImageView(Context context)
+            : base(context)
+        {
+        }
 
-		protected CustomImageView(IntPtr javaReference, JniHandleOwnership transfer)
-			: base(javaReference, transfer)
-		{
-		}
+        protected CustomImageView(IntPtr javaReference, JniHandleOwnership transfer)
+            : base(javaReference, transfer)
+        {
+        }
 
-		public Color TintColor 
-		{
-			get { return new Color(); }
-			set 
-			{
-				this.SetColorFilter(value);
-			}
-		}
-	}
+        public Color TintColor
+        {
+            get { return new Color(); }
+            set
+            {
+                this.SetColorFilter(value);
+            }
+        }
+    }
 }

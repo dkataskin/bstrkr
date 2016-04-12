@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+
 using Cirrious.CrossCore.Platform;
 
 namespace bstrkr.android
@@ -8,13 +9,13 @@ namespace bstrkr.android
     {
         public void Trace(MvxTraceLevel level, string tag, Func<string> message)
         {
-			Android.Util.Log.Info(tag, message());
+            Android.Util.Log.Info(tag, message());
             Debug.WriteLine(tag + ":" + level + ":" + message());
         }
 
         public void Trace(MvxTraceLevel level, string tag, string message)
         {
-			Android.Util.Log.Info(tag, message);
+            Android.Util.Log.Info(tag, message);
             Debug.WriteLine(tag + ":" + level + ":" + message);
         }
 
@@ -22,7 +23,7 @@ namespace bstrkr.android
         {
             try
             {
-				Android.Util.Log.Info(tag, string.Format(message, args));
+                Android.Util.Log.Info(tag, string.Format(message, args));
                 Debug.WriteLine(string.Format(tag + ":" + level + ":" + message, args));
             }
             catch (FormatException)

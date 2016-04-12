@@ -2,13 +2,13 @@
 
 namespace bstrkr.mvvm.views
 {
-	public class MapMarkerClickEventArgs : EventArgs
-	{
-		public MapMarkerClickEventArgs(IMapMarker mapMarker)
-		{
-			this.Marker = mapMarker;
-		}
+    public class MapMarkerClickEventArgs : EventArgs
+    {
+        public MapMarkerClickEventArgs(IMapMarker mapMarker)
+        {
+            this.Marker = mapMarker;
+        }
 
-		public IMapMarker Marker { get; private set; }
-	}
+        public IMapMarker Marker { get; private set; }
+    }
 }

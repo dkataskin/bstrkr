@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace bstrkr.mvvm.viewmodels
+﻿namespace bstrkr.mvvm.viewmodels
 {
-	public enum RouteVehicleVMTriggers
-	{
-		ForecastRequested,
-		ForecastReturned,
-		NoForecastDataReturned,
-		RequestFailed
-	}
+    public enum RouteVehicleVMTriggers
+    {
+        ForecastRequested,
+        ForecastReturned,
+        NoForecastDataReturned,
+        RequestFailed
+    }
 }

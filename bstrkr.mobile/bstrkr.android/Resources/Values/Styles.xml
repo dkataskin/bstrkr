@@ -1,16 +1,16 @@
 ﻿<resources>
   <style name="BusTrackerTheme.Base" parent="Theme.AppCompat.Light">
-  	<item name="android:windowBackground">@color/background_light</item>
-  	<item name="windowNoTitle">true</item>
-  	<item name="windowActionBar">false</item>
-	<!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
-	<!-- colorPrimary is used for the default action bar background -->
-	<item name="colorPrimary">#0fa389</item>
-	<!-- colorPrimaryDark is used for the status bar -->
-	<item name="colorPrimaryDark">#0fa389</item>
-	<!-- colorAccent is used as the default value for colorControlActivated
-     	 which is used to tint widgets -->
-	<item name="colorAccent">#0fa389</item>
+    <item name="android:windowBackground">@color/background_light</item>
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+    <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette-->
+    <!-- colorPrimary is used for the default action bar background -->
+    <item name="colorPrimary">#0fa389</item>
+    <!-- colorPrimaryDark is used for the status bar -->
+    <item name="colorPrimaryDark">#0fa389</item>
+    <!-- colorAccent is used as the default value for colorControlActivated
+       which is used to tint widgets -->
+    <item name="colorAccent">#0fa389</item>
   </style>
 
   <style name="BusTrackerTheme" parent="BusTrackerTheme.Base">
@@ -25,7 +25,7 @@
 
   <!-- ListPrimaryTitle -->
   <style name="ListPrimaryTitle" parent="@android:style/TextAppearance.Medium">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textStyle">bold</item>
     <item name="android:textColor">@color/text_primary</item>
@@ -33,14 +33,14 @@
 
   <!-- ListSecondaryTitle -->
   <style name="ListSecondaryTitle" parent="@android:style/TextAppearance.Small">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/text_secondary</item>
   </style>
 
   <!-- ListItemRegular -->
   <style name="ListItemRegular" parent="@android:style/TextAppearance.Medium">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textStyle">normal</item>
     <item name="android:textColor">@color/text_primary</item>
@@ -48,7 +48,7 @@
 
   <!-- ListItemRegularSmall -->
   <style name="ListItemRegularSmall" parent="@android:style/TextAppearance.Small">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textStyle">normal</item>
     <item name="android:textColor">@color/text_primary</item>
@@ -56,7 +56,7 @@
 
   <!-- ListItemBold -->
   <style name="ListItemBold" parent="ListItemRegular">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textStyle">bold</item>
     <item name="android:textColor">@color/text_primary</item>
@@ -72,25 +72,25 @@
     <item name="android:textColor">@color/text_secondary</item>
   </style>
 
-    <!-- AboutPrimary -->
+  <!-- AboutPrimary -->
   <style name="AboutPrimary" parent="@android:style/TextAppearance.Large">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/about_text_title</item>
     <item name="android:layout_gravity">center</item>
   </style>
 
-    <!-- AboutSecondary -->
+  <!-- AboutSecondary -->
   <style name="AboutSecondary" parent="@android:style/TextAppearance.Small">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/about_text_title</item>
     <item name="android:layout_gravity">center</item>
   </style>
 
-   <!-- LinkText -->
+  <!-- LinkText -->
   <style name="LinkText" parent="@android:style/TextAppearance.Medium">
-	<item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:textColor">@color/link_foreground</item>
     <item name="android:layout_gravity">center</item>
@@ -98,36 +98,36 @@
 
   <!-- ListHeaderIcon -->
   <style name="ListHeaderIcon">
-  	<item name="android:layout_gravity">center_vertical</item>
-  	<item name="android:layout_width">32dp</item>
-  	<item name="android:layout_height">32dp</item>
-  	<item name="android:scaleType">centerInside</item>
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:layout_width">32dp</item>
+    <item name="android:layout_height">32dp</item>
+    <item name="android:scaleType">centerInside</item>
   </style>
 
   <!-- ListItemIcon -->
   <style name="ListItemIcon">
-  	<item name="android:layout_gravity">center_vertical</item>
-  	<item name="android:layout_width">32dp</item>
-  	<item name="android:layout_height">32dp</item>
-  	<item name="android:scaleType">centerInside</item>
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:layout_width">32dp</item>
+    <item name="android:layout_height">32dp</item>
+    <item name="android:scaleType">centerInside</item>
   </style>
 
-	<style name="BusTrackerProgressBar" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
-		<item name="spb_stroke_separator_length">0dp</item>
-		<item name="spb_sections_count">2</item>
-		<item name="spb_speed">1.7</item>
-		<item name="android:interpolator">@android:anim/accelerate_decelerate_interpolator</item>
-		<item name="spb_mirror_mode">true</item>
-		<item name="spb_reversed">true</item>
-		<item name="spb_colors">@array/progressbar_colors</item>
-	</style>
+  <style name="BusTrackerProgressBar" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+    <item name="spb_stroke_separator_length">0dp</item>
+    <item name="spb_sections_count">2</item>
+    <item name="spb_speed">1.7</item>
+    <item name="android:interpolator">@android:anim/accelerate_decelerate_interpolator</item>
+    <item name="spb_mirror_mode">true</item>
+    <item name="spb_reversed">true</item>
+    <item name="spb_colors">@array/progressbar_colors</item>
+  </style>
 
-	 <style name="Bubble.TextAppearance.Dark" parent="android:TextAppearance.Medium">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#ff7f7f7f</item>
-    </style>
+  <style name="Bubble.TextAppearance.Dark" parent="android:TextAppearance.Medium">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">#ff7f7f7f</item>
+  </style>
 
-    <style name="Bubble.TextAppearance.Light" parent="Bubble.TextAppearance.Dark">
-        <item name="android:textColor">#ffeeeeee</item>
-    </style>
+  <style name="Bubble.TextAppearance.Light" parent="Bubble.TextAppearance.Dark">
+    <item name="android:textColor">#ffeeeeee</item>
+  </style>
 </resources>

@@ -1,11 +1,9 @@
-﻿using System;
-
-using Cirrious.MvvmCross.ViewModels;
+﻿using Cirrious.MvvmCross.ViewModels;
 
 namespace bstrkr.core.android.presenters
 {
-	public interface IFragmentHost
-	{
-		bool Show(MvxViewModelRequest request);
-	}
+    public interface IFragmentHost
+    {
+        bool Show(MvxViewModelRequest request);
+    }
 }

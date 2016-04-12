@@ -7,41 +7,35 @@ using bstrkr.mvvm.views;
 
 namespace bstrkr.mvvm.bindings
 {
-	public class MapViewLocationTargetBinding : MvxConvertingTargetBinding
-	{
-		public MapViewLocationTargetBinding(IMapView target) : base(target)
-		{
-		}
+    public class MapViewLocationTargetBinding : MvxConvertingTargetBinding
+    {
+        public MapViewLocationTargetBinding(IMapView target) : base(target)
+        {
+        }
 
-		public override Type TargetType 
-		{
-			get { return typeof(GeoPoint); }
-		}
+        public override Type TargetType => typeof(GeoPoint);
 
-		protected IMapView MapView
-		{
-			get { return (IMapView)this.Target; }
-		}
+        protected IMapView MapView => (IMapView)this.Target;
 
-		public override void SubscribeToEvents()
-		{
-			this.MapView.CameraLocationChanged += this.OnCameraPositionChanged;
-		}
+        public override void SubscribeToEvents()
+        {
+            this.MapView.CameraLocationChanged += this.OnCameraPositionChanged;
+        }
 
-		private void OnCameraPositionChanged(object sender, EventArgs args)
-		{
-			if (this.MapView == null)
-			{
-				return;
-			}
+        private void OnCameraPositionChanged(object sender, EventArgs args)
+        {
+            if (this.MapView == null)
+            {
+                return;
+            }
 
-			this.FireValueChanged(this.MapView.CameraLocation);
-		}
+            this.FireValueChanged(this.MapView.CameraLocation);
+        }
 
-		protected override void SetValueImpl(object target, object value)
-		{
-			var mapView = target as IMapView;
-			mapView.SetCamera((GeoPoint)value, mapView.Zoom);
-		}
-	}
+        protected override void SetValueImpl(object target, object value)
+        {
+            var mapView = target as IMapView;
+            mapView.SetCamera((GeoPoint)value, mapView.Zoom);
+        }
+    }
 }

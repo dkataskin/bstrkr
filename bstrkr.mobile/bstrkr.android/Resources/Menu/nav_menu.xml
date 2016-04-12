@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	  xmlns:local="http://schemas.android.com/apk/res-auto">
-	<group android:checkableBehavior="single" android:id="@+id/group_item_1">
-		<item android:id="@+id/nav_map" 
-			  android:icon="@drawable/menu_item_map"
-			  android:title="Map" />
-		<item android:id="@+id/nav_stops"
-			  android:icon="@drawable/menu_item_stops"
-			  android:title="Stops" />
-		<item android:id="@+id/nav_routes"
-			  android:icon="@drawable/menu_item_routes"
-			  android:title="Routes" />
-	</group>
-	<group android:checkableBehavior="single" android:id="@+id/group_item_2">
-		<item android:id="@+id/nav_preferences"
-			  android:icon="@drawable/menu_item_settings"
-			  android:title="Settings" />
-		<item android:id="@+id/nav_about"
-			  android:icon="@drawable/menu_item_about"
-			  android:title="About" />
-	</group>
+    xmlns:local="http://schemas.android.com/apk/res-auto">
+  <group android:checkableBehavior="single" android:id="@+id/group_item_1">
+    <item android:id="@+id/nav_map"
+        android:icon="@drawable/menu_item_map"
+        android:title="Map" />
+    <item android:id="@+id/nav_stops"
+        android:icon="@drawable/menu_item_stops"
+        android:title="Stops" />
+    <item android:id="@+id/nav_routes"
+        android:icon="@drawable/menu_item_routes"
+        android:title="Routes" />
+  </group>
+  <group android:checkableBehavior="single" android:id="@+id/group_item_2">
+    <item android:id="@+id/nav_preferences"
+        android:icon="@drawable/menu_item_settings"
+        android:title="Settings" />
+    <item android:id="@+id/nav_about"
+        android:icon="@drawable/menu_item_about"
+        android:title="About" />
+  </group>
 </menu>

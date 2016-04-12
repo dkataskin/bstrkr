@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace bstrkr.mvvm.messages
+﻿namespace bstrkr.mvvm.messages
 {
-	public enum BackgroundTaskState
-	{
-		Running,
-		Finished,
-		Failed
-	}
+    public enum BackgroundTaskState
+    {
+        Running,
+        Finished,
+        Failed
+    }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -114,7 +114,6 @@
     <Compile Include="Extensions\LatLngExtensions.cs" />
     <Compile Include="Views\ActionBarDrawerEventArgs.cs" />
     <Compile Include="Views\ActionBarDrawerChangedEventHandler.cs" />
-    <Compile Include="Views\Adapters\MvxViewPagerFragmentAdapter.cs" />
     <Compile Include="Presenters\CustomPresenter.cs" />
     <Compile Include="Presenters\ICustomPresenter.cs" />
     <Compile Include="Presenters\IFragmentHost.cs" />
@@ -130,16 +129,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\packages\Xamarin.Insights.1.12.3\build\MonoAndroid10\Xamarin.Insights.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Services\Location\" />
-    <Folder Include="Config\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Views\" />
-    <Folder Include="Views\Adapters\" />
-    <Folder Include="Presenters\" />
-    <Folder Include="Services\Animation\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

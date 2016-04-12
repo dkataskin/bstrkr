@@ -1,46 +1,32 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
-using Android;
 using Android.Gms.Maps.Model;
 
 using bstrkr.android.util;
 using bstrkr.core;
 using bstrkr.core.services.resources;
 
-using Cirrious.CrossCore.Platform;
-using Cirrious.CrossCore.Droid;
-
 namespace bstrkr.android.services.resources
 {
-	public class AndroidAppResourceManager : AppResourceManagerBase
-	{
-//		private readonly IMvxAndroidGlobals _androidGlobals;
-//		private readonly IconGenerator _iconGenerator;
+    public class AndroidAppResourceManager : AppResourceManagerBase
+    {
+        public IconGenerator IconGenerator { get; set; }
 
-		public AndroidAppResourceManager(/*IMvxAndroidGlobals androidGlobals*/)
-		{
-//			_androidGlobals = androidGlobals;
-//			_iconGenerator = new IconGenerator(_androidGlobals.ApplicationContext);
-		}
+        protected override object GetImageResource(string path)
+        {
+            var context = Android.App.Application.Context;
 
-		public IconGenerator IconGenerator { get; set; }
+            var id = context.Resources.GetIdentifier(
+                            Path.GetFileNameWithoutExtension(path),
+                            "drawable",
+                            context.PackageName);
 
-		protected override object GetImageResource(string path)
-		{
-			var context = Android.App.Application.Context;
+            return BitmapDescriptorFactory.FromResource(id);
+        }
 
-			var id = context.Resources.GetIdentifier(
-							Path.GetFileNameWithoutExtension(path), 
-							"drawable", 
-							context.PackageName);
-
-			return BitmapDescriptorFactory.FromResource(id);
-		}
-
-		public override object GetVehicleTitleMarker(VehicleTypes type, string title)
-		{
-			return this.IconGenerator.MakeIcon(title);
-		}
-	}
+        public override object GetVehicleTitleMarker(VehicleTypes type, string title)
+        {
+            return this.IconGenerator.MakeIcon(title);
+        }
+    }
 }

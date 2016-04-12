@@ -1,17 +1,15 @@
 ﻿using System;
 
-using bstrkr.core.spatial;
-
 namespace bstrkr.core.services.animation
 {
-	public interface IMarkerPositionAnimator
-	{
-		void Animate(PathSegment segment);
+    public interface IMarkerPositionAnimator
+    {
+        void Animate(PathSegment segment);
 
-		void Cancel();
+        void Cancel();
 
-		event EventHandler<PositionAnimationPlaybackEventArgs> FinishedPlaying;
+        event EventHandler<PositionAnimationPlaybackEventArgs> FinishedPlaying;
 
-		event EventHandler<PositionAnimationValueChangedEventArgs> ValueChanged;
-	}
+        event EventHandler<PositionAnimationValueChangedEventArgs> ValueChanged;
+    }
 }

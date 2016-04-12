@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace bstrkr.mvvm.viewmodels
+﻿namespace bstrkr.mvvm.viewmodels
 {
-	public enum RouteVehicleVMStates
-	{
-		Start,
-		Loading,
-		ForecastReceived,
-		NoForecast
-	}
+    public enum RouteVehicleVMStates
+    {
+        Start,
+        Loading,
+        ForecastReceived,
+        NoForecast
+    }
 }
