@@ -29,7 +29,7 @@ using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Localization;
 using Cirrious.MvvmCross.ViewModels;
 
-using Xamarin;
+//using Xamarin;
 
 namespace bstrkr.android
 {
