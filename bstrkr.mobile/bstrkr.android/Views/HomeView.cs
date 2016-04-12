@@ -21,6 +21,8 @@ using bstrkr.core.context;
 using bstrkr.core.services.resources;
 using bstrkr.mvvm.viewmodels;
 
+using Cheesebaron.SlidingUpPanel;
+
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
@@ -47,9 +49,9 @@ namespace bstrkr.android.views
 
         private Fragment _slidingPanelFragment;
 
-        private static IDictionary<Type, string> _frag2tag = new Dictionary<Type, string>();
+        private static readonly IDictionary<Type, string> _frag2tag = new Dictionary<Type, string>();
 
-        protected HomeViewModel HomeViewModel { get { return this.ViewModel as HomeViewModel; } }
+        protected HomeViewModel HomeViewModel => this.ViewModel as HomeViewModel;
 
         public bool Show(MvxViewModelRequest request)
         {
@@ -135,12 +137,7 @@ namespace bstrkr.android.views
                         break;
                 }
 
-                IMvxFragmentView mvxFragmentView = null;
-                if (fragment is IMvxFragmentView)
-                {
-                    mvxFragmentView = fragment as IMvxFragmentView;
-                }
-
+                IMvxFragmentView mvxFragmentView = fragment;
                 if (mvxFragmentView != null && mvxFragmentView.ViewModel == null)
                 {
                     mvxFragmentView.ViewModel = loaderService.LoadViewModel(request, null /* saved state */);
@@ -184,7 +181,7 @@ namespace bstrkr.android.views
         {
             if (item.ItemId == Resource.Id.menu_refresh)
             {
-                (this.ViewModel as HomeViewModel).UpdateVehicleLocationsCommand.Execute();
+                (this.ViewModel as HomeViewModel)?.UpdateVehicleLocationsCommand.Execute();
                 return true;
             }
 
@@ -214,10 +211,10 @@ namespace bstrkr.android.views
         {
             var headerView = _navigationView.GetHeaderView(0);
             var spinner = headerView.FindViewById<Spinner>(Resource.Id.city);
-            spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(OnAreaSpinnerItemSelected);
+            spinner.ItemSelected += OnAreaSpinnerItemSelected;
             var adapter = new ArrayAdapter<AreaViewModel>(
                                                 this.BaseContext,
-                                                //												Resource.Layout.item_area_spinner,
+                                                //Resource.Layout.item_area_spinner,
                                                 Resource.Layout.support_simple_spinner_dropdown_item,
                                                 this.HomeViewModel.Areas.ToArray());
 

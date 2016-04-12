@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -91,9 +91,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="Xamarin-Sidebar">
-      <HintPath>..\Components\SidebarNavigation-1.4\lib\ios\Xamarin-Sidebar.dll</HintPath>
-    </Reference>
     <Reference Include="GoogleMaps">
       <HintPath>..\Components\googlemapsios-1.9.2\lib\ios\GoogleMaps.dll</HintPath>
     </Reference>
@@ -135,6 +132,9 @@
     </Reference>
     <Reference Include="MvvmCross.Localization">
       <HintPath>..\packages\MvvmCross.Binding.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin-Sidebar">
+      <HintPath>..\Components\SidebarNavigation-1.4\lib\ios\Xamarin-Sidebar.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

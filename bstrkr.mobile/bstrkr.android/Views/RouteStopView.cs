@@ -33,7 +33,7 @@ namespace bstrkr.android.views
 
             var view = this.BindingInflate(Resource.Layout.fragment_routestop_view, null);
             var refresher = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swiperefresh);
-            refresher.RefreshCommand = (this.ViewModel as RouteStopViewModel).RefreshCommand;
+            refresher.RefreshCommand = (this.ViewModel as RouteStopViewModel)?.RefreshCommand;
 
             return view;
         }
@@ -42,13 +42,13 @@ namespace bstrkr.android.views
         {
             if (item.ItemId == Resource.Id.menu_showonmap)
             {
-                (this.ViewModel as RouteStopViewModel).ShowOnMapCommand.Execute();
+                (this.ViewModel as RouteStopViewModel)?.ShowOnMapCommand.Execute();
                 return true;
             }
 
             if (item.ItemId == Resource.Id.menu_refresh)
             {
-                (this.ViewModel as RouteStopViewModel).RefreshCommand.Execute();
+                (this.ViewModel as RouteStopViewModel)?.RefreshCommand.Execute();
                 return true;
             }
 
@@ -72,10 +72,7 @@ namespace bstrkr.android.views
         {
             base.OnDestroyView();
 
-            if (this.DataContext != null && this.DataContext is ICleanable)
-            {
-                (this.DataContext as ICleanable).CleanUp();
-            }
+            (this.DataContext as ICleanable)?.CleanUp();
         }
     }
 }

@@ -78,7 +78,7 @@ namespace bstrkr.android.views
         {
             if (string.IsNullOrEmpty(key))
             {
-                throw new ArgumentException("Key must not be null or empty.", "key");
+                throw new ArgumentException("Key must not be null or empty.", nameof(key));
             }
 
             if (!_markers.ContainsKey(key))

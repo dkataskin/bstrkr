@@ -244,6 +244,7 @@
     <Compile Include="Views\AboutView.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -512,13 +513,13 @@
       <Version>1.0.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
-    <XamarinComponentReference Include="xamandroidsupportv4-18">
-      <Version>22.2.0.0</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="xamandroidsupportdesign">
-      <Version>22.2.0.0</Version>
       <Visible>False</Visible>
+      <Version>23.2.1</Version>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="xamandroidsupportv4-18">
+      <Visible>False</Visible>
+      <Version>23.2.1</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
@@ -530,13 +531,6 @@
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Menu\" />
     <Folder Include="Resources\Xml\" />
-    <Folder Include="Resources\Values\" />
-    <Folder Include="Resources\Values-v21\" />
-    <Folder Include="Resources\Drawable\" />
-    <Folder Include="Util\" />
-    <Folder Include="Services\" />
-    <Folder Include="Services\Resources\" />
   </ItemGroup>
 </Project>
