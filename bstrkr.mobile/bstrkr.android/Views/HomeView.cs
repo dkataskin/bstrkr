@@ -240,8 +240,8 @@ namespace bstrkr.android.views
                                             this.BaseContext.PackageName);
 
             var headerView = _navigationView.GetHeaderView(0);
-            var imageView = headerView.FindViewById<ImageView>(Resource.Id.cityImage);
-            imageView.SetImageResource(cityImageId);
+            var headerLayoutRootView = headerView.FindViewById<RelativeLayout>(Resource.Id.navHeaderLayoutRoot);
+            headerLayoutRootView.SetBackgroundResource(cityImageId);
         }
 
         private void SetUpIconGenerator()
