@@ -482,7 +482,6 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\vershi_logo.png" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\vershi_logo.png" />
     <AndroidResource Include="Resources\Layout\fragment_about_view.axml" />
-    <AndroidResource Include="Resources\Drawable\saransk.jpg" />
     <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -531,6 +530,10 @@
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\Drawable\" />
     <Folder Include="Resources\Xml\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-xxhdpi\saransk.jpg" />
   </ItemGroup>
 </Project>
