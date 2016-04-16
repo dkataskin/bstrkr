@@ -50,7 +50,7 @@ namespace bstrkr.mvvm.viewmodels
             _configManager = configManager;
             _areaPositioningService = areaPositioningService;
             _locationService = busTrackerLocationService;
-            _locationService.AreaChanged += (s, a) => this.UpdateTitle(a.Area);
+            _locationService.AreaChanged += (s, a) => this.UpdateSelectedArea(a.Area);
 
             _taskChangedMessagesSubscription = _messenger.Subscribe<BackgroundTaskStateChangedMessage>(this.OnBackgroundTaskStateChanged);
 
@@ -124,7 +124,7 @@ namespace bstrkr.mvvm.viewmodels
             base.Start();
 
             this.FillAreas();
-            this.UpdateTitle(_locationService.CurrentArea);
+            this.UpdateSelectedArea(_locationService.CurrentArea);
         }
 
         private void FillAreas()
@@ -218,7 +218,7 @@ namespace bstrkr.mvvm.viewmodels
             }
         }
 
-        private void UpdateTitle(Area area)
+        private void UpdateSelectedArea(Area area)
         {
             if (area == null)
             {
@@ -227,7 +227,7 @@ namespace bstrkr.mvvm.viewmodels
             }
             else
             {
-                this.CurrentArea = _areas.FirstOrDefault(a => a.Id.Equals(area.Id));
+                this.CurrentArea = _areas.FirstOrDefault(a => a.Area.Id.Equals(area.Id));
                 if (this.CurrentArea != null)
                 {
                     this.Title = this.CurrentArea.Name;

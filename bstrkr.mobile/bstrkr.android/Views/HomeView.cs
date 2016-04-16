@@ -29,6 +29,7 @@ using Cirrious.MvvmCross.Droid.FullFragging.Fragments;
 using Cirrious.MvvmCross.ViewModels;
 
 using SmoothProgressBarSharp;
+using Android.Graphics;
 
 namespace bstrkr.android.views
 {
@@ -210,7 +211,7 @@ namespace bstrkr.android.views
         private void SetUpCitiesSpinner()
         {
             var headerView = _navigationView.GetHeaderView(0);
-            var spinner = headerView.FindViewById<Spinner>(Resource.Id.city);
+            var spinner = headerView.FindViewById<Spinner>(Resource.Id.citySpinner);
             spinner.ItemSelected += OnAreaSpinnerItemSelected;
             var adapter = new ArrayAdapter<AreaViewModel>(
                                                 this.BaseContext,
@@ -227,6 +228,20 @@ namespace bstrkr.android.views
         private void OnAreaSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs args)
         {
             this.HomeViewModel.SelectAreaCommand.Execute(args.Position);
+
+            if (this.HomeViewModel.CurrentArea == null)
+            {
+                return;
+            }
+
+            var cityImageId = this.BaseContext.Resources.GetIdentifier(
+                                            this.HomeViewModel.CurrentArea.Area.Id,
+                                            "drawable",
+                                            this.BaseContext.PackageName);
+
+            var headerView = _navigationView.GetHeaderView(0);
+            var imageView = headerView.FindViewById<ImageView>(Resource.Id.cityImage);
+            imageView.SetImageResource(cityImageId);
         }
 
         private void SetUpIconGenerator()
