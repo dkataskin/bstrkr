@@ -244,6 +244,7 @@
     <Compile Include="Views\GoogleMapsSimpleMarkerBase.cs" />
     <Compile Include="Services\Resources\AndroidAppResourceManager.cs" />
     <Compile Include="Views\AboutView.cs" />
+    <Compile Include="Views\ImageLicensesView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -486,6 +487,8 @@
     <AndroidResource Include="Resources\Layout\fragment_about_view.axml" />
     <AndroidResource Include="Resources\Layout\fragment_licenses_view.axml" />
     <AndroidResource Include="Resources\Drawable-xxhdpi\barnaul.jpg" />
+    <AndroidResource Include="Resources\Layout\fragment_image_licenses_view.axml" />
+    <AndroidResource Include="Resources\Layout\item_image_licenses_list.axml" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
