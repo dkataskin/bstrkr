@@ -35,5 +35,17 @@
       "author": "James Montemagno",
       "license": "The MIT License (MIT)s"
     },
+  ],
+  "images": [
+	{
+		"cityId": "saransk",
+		"author": "ilya.elohoff",
+		"link": "http://id16478650.35photo.ru/"
+	},
+	{
+		"cityId": "barnaul",
+		"author": "dmitry.fominykh",
+		"link": "https://500px.com/finorion"
+	}
   ]
 }

@@ -180,4 +180,10 @@
     <data name="city_novgorod_name" xml:space="preserve">
     	<value>Новгород</value>
     </data>
+    <data name="ilya.elohoff" xml:space="preserve">
+    	<value>Илья Елохов</value>
+    </data>
+    <data name="dmitry.fominykh" xml:space="preserve">
+    	<value>Дмитрий Фоминых</value>
+    </data>
 </root>
