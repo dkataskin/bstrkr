@@ -156,6 +156,9 @@
       <data name="about_licenses_text" xml:space="preserve">
     <value>Licenses</value>
     </data>
+    <data name="about_image_licenses_text" xml:space="preserve">
+    	<value>Images</value>
+    </data>
     <data name="city_saransk_name" xml:space="preserve">
     	<value>Saransk</value>
     </data>

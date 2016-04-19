@@ -29,8 +29,7 @@ namespace bstrkr.mvvm.viewmodels
             { typeof(RoutesViewModel), MenuSection.Routes },
             { typeof(RouteStopsViewModel), MenuSection.RouteStops },
             { typeof(PreferencesViewModel), MenuSection.Preferences },
-            { typeof(AboutViewModel), MenuSection.About },
-            { typeof(LicensesViewModel), MenuSection.Licenses }
+            { typeof(AboutViewModel), MenuSection.About }
         };
 
         private AreaViewModel _currentArea;
@@ -166,11 +165,6 @@ namespace bstrkr.mvvm.viewmodels
                 },
                 new MenuViewModel
                 {
-                    Title = AppResources.licenses_view_title,
-                    Section = MenuSection.Licenses
-                },
-                new MenuViewModel
-                {
                     Title = AppResources.about_view_title,
                     Section = MenuSection.About
                 }
@@ -201,12 +195,6 @@ namespace bstrkr.mvvm.viewmodels
                 case MenuSection.Preferences:
                     this.ShowViewModel<PreferencesViewModel>();
                     _selectedMenuSection = MenuSection.Preferences;
-                    this.IsBusy = false;
-                    break;
-
-                case MenuSection.Licenses:
-                    this.ShowViewModel<LicensesViewModel>();
-                    _selectedMenuSection = MenuSection.Licenses;
                     this.IsBusy = false;
                     break;
 

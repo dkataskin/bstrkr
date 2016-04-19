@@ -26,7 +26,7 @@ namespace bstrkr.android.views
 
             (this.Activity as MvxAppCompatActivity).SupportActionBar.Title = AppResources.licenses_view_title;
 
-            return this.BindingInflate(Resource.Layout.fragment_licenses_view, null);
+            return this.BindingInflate(Resource.Layout.fragment_image_licenses_view, null);
         }
 
         public override void OnPrepareOptionsMenu(IMenu menu)

@@ -7,7 +7,6 @@
         Routes,
         RouteStops,
         Preferences,
-        Licenses,
         About
     }
 }

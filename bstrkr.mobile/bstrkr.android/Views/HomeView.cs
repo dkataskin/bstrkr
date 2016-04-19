@@ -127,11 +127,6 @@ namespace bstrkr.android.views
                         _currentSection = section;
                         break;
 
-                    case MenuSection.Licenses:
-                        fragment = this.FindFragment<LicensesView>() ?? new LicensesView();
-                        _currentSection = section;
-                        break;
-
                     case MenuSection.About:
                         fragment = this.FindFragment<AboutView>() ?? new AboutView();
                         _currentSection = section;
@@ -360,6 +355,7 @@ namespace bstrkr.android.views
             customPresenter.Register(typeof(RoutesViewModel), this);
             customPresenter.Register(typeof(RouteStopsViewModel), this);
             customPresenter.Register(typeof(LicensesViewModel), this);
+            customPresenter.Register(typeof(ImageLicensesViewModel), this);
             customPresenter.Register(typeof(AboutViewModel), this);
             customPresenter.Register(typeof(MapViewModel), this);
             customPresenter.Register(typeof(SetRouteStopViewModel), this);
@@ -496,6 +492,20 @@ namespace bstrkr.android.views
 
                 this.FragmentManager.BeginTransaction()
                     .Replace(Resource.Id.content_frame, licensesView, "licenses_view")
+                    .AddToBackStack(null)
+                    .Commit();
+
+                this.DisableDrawer();
+            }
+
+            if (request.ViewModelType == typeof(ImageLicensesViewModel))
+            {
+                var imageLicensesView = new ImageLicensesView();
+                imageLicensesView.ViewModel = loaderService.LoadViewModel(request, null);
+                _frag2tag[typeof(ImageLicensesView)] = "image_licenses_view";
+
+                this.FragmentManager.BeginTransaction()
+                    .Replace(Resource.Id.content_frame, imageLicensesView, "image_licenses_view")
                     .AddToBackStack(null)
                     .Commit();
 
