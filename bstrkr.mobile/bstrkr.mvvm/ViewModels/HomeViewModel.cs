@@ -90,7 +90,7 @@ namespace bstrkr.mvvm.viewmodels
                     return -1;
                 }
 
-                var area = _areas.FirstOrDefault(x => x.Area.Id.Equals(this.CurrentArea.Id));
+                var area = _areas.FirstOrDefault(x => x.Area.Id.Equals(this.CurrentArea.Area.Id));
                 if (area == null)
                 {
                     return -1;
