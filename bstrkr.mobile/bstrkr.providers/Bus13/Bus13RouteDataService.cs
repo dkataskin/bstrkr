@@ -253,7 +253,8 @@ namespace bstrkr.core.providers.bus13
             var routes = new List<Route>();
             foreach (var bus13Route in bus13Routes)
             {
-                if (bus13Route.Num == InactiveItem || bus13Route.Type == InactiveItem)
+                if (bus13Route.Num == InactiveItem || bus13Route.Type == InactiveItem ||
+                    string.IsNullOrEmpty(bus13Route.Num) || string.IsNullOrEmpty(bus13Route.Type))
                 {
                     continue;
                 }

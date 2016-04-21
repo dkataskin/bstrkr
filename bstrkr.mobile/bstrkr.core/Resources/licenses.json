@@ -51,6 +51,11 @@
 		"cityId": "ryazan",
 		"author": "andrey.ivanovich",
 		"link": "https://www.flickr.com/photos/andrey-ivanovich"
+	},
+	{
+		"cityId": "kursk",
+		"author": "artyom.mirniy",
+		"link": "https://500px.com/r-tyom"
 	}
   ]
 }
