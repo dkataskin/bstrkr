@@ -35,7 +35,7 @@ namespace bstrkr.core.providers.bus13
         private const string RandomParam = "_";
         private const string InfoParam = "info";
         private const string InfoParamValue = "01234";
-
+        private const string InactiveItem = "_";
         private readonly Lazy<Random> _random = new Lazy<Random>();
         private readonly IEnumerable<IRouteStopsDataPostProcessor> _routeStopPostProcessors;
 
@@ -253,6 +253,11 @@ namespace bstrkr.core.providers.bus13
             var routes = new List<Route>();
             foreach (var bus13Route in bus13Routes)
             {
+                if (bus13Route.Num == InactiveItem || bus13Route.Type == InactiveItem)
+                {
+                    continue;
+                }
+
                 var route = new Route(
                                     GenerateId(bus13Route),
                                     bus13Route.Name,

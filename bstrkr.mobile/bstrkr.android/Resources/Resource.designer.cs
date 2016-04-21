@@ -2440,8 +2440,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f020087
 			public const int drawer_shadow_light = 2130837639;
 			
-			// aapt resource value: 0x7f020106
-			public const int header_shadow = 2130837766;
+			// aapt resource value: 0x7f020107
+			public const int header_shadow = 2130837767;
 			
 			// aapt resource value: 0x7f020088
 			public const int ic_action_refresh = 2130837640;
@@ -2743,8 +2743,8 @@ namespace bstrkr.android
 			// aapt resource value: 0x7f0200eb
 			public const int my_location = 2130837739;
 			
-			// aapt resource value: 0x7f020105
-			public const int notification_template_icon_bg = 2130837765;
+			// aapt resource value: 0x7f020106
+			public const int notification_template_icon_bg = 2130837766;
 			
 			// aapt resource value: 0x7f0200ec
 			public const int places_ic_clear = 2130837740;
@@ -2759,67 +2759,70 @@ namespace bstrkr.android
 			public const int powered_by_google_light = 2130837743;
 			
 			// aapt resource value: 0x7f0200f0
-			public const int saransk = 2130837744;
+			public const int ryazan = 2130837744;
 			
 			// aapt resource value: 0x7f0200f1
-			public const int splash = 2130837745;
+			public const int saransk = 2130837745;
 			
 			// aapt resource value: 0x7f0200f2
-			public const int track = 2130837746;
+			public const int splash = 2130837746;
 			
 			// aapt resource value: 0x7f0200f3
-			public const int track_current = 2130837747;
+			public const int track = 2130837747;
 			
 			// aapt resource value: 0x7f0200f4
-			public const int tram_b = 2130837748;
+			public const int track_current = 2130837748;
 			
 			// aapt resource value: 0x7f0200f5
-			public const int tram_b_selected = 2130837749;
+			public const int tram_b = 2130837749;
 			
 			// aapt resource value: 0x7f0200f6
-			public const int tram_m = 2130837750;
+			public const int tram_b_selected = 2130837750;
 			
 			// aapt resource value: 0x7f0200f7
-			public const int tram_m_selected = 2130837751;
+			public const int tram_m = 2130837751;
 			
 			// aapt resource value: 0x7f0200f8
-			public const int tram_s = 2130837752;
+			public const int tram_m_selected = 2130837752;
 			
 			// aapt resource value: 0x7f0200f9
-			public const int tram_s_selected = 2130837753;
+			public const int tram_s = 2130837753;
 			
 			// aapt resource value: 0x7f0200fa
-			public const int trolley_b = 2130837754;
+			public const int tram_s_selected = 2130837754;
 			
 			// aapt resource value: 0x7f0200fb
-			public const int trolley_b_selected = 2130837755;
+			public const int trolley_b = 2130837755;
 			
 			// aapt resource value: 0x7f0200fc
-			public const int trolley_m = 2130837756;
+			public const int trolley_b_selected = 2130837756;
 			
 			// aapt resource value: 0x7f0200fd
-			public const int trolley_m_selected = 2130837757;
+			public const int trolley_m = 2130837757;
 			
 			// aapt resource value: 0x7f0200fe
-			public const int trolley_s = 2130837758;
+			public const int trolley_m_selected = 2130837758;
 			
 			// aapt resource value: 0x7f0200ff
-			public const int trolley_s_selected = 2130837759;
+			public const int trolley_s = 2130837759;
 			
 			// aapt resource value: 0x7f020100
-			public const int vehicletypes_bus = 2130837760;
+			public const int trolley_s_selected = 2130837760;
 			
 			// aapt resource value: 0x7f020101
-			public const int vehicletypes_minibus = 2130837761;
+			public const int vehicletypes_bus = 2130837761;
 			
 			// aapt resource value: 0x7f020102
-			public const int vehicletypes_tram = 2130837762;
+			public const int vehicletypes_minibus = 2130837762;
 			
 			// aapt resource value: 0x7f020103
-			public const int vehicletypes_trolley = 2130837763;
+			public const int vehicletypes_tram = 2130837763;
 			
 			// aapt resource value: 0x7f020104
-			public const int vershi_logo = 2130837764;
+			public const int vehicletypes_trolley = 2130837764;
+			
+			// aapt resource value: 0x7f020105
+			public const int vershi_logo = 2130837765;
 			
 			static Drawable()
 			{

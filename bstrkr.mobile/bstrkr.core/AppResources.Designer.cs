@@ -400,5 +400,11 @@ namespace bstrkr.core {
                 return ResourceManager.GetString("dmitry.fominykh", resourceCulture);
             }
         }
+        
+        public static string andrey_ivanovich {
+            get {
+                return ResourceManager.GetString("andrey.ivanovich", resourceCulture);
+            }
+        }
     }
 }

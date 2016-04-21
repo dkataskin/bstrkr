@@ -489,6 +489,7 @@
     <AndroidResource Include="Resources\Drawable-xxhdpi\barnaul.jpg" />
     <AndroidResource Include="Resources\Layout\fragment_image_licenses_view.axml" />
     <AndroidResource Include="Resources\Layout\item_image_licenses_list.axml" />
+    <AndroidResource Include="Resources\Drawable-xxhdpi\ryazan.jpg" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
