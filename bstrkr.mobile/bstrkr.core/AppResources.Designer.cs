@@ -412,5 +412,23 @@ namespace bstrkr.core {
                 return ResourceManager.GetString("artyom.mirniy", resourceCulture);
             }
         }
+        
+        public static string dmitry_leontev {
+            get {
+                return ResourceManager.GetString("dmitry.leontev", resourceCulture);
+            }
+        }
+        
+        public static string ekaterina_shevi {
+            get {
+                return ResourceManager.GetString("ekaterina.shevi", resourceCulture);
+            }
+        }
+        
+        public static string anton_kamenskiy {
+            get {
+                return ResourceManager.GetString("anton.kamenskiy", resourceCulture);
+            }
+        }
     }
 }

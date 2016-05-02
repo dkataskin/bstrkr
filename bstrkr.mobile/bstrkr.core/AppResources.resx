@@ -195,4 +195,13 @@
     <data name="artyom.mirniy" xml:space="preserve">
     	<value>Artyom Mirniy</value>
     </data>
+    <data name="dmitry.leontev" xml:space="preserve">
+    	<value>Dmitry Leontev</value>
+    </data>
+     <data name="ekaterina.shevi" xml:space="preserve">
+    	<value>Ekaterina Shevi</value>
+    </data>
+     <data name="anton.kamenskiy" xml:space="preserve">
+    	<value>Anton Kamenskiy</value>
+    </data>
 </root>

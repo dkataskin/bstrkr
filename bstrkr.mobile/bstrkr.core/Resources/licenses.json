@@ -56,6 +56,21 @@
 		"cityId": "kursk",
 		"author": "artyom.mirniy",
 		"link": "https://500px.com/r-tyom"
+	},
+	{
+		"cityId": "cheboksary",
+		"author": "dmitry.leontev",
+		"link": "https://www.instagram.com/dmitrall/"
+	},
+	{
+		"cityId": "oryol",
+		"author": "ekaterina.shevi",
+		"link": "http://www.k-shevi.com/"
+	},
+	{
+		"cityId": "novgorod",
+		"author": "anton.kamenskiy",
+		"link": "https://www.flickr.com/photos/kamenskiyan/"
 	}
   ]
 }
