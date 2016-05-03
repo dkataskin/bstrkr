@@ -31,10 +31,10 @@ namespace bstrkr.core.providers.bus13
         {
             this.Area = area;
             _endpoint = area.Endpoint;
-            _location = area.Id;
+            _location = area.DataServiceCode;
             _updateInterval = updateInterval;
 
-            _dataService = new Bus13RouteDataService(_endpoint, _location);
+            _dataService = new Bus13RouteDataService(_endpoint, _location, area.DataServiceInfoParam);
         }
 
         public Area Area { get; private set; }

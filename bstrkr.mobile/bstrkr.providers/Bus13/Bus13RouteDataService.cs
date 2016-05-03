@@ -34,15 +34,16 @@ namespace bstrkr.core.providers.bus13
         private const string RouteTypeParam = "type";
         private const string RandomParam = "_";
         private const string InfoParam = "info";
-        private const string InfoParamValue = "01234";
         private const string InactiveItem = "_";
+
         private readonly Lazy<Random> _random = new Lazy<Random>();
         private readonly IEnumerable<IRouteStopsDataPostProcessor> _routeStopPostProcessors;
 
         private readonly string _endpoint;
         private readonly string _location;
+        private readonly string _infoParamValue = "01234";
 
-        public Bus13RouteDataService(string endpoint, string location)
+        public Bus13RouteDataService(string endpoint, string location, string infoParam)
         {
             if (string.IsNullOrWhiteSpace(endpoint))
             {
@@ -54,6 +55,12 @@ namespace bstrkr.core.providers.bus13
                 throw new ArgumentException("Location must not be null or empty.", nameof(location));
             }
 
+            if (string.IsNullOrWhiteSpace(infoParam))
+            {
+                throw new ArgumentException("Info param value must not be null or empty.", nameof(infoParam));
+            }
+
+            _infoParamValue = infoParam;
             _endpoint = endpoint;
             _location = location;
 
@@ -114,7 +121,7 @@ namespace bstrkr.core.providers.bus13
             request.AddParameter("lng1", this.CoordToInt(rect.SouthWest.Longitude), ParameterType.QueryString);
 
             request.AddParameter(TimestampParam, timestamp, ParameterType.QueryString);
-            request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
+            request.AddParameter(InfoParam, _infoParamValue, ParameterType.QueryString);
 
             var client = this.GetRestClient();
             var response = await this.ExecuteAsync<Bus13VehicleLocationResponse>(client, request)
@@ -160,7 +167,7 @@ namespace bstrkr.core.providers.bus13
             var request = this.GetRequestBase(VehicleForecastResource);
             request.AddParameter("vid", vehicle.Id, ParameterType.QueryString);
             request.AddParameter("type", 0, ParameterType.QueryString);
-            request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
+            request.AddParameter(InfoParam, _infoParamValue, ParameterType.QueryString);
 
             var client = this.GetRestClient();
             var forecast = await this.ExecuteAsync<List<Bus13VehicleForecastItem>>(client, request).ConfigureAwait(false);
@@ -186,7 +193,7 @@ namespace bstrkr.core.providers.bus13
             var request = this.GetRequestBase(RouteStopForecastResource);
             request.AddParameter("sid", bus13RouteStop.Id, ParameterType.QueryString);
             request.AddParameter("type", bus13RouteStop.Type, ParameterType.QueryString);
-            request.AddParameter(InfoParam, InfoParamValue, ParameterType.QueryString);
+            request.AddParameter(InfoParam, _infoParamValue, ParameterType.QueryString);
 
             var client = this.GetRestClient();
             var forecast = await this.ExecuteAsync<List<Bus13RouteStopForecastItem>>(client, request)

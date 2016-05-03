@@ -2,48 +2,64 @@
   "areas": [
     {
       "id": "saransk",
+	  "dataservicecode": "saransk",
+	  "dataserviceinfoparam": "01234",
       "latitude": 54.1813447,
       "longitude": 45.1818003,
       "endpoint": "http://bus13.ru/php/"
     },
     {
       "id": "barnaul",
+	  "dataservicecode": "barnaul",
+	  "dataserviceinfoparam": "01234",
       "latitude": 53.3544413,
       "longitude": 83.7725069,
       "endpoint": "http://www.traffic22.ru/php/"
     },
     {
       "id": "ryazan",
+	  "dataservicecode": "ryazan",
+	  "dataserviceinfoparam": "01234",
       "latitude": 54.6137424,
       "longitude": 39.7211313,
       "endpoint": "http://bus62.ru/php/"
     },
     {
       "id": "kursk",
+	  "dataservicecode": "kursk",
+	  "dataserviceinfoparam": "0123",
       "latitude": 51.7563926,
       "longitude": 36.1851959,
       "endpoint": "http://bus46.ru/php/"
     },
     {
       "id": "cheboksary",
+	  "dataservicecode": "cheboksari",
+	  "dataserviceinfoparam": "12345",
       "latitude": 56.1139949,
       "longitude": 47.2663844,
       "endpoint": "http://buscheb.ru/php/"
     },
     {
       "id": "tambov",
+	  "dataservicecode": "tambov",
+	  "dataserviceinfoparam": "0123",
       "latitude": 52.7263163,
       "longitude": 41.459416,
       "endpoint": "http://bus68.ru/php/"
     },
     {
       "id": "oryol",
+	  "dataservicecode": "orel",
+	  "dataserviceinfoparam": "0123",
       "latitude": 52.9783477,
       "longitude": 36.1129104,
-      "endpoint": "http://bu57.ru/php/"
+      "endpoint": "http://bus57.ru/php/"
     },
     {
       "id": "novgorod",
+	  "dataservicecode": "novgorod",
+	  "dataserviceinfoparam": "01234",
       "latitude": 58.5276176,
       "longitude": 31.2597131,
       "endpoint": "http://bus62.ru/novgorod/php/"
