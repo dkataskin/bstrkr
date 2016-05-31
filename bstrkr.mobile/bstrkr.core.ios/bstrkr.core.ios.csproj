@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -89,13 +89,7 @@
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Services\" />
-    <Folder Include="Services\Location\" />
-    <Folder Include="Config\" />
-    <Folder Include="Services\Resources\" />
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Services\Location\LocationService.cs" />
     <Compile Include="Config\ConfigManager.cs" />
@@ -117,6 +111,7 @@
     <BundleResource Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
 </Project>
