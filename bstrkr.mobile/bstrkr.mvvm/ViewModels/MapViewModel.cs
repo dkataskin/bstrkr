@@ -23,8 +23,6 @@ namespace bstrkr.mvvm.viewmodels
 {
     public class MapViewModel : BusTrackerViewModelBase
     {
-        private const double MaxDistanceFromBusStop = 500.0;
-
         private readonly ZoomToMarkerSizeConverter _zoomToMarkerSizeConverter = new ZoomToMarkerSizeConverter();
         private readonly IBusTrackerLocationService _locationService;
         private readonly ILiveDataProviderFactory _providerFactory;
@@ -34,16 +32,12 @@ namespace bstrkr.mvvm.viewmodels
         private readonly MvxSubscriptionToken _vehicleInfoSubscriptionToken;
         private readonly BusTrackerConfig _config;
 
-        private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
-
         private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
         private ILiveDataProvider _liveDataProvider;
         private GeoPoint _mapCenter = GeoPoint.Empty;
         private GeoRect _visibleRegion;
         private bool _detectedArea = false;
         private float _zoom;
-        private RouteStop _routeStop;
-        private RouteStopMapViewModel _selectedRouteStop;
 
         public MapViewModel(
                     IBusTrackerLocationService locationService,
@@ -62,8 +56,7 @@ namespace bstrkr.mvvm.viewmodels
             };
 
             _config = _configManager.GetConfig();
-
-            this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
+            
             this.SelectRouteStopCommand = new MvxCommand<string>(this.SelectRouteStop);
             this.ClearSelectionCommand = new MvxCommand(this.ClearSelection);
 
@@ -94,8 +87,6 @@ namespace bstrkr.mvvm.viewmodels
         public MvxCommand ClearSelectionCommand { get; }
 
         public MvxCommand<Tuple<GeoPoint, bool>> UpdateMapCenterCommand { get; private set; }
-
-        public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
 
         public GeoPoint MapCenter
         {
@@ -132,19 +123,6 @@ namespace bstrkr.mvvm.viewmodels
                 {
                     _detectedArea = value;
                     this.RaisePropertyChanged(() => this.DetectedArea);
-                }
-            }
-        }
-
-        public RouteStop RouteStop
-        {
-            get { return _routeStop; }
-            private set
-            {
-                if (_routeStop != value)
-                {
-                    _routeStop = value;
-                    this.RaisePropertyChanged(() => this.RouteStop);
                 }
             }
         }
@@ -193,7 +171,7 @@ namespace bstrkr.mvvm.viewmodels
             this.MapCenter = centerPosition;
             _liveDataProvider?.Stop();
 
-            _stops.Clear();
+           //TODO: clear stops and vehicles
 
             this.InitializeStartLiveDataProvider(_providerFactory);
 
@@ -206,6 +184,7 @@ namespace bstrkr.mvvm.viewmodels
             if (_liveDataProvider != null)
             {
                 //  TODO: initialize vehicles vm
+                //  TODO: initialize stops vm
                 _liveDataProvider.GetRouteStopsAsync()
                                  .ContinueWith(this.ShowRouteStops)
                                  .ConfigureAwait(false);
@@ -214,55 +193,6 @@ namespace bstrkr.mvvm.viewmodels
 
                 MvxTrace.Trace(() => "provider started");
             }
-        }
-
-        private void ShowRouteStops(Task<IEnumerable<RouteStop>> task)
-        {
-            if (task.Status == TaskStatus.RanToCompletion && task.Result != null)
-            {
-                this.Dispatcher.RequestMainThreadAction(() =>
-                {
-                    lock (_stops)
-                    {
-                        foreach (var stop in task.Result)
-                        {
-                            var vm = this.CreateRouteStopVM(stop);
-                            _stops.Add(vm);
-                        }
-
-                        this.SelectClosestRouteStop(this.MapCenter);
-                    };
-                });
-            }
-        }
-
-        private void SelectClosestRouteStop(GeoPoint location)
-        {
-            var closestStop = _stops.Select(x => x.Model)
-                .Select(x => new Tuple<double, RouteStop>(location.DistanceTo(x.Location.Position), x))
-                .OrderBy(x => x.Item1)
-                .First();
-
-            if (closestStop.Item1 <= MaxDistanceFromBusStop)
-            {
-                var closestRouteStop = closestStop.Item2;
-                this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestRouteStop);
-                this.Dispatcher.RequestMainThreadAction(() => this.SelectRouteStop(closestRouteStop.Id));
-            }
-        }
-
-        private RouteStopMapViewModel CreateRouteStopVM(RouteStop routeStop)
-        {
-            var stopVM = Mvx.IocConstruct<RouteStopMapViewModel>();
-            stopVM.Model = routeStop;
-            stopVM.MarkerSize = MapMarkerSizes.Medium;
-
-            if (_selectedRouteStop != null)
-            {
-                stopVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
-            }
-
-            return stopVM;
         }
 
         private void SelectRouteStop(string routeStopId)
@@ -325,41 +255,7 @@ namespace bstrkr.mvvm.viewmodels
                                                                           typeof(MapMarkerSizes),
                                                                           null,
                                                                           CultureInfo.InvariantCulture);
-            lock (_stops)
-            {
-                foreach (var routeStop in _stops)
-                {
-                    routeStop.IsVisible = this.IsRouteStopVisible(zoom);
-                }
-            }
-        }
-
-        private bool IsRouteStopVisible(float zoom)
-        {
-            return zoom > _config.ShowRouteStopsZoomThreshold;
-        }
-
-        private void SetRouteStopMarkersSelectionState(
-                                    MapMarkerSelectionStates selectionState,
-                                    IEnumerable<string> excludeStops = null)
-        {
-            lock (_stops)
-            {
-                foreach (var stop in _stops)
-                {
-                    if (excludeStops != null)
-                    {
-                        if (!excludeStops.Any(v => v.Equals(stop.Model.Id)))
-                        {
-                            stop.SelectionState = selectionState;
-                        }
-                    }
-                    else
-                    {
-                        stop.SelectionState = selectionState;
-                    }
-                }
-            }
+            //TODO: cascade updates to stops and vehicles
         }
 
         private void SetMarkersSelectionState(
@@ -367,7 +263,7 @@ namespace bstrkr.mvvm.viewmodels
                         IEnumerable<string> excludeVehicles = null,
                         IEnumerable<string> excludeStops = null)
         {
-            this.SetRouteStopMarkersSelectionState(selectionState, excludeStops);
+            //this.SetRouteStopMarkersSelectionState(selectionState, excludeStops);
             //this.SetVehicleMarkersSelectionState(selectionState, excludeVehicles);
         }
 

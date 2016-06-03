@@ -186,11 +186,10 @@ namespace bstrkr.mvvm.viewmodels
 
         private void SelectVehicle(string vehicleId)
         {
-//            if (string.IsNullOrEmpty(vehicleId))
-//            {
-//                this.ClearSelection();
-//                return;
-//            }
+            if (string.IsNullOrEmpty(vehicleId))
+            {
+                return;
+            }
 
             VehicleViewModel vehicleVM = null;
             _vehicles.TryGetValue(vehicleId, out vehicleVM);
