@@ -32,6 +32,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BusTrackerApp.cs" />
+    <Compile Include="ViewModels\MapVehiclesViewModel.cs" />
+    <Compile Include="ViewModels\VisibleVehiclesDelta.cs" />
     <Compile Include="ViewModels\VehicleViewModel.cs" />
     <Compile Include="Views\IMapView.cs" />
     <Compile Include="Views\IVehicleMarker.cs" />

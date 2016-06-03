@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
 using bstrkr.core;
@@ -21,30 +19,21 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 
-using Xamarin;
-
 namespace bstrkr.mvvm.viewmodels
 {
     public class MapViewModel : BusTrackerViewModelBase
     {
-        private const string UpdateVehicleLocationsTaskId = "UpdateVehicleLocations";
         private const double MaxDistanceFromBusStop = 500.0;
 
-        private readonly ZoomToVisibleRegionExpandRatioConverter _zoomToVisibleRegionExpandRatioConverter = new ZoomToVisibleRegionExpandRatioConverter();
         private readonly ZoomToMarkerSizeConverter _zoomToMarkerSizeConverter = new ZoomToMarkerSizeConverter();
-
         private readonly IBusTrackerLocationService _locationService;
         private readonly ILiveDataProviderFactory _providerFactory;
         private readonly IMvxMessenger _messenger;
         private readonly IConfigManager _configManager;
-        private readonly MvxSubscriptionToken _vehicleInfoSubscriptionToken;
         private readonly MvxSubscriptionToken _routeStopInfoSubscriptionToken;
-        private readonly MvxSubscriptionToken _updateVehicleLocationsSubscriptionToken;
+        private readonly MvxSubscriptionToken _vehicleInfoSubscriptionToken;
         private readonly BusTrackerConfig _config;
 
-        private readonly IDictionary<string, VehicleViewModel> _vehicleIdToVM = new Dictionary<string, VehicleViewModel>();
-        private readonly ObservableCollection<VehicleViewModel> _vehicles = new ObservableCollection<VehicleViewModel>();
-        private readonly ObservableCollection<VehicleViewModel> _visibleVehicles = new ObservableCollection<VehicleViewModel>();
         private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
 
         private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
@@ -54,10 +43,7 @@ namespace bstrkr.mvvm.viewmodels
         private bool _detectedArea = false;
         private float _zoom;
         private RouteStop _routeStop;
-        private VehicleViewModel _selectedVehicle;
         private RouteStopMapViewModel _selectedRouteStop;
-        private readonly ISubject<VehiclesViewPortUpdate> _viewPortUpdateSubject;
-        private IDisposable _subscription;
 
         public MapViewModel(
                     IBusTrackerLocationService locationService,
@@ -65,9 +51,6 @@ namespace bstrkr.mvvm.viewmodels
                     IConfigManager configManager,
                     IMvxMessenger messenger)
         {
-            Vehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_vehicles);
-            VisibleVehicles = new ReadOnlyObservableCollection<VehicleViewModel>(_visibleVehicles);
-
             _providerFactory = providerFactory;
             _configManager = configManager;
             _messenger = messenger;
@@ -82,17 +65,13 @@ namespace bstrkr.mvvm.viewmodels
 
             this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
             this.SelectRouteStopCommand = new MvxCommand<string>(this.SelectRouteStop);
-            this.SelectVehicleCommand = new MvxCommand<string>(this.SelectVehicle);
             this.ClearSelectionCommand = new MvxCommand(this.ClearSelection);
-
-            _vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
-                                                    message => this.SelectVehicleCommand.Execute(message.VehicleId));
 
             _routeStopInfoSubscriptionToken = _messenger.Subscribe<ShowRouteStopForecastOnMapMessage>(
                                                     message => this.SelectRouteStopCommand.Execute(message.RouteStopId));
 
-            _updateVehicleLocationsSubscriptionToken = _messenger.Subscribe<VehicleLocationsUpdateRequestMessage>(
-                                                    message => this.ForceVehicleLocationsUpdate());
+            _vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
+                                                message => this.SelectVehicleCommand.Execute(message.VehicleId));
 
             this.UpdateMapCenterCommand = new MvxCommand<Tuple<GeoPoint, bool>>(tuple =>
             {
@@ -105,24 +84,16 @@ namespace bstrkr.mvvm.viewmodels
                     _mapCenter = tuple.Item1;
                 }
             });
-
-
-            _viewPortUpdateSubject = new Subject<VehiclesViewPortUpdate>();
-            _subscription = _viewPortUpdateSubject.Throttle(TimeSpan.FromMilliseconds(200))
-                                                    .Subscribe(this.UpdateVehiclesInTheViewPort);
+            this.SelectVehicleCommand = new MvxCommand<string>(this.SelectVehicle);
         }
 
         public MvxCommand<string> SelectRouteStopCommand { get; }
 
-        public MvxCommand<string> SelectVehicleCommand { get; }
+        public MvxCommand<string> SelectVehicleCommand { get; } 
 
-        public MvxCommand ClearSelectionCommand { get; private set; }
+        public MvxCommand ClearSelectionCommand { get; }
 
         public MvxCommand<Tuple<GeoPoint, bool>> UpdateMapCenterCommand { get; private set; }
-
-        public ReadOnlyObservableCollection<VehicleViewModel> Vehicles { get; }
-
-        public ReadOnlyObservableCollection<VehicleViewModel> VisibleVehicles { get; }
 
         public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
 
@@ -147,7 +118,7 @@ namespace bstrkr.mvvm.viewmodels
                 this.RaiseAndSetIfChanged(ref _visibleRegion, value, () => this.VisibleRegion);
                 if (!_visibleRegion.Equals(value))
                 {
-                    _viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(this.VisibleRegion, this.Zoom));
+                    //_viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(this.VisibleRegion, this.Zoom));
                 }
             }
         }
@@ -220,21 +191,9 @@ namespace bstrkr.mvvm.viewmodels
             MvxTrace.Trace("Area changed to {0}", area != null ? area.Id : string.Empty);
 
             this.MapCenter = centerPosition;
-            if (_liveDataProvider != null)
-            {
-                _liveDataProvider.Stop();
-                _liveDataProvider.VehicleLocationsUpdateStarted -= this.OnVehicleLocationsUpdateStarted;
-                _liveDataProvider.VehicleLocationsUpdateFailed -= this.OnVehicleLocationsUpdateFailed;
-                _liveDataProvider.VehicleLocationsUpdated -= this.OnVehicleLocationsUpdated;
-            }
+            _liveDataProvider?.Stop();
 
             _stops.Clear();
-            lock (_vehicles)
-            {
-                _vehicleIdToVM.Clear();
-                _vehicles.Clear();
-                _visibleVehicles.Clear();
-            }
 
             this.InitializeStartLiveDataProvider(_providerFactory);
 
@@ -246,11 +205,7 @@ namespace bstrkr.mvvm.viewmodels
             _liveDataProvider = factory.GetCurrentProvider();
             if (_liveDataProvider != null)
             {
-                _liveDataProvider.VehicleLocationsUpdateStarted += this.OnVehicleLocationsUpdateStarted;
-                _liveDataProvider.VehicleLocationsUpdateFailed += this.OnVehicleLocationsUpdateFailed;
-                _liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
-                //  _liveDataProvider.RouteStopForecastReceived += this.OnRouteStopForecastReceived;
-                //  _liveDataProvider.VehicleForecastReceived += this.OnVehicleForecastReceived;
+                //  TODO: initialize vehicles vm
                 _liveDataProvider.GetRouteStopsAsync()
                                  .ContinueWith(this.ShowRouteStops)
                                  .ConfigureAwait(false);
@@ -296,45 +251,6 @@ namespace bstrkr.mvvm.viewmodels
             }
         }
 
-        private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)
-        {
-            try
-            {
-                MvxTrace.Trace("vehicle locations received, count={0}", args.VehicleLocations.Count);
-                _messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Finished));
-
-                _viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(args.VehicleLocations, this.VisibleRegion, this.Zoom));
-            }
-            catch (Exception e)
-            {
-                Insights.Report(e);
-            }
-        }
-
-        private VehicleViewModel CreateVehicleVM(VehicleLocationUpdate locationUpdate)
-        {
-            try
-            {
-                var vehicleVM = Mvx.IocConstruct<VehicleViewModel>();
-                vehicleVM.Model = locationUpdate.Vehicle;
-                vehicleVM.MarkerSize = _markerSize;
-                vehicleVM.AnimateMovement = this.IsAnimationEnabled(this.Zoom);
-                vehicleVM.IsTitleVisible = this.IsVehicleTitleMarkerVisible(this.Zoom);
-
-                if (_selectedVehicle != null)
-                {
-                    vehicleVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
-                }
-
-                return vehicleVM;
-            }
-            catch (Exception e)
-            {
-                Insights.Report(e, Insights.Severity.Warning);
-                return null;
-            }
-        }
-
         private RouteStopMapViewModel CreateRouteStopVM(RouteStop routeStop)
         {
             var stopVM = Mvx.IocConstruct<RouteStopMapViewModel>();
@@ -347,12 +263,6 @@ namespace bstrkr.mvvm.viewmodels
             }
 
             return stopVM;
-        }
-
-        private void UpdateVehicleVM(VehicleViewModel vehicleVM, VehicleLocationUpdate locationUpdate)
-        {
-            vehicleVM.AnimateMovement = this.IsAnimationEnabled(this.Zoom);
-            vehicleVM.Update(locationUpdate);
         }
 
         private void SelectRouteStop(string routeStopId)
@@ -399,43 +309,13 @@ namespace bstrkr.mvvm.viewmodels
         {
             if (string.IsNullOrEmpty(vehicleId))
             {
-                this.ClearSelection();
+                this.ClearSelectionCommand.Execute();
                 return;
             }
 
-            VehicleViewModel vehicleVM;
-            lock (_vehicles)
-            {
-                vehicleVM = _vehicles.FirstOrDefault(x => x.Model.Id.Equals(vehicleId));
-            }
+            this.ClearSelectionCommand.Execute();
 
-            if (vehicleVM == null)
-            {
-                return;
-            }
-
-            this.ClearSelection();
-
-            _selectedVehicle = vehicleVM;
-            _selectedVehicle.SelectionState = MapMarkerSelectionStates.SelectionSelected;
-
-            this.SetVehicleMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedVehicle.Model.Id });
-
-            var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
-            var navParams = new
-            {
-                id = _selectedVehicle.VehicleId,
-                carPlate = _selectedVehicle.CarPlate,
-                vehicleType = _selectedVehicle.VehicleType,
-                routeId = _selectedVehicle.Model.RouteInfo.RouteId,
-                routeNumber = _selectedVehicle.Model.RouteInfo.RouteNumber,
-                routeDisplayName = _selectedVehicle.Model.RouteInfo.DisplayName,
-                runUpdates = true
-            };
-
-            this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
-
-            this.CenterMap(_selectedVehicle.Location.Position);
+            // TODO: execute vehicles view models select vehicle command
         }
 
         private void OnZoomChanged(float zoom)
@@ -445,16 +325,6 @@ namespace bstrkr.mvvm.viewmodels
                                                                           typeof(MapMarkerSizes),
                                                                           null,
                                                                           CultureInfo.InvariantCulture);
-            lock (_vehicles)
-            {
-                foreach (var vm in _vehicles)
-                {
-                    vm.MarkerSize = _markerSize;
-                    vm.AnimateMovement = this.IsAnimationEnabled(zoom);
-                    vm.IsTitleVisible = this.IsVehicleTitleMarkerVisible(zoom);
-                }
-            }
-
             lock (_stops)
             {
                 foreach (var routeStop in _stops)
@@ -462,16 +332,6 @@ namespace bstrkr.mvvm.viewmodels
                     routeStop.IsVisible = this.IsRouteStopVisible(zoom);
                 }
             }
-        }
-
-        private bool IsAnimationEnabled(float zoom)
-        {
-            return Settings.AnimateMarkers && zoom > _config.AnimateMarkersMovementZoomThreshold;
-        }
-
-        private bool IsVehicleTitleMarkerVisible(float zoom)
-        {
-            return zoom > _config.ShowVehicleTitlesZoomThreshold;
         }
 
         private bool IsRouteStopVisible(float zoom)
@@ -502,36 +362,13 @@ namespace bstrkr.mvvm.viewmodels
             }
         }
 
-        private void SetVehicleMarkersSelectionState(
-                                    MapMarkerSelectionStates selectionState,
-                                    IEnumerable<string> excludeVehicles = null)
-        {
-            lock (_vehicles)
-            {
-                foreach (var vehicle in _vehicles)
-                {
-                    if (excludeVehicles != null)
-                    {
-                        if (!excludeVehicles.Any(v => v.Equals(vehicle.VehicleId)))
-                        {
-                            vehicle.SelectionState = selectionState;
-                        }
-                    }
-                    else
-                    {
-                        vehicle.SelectionState = selectionState;
-                    }
-                }
-            }
-        }
-
         private void SetMarkersSelectionState(
                         MapMarkerSelectionStates selectionState,
                         IEnumerable<string> excludeVehicles = null,
                         IEnumerable<string> excludeStops = null)
         {
             this.SetRouteStopMarkersSelectionState(selectionState, excludeStops);
-            this.SetVehicleMarkersSelectionState(selectionState, excludeVehicles);
+            //this.SetVehicleMarkersSelectionState(selectionState, excludeVehicles);
         }
 
         private void ClearSelection()
@@ -542,148 +379,6 @@ namespace bstrkr.mvvm.viewmodels
         private void CenterMap(GeoPoint location)
         {
             this.MapCenter = location;
-        }
-
-        private void OnVehicleLocationsUpdateStarted(object sender, EventArgs eventArgs)
-        {
-            _messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Running));
-        }
-
-        private void OnVehicleLocationsUpdateFailed(object sender, EventArgs eventArgs)
-        {
-            _messenger.Publish(new BackgroundTaskStateChangedMessage(this, UpdateVehicleLocationsTaskId, BackgroundTaskState.Failed));
-        }
-
-        private void ForceVehicleLocationsUpdate()
-        {
-            var provider = _liveDataProvider;
-            provider?.UpdateVehicleLocationsAsync();
-            ;
-        }
-
-        private void UpdateVehiclesInTheViewPort(VehiclesViewPortUpdate update)
-        {
-            MvxTrace.Trace("Updating vehicles in the viewport... ");
-
-            try
-            {
-                foreach (var vehicleUpdate in update.VehicleUpdates)
-                {
-                    if (_vehicleIdToVM.ContainsKey(vehicleUpdate.Vehicle.Id))
-                    {
-                        this.UpdateVehicleVM(_vehicleIdToVM[vehicleUpdate.Vehicle.Id], vehicleUpdate);
-                    }
-                    else
-                    {
-                        var vm = this.CreateVehicleVM(vehicleUpdate);
-                        if (vm != null)
-                        {
-                            _vehicles.Add(vm);
-                            _vehicleIdToVM[vehicleUpdate.Vehicle.Id] = vm;
-                        }
-                    }
-                }
-
-                var visibleVehicles = new Dictionary<string, VehicleViewModel>();
-                foreach (var keyValuePair in _vehicleIdToVM)
-                {
-                    if (update.VisibleRegion.ContainsPoint(keyValuePair.Value.LocationAnimated))
-                    {
-                        visibleVehicles.Add(keyValuePair.Key, keyValuePair.Value);
-                    }
-                }
-
-                MvxTrace.Trace("{0} visible vehicles, {1} current vehicles are visible", visibleVehicles.Count, this.Vehicles.Count);
-
-                var vehiclesToRemove = new List<VehicleViewModel>();
-                foreach (var vehicle in this.VisibleVehicles)
-                {
-                    if (!visibleVehicles.ContainsKey(vehicle.VehicleId))
-                    {
-                        vehiclesToRemove.Add(vehicle);
-                    }
-
-                    visibleVehicles.Remove(vehicle.VehicleId);
-                }
-
-                var animateMovement = this.IsAnimationEnabled(update.Zoom);
-                this.ViewDispatcher.RequestMainThreadAction(() =>
-                {
-                    MvxTrace.Trace("{0} vehicles should be removed, {1} added", vehiclesToRemove.Count, visibleVehicles.Count);
-
-                    foreach (var vehicle in vehiclesToRemove)
-                    {
-                        vehicle.IsInView = false;
-                        vehicle.AnimateMovement = false;
-                        _visibleVehicles.Remove(vehicle);
-                    }
-
-                    foreach (var vehicle in visibleVehicles.Values)
-                    {
-                        vehicle.IsInView = true;
-                        vehicle.AnimateMovement = animateMovement;
-                        _visibleVehicles.Add(vehicle);
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Insights.Report(ex, Insights.Severity.Error);
-            }
-        }
-
-        private VehiclesViewPortUpdate GenerateUpdateFrom(GeoRect visibleRegionUpdate, float zoom)
-        {
-            return new VehiclesViewPortUpdate
-            {
-                VehicleUpdates = new List<VehicleLocationUpdate>(),
-                VisibleRegion = this.ExpandVisibleRegion(visibleRegionUpdate, zoom),
-                Zoom = zoom
-            };
-        }
-
-        private VehiclesViewPortUpdate GenerateUpdateFrom(
-                                                IReadOnlyCollection<VehicleLocationUpdate> vehicleLocationUpdates,
-                                                GeoRect visibleRegionUpdate,
-                                                float zoom)
-        {
-            return new VehiclesViewPortUpdate
-            {
-                VehicleUpdates = vehicleLocationUpdates,
-                VisibleRegion = this.ExpandVisibleRegion(visibleRegionUpdate, zoom),
-                Zoom = zoom
-            };
-        }
-
-        private GeoRect ExpandVisibleRegion(GeoRect visibleRegion, float zoom)
-        {
-            var ratio = (float)_zoomToVisibleRegionExpandRatioConverter.Convert(
-                                                                    zoom,
-                                                                    typeof(float),
-                                                                    null,
-                                                                    CultureInfo.InvariantCulture);
-
-            if (ratio == 1.0f)
-            {
-                return visibleRegion;
-            }
-
-            var dLat = ratio * Math.Abs(visibleRegion.NorthEast.Latitude - visibleRegion.SouthWest.Latitude) / 2.0f;
-            var dLon = ratio * Math.Abs(visibleRegion.NorthEast.Longitude - visibleRegion.SouthWest.Longitude) / 2.0f;
-
-            var northEast = new GeoPoint(visibleRegion.NorthEast.Latitude + dLat, visibleRegion.NorthEast.Longitude + dLon);
-            var southWest = new GeoPoint(visibleRegion.SouthWest.Latitude - dLat, visibleRegion.SouthWest.Longitude - dLon);
-
-            return new GeoRect(northEast, southWest);
-        }
-
-        private class VehiclesViewPortUpdate
-        {
-            public IEnumerable<VehicleLocationUpdate> VehicleUpdates { get; set; }
-
-            public GeoRect VisibleRegion { get; set; }
-
-            public float Zoom { get; set; }
         }
     }
 }

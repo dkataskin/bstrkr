@@ -136,30 +136,30 @@ namespace bstrkr.mvvm.viewmodels
             }
         }
 
+        public DateTime LastUpdate => new DateTime(_lastUpdate);
+
         public void Update(VehicleLocationUpdate update)
         {
             lock (_animationLock)
             {
                 if (_lastUpdate > 0)
                 {
-                    var totalTime = SegmentTravelTime;
-
                     if (update.Waypoints != null && update.Waypoints.Waypoints.Any())
                     {
                         _path.Enqueue(
                             new PathSegment
                             {
-                                Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[0].Fraction * totalTime),
+                                Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[0].Fraction * SegmentTravelTime),
                                 StartLocation = this.Location,
                                 FinalLocation = update.Waypoints.Waypoints[0].Location
                             });
 
-                        for (int i = 0; i < update.Waypoints.Waypoints.Count - 1; i++)
+                        for (var i = 0; i < update.Waypoints.Waypoints.Count - 1; i++)
                         {
                             _path.Enqueue(
                                 new PathSegment
                                 {
-                                    Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[i + 1].Fraction * totalTime),
+                                    Duration = TimeSpan.FromSeconds(update.Waypoints.Waypoints[i + 1].Fraction * SegmentTravelTime),
                                     StartLocation = update.Waypoints.Waypoints[i].Location,
                                     FinalLocation = update.Waypoints.Waypoints[i + 1].Location
                                 });
@@ -172,7 +172,7 @@ namespace bstrkr.mvvm.viewmodels
                             _path.Enqueue(
                                 new PathSegment
                                 {
-                                    Duration = TimeSpan.FromSeconds(totalTime),
+                                    Duration = TimeSpan.FromSeconds(SegmentTravelTime),
                                     StartLocation = this.Location,
                                     FinalLocation = update.Vehicle.Location
                                 });
@@ -182,6 +182,7 @@ namespace bstrkr.mvvm.viewmodels
             }
 
             _lastUpdate = update.LastUpdated.Ticks;
+            this.RaisePropertyChanged(() => this.LastUpdate);
             this.SetLocation(update.Vehicle.Location);
 
             this.RunAnimation();
