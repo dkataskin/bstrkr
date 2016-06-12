@@ -47,6 +47,7 @@ namespace bstrkr.mvvm.viewmodels
             _messenger = messenger;
             _config = configManager.GetConfig();
             _viewPortUpdateSubject = new Subject<VehiclesViewPortUpdate>();
+            this.ViewportUpdate = new Subject<VisibleVehiclesDelta>();
 
             _updateVehicleLocationsSubscriptionToken = _messenger.Subscribe<VehicleLocationsUpdateRequestMessage>(
                                                                             message => this.ForceVehicleLocationsUpdate());
@@ -61,6 +62,8 @@ namespace bstrkr.mvvm.viewmodels
         public MvxCommand ForceVehicleLocationsUpdateCommand { get; private set; }
 
         public MvxCommand<string> SelectVehicleCommand { get; private set;  }
+
+        public ISubject<VisibleVehiclesDelta> ViewportUpdate { get; }
 
         public GeoRect Viewport
         {
@@ -188,17 +191,16 @@ namespace bstrkr.mvvm.viewmodels
         {
             if (string.IsNullOrEmpty(vehicleId))
             {
-                return;
+                _selectedVehicle = null;
+                this.SetVehicleMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null);
             }
 
-            VehicleViewModel vehicleVM = null;
+            VehicleViewModel vehicleVM;
             _vehicles.TryGetValue(vehicleId, out vehicleVM);
             if (vehicleVM == null)
             {
                 return;
             }
-
-            //this.ClearSelection();
 
             _selectedVehicle = vehicleVM;
             _selectedVehicle.SelectionState = MapMarkerSelectionStates.SelectionSelected;
@@ -219,7 +221,8 @@ namespace bstrkr.mvvm.viewmodels
 
             this.ShowViewModel<VehicleForecastViewModel>(navParams, null, requestedBy);
 
-            this.CenterMap(_selectedVehicle.Location.Position);
+            //TODO: center map view on vehicle
+            //this.CenterMap(_selectedVehicle.Location.Position);
         }
 
         private void OnZoomChanged(float zoom)
@@ -240,6 +243,8 @@ namespace bstrkr.mvvm.viewmodels
             {
                 this.UpdateVehicles(update.VehicleUpdates);
                 var mapUpdate = this.UpdateVisibleVehicles(update);
+
+                this.ViewportUpdate.OnNext(mapUpdate);
             }
             catch (Exception ex)
             {

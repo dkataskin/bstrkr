@@ -25,7 +25,6 @@ namespace bstrkr.mvvm.viewmodels
         private ILiveDataProvider _liveDataProvider;
 
         private float _zoom;
-        private RouteStop _routeStop;
         private GeoPoint _mapCenter = GeoPoint.Empty;
         private RouteStopMapViewModel _selectedRouteStop;
         private MapMarkerSizes _markerSize = MapMarkerSizes.Medium;
@@ -36,21 +35,26 @@ namespace bstrkr.mvvm.viewmodels
             _config = configManager.GetConfig();
 
             this.LoadRouteStopsCommand = new MvxCommand(this.LoadRouteStops, () => _liveDataProvider != null);
+            this.SelectRouteStopCommand = new MvxCommand<string>(this.SelectRouteStop);
         }
+
+        public event EventHandler<RouteStopSelectedEventArgs> RouteStopSelected;
 
         public MvxCommand LoadRouteStopsCommand { get; }
 
+        public MvxCommand<string> SelectRouteStopCommand { get; }
+
         public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
 
-        public RouteStop RouteStop
+        public RouteStopMapViewModel SelectedRouteStop
         {
-            get { return _routeStop; }
+            get { return _selectedRouteStop; }
             private set
             {
-                if (_routeStop != value)
+                if (_selectedRouteStop != value)
                 {
-                    _routeStop = value;
-                    this.RaisePropertyChanged(() => this.RouteStop);
+                    _selectedRouteStop = value;
+                    this.RaisePropertyChanged(() => this.SelectedRouteStop);
                 }
             }
         }
@@ -85,7 +89,7 @@ namespace bstrkr.mvvm.viewmodels
         public GeoPoint MapCenter
         {
             get { return _mapCenter; }
-            private set
+            set
             {
                 if (!_mapCenter.Equals(value))
                 {
@@ -156,7 +160,6 @@ namespace bstrkr.mvvm.viewmodels
             if (closestStop.Item1 <= MaxDistanceFromBusStop)
             {
                 var closestRouteStop = closestStop.Item2;
-                this.Dispatcher.RequestMainThreadAction(() => this.RouteStop = closestRouteStop);
                 this.Dispatcher.RequestMainThreadAction(() => this.SelectRouteStop(closestRouteStop.Id));
             }
         }
@@ -179,6 +182,9 @@ namespace bstrkr.mvvm.viewmodels
         {
             if (string.IsNullOrEmpty(routeStopId))
             {
+                this.SelectedRouteStop = null;
+                this.SetRouteStopMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null);
+
                 return;
             }
 
@@ -188,8 +194,8 @@ namespace bstrkr.mvvm.viewmodels
                 return;
             }
 
-            _selectedRouteStop = routeStopVM;
-            _selectedRouteStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
+            this.SelectedRouteStop = routeStopVM;
+            this.SelectedRouteStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
 
             this.SetRouteStopMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedRouteStop.Model.Id });
 
@@ -204,7 +210,7 @@ namespace bstrkr.mvvm.viewmodels
                                                 null,
                                                 requestedBy);
 
-            this.CenterMap(_selectedRouteStop.Location.Position);
+            this.RaiseRouteStopSelectedEvent(this.SelectedRouteStop);
         }
 
         private bool IsRouteStopVisible(float zoom)
@@ -230,6 +236,11 @@ namespace bstrkr.mvvm.viewmodels
                     stop.SelectionState = selectionState;
                 }
             }
+        }
+
+        private void RaiseRouteStopSelectedEvent(RouteStopMapViewModel routeStop)
+        {
+            this.RouteStopSelected?.Invoke(this, new RouteStopSelectedEventArgs(routeStop));
         }
     }
 }

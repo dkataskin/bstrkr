@@ -34,6 +34,8 @@
     <Compile Include="BusTrackerApp.cs" />
     <Compile Include="ViewModels\MapRouteStopsViewModel.cs" />
     <Compile Include="ViewModels\MapVehiclesViewModel.cs" />
+    <Compile Include="ViewModels\RouteStopSelectedEventArgs.cs" />
+    <Compile Include="ViewModels\VehicleSelectedEventArgs.cs" />
     <Compile Include="ViewModels\VisibleVehiclesDelta.cs" />
     <Compile Include="ViewModels\VehicleViewModel.cs" />
     <Compile Include="Views\IMapView.cs" />

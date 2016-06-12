@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 using bstrkr.core;
 using bstrkr.core.config;
@@ -14,7 +10,6 @@ using bstrkr.mvvm.converters;
 using bstrkr.mvvm.messages;
 using bstrkr.providers;
 
-using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
@@ -43,7 +38,9 @@ namespace bstrkr.mvvm.viewmodels
                     IBusTrackerLocationService locationService,
                     ILiveDataProviderFactory providerFactory,
                     IConfigManager configManager,
-                    IMvxMessenger messenger)
+                    IMvxMessenger messenger,
+                    MapRouteStopsViewModel mapRouteStopsViewModel,
+                    MapVehiclesViewModel mapVehiclesViewModel)
         {
             _providerFactory = providerFactory;
             _configManager = configManager;
@@ -56,16 +53,15 @@ namespace bstrkr.mvvm.viewmodels
             };
 
             _config = _configManager.GetConfig();
-            
+
+            this.MapRouteStopsViewModel = mapRouteStopsViewModel;
+            this.MapRouteStopsViewModel.RouteStopSelected += (s, a) => this.CenterMap(a.RouteStop.Location.Position);
+
+            this.MapVehiclesViewModel = mapVehiclesViewModel;
+
             this.SelectRouteStopCommand = new MvxCommand<string>(this.SelectRouteStop);
+            this.SelectVehicleCommand = new MvxCommand<string>(this.SelectVehicle);
             this.ClearSelectionCommand = new MvxCommand(this.ClearSelection);
-
-            _routeStopInfoSubscriptionToken = _messenger.Subscribe<ShowRouteStopForecastOnMapMessage>(
-                                                    message => this.SelectRouteStopCommand.Execute(message.RouteStopId));
-
-            _vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
-                                                message => this.SelectVehicleCommand.Execute(message.VehicleId));
-
             this.UpdateMapCenterCommand = new MvxCommand<Tuple<GeoPoint, bool>>(tuple =>
             {
                 if (tuple.Item2)
@@ -77,7 +73,12 @@ namespace bstrkr.mvvm.viewmodels
                     _mapCenter = tuple.Item1;
                 }
             });
-            this.SelectVehicleCommand = new MvxCommand<string>(this.SelectVehicle);
+
+            _routeStopInfoSubscriptionToken = _messenger.Subscribe<ShowRouteStopForecastOnMapMessage>(
+                                                    message => this.SelectRouteStopCommand.Execute(message.RouteStopId));
+
+            _vehicleInfoSubscriptionToken = _messenger.Subscribe<ShowVehicleForecastOnMapMessage>(
+                                                message => this.SelectVehicleCommand.Execute(message.VehicleId));
         }
 
         public MvxCommand<string> SelectRouteStopCommand { get; }
@@ -88,6 +89,10 @@ namespace bstrkr.mvvm.viewmodels
 
         public MvxCommand<Tuple<GeoPoint, bool>> UpdateMapCenterCommand { get; private set; }
 
+        public MapRouteStopsViewModel MapRouteStopsViewModel { get; }
+
+        public MapVehiclesViewModel MapVehiclesViewModel { get; }
+
         public GeoPoint MapCenter
         {
             get { return _mapCenter; }
@@ -96,6 +101,7 @@ namespace bstrkr.mvvm.viewmodels
                 if (!_mapCenter.Equals(value))
                 {
                     _mapCenter = value;
+                    this.MapRouteStopsViewModel.MapCenter = value;
                     this.RaisePropertyChanged(() => this.MapCenter);
                 }
             }
@@ -109,7 +115,7 @@ namespace bstrkr.mvvm.viewmodels
                 this.RaiseAndSetIfChanged(ref _visibleRegion, value, () => this.VisibleRegion);
                 if (!_visibleRegion.Equals(value))
                 {
-                    //_viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(this.VisibleRegion, this.Zoom));
+                    this.MapVehiclesViewModel.Viewport = value;
                 }
             }
         }
@@ -137,6 +143,9 @@ namespace bstrkr.mvvm.viewmodels
                     _zoom = value;
                     this.RaisePropertyChanged(() => this.Zoom);
                     this.OnZoomChanged(value);
+
+                    this.MapRouteStopsViewModel.Zoom = value;
+                    this.MapVehiclesViewModel.Zoom = value;
                 }
             }
         }
@@ -171,8 +180,6 @@ namespace bstrkr.mvvm.viewmodels
             this.MapCenter = centerPosition;
             _liveDataProvider?.Stop();
 
-           //TODO: clear stops and vehicles
-
             this.InitializeStartLiveDataProvider(_providerFactory);
 
             this.IsBusy = false;
@@ -183,13 +190,13 @@ namespace bstrkr.mvvm.viewmodels
             _liveDataProvider = factory.GetCurrentProvider();
             if (_liveDataProvider != null)
             {
-                //  TODO: initialize vehicles vm
-                //  TODO: initialize stops vm
-                _liveDataProvider.GetRouteStopsAsync()
-                                 .ContinueWith(this.ShowRouteStops)
-                                 .ConfigureAwait(false);
+                this.MapRouteStopsViewModel.Initialize(_liveDataProvider);
+                this.MapVehiclesViewModel.Initialize(_liveDataProvider);
 
                 _liveDataProvider.Start();
+
+                this.MapRouteStopsViewModel.LoadRouteStopsCommand.Execute();
+                this.MapVehiclesViewModel.ForceVehicleLocationsUpdateCommand.Execute();
 
                 MvxTrace.Trace(() => "provider started");
             }
@@ -197,55 +204,14 @@ namespace bstrkr.mvvm.viewmodels
 
         private void SelectRouteStop(string routeStopId)
         {
-            if (string.IsNullOrEmpty(routeStopId))
-            {
-                this.ClearSelection();
-                return;
-            }
-
-            RouteStopMapViewModel routeStopVM;
-            lock (_stops)
-            {
-                routeStopVM = _stops.FirstOrDefault(x => x.Model.Id.Equals(routeStopId));
-            }
-
-            if (routeStopVM == null)
-            {
-                return;
-            }
-
-            this.ClearSelection();
-
-            _selectedRouteStop = routeStopVM;
-            _selectedRouteStop.SelectionState = MapMarkerSelectionStates.SelectionSelected;
-
-            this.SetRouteStopMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, new[] { _selectedRouteStop.Model.Id });
-
-            var requestedBy = new MvxRequestedBy(MvxRequestedByType.UserAction, "map_tap");
-            this.ShowViewModel<RouteStopViewModel>(
-                                                new
-                                                {
-                                                    id = _selectedRouteStop.Model.Id,
-                                                    name = _selectedRouteStop.Model.Name,
-                                                    description = _selectedRouteStop.Model.Description
-                                                },
-                                                null,
-                                                requestedBy);
-
-            this.CenterMap(_selectedRouteStop.Location.Position);
+            this.MapVehiclesViewModel.SelectVehicleCommand.Execute(string.Empty);
+            this.MapRouteStopsViewModel.SelectRouteStopCommand.Execute(routeStopId);
         }
 
         private void SelectVehicle(string vehicleId)
         {
-            if (string.IsNullOrEmpty(vehicleId))
-            {
-                this.ClearSelectionCommand.Execute();
-                return;
-            }
-
-            this.ClearSelectionCommand.Execute();
-
-            // TODO: execute vehicles view models select vehicle command
+            this.MapRouteStopsViewModel.SelectRouteStopCommand.Execute(string.Empty);
+            this.MapVehiclesViewModel.SelectVehicleCommand.Execute(vehicleId);
         }
 
         private void OnZoomChanged(float zoom)
@@ -255,21 +221,14 @@ namespace bstrkr.mvvm.viewmodels
                                                                           typeof(MapMarkerSizes),
                                                                           null,
                                                                           CultureInfo.InvariantCulture);
-            //TODO: cascade updates to stops and vehicles
-        }
-
-        private void SetMarkersSelectionState(
-                        MapMarkerSelectionStates selectionState,
-                        IEnumerable<string> excludeVehicles = null,
-                        IEnumerable<string> excludeStops = null)
-        {
-            //this.SetRouteStopMarkersSelectionState(selectionState, excludeStops);
-            //this.SetVehicleMarkersSelectionState(selectionState, excludeVehicles);
+            this.MapRouteStopsViewModel.MarkerSize = _markerSize;
+            this.MapVehiclesViewModel.MarkerSize = _markerSize;
         }
 
         private void ClearSelection()
         {
-            this.SetMarkersSelectionState(MapMarkerSelectionStates.NoSelection);
+            this.MapVehiclesViewModel.SelectVehicleCommand.Execute(string.Empty);
+            this.MapRouteStopsViewModel.SelectRouteStopCommand.Execute(string.Empty);
         }
 
         private void CenterMap(GeoPoint location)
