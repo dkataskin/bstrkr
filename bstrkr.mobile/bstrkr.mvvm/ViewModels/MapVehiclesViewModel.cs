@@ -105,8 +105,7 @@ namespace bstrkr.mvvm.viewmodels
 
         public void Initialize(ILiveDataProvider liveDataProvider)
         {
-            _vehicles.Clear();
-            _visibleVehicles.Clear();
+            this.Clear();
 
             if (_liveDataProvider != null)
             {
@@ -119,6 +118,14 @@ namespace bstrkr.mvvm.viewmodels
             _liveDataProvider.VehicleLocationsUpdateStarted += this.OnVehicleLocationsUpdateStarted;
             _liveDataProvider.VehicleLocationsUpdateFailed += this.OnVehicleLocationsUpdateFailed;
             _liveDataProvider.VehicleLocationsUpdated += this.OnVehicleLocationsUpdated;
+        }
+
+        private void Clear()
+        {
+            _vehicles.Clear();
+            _visibleVehicles.Clear();
+
+            this.ViewportUpdate.OnNext(VisibleVehiclesDelta.ClearVisibleVehiclesDelta);
         }
 
         private void OnViewportUpdated(GeoRect viewport)

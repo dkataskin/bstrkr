@@ -11,8 +11,17 @@ namespace bstrkr.mvvm.viewmodels
             this.VehiclesToRemove = toRemove.ToImmutableList();
         }
 
+        public static VisibleVehiclesDelta ClearVisibleVehiclesDelta => new VisibleVehiclesDelta(
+                                                                            ImmutableList<VehicleViewModel>.Empty, 
+                                                                            ImmutableList<VehicleViewModel>.Empty)
+                                                                        {
+                                                                            Clear = true
+                                                                        };
+
         public ImmutableList<VehicleViewModel> VehiclesToRemove { get; }
         
-        public ImmutableList<VehicleViewModel> VehiclesToAdd { get; }   
+        public ImmutableList<VehicleViewModel> VehiclesToAdd { get; }
+
+        public bool Clear { get; private set; }
     }
 }

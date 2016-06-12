@@ -161,13 +161,13 @@ namespace bstrkr.android.views
                .For(m => m.MyLocationEnabled)
                .To(vm => vm.DetectedArea);
 
-            set.Bind(_vehicleMarkerManager)
-               .For(m => m.ItemsSource)
-               .To(vm => vm.VisibleVehicles);
-
-            set.Bind(_routeStopMarkerManager)
-               .For(m => m.ItemsSource)
-               .To(vm => vm.Stops);
+//            set.Bind(_vehicleMarkerManager)
+//               .For(m => m.ItemsSource)
+//               .To(vm => vm.VisibleVehicles);
+//
+//            set.Bind(_routeStopMarkerManager)
+//               .For(m => m.ItemsSource)
+//               .To(vm => vm.Stops);
 
             set.Bind(_mapLocationManager)
                .For(m => m.Location)
