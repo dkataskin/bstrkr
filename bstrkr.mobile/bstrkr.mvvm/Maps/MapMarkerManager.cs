@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Linq;
 
 using Cirrious.CrossCore.Platform;
 
@@ -32,6 +33,11 @@ namespace bstrkr.mvvm.maps
         }
 
         protected abstract IMapMarker CreateMarker(object item);
+
+        protected void RemoveAllMarkers()
+        {
+            this.RemoveMarkers(_markers.Keys.ToList());
+        }
 
         protected virtual void RemoveMarkers(IEnumerable itemsToRemove)
         {
