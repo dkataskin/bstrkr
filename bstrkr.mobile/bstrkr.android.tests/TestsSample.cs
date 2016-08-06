@@ -23,7 +23,10 @@ namespace bstrkr.android.tests
         public async void CanGetCheboksaryVehicleLocations()
         {
             var cheboksary = _config.Areas.FirstOrDefault(x => x.Id.Equals("cheboksary"));
-            var service = new Bus13RouteDataService(cheboksary.Endpoint, cheboksary.DataServiceCode);
+            var service = new Bus13RouteDataService(
+                                        cheboksary.Endpoint,
+                                        cheboksary.DataServiceCode,
+                                        cheboksary.DataServiceInfoParam);
             var routes = await service.GetRoutesAsync();
             var vehicles = await service.GetVehicleLocationsAsync(routes, GeoRect.EarthWide, 0);
 
@@ -36,7 +39,10 @@ namespace bstrkr.android.tests
             foreach (var area in _config.Areas)
             {
                 Console.WriteLine("Testing against {0}", area.Id);
-                var service = new Bus13RouteDataService(area.Endpoint, area.DataServiceCode);
+                var service = new Bus13RouteDataService(
+                                                area.Endpoint,
+                                                area.DataServiceCode,
+                                                area.DataServiceInfoParam);
                 var routes = await service.GetRoutesAsync();
 
                 Assert.IsTrue(routes.Count() > 0);

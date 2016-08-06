@@ -32,7 +32,7 @@ namespace bstrkr.mvvm.viewmodels
         private readonly ISubject<VehiclesViewPortUpdate> _viewPortUpdateSubject;
         private readonly MvxSubscriptionToken _updateVehicleLocationsSubscriptionToken;
         private readonly ZoomToVisibleRegionExpandRatioConverter _zoomToVisibleRegionExpandRatioConverter = new ZoomToVisibleRegionExpandRatioConverter();
-        private readonly ConcurrentDictionary<string, VehicleViewModel> _vehicles = new ConcurrentDictionary<string, VehicleViewModel>();
+        private readonly Dictionary<string, VehicleViewModel> _vehicles = new Dictionary<string, VehicleViewModel>();
         private readonly Dictionary<string, VehicleViewModel> _visibleVehicles = new Dictionary<string, VehicleViewModel>();
 
         private GeoRect _viewport;
@@ -325,7 +325,7 @@ namespace bstrkr.mvvm.viewmodels
                     var vm = this.CreateVehicleVM(vehicleUpdate);
                     if (vm != null)
                     {
-                        _vehicles.TryAdd(vehicleUpdate.Vehicle.Id, vm);
+                        _vehicles.Add(vehicleUpdate.Vehicle.Id, vm);
                     }
                 }
             }

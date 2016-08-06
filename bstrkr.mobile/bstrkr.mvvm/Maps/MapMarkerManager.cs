@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 
-using Cirrious.CrossCore.Platform;
-
 using bstrkr.mvvm.views;
+
+using Cirrious.CrossCore.Platform;
 
 namespace bstrkr.mvvm.maps
 {
     public abstract class MapMarkerManager : IMapMarkerManager
     {
         private readonly IMapView _mapView;
-        private readonly ConcurrentDictionary<object, IMapMarker> _markers = new ConcurrentDictionary<object, IMapMarker>();
+        private readonly IDictionary<object, IMapMarker> _markers = new Dictionary<object, IMapMarker>();
 
         public MapMarkerManager(IMapView mapView)
         {
@@ -52,9 +52,9 @@ namespace bstrkr.mvvm.maps
             try
             {
                 IMapMarker marker;
-                _markers.TryRemove(item, out marker);
-                if (marker != null)
+                if (_markers.TryGetValue(item, out marker))
                 {
+                    _markers.Remove(item);
                     _mapView.RemoveMarker(marker);
                 }
 
@@ -76,15 +76,20 @@ namespace bstrkr.mvvm.maps
 
         protected virtual void AddMarkerFor(object item)
         {
-            _markers.AddOrUpdate(
-                            item,
-                            markerSource =>
-                            {
-                                var marker = this.CreateMarker(item);
-                                _mapView.AddMarker(marker);
-                                return marker;
-                            }, 
-                            (markerSource, marker) => marker);
+            if (!_markers.ContainsKey(item))
+            {
+                _markers[item] = this.CreateMarker(item);
+            }
+
+            //_markers.AddOrUpdate(
+            //                item,
+            //                markerSource =>
+            //                {
+            //                    var marker = this.CreateMarker(item);
+            //                    _mapView.AddMarker(marker);
+            //                    return marker;
+            //                }, 
+            //                (markerSource, marker) => marker);
 
             
         }

@@ -108,7 +108,7 @@ namespace bstrkr.mvvm.viewmodels
         private void Clear()
         {
             _stops.Clear();
-            _routeStop = null;
+            _selectedRouteStop = null;
         }
 
         private void LoadRouteStops()
