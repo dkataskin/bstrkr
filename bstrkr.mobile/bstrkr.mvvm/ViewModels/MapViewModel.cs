@@ -9,7 +9,7 @@ using bstrkr.core.spatial;
 using bstrkr.mvvm.converters;
 using bstrkr.mvvm.messages;
 using bstrkr.providers;
-
+using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
@@ -38,9 +38,7 @@ namespace bstrkr.mvvm.viewmodels
                     IBusTrackerLocationService locationService,
                     ILiveDataProviderFactory providerFactory,
                     IConfigManager configManager,
-                    IMvxMessenger messenger,
-                    MapRouteStopsViewModel mapRouteStopsViewModel,
-                    MapVehiclesViewModel mapVehiclesViewModel)
+                    IMvxMessenger messenger)
         {
             _providerFactory = providerFactory;
             _configManager = configManager;
@@ -54,10 +52,10 @@ namespace bstrkr.mvvm.viewmodels
 
             _config = _configManager.GetConfig();
 
-            this.MapRouteStopsViewModel = mapRouteStopsViewModel;
+            this.MapRouteStopsViewModel = Mvx.IocConstruct<MapRouteStopsViewModel>();
             this.MapRouteStopsViewModel.RouteStopSelected += (s, a) => this.CenterMap(a.RouteStop.Location.Position);
 
-            this.MapVehiclesViewModel = mapVehiclesViewModel;
+            this.MapVehiclesViewModel = Mvx.IocConstruct<MapVehiclesViewModel>();
 
             this.SelectRouteStopCommand = new MvxCommand<string>(this.SelectRouteStop);
             this.SelectVehicleCommand = new MvxCommand<string>(this.SelectVehicle);
