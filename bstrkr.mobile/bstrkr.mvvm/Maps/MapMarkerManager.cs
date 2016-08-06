@@ -21,12 +21,10 @@ namespace bstrkr.mvvm.maps
 
         public T GetDataForMarker<T>(IMapMarker marker)
         {
-            IMapMarker result;
-            _markers.TryGetValue(marker, out result);
-
-            if (result != null)
+            var keyValuePair = _markers.FirstOrDefault(x => x.Value == marker);
+            if (keyValuePair.Key != null)
             {
-                return (T)result;
+                return (T)keyValuePair.Key;
             }
 
             return default(T);
@@ -78,20 +76,10 @@ namespace bstrkr.mvvm.maps
         {
             if (!_markers.ContainsKey(item))
             {
-                _markers[item] = this.CreateMarker(item);
+                var marker = this.CreateMarker(item);
+                _mapView.AddMarker(marker);
+                _markers[item] = marker;
             }
-
-            //_markers.AddOrUpdate(
-            //                item,
-            //                markerSource =>
-            //                {
-            //                    var marker = this.CreateMarker(item);
-            //                    _mapView.AddMarker(marker);
-            //                    return marker;
-            //                }, 
-            //                (markerSource, marker) => marker);
-
-            
         }
     }
 }

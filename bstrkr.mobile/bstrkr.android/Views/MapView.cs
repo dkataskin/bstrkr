@@ -148,7 +148,7 @@ namespace bstrkr.android.views
 
             if (_routeStopMarkerManager == null)
             {
-                _routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper);
+                _routeStopMarkerManager = new RouteStopMarkerManager(_mapViewWrapper, this.MapViewModel.MapRouteStopsViewModel);
             }
 
             if (_mapLocationManager == null)
@@ -165,10 +165,6 @@ namespace bstrkr.android.views
 //               .For(m => m.ItemsSource)
 //               .To(vm => vm.VisibleVehicles);
 //
-//            set.Bind(_routeStopMarkerManager)
-//               .For(m => m.ItemsSource)
-//               .To(vm => vm.Stops);
-
             set.Bind(_mapLocationManager)
                .For(m => m.Location)
                .To(vm => vm.MapCenter);

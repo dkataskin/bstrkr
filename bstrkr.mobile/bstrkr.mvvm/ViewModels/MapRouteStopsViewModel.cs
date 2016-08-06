@@ -20,7 +20,7 @@ namespace bstrkr.mvvm.viewmodels
         private const double MaxDistanceFromBusStop = 500.0;
 
         private readonly BusTrackerConfig _config;
-        private readonly ObservableCollection<RouteStopMapViewModel> _stops = new ObservableCollection<RouteStopMapViewModel>();
+        private readonly IList<RouteStopMapViewModel> _stops = new List<RouteStopMapViewModel>();
 
         private ILiveDataProvider _liveDataProvider;
 
@@ -31,7 +31,7 @@ namespace bstrkr.mvvm.viewmodels
 
         public MapRouteStopsViewModel(IConfigManager configManager)
         {
-            this.Stops = new ReadOnlyObservableCollection<RouteStopMapViewModel>(_stops);
+            this.Stops = new ReadOnlyCollection<RouteStopMapViewModel>(_stops);
             _config = configManager.GetConfig();
 
             this.LoadRouteStopsCommand = new MvxCommand(this.LoadRouteStops, () => _liveDataProvider != null);
@@ -40,11 +40,13 @@ namespace bstrkr.mvvm.viewmodels
 
         public event EventHandler<RouteStopSelectedEventArgs> RouteStopSelected;
 
+        public event EventHandler<EventArgs> RouteStopCollectionChanged;
+
         public MvxCommand LoadRouteStopsCommand { get; }
 
         public MvxCommand<string> SelectRouteStopCommand { get; }
 
-        public ReadOnlyObservableCollection<RouteStopMapViewModel> Stops { get; private set; }
+        public ReadOnlyCollection<RouteStopMapViewModel> Stops { get; private set; }
 
         public RouteStopMapViewModel SelectedRouteStop
         {
@@ -139,6 +141,7 @@ namespace bstrkr.mvvm.viewmodels
                         _stops.Add(vm);
                     }
 
+                    this.RaiseRouteStopCollectionChangedEvent();
                     this.SelectClosestRouteStop(this.MapCenter);
                 });
             }
@@ -183,7 +186,7 @@ namespace bstrkr.mvvm.viewmodels
             if (string.IsNullOrEmpty(routeStopId))
             {
                 this.SelectedRouteStop = null;
-                this.SetRouteStopMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null);
+                this.SetRouteStopMarkersSelectionState(MapMarkerSelectionStates.NoSelection, null);
 
                 return;
             }
@@ -241,6 +244,14 @@ namespace bstrkr.mvvm.viewmodels
         private void RaiseRouteStopSelectedEvent(RouteStopMapViewModel routeStop)
         {
             this.RouteStopSelected?.Invoke(this, new RouteStopSelectedEventArgs(routeStop));
+        }
+
+        private void RaiseRouteStopCollectionChangedEvent()
+        {
+            if (this.RouteStopCollectionChanged != null)
+            {
+                this.RouteStopCollectionChanged(this, EventArgs.Empty);
+            }
         }
     }
 }
