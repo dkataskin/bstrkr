@@ -163,6 +163,10 @@ namespace bstrkr.mvvm.viewmodels
 
                 if (_selectedVehicle != null)
                 {
+                    vehicleVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
+                }
+                else
+                {
                     vehicleVM.SelectionState = MapMarkerSelectionStates.NoSelection;
                 }
 
@@ -202,7 +206,7 @@ namespace bstrkr.mvvm.viewmodels
             if (string.IsNullOrEmpty(vehicleId))
             {
                 _selectedVehicle = null;
-                this.SetVehicleMarkersSelectionState(MapMarkerSelectionStates.SelectionNotSelected, null);
+                this.SetVehicleMarkersSelectionState(MapMarkerSelectionStates.NoSelection, null);
             }
 
             VehicleViewModel vehicleVM;
