@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace bstrkr.mvvm.viewmodels
 {
@@ -23,5 +24,7 @@ namespace bstrkr.mvvm.viewmodels
         public ImmutableList<VehicleViewModel> VehiclesToAdd { get; }
 
         public bool Clear { get; private set; }
+
+        public bool HasUpdates { get { return this.VehiclesToAdd.Any() || this.VehiclesToRemove.Any(); }}
     }
 }

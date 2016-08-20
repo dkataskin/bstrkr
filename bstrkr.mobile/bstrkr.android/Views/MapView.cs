@@ -143,7 +143,7 @@ namespace bstrkr.android.views
 
             if (_vehicleMarkerManager == null)
             {
-                _vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper);
+                _vehicleMarkerManager = new VehicleMarkerManager(_mapViewWrapper, this.MapViewModel.MapVehiclesViewModel);
             }
 
             if (_routeStopMarkerManager == null)
@@ -161,10 +161,6 @@ namespace bstrkr.android.views
                .For(m => m.MyLocationEnabled)
                .To(vm => vm.DetectedArea);
 
-//            set.Bind(_vehicleMarkerManager)
-//               .For(m => m.ItemsSource)
-//               .To(vm => vm.VisibleVehicles);
-//
             set.Bind(_mapLocationManager)
                .For(m => m.Location)
                .To(vm => vm.MapCenter);

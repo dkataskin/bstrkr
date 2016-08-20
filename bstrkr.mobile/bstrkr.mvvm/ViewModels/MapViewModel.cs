@@ -110,9 +110,10 @@ namespace bstrkr.mvvm.viewmodels
             get { return _visibleRegion; }
             set
             {
-                this.RaiseAndSetIfChanged(ref _visibleRegion, value, () => this.VisibleRegion);
                 if (!_visibleRegion.Equals(value))
                 {
+                    _visibleRegion = value;
+                    this.RaisePropertyChanged(() => this.VisibleRegion);
                     this.MapVehiclesViewModel.Viewport = value;
                 }
             }

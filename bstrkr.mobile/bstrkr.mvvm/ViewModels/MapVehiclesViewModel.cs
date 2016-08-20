@@ -130,7 +130,10 @@ namespace bstrkr.mvvm.viewmodels
 
         private void OnViewportUpdated(GeoRect viewport)
         {
-            _viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(viewport, this.Zoom));
+            this.ViewDispatcher.RequestMainThreadAction(() => 
+            {
+                _viewPortUpdateSubject.OnNext(this.GenerateUpdateFrom(viewport, this.Zoom));
+            });
         }
 
         private void OnVehicleLocationsUpdated(object sender, VehicleLocationsUpdatedEventArgs args)
@@ -160,7 +163,7 @@ namespace bstrkr.mvvm.viewmodels
 
                 if (_selectedVehicle != null)
                 {
-                    vehicleVM.SelectionState = MapMarkerSelectionStates.SelectionNotSelected;
+                    vehicleVM.SelectionState = MapMarkerSelectionStates.NoSelection;
                 }
 
                 return vehicleVM;
@@ -251,7 +254,13 @@ namespace bstrkr.mvvm.viewmodels
                 this.UpdateVehicles(update.VehicleUpdates);
                 var mapUpdate = this.UpdateVisibleVehicles(update);
 
-                this.ViewportUpdate.OnNext(mapUpdate);
+                if (mapUpdate.HasUpdates)
+                {
+                    this.ViewDispatcher.RequestMainThreadAction(() => 
+                    {
+                        this.ViewportUpdate.OnNext(mapUpdate);
+                    });
+                }
             }
             catch (Exception ex)
             {
