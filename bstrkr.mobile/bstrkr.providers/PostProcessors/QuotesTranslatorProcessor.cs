@@ -19,7 +19,10 @@ namespace bstrkr.providers.postprocessors
                                         stop.Id,
                                         this.ConvertQuotes(stop.Name),
                                         stop.Description,
-                                        stop.Location.Position)).ToList();
+                                        stop.Location.Position)
+                            {
+                                VendorInfo = stop.VendorInfo
+                            }).ToList();
         }
 
         private string ConvertQuotes(string routeStopName)

@@ -96,7 +96,7 @@ namespace bstrkr.android.views
                 }
                 catch (Exception e)
                 {
-                    MvxTrace.Warning("An error occurred while removing marker id = {0}", mapId);
+                    MvxTrace.Warning("An error occurred while removing marker id = {0}: {1}", mapId, e);
                 }
                 finally
                 {

@@ -320,6 +320,9 @@ namespace bstrkr.mvvm.viewmodels
                     Task.Delay(TimeSpan.FromSeconds(1), cancellationToken).Wait(cancellationToken);
                     this.Dispatcher.RequestMainThreadAction(() => this.CountdownCommand.Execute());
                 }
+                catch(OperationCanceledException)
+                {
+                }
                 catch (Exception e)
                 {
                     Insights.Report(e);

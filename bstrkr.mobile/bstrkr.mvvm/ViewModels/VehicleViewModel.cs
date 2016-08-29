@@ -201,7 +201,7 @@ namespace bstrkr.mvvm.viewmodels
 
         private void SetLocation(GeoLocation location)
         {
-            if (this.Model != null && !GeoLocation.Equals(this.Model.Location, location))
+            if (this.Model != null && !Equals(this.Model.Location, location))
             {
                 this.Model.Location = location;
                 this.RaisePropertyChanged(() => this.Location);
